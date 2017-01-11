@@ -541,16 +541,15 @@ namespace MyPaint
             if (ActiveForm != null)
             {
                 
-                HistiryForm.Text = "История построения";         //озаглавливаем форму
-                HistiryForm.ListBox(ActiveForm.HistoryCommand, ActiveForm.IndexCommand);
-               
-                HistiryForm.ShowDialog();                 //отображаем форму
+                HistiryForm.Text = "История построения";
+                HistiryForm.ListBox(ActiveForm.HistoryCommand, ActiveForm.IndexCommand, ActiveForm);
 
-                ActiveForm.IndexCommand = HistiryForm.IndexCommand();
+                HistiryForm.ShowDialog();                
+                //ActiveForm.IndexCommand = HistiryForm.IndexCommand();
             }
             ActiveForm = null;
 
-            HistiryForm.Dispose();                    //уничтожаем форму
+            HistiryForm.Dispose();                    
         }
 
         /// <summary>

@@ -44,6 +44,11 @@ namespace MyPaint
         }
 
         /// <summary>
+        /// Переменная, хранящая класс с действиями над фигурами.
+        /// </summary>
+        private EditObject _edipParametr = new EditObject();
+
+        /// <summary>
         /// Структура, хранящая основные характеристики опорных точек.
         /// </summary>
         public struct PropertiesSupport
@@ -172,7 +177,7 @@ namespace MyPaint
 
             if (_selectClass.SeleckResult() != null)
             {
-                _drawClass.SupportPoint(e, _selectClass.SeleckResult(), _figuresBuild);
+                _drawClass.SupportPoint(_selectClass.SeleckResult(), _figuresBuild);
             }
         }
 
@@ -358,7 +363,7 @@ namespace MyPaint
         /// </summary>
         /// <para name = "sender">Переменная, хранящая объект.</para>
         /// <para name = "e">Переменная, хранящая координаты мыщи</para>
-        private void Child1_MouseDown(object sender, MouseEventArgs e)  // Нажата клавиша 
+        private void Child1_MouseDown(object sender, MouseEventArgs e)  // Нажата отпущена 
         {
             switch (_currentActions)
             {
@@ -594,8 +599,15 @@ namespace MyPaint
         {
             _drawClass.СhangePenWidthFigure(_selectClass.SeleckResult());
             ChangeActions(LastActions);
-            DrawForm.Refresh();
             _fileSave = true;
+
+            int deltaX = 0;
+            int deltaY = 0;
+
+            foreach (Object SelectObject in _selectClass.SeleckResult())
+            {
+                _edipParametr.MoveObjectSupport(SelectObject, deltaX, deltaY);
+            }
         }
 
         /// <summary>
@@ -631,6 +643,7 @@ namespace MyPaint
         public void СhangeSupportPenStyleFigure(Color NextColor)
         {
             _drawClass.СhangeSupportPenStyleFigure(NextColor, _selectClass.SeleckResult());
+            DrawForm.Refresh();
             _fileSave = true;
         }
 

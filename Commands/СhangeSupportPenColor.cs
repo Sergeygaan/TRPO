@@ -58,6 +58,16 @@ namespace MyPaint.CORE
      
             }
 
+            foreach (Object SelectObject in _seleckResult)
+            {
+                foreach (SupportObject SuppportObject in SelectObject.SelectListFigure())
+                {
+                    SuppportObject.Pen.Color = _nextColor;
+
+                }
+
+            }
+
             _operatorValue = "Изменение цвета линии опорных точек";
         }
 

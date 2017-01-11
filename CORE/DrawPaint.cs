@@ -246,7 +246,7 @@ namespace MyPaint
         /// <para name = "e">Переменная, хранящая  события отрисовки.</para>
         /// <para name = "SeleckResult">Переменная, хранящая  список выделенных фигур.</para>
         /// <para name = "FiguresBuild">Переменная, хранящая класс отрисовки.</para>
-        public void SupportPoint(PaintEventArgs e, List<Object> SeleckResult, List<IFigureBuild> FiguresBuild)
+        public void SupportPoint(List<Object> SeleckResult, List<IFigureBuild> FiguresBuild)
         {
             foreach (Object SelectObject in SeleckResult)
             {
