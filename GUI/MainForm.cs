@@ -113,7 +113,10 @@ namespace PaintedObjectsMoving
         private void ChangeFigure(FigureType next)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-            ActiveForm.ChangeFigure(next);
+            if (ActiveForm != null)
+            {
+                ActiveForm.ChangeFigure(next);
+            }
             ActiveForm = null;
 
         }
@@ -122,7 +125,10 @@ namespace PaintedObjectsMoving
         private void ChangeActions(Actions next)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-            ActiveForm.ChangeActions(next);
+            if (ActiveForm != null)
+            {
+                ActiveForm.ChangeActions(next);
+            }
             ActiveForm = null;
 
         }
@@ -131,7 +137,10 @@ namespace PaintedObjectsMoving
         private void отчиститьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-            ActiveForm.DeleteFigure();
+            if (ActiveForm != null)
+            {
+                ActiveForm.DeleteFigure();
+            }
             ActiveForm = null;
         }
 
@@ -143,7 +152,11 @@ namespace PaintedObjectsMoving
             ChangeFigure(FigureType.Line);
 
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-            ActiveForm.DeleteSupportFigure();
+            if (ActiveForm != null)
+            {
+                ActiveForm.DeleteSupportFigure();
+            }
+
             ActiveForm = null;
         }
 
@@ -213,14 +226,20 @@ namespace PaintedObjectsMoving
         private void toolStripButton10_Click(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-            ActiveForm.СopyFigure();
+            if (ActiveForm != null)
+            {
+                ActiveForm.СopyFigure();
+            }
             ActiveForm = null;
         }
         //Удаление
         private void toolStripButton11_Click(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-            ActiveForm.DeleteSelectFigure();
+            if (ActiveForm != null)
+            {
+                ActiveForm.DeleteSelectFigure();
+            }
             ActiveForm = null;
         }
 
@@ -287,7 +306,10 @@ namespace PaintedObjectsMoving
             if (D == DialogResult.OK)
             {
                 ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-                ActiveForm.СhangeBackgroundFigure(colorDialog1.Color);
+                if (ActiveForm != null)
+                {
+                    ActiveForm.СhangeBackgroundFigure(colorDialog1.Color);
+                }
                 ActiveForm = null;
             }
            // DrawForm.Refresh();
@@ -296,7 +318,10 @@ namespace PaintedObjectsMoving
         private void toolStripButton17_Click(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-            ActiveForm.DeleteBackgroundFigure();
+            if (ActiveForm != null)
+            {
+                ActiveForm.DeleteBackgroundFigure();
+            }
             ActiveForm = null;
         }
 
@@ -306,7 +331,10 @@ namespace PaintedObjectsMoving
             if (D == DialogResult.OK)
             {
                 ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-                ActiveForm.ColorSelectPen(colorDialog1.Color);
+                if (ActiveForm != null)
+                {
+                    ActiveForm.ColorSelectPen(colorDialog1.Color);
+                }
                 ActiveForm = null;
             }
         }
@@ -319,7 +347,10 @@ namespace PaintedObjectsMoving
             linethicknessform.Dispose();                            //уничтожаем форму
 
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-            ActiveForm.СhangePenWidthFigure();
+            if (ActiveForm != null)
+            {
+                ActiveForm.СhangePenWidthFigure();
+            }
             ActiveForm = null;
 
         }
@@ -332,7 +363,10 @@ namespace PaintedObjectsMoving
             linestyleform.Dispose();                    //уничтожаем форму
 
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-            ActiveForm.СhangePenStyleFigure();
+            if (ActiveForm != null)
+            {
+                ActiveForm.СhangePenStyleFigure();
+            }
             ActiveForm = null;
 
         }

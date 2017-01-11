@@ -44,57 +44,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChildForm.cs">
+    <Compile Include="GUI\ChildForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChildForm.Designer.cs">
+    <Compile Include="GUI\ChildForm.Designer.cs">
       <DependentUpon>ChildForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Draw.cs" />
-    <Compile Include="EditObject.cs" />
-    <Compile Include="LineStyle.cs">
+    <Compile Include="CORE\Draw.cs" />
+    <Compile Include="CORE\EditObject.cs" />
+    <Compile Include="GUI\LineStyle.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LineStyle.Designer.cs">
+    <Compile Include="GUI\LineStyle.Designer.cs">
       <DependentUpon>LineStyle.cs</DependentUpon>
     </Compile>
-    <Compile Include="LineThickness.cs">
+    <Compile Include="GUI\LineThickness.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LineThickness.Designer.cs">
+    <Compile Include="GUI\LineThickness.Designer.cs">
       <DependentUpon>LineThickness.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewFileDialog.cs">
+    <Compile Include="GUI\NewFileDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewFileDialog.Designer.cs">
+    <Compile Include="GUI\NewFileDialog.Designer.cs">
       <DependentUpon>NewFileDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="SelectDraw.cs" />
-    <Compile Include="SupportObject.cs" />
-    <Compile Include="СonstructionFigure.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="CORE\SelectDraw.cs" />
+    <Compile Include="CORE\SupportObject.cs" />
+    <Compile Include="CORE\СonstructionFigure.cs" />
+    <Compile Include="GUI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="GUI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PaintedObject.cs" />
+    <Compile Include="CORE\PaintedObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ChildForm.resx">
+    <EmbeddedResource Include="GUI\ChildForm.resx">
       <DependentUpon>ChildForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LineStyle.resx">
+    <EmbeddedResource Include="GUI\LineStyle.resx">
       <DependentUpon>LineStyle.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LineThickness.resx">
+    <EmbeddedResource Include="GUI\LineThickness.resx">
       <DependentUpon>LineThickness.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="GUI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewFileDialog.resx">
+    <EmbeddedResource Include="GUI\NewFileDialog.resx">
       <DependentUpon>NewFileDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

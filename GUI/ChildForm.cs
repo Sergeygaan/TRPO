@@ -79,8 +79,10 @@ namespace PaintedObjectsMoving
                             case MainForm.FigureType.Ellipse:
                             case MainForm.FigureType.Rectangle:
 
-                                _points[1] = new PointF(e.Location.X, e.Location.Y);
-
+                                if (_points.Count != 0)
+                                {
+                                    _points[1] = new PointF(e.Location.X, e.Location.Y);
+                                }
                                 break;
                         }
                     }
@@ -98,7 +100,7 @@ namespace PaintedObjectsMoving
 
                 case MainForm.Actions.SelectRegion:
 
-                    if (e.Button == MouseButtons.Left)
+                    if ((e.Button == MouseButtons.Left) && (_points.Count != 0))
                     {
                         _points[1] = new PointF(e.Location.X, e.Location.Y);
                     }
@@ -134,13 +136,17 @@ namespace PaintedObjectsMoving
                             case MainForm.FigureType.Ellipse:
                             case MainForm.FigureType.Rectangle:
 
-                                mouseclick = false;
+                                if (_points.Count != 0)
+                                {
+                                    mouseclick = false;
 
-                                _points[1] = new PointF(e.Location.X, e.Location.Y);
+                                    _points[1] = new PointF(e.Location.X, e.Location.Y);
 
-                                _drawClass.MouseUp(_currentfigure, _points);
+                                    _drawClass.MouseUp(_currentfigure, _points);
 
-                                _points.Clear();
+                                    _points.Clear();
+                                }
+
 
                                 break;
 

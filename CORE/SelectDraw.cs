@@ -147,13 +147,13 @@ namespace PaintedObjectsMoving
 
                                         //MessageBox.Show(DrawObject.Path.PathPoints[0].X.ToString());
 
-                                        float x, y;
+                                        float LineX, LineY;
 
-                                        y = (-(DrawObject.Path.PathPoints[1].X * DrawObject.Path.PathPoints[0].Y - DrawObject.Path.PathPoints[0].X * DrawObject.Path.PathPoints[1].Y) - ((DrawObject.Path.PathPoints[1].Y - DrawObject.Path.PathPoints[0].Y) * e.Location.X)) / (DrawObject.Path.PathPoints[0].X - DrawObject.Path.PathPoints[1].X);
+                                        LineY = (-(DrawObject.Path.PathPoints[1].X * DrawObject.Path.PathPoints[0].Y - DrawObject.Path.PathPoints[0].X * DrawObject.Path.PathPoints[1].Y) - ((DrawObject.Path.PathPoints[1].Y - DrawObject.Path.PathPoints[0].Y) * e.Location.X)) / (DrawObject.Path.PathPoints[0].X - DrawObject.Path.PathPoints[1].X);
 
-                                        x = (-(DrawObject.Path.PathPoints[1].X * DrawObject.Path.PathPoints[0].Y - DrawObject.Path.PathPoints[0].X * DrawObject.Path.PathPoints[1].Y) - ((DrawObject.Path.PathPoints[0].X - DrawObject.Path.PathPoints[1].X) * e.Location.Y)) / (DrawObject.Path.PathPoints[1].Y - DrawObject.Path.PathPoints[0].Y);
+                                        LineX = (-(DrawObject.Path.PathPoints[1].X * DrawObject.Path.PathPoints[0].Y - DrawObject.Path.PathPoints[0].X * DrawObject.Path.PathPoints[1].Y) - ((DrawObject.Path.PathPoints[0].X - DrawObject.Path.PathPoints[1].X) * e.Location.Y)) / (DrawObject.Path.PathPoints[1].Y - DrawObject.Path.PathPoints[0].Y);
 
-                                        if ((e.Location.Y >= y - DrawObject.Pen.Width - 2) && (e.Location.Y <= y + DrawObject.Pen.Width + 2) || (e.Location.X >= x - DrawObject.Pen.Width - 2) && (e.Location.X <= x + DrawObject.Pen.Width + 2))
+                                        if ((e.Location.Y >= LineY - DrawObject.Pen.Width - 2) && (e.Location.Y <= LineY + DrawObject.Pen.Width + 2) || (e.Location.X >= LineX - DrawObject.Pen.Width - 2) && (e.Location.X <= LineX + DrawObject.Pen.Width + 2))
                                         {
                                             DrawObject.PointSelect = DrawObject.Path.PathPoints;
                                             DrawObject.SelectFigure = true;
@@ -164,6 +164,38 @@ namespace PaintedObjectsMoving
                                         break;
 
                                     case MainForm.FigureType.Ellipse:
+
+                                        DrawObject.PointSelect = DrawObject.Path.PathPoints;
+                                        DrawObject.SelectFigure = true;
+                                        //DrawObject.Pen.Width += 1;
+                                        _selectedFigures.Add(DrawObject);
+
+                                        break;
+
+                                    case MainForm.FigureType.PoliLine:
+
+                                        //MessageBox.Show(DrawObject.Path.PathPoints[0].X.ToString());
+
+                                        for (int i = 3; i < DrawObject.Path.PathPoints.Length; i += 3)
+                                        {
+                                            float PoliLineX, PoliLineY;
+
+                                            PoliLineY = (-(DrawObject.Path.PathPoints[i - 3].X * DrawObject.Path.PathPoints[i].Y - DrawObject.Path.PathPoints[i].X * DrawObject.Path.PathPoints[i - 3].Y) - ((DrawObject.Path.PathPoints[i - 3].Y - DrawObject.Path.PathPoints[i].Y) * e.Location.X)) / (DrawObject.Path.PathPoints[i].X - DrawObject.Path.PathPoints[i - 3].X);
+
+                                            PoliLineX = (-(DrawObject.Path.PathPoints[i - 3].X * DrawObject.Path.PathPoints[i].Y - DrawObject.Path.PathPoints[i].X * DrawObject.Path.PathPoints[i - 3].Y) - ((DrawObject.Path.PathPoints[i].X - DrawObject.Path.PathPoints[i - 3].X) * e.Location.Y)) / (DrawObject.Path.PathPoints[i - 3].Y - DrawObject.Path.PathPoints[i].Y);
+
+                                            if ((e.Location.Y >= PoliLineY - DrawObject.Pen.Width - 2) && (e.Location.Y <= PoliLineY + DrawObject.Pen.Width + 2) || (e.Location.X >= PoliLineX - DrawObject.Pen.Width - 2) && (e.Location.X <= PoliLineX + DrawObject.Pen.Width + 2))
+                                            {
+                                                DrawObject.PointSelect = DrawObject.Path.PathPoints;
+                                                DrawObject.SelectFigure = true;
+                                                //DrawObject.Pen.Width += 1;
+                                                _selectedFigures.Add(DrawObject);
+                                            }
+                                        }
+
+                                        break;
+
+                                    case MainForm.FigureType.Polygon:
 
                                         DrawObject.PointSelect = DrawObject.Path.PathPoints;
                                         DrawObject.SelectFigure = true;
