@@ -55,6 +55,7 @@
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.Name = "ChildForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "ChildForm";
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.DrawForm)).EndInit();

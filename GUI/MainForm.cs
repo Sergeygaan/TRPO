@@ -442,7 +442,8 @@ namespace PaintedObjectsMoving
                 NewForm.BackColor = Color.Gray;                         //цвет фона формы - серый
                 NewForm.Width = _childWidhtSize;                         //задаем значение ширины окна, хранящееся в переменной
                 NewForm.Height = _childHeightSize;                       //задаем значение высоты окна, хранящееся в переменной
-               
+                NewForm.Location = new Point(0, 0);
+                
                 NewForm.Show();                                         //отображаем созданную форму
             }
         }

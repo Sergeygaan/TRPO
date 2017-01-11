@@ -95,7 +95,7 @@ namespace PaintedObjectsMoving {
             set { _figureEnd = value; }
         }
 
-        public SolidBrush Brush
+        public SolidBrush @Brush
         {
             get { return _brush; }
             set { _brush = value; }

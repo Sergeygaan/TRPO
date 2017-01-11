@@ -26,8 +26,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.новыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
             this.загрузитьПроектToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
             this.экспортироватьПроектToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
@@ -139,14 +139,6 @@
             this.новыйToolStripMenuItem.Text = "Создать";
             this.новыйToolStripMenuItem.Click += new System.EventHandler(this.NewProject);
             // 
-            // toolStripMenuItem7
-            // 
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(225, 22);
-            this.toolStripMenuItem7.Text = "Сохранить проект";
-            this.toolStripMenuItem7.Click += new System.EventHandler(this.SaveProject);
-            // 
             // загрузитьПроектToolStripMenuItem
             // 
             this.загрузитьПроектToolStripMenuItem.Name = "загрузитьПроектToolStripMenuItem";
@@ -154,6 +146,14 @@
             this.загрузитьПроектToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.загрузитьПроектToolStripMenuItem.Text = "Открыть проект";
             this.загрузитьПроектToolStripMenuItem.Click += new System.EventHandler(this.LoadProject);
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(225, 22);
+            this.toolStripMenuItem7.Text = "Сохранить проект";
+            this.toolStripMenuItem7.Click += new System.EventHandler(this.SaveProject);
             // 
             // экспортироватьПроектToolStripMenuItem
             // 
@@ -832,7 +832,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Paint";
+            this.Text = "MyPaint";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
