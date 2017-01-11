@@ -309,8 +309,10 @@ namespace PaintedObjectsMoving
         {
             foreach (PaintedObject SelectObject in SeleckResult)
             {
-
-                SelectObject.Brush = new SolidBrush(ColorСhangeBackground);
+                if (SelectObject.CurrentFigure != MainForm.FigureType.PoliLine)
+                {
+                    SelectObject.Brush = new SolidBrush(ColorСhangeBackground);
+                }
 
             }
 
