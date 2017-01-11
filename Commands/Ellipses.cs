@@ -19,7 +19,7 @@ namespace PaintedObjectsMoving.CORE
             e.Graphics.DrawEllipse(_penFigure, _ellipse.ShowRectangle(_points[0], _points[1]));
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild)
+        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild, List<Object> _figure)
         {
             _addFigureEllipse = new AddEllipse();
             _addFigureEllipse.AddFigure(DrawObject, _points);
@@ -29,7 +29,7 @@ namespace PaintedObjectsMoving.CORE
             _addFigureEllipse.Output().FigureEnd = _points[1];
             _addFigureEllipse.Output().IdFigure = _figuresBuild.Count;
 
-
+            _figure.Add(_addFigureEllipse.Output());
             _figuresBuild.Add(_addFigureEllipse);
         }
 

@@ -10,6 +10,7 @@ namespace PaintedObjectsMoving
     class DrawPaint
     {
         private List<IFigureCommand> _iFigureCommand = new List<IFigureCommand>();
+        private List<Object> _figure = new List<Object>();
         private СonstructionFigure _ellipse;
 
         private Pen _penFigure;
@@ -17,7 +18,9 @@ namespace PaintedObjectsMoving
         private Rectangle _rect;
         private SolidBrush _brush;
 
-       // private List<Object> _figures;//Список с объектами для прорисовки
+
+        private СhangePenStyleFigure _penStyleFigure;
+        // private List<Object> _figures;//Список с объектами для прорисовки
 
         Bitmap bmp;
 
@@ -213,10 +216,11 @@ namespace PaintedObjectsMoving
 
         public void СhangePenStyleFigure(List<IFigureCommand> SeleckResult)
         {
-            foreach (var SelectObject in SeleckResult)
-            {
-                SelectObject.Output().Pen.DashStyle = MainForm.FigureProperties.dashstyle;
-            }
+            _penStyleFigure = new СhangePenStyleFigure();
+            _penStyleFigure.AddFigure(SeleckResult);
+            _penStyleFigure.Execute();
+
+            _iFigureCommand.Add(_penStyleFigure);
 
         }
 

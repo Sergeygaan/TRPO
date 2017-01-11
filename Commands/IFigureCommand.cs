@@ -14,7 +14,5 @@ namespace PaintedObjectsMoving.CORE
 
         void Undo();
 
-        Object Output();
-
     }
 }
