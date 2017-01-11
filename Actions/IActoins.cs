@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace MyPaint.Actions
 {
+    /// <summary>
+    /// Интерфейс, отвечающий за различные действия
+    /// </summary>
     interface IActoins
     {
         /// <summary>

@@ -6,6 +6,9 @@ using System.Windows.Forms;
 
 namespace MyPaint.Actions
 {
+    /// <summary>
+    /// Класс, выполнящий выделение объектов областью.
+    /// </summary>
     class SelectRegionActions : IActoins
     {
         /// <summary>

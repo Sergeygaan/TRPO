@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace MyPaint.Actions
 {
+    /// <summary>
+    /// Класс, выполнящий ротрисовку объектов.
+    /// </summary>
     class DrawActoins : IActoins
     {
         /// <summary>

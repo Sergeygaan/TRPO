@@ -68,6 +68,10 @@ namespace MyPaint
             InitializeComponent();
 
             DoubleBuffered = true;
+
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
+            
         }
 
         /// <summary>

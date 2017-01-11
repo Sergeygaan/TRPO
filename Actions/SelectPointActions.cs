@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace MyPaint.Actions
 {
+    /// <summary>
+    /// Класс, выполнящий выделение объектов точкой
+    /// </summary>
     class SelectPointActions : IActoins
     {
         /// <summary>

@@ -78,9 +78,9 @@ namespace MyPaint.CORE
         /// <summary>
         /// Метод, выполняющий отрисовку линии при построении.
         /// </summary>
-        /// <para name = "e">Объект хранящий данные для отображения эллипса</para>
-        /// <para name = "Points">Точки для построения эллипса</para>
-        /// <para name = "PenFigure">Кисть которая будет использоваться в построение эллипса</para>
+        /// <para name = "e">Объект хранящий данные для отображения линии</para>
+        /// <para name = "Points">Точки для построения линии</para>
+        /// <para name = "PenFigure">Кисть которая будет использоваться в построение линии</para>
         public void PaintFigure(PaintEventArgs e, List<PointF> Points, Pen PenFigure)
         {
             e.Graphics.DrawLine(PenFigure, Points[0], Points[1]);
