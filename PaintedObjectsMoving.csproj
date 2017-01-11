@@ -149,7 +149,105 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\C_ColorDisabledFill_md.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C_ColorFill_md.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C_ColorFill_Over_md.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C_ColorStroke_md.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C_StrokeSize_md.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C_StrokeStyle_md.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\closeFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LineColor.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mergeorMaintainOrder.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\newFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\openFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\P_Delete_Wi_R.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\P_Delete_Wi_R1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\P_Ellipse_Lg_N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\P_Line_Lg_N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\P_MonitorIn0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\P_NewSkin_Sm_N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\P_PoliLine_Lg_N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\P_Rectangle_Lg_N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\P_TextSize_Md_N_D.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\poligon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rounded Rectangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\saveFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SizeNS %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\brush-artist_318-33254.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cpo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\del.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mas1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pentagon_3246.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\poli.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectPoint.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SilectRegion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\speed1.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
