@@ -144,7 +144,7 @@ namespace PaintedObjectsMoving
                 }
             }
 
-           // MoveObjectSupport(currObj, deltaX, deltaY);
+           MoveObjectSupport(currObj, _supportObj, deltaX, deltaY);
         }
 
 
@@ -279,11 +279,14 @@ namespace PaintedObjectsMoving
         }
 
 
-        public void MoveObjectSupport(PaintedObject currObj, int deltaX, int deltaY)
+        public void MoveObjectSupport(PaintedObject currObj, SupportObject _supportObj, int deltaX, int deltaY)
         {
             foreach (SupportObject SuppportObject in currObj.SelectListFigure())
             {
-                SuppportObject.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
+                if (SuppportObject == _supportObj)
+                {
+                    SuppportObject.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
+                }
 
             }
         }

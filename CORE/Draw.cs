@@ -197,14 +197,15 @@ namespace PaintedObjectsMoving
         {
             foreach (PaintedObject SelectObject in SeleckResult)
             {
-                SelectObject.SelectFigure = false;
-                SelectObject.ClearListFigure();
-
-                //_drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
-
-                switch (SelectObject.CurrentFigure)
+                if (SelectObject.SelectFigure == true)
                 {
-                    case MainForm.FigureType.Rectangle:
+                    SelectObject.SelectFigure = false;
+                    //SelectObject.ClearListFigure();
+
+
+                    switch (SelectObject.CurrentFigure)
+                    {
+                        case MainForm.FigureType.Rectangle:
 
                             for (int i = 0; i < SelectObject.PointSelect.Length; i++)
                             {
@@ -216,11 +217,11 @@ namespace PaintedObjectsMoving
 
                                 SelectObject.AddListFigure(_drawSupportObject);
                             }
-                        
-            
-                        break;
 
-                    case MainForm.FigureType.Line:
+
+                            break;
+
+                        case MainForm.FigureType.Line:
 
                             for (int i = 0; i < SelectObject.PointSelect.Length; i++)
                             {
@@ -231,11 +232,11 @@ namespace PaintedObjectsMoving
 
                                 SelectObject.AddListFigure(_drawSupportObject);
                             }
-                        
 
-                        break;
 
-                    case MainForm.FigureType.Ellipse:
+                            break;
+
+                        case MainForm.FigureType.Ellipse:
 
                             for (int i = 0; i < SelectObject.PointSelect.Length; i = i + 3)
                             {
@@ -245,30 +246,31 @@ namespace PaintedObjectsMoving
                                 _drawSupportObject.ControlPointF = i;
 
                                 SelectObject.AddListFigure(_drawSupportObject);
-                            
+
                             }
 
-                        break;
+                            break;
 
-                    case MainForm.FigureType.PoliLine:
-                    case MainForm.FigureType.Polygon:
+                        case MainForm.FigureType.PoliLine:
+                        case MainForm.FigureType.Polygon:
 
-                        for (int i = 0; i < SelectObject.PointSelect.Length; i++)
-                        {
-                            _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
-                            _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
-                            _drawSupportObject.IdFigure = SelectObject.IdFigure;
-                            _drawSupportObject.ControlPointF = i;
+                            for (int i = 0; i < SelectObject.PointSelect.Length; i++)
+                            {
+                                _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
+                                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
+                                _drawSupportObject.IdFigure = SelectObject.IdFigure;
+                                _drawSupportObject.ControlPointF = i;
 
-                            SelectObject.AddListFigure(_drawSupportObject);
-                        }
+                                SelectObject.AddListFigure(_drawSupportObject);
+                            }
 
 
-                        break;
+                            break;
 
+                    }
                 }
-            }
 
+            }
         }
 
         //Копирование выбранных фигур

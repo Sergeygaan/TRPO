@@ -47,8 +47,8 @@ namespace PaintedObjectsMoving
                 if (notdigit || emptyfield || inputerror) MessageBox.Show("Проверьте правильность и достаточность введенных данных", "Введены неверные или недостаточные данные!");
                 else
                 {
-                    MainForm.ChildWidthSize = Convert.ToInt32(UserWidth.Text);
-                    MainForm.ChildHeightSize = Convert.ToInt32(UserHeight.Text);
+                    MainForm.ChildWidthSize = Convert.ToInt32(numericUpDown1.Text);
+                    MainForm.ChildHeightSize = Convert.ToInt32(numericUpDown2.Text);
                     this.Close();
                 }
             }
@@ -88,111 +88,5 @@ namespace PaintedObjectsMoving
             this.Close();
         }
 
-        private void UserSize_CheckedChanged(object sender, EventArgs e)
-        {
-            /*если поставлена галочка "Выбрать вручную", то
-             * нам доступны поля для ручного ввода чисел, если
-             * галочка не стоит, то доступны поля выбора заранее
-             * установленных размеров
-             */
-            SizeGroup.Enabled = UserSize.Checked ? false : true;
-            UserWidth.Enabled = UserHeight.Enabled = UserSize.Checked ? true : false;
-        }
-
-        private void UserWidth_TextChanged(object sender, EventArgs e)
-        {
-            /*задаем значения параметров объекта, т.е. окна ввода
-             */
-            UserWidth.CharacterCasing = CharacterCasing.Normal; //регистр символов
-            UserWidth.MaxLength = 4;                            //максимальное допустимое число символов
-            UserWidth.Multiline = false;                        //многострочность
-            UserWidth.CausesValidation = true;                  //проводить проверку вводимых символов
-        }
-
-        private void UserHeight_TextChanged(object sender, EventArgs e)
-        {
-            /*задаем значения параметров объекта, т.е. окна ввода
-             */
-            UserHeight.CharacterCasing = CharacterCasing.Normal; //регистр символов
-            UserHeight.MaxLength = 4;                           //максимальное допустимое число символов
-            UserHeight.Multiline = false;                      //многострочность
-            UserHeight.CausesValidation = true;               //проводить проверку вводимых символов
-        }
-
-        private void UserWidth_Validating(object sender, CancelEventArgs e)
-        {
-            emptyfield = false;         //в начале проверки флаг всегда в false
-
-            /*UserWidth.Lines получает массив ввденных строк,
-             * функция GetLength(ElementNumber) возвращает длину
-             * заданной строки (строка является эелементом массива,
-             * следовательно, для однострочного поля, она будет первой)
-             */
-            if (UserWidth.Lines.GetLength(0) != 0)  //если окно не пусто, то запускаем проверку
-            {
-                notdigit = false;       //в начале проверки флаг всегда в false
-                inputerror = false;
-
-                /*проверим, все ли введенные символы
-                 * являются цифрами, если находим хотя бы
-                 * одну не цифру, то переводим флаг
-                 * notdigit в true
-                 */
-                foreach (char symbol in UserWidth.Text)
-                {
-                    if (char.IsDigit(symbol)) continue; //если, сивол является цифрой, то переходим к следующему сиволу
-                    else            //если символ - не цифра
-                    {
-                        notdigit = true;    //переводим флаг
-                        WidthHelp.ToolTipTitle = notdigittitle;
-                        WidthHelp.Show(notdigitmessage, UserWidth);
-                        break;              //и прерываем цикл (дальше уже проверять не надо)
-                    }
-                }
-                if (!notdigit)
-                {
-                    int size = Convert.ToInt32(UserWidth.Text);
-                    if (size < 10 || size > 2000)
-                    {
-                        inputerror = true;
-                        WidthHelp.ToolTipTitle = outofrangetitle;
-                        WidthHelp.Show(outofnumberrange, UserWidth);
-                    }
-                }
-            }
-            else emptyfield = true;
-        }
-
-        private void UserHeight_Validating(object sender, CancelEventArgs e)
-        {
-            emptyfield = false;
-            if (UserHeight.Lines.GetLength(0) != 0)
-            {
-                notdigit = false;
-                inputerror = false;
-                foreach (char symbol in UserHeight.Text)
-                {
-                    if (char.IsDigit(symbol)) continue;
-                    else
-                    {
-                        notdigit = true;
-                        HeightHelp.ToolTipTitle = notdigittitle;
-                        HeightHelp.Show(notdigitmessage, UserHeight);
-                        break;
-                    }
-                }
-                if (!notdigit)
-                {
-                    int size = Convert.ToInt32(UserHeight.Text);
-                    if (size < 10 || size > 2000)
-                    {
-                        inputerror = true;
-                        HeightHelp.ToolTipTitle = outofrangetitle;
-                        HeightHelp.Show(outofnumberrange, UserHeight);
-                    }
-                }
-            }
-            else emptyfield = true;
-        }
     }
 }

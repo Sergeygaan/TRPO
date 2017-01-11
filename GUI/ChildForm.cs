@@ -123,7 +123,7 @@ namespace PaintedObjectsMoving
             DrawForm.Refresh();
         }
 
-        private void Child__MouseUp(object sender, MouseEventArgs e)
+        private void Child__MouseUp(object sender, MouseEventArgs e)    // Нажата клавиша 
         {
             switch (_currentActions)
             {
@@ -238,7 +238,7 @@ namespace PaintedObjectsMoving
             DrawForm.Refresh();
         }
 
-        private void Child1_MouseDown(object sender, MouseEventArgs e)
+        private void Child1_MouseDown(object sender, MouseEventArgs e)  // Нажата клавиша 
         {
             switch (_currentActions)
             {

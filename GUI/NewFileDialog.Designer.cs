@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
-            this.UserHeight = new System.Windows.Forms.TextBox();
-            this.UserWidth = new System.Windows.Forms.TextBox();
             this.UserSize = new System.Windows.Forms.CheckBox();
             this.SizeGroup = new System.Windows.Forms.GroupBox();
             this.Size3 = new System.Windows.Forms.RadioButton();
@@ -41,31 +39,21 @@
             this.OKbutton = new System.Windows.Forms.Button();
             this.WidthHelp = new System.Windows.Forms.ToolTip(this.components);
             this.HeightHelp = new System.Windows.Forms.ToolTip(this.components);
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.SizeGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(175, 39);
+            this.label1.Location = new System.Drawing.Point(186, 36);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(12, 13);
             this.label1.TabIndex = 13;
             this.label1.Text = "х";
-            // 
-            // UserHeight
-            // 
-            this.UserHeight.Location = new System.Drawing.Point(193, 36);
-            this.UserHeight.Name = "UserHeight";
-            this.UserHeight.Size = new System.Drawing.Size(39, 20);
-            this.UserHeight.TabIndex = 12;
-            // 
-            // UserWidth
-            // 
-            this.UserWidth.Location = new System.Drawing.Point(130, 36);
-            this.UserWidth.Name = "UserWidth";
-            this.UserWidth.Size = new System.Drawing.Size(39, 20);
-            this.UserWidth.TabIndex = 11;
             // 
             // UserSize
             // 
@@ -150,14 +138,38 @@
             // 
             this.HeightHelp.IsBalloon = true;
             // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(129, 36);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDown1.TabIndex = 14;
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(204, 36);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDown2.TabIndex = 15;
+            // 
             // NewFileDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(271, 153);
+            this.Controls.Add(this.numericUpDown2);
+            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.UserHeight);
-            this.Controls.Add(this.UserWidth);
             this.Controls.Add(this.UserSize);
             this.Controls.Add(this.SizeGroup);
             this.Controls.Add(this.CANCELbutton);
@@ -166,6 +178,8 @@
             this.Text = "NewFileDialog";
             this.SizeGroup.ResumeLayout(false);
             this.SizeGroup.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -174,8 +188,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox UserHeight;
-        private System.Windows.Forms.TextBox UserWidth;
         private System.Windows.Forms.CheckBox UserSize;
         private System.Windows.Forms.GroupBox SizeGroup;
         private System.Windows.Forms.RadioButton Size3;
@@ -185,5 +197,7 @@
         private System.Windows.Forms.Button OKbutton;
         private System.Windows.Forms.ToolTip WidthHelp;
         private System.Windows.Forms.ToolTip HeightHelp;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
     }
 }
