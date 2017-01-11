@@ -29,7 +29,7 @@ namespace PaintedObjectsMoving
             {
                 if (SelectObject != null)
                 {
-                    //currObj.Pen.Width -= 1;//Возвращаем ширину пера
+                    SelectObject.Pen.Width -= 1;//Возвращаем ширину пера
                     SelectObject.ClearListFigure();
                     SelectObject.PointSelect = null;
                     SelectObject.SelectFigure = false;
@@ -84,12 +84,15 @@ namespace PaintedObjectsMoving
                         _rectangleF.Inflate(5, 10);
                     }
 
-                    
+                  
+
+
                     if (_rectangleF.Contains(e.Location))
                     {
 
                         DrawObject.PointSelect = DrawObject.Path.PathPoints;
                         DrawObject.SelectFigure = true;
+                        DrawObject.Pen.Width += 1;
                         _selectedFigures.Add(DrawObject);
                        
 

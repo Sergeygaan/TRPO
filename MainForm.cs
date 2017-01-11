@@ -16,7 +16,7 @@ namespace PaintedObjectsMoving
          */
         public enum FigureType
         {
-            Rectangle, Square, Ellipse, Circle, Curve, Line
+            Rectangle, Square, Ellipse, Circle, Curve, Line, RectangleSelect
         }
 
         public enum Actions
@@ -75,7 +75,7 @@ namespace PaintedObjectsMoving
             {
                 case Actions.Draw:
 
-                    if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
+                    if ((e.Button == MouseButtons.Left) && (mouseclick == true))            //если нажата левая кнопка мыши
                     {
                         figureend = e.Location;
 
@@ -168,6 +168,7 @@ namespace PaintedObjectsMoving
                     {
                         mouseclick = true;
                         figurestart = e.Location;
+                        figureend = e.Location;
                     }
 
 
@@ -267,5 +268,9 @@ namespace PaintedObjectsMoving
             _selectClass.MouseUp();
         }
 
+        private void выделениеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

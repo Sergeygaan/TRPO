@@ -41,7 +41,7 @@ namespace PaintedObjectsMoving
 
         }
 
-        //Отрисовка фигур
+        //Отрисовка фигур и возвращение области выделения
         public void Paint(PaintEventArgs e, MainForm.FigureType _currentfigure, Point figurestart, Point figureend)
         {
             switch (_currentfigure)
@@ -63,7 +63,6 @@ namespace PaintedObjectsMoving
                     e.Graphics.DrawEllipse(_pen, _ellipse.ShowEllipse(figurestart, figureend));
 
                     break;
-
             }
 
             e.Graphics.DrawImage(bmp, 0, 0);
@@ -72,26 +71,24 @@ namespace PaintedObjectsMoving
         //Сохранение фигур
         public void MouseUp(MainForm.FigureType _currentfigure, Point figurestart, Point figureend)
         {
+            _drawObject = new PaintedObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath(), _currentfigure);
 
             switch (_currentfigure)
             {
                 case MainForm.FigureType.Rectangle:
 
-                    _drawObject = new PaintedObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath(), _currentfigure);
                     _drawObject.Path.AddRectangle(_ellipse.ShowRectangle(figurestart, figureend));
 
                     break;
 
                 case MainForm.FigureType.Line:
 
-                    _drawObject = new PaintedObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath(), _currentfigure);
                     _drawObject.Path.AddLine(figurestart, figureend);
 
                     break;
 
                 case MainForm.FigureType.Ellipse:
 
-                    _drawObject = new PaintedObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath(), _currentfigure);
                     _drawObject.Path.AddEllipse(_ellipse.ShowEllipse(figurestart, figureend));
 
                     break;
@@ -190,6 +187,7 @@ namespace PaintedObjectsMoving
 
         }
 
+        //Копирование выбранных фигур
         public void ReplicationFigure(List<PaintedObject> SeleckResult)
         {
             foreach (PaintedObject SelectObject in SeleckResult)
@@ -200,6 +198,7 @@ namespace PaintedObjectsMoving
 
         }
 
+        //Удаление выбранных фигуры
         public void DeleteFigure(List<PaintedObject> SeleckResult)
         {
             foreach (PaintedObject SelectObject in SeleckResult)
@@ -216,11 +215,13 @@ namespace PaintedObjectsMoving
              
         }
 
+        // Отчищает список с фигурами
         public void Clear()
         {
             _figures.Clear();
         }
 
+        //Возвращяет список со всеми фигурами
         public List<PaintedObject> FiguresList()
         {
             return _figures;

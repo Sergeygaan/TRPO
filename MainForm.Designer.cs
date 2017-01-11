@@ -38,6 +38,7 @@
             this.удаитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.масштабироватьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.перемещатьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.выделениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DrawForm)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -125,7 +126,7 @@
             // рисоватьToolStripMenuItem
             // 
             this.рисоватьToolStripMenuItem.Name = "рисоватьToolStripMenuItem";
-            this.рисоватьToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.рисоватьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.рисоватьToolStripMenuItem.Text = "Рисовать";
             this.рисоватьToolStripMenuItem.Click += new System.EventHandler(this.рисоватьToolStripMenuItem_Click);
             // 
@@ -135,9 +136,10 @@
             this.копироватьToolStripMenuItem,
             this.удаитьToolStripMenuItem,
             this.масштабироватьToolStripMenuItem1,
-            this.перемещатьToolStripMenuItem1});
+            this.перемещатьToolStripMenuItem1,
+            this.выделениеToolStripMenuItem});
             this.выделитьToolStripMenuItem.Name = "выделитьToolStripMenuItem";
-            this.выделитьToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.выделитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.выделитьToolStripMenuItem.Text = "Выделить";
             // 
             // копироватьToolStripMenuItem
@@ -167,6 +169,13 @@
             this.перемещатьToolStripMenuItem1.Size = new System.Drawing.Size(170, 22);
             this.перемещатьToolStripMenuItem1.Text = "Перемещать";
             this.перемещатьToolStripMenuItem1.Click += new System.EventHandler(this.перемещатьToolStripMenuItem1_Click);
+            // 
+            // выделениеToolStripMenuItem
+            // 
+            this.выделениеToolStripMenuItem.Name = "выделениеToolStripMenuItem";
+            this.выделениеToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.выделениеToolStripMenuItem.Text = "Выделение";
+            this.выделениеToolStripMenuItem.Click += new System.EventHandler(this.выделениеToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -204,6 +213,7 @@
         private System.Windows.Forms.ToolStripMenuItem удаитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem масштабироватьToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem перемещатьToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem выделениеToolStripMenuItem;
     }
 }
 
