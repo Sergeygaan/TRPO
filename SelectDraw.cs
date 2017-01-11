@@ -97,8 +97,16 @@ namespace PaintedObjectsMoving
                         //Перемещение
                         currObj.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
 
+                       // currObj.Path.Flatten();
+
                         PointSelect = currObj.Path.PathPoints;
 
+                        //MessageBox.Show(PointSelect[3].ToString());
+
+                        
+                       // MessageBox.Show(currObj.Path.GetLastPoint().ToString());
+                       // MessageBox.Show(currObj.Path.PointCount.ToString());
+                        
                         //currObj.Path.AddRectangle(_ellipse.Show(figurestart, oldPoint));
 
 

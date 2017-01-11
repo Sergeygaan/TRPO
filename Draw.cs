@@ -125,13 +125,39 @@ namespace PaintedObjectsMoving
             }
         }
 
-        public void SupportPoint(PaintEventArgs e, PointF[] SupporFigureStart )
+        public void SupportPoint(PaintEventArgs e, PointF[] SupporFigureStart, MainForm.FigureType _currentfigure)
         {
- 
-            e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(SupporFigureStart[0]));
 
-            e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(SupporFigureStart[1]));
+            switch (_currentfigure)
+            {
+                case MainForm.FigureType.Rectangle:
 
+                    for (int i = 0; i < SupporFigureStart.Length; i++)
+                    {
+                        e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(SupporFigureStart[i]));
+                    }
+                   
+                    break;
+
+                case MainForm.FigureType.Line:
+
+                    for (int i = 0; i < SupporFigureStart.Length; i++)
+                    {
+                        e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(SupporFigureStart[i]));
+                    }
+
+                    break;
+
+                case MainForm.FigureType.Ellipse:
+
+                    for (int i = 0; i < SupporFigureStart.Length; i++)
+                    {
+                        e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(SupporFigureStart[i]));
+                    }
+
+                    break;
+
+            }
 
         }
 

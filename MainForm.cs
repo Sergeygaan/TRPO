@@ -56,7 +56,7 @@ namespace PaintedObjectsMoving
             if (_selectClass.SeleckResult() != null)
             {
 
-                _drawClass.SupportPoint(e, _selectClass.SeleckFigure());
+                _drawClass.SupportPoint(e, _selectClass.SeleckFigure(),_currentfigure);
 
 
             }
