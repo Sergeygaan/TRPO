@@ -27,20 +27,17 @@ namespace PaintedObjectsMoving
         //Флаг
         private bool mouseclick = false;
 
-
-
         public ChildForm()
         {
             InitializeComponent();
-           
+
             this.AutoScroll = true;                             //разрешаем скроллинг
 
             DoubleBuffered = true;
 
-            //_pen.DashStyle = System.Drawing.Drawing2D.DashStyle.DashDotDot;
-
             //Инициализация классов
             _drawClass = new DrawPaint(DrawForm.Width, DrawForm.Height);
+
             _selectClass = new SelectDraw();
 
             //Характеристика фигуры

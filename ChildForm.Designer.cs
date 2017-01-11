@@ -37,7 +37,7 @@
             this.DrawForm.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.DrawForm.Location = new System.Drawing.Point(-1, -2);
             this.DrawForm.Name = "DrawForm";
-            this.DrawForm.Size = new System.Drawing.Size(3000, 3000);
+            this.DrawForm.Size = new System.Drawing.Size(1200, 1200);
             this.DrawForm.TabIndex = 1;
             this.DrawForm.TabStop = false;
             this.DrawForm.Paint += new System.Windows.Forms.PaintEventHandler(this.Child_Paint);
