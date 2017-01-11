@@ -33,6 +33,16 @@ namespace PaintedObjectsMoving
             public bool fill; //true - фигура с заливкой, false - без заливки
         }
 
+        public struct PropertiesForm
+        {
+            public Color linecolor;  //цвет линии
+            public Color brushcolor; //цвет заливки
+            public int thickness;              //толщина линии
+            /* стиль линии*/
+            public System.Drawing.Drawing2D.DashStyle dashstyle;
+            public bool fill; //true - фигура с заливкой, false - без заливки
+        }
+
         public struct PropertiesSupport
         {
             public Color linecolor;  //цвет линии
@@ -51,21 +61,19 @@ namespace PaintedObjectsMoving
         private static MainForm.Properties _figureProperties;                        //свойства фигуры
         private static MainForm.PropertiesSupport _figurePropertiesSupport;          //свойства фигуры
 
+        private static int childcounter = 1;                                            //счетчик дочерних окон для выдачи надписи РИСУНОК1, РИСУНОК2...
+        private static int childwidhtsize = 800;                                        //переменная, хранящая заданную ширину дочернего окна
+        private static int childheightsize = 600;                                       //переменная, хранящая заданную высоту дочернего окна
 
         //ФЛАГИ
         private bool mouseclick = false;
-        
+        private static bool createnewfile = false;                                      //true - создать файл
+
         public MainForm()
         {
             InitializeComponent();
 
             DoubleBuffered = true;
-
-            //_pen.DashStyle = System.Drawing.Drawing2D.DashStyle.DashDotDot;
-
-            //Инициализация классов
-            _drawClass = new DrawPaint(DrawForm.Width, DrawForm.Height);
-            _selectClass = new SelectDraw();
 
             //Характеристика фигуры
             _figureProperties.brushcolor = Color.White;
@@ -79,293 +87,10 @@ namespace PaintedObjectsMoving
 
         }
 
-        //Отрисовка фигур
-        void Form1_Paint(object sender, PaintEventArgs e)
-        {
 
-            RefreshBitmap();
-
-            _drawClass.Paint(e, _currentfigure, _points);
-
-            if (_selectClass.SeleckResult() != null)
-            {
-                _drawClass.SupportPoint(e, _selectClass.SeleckResult());
-            }
-            
-
-        }
-
-        void Form1_MouseMove(object sender, MouseEventArgs e)
-        {
-
-            switch (_currentActions)
-            {
-                case Actions.Draw:
-
-                    if ((e.Button == MouseButtons.Left) && (mouseclick == true))            //если нажата левая кнопка мыши
-                    {
-                        switch (_currentfigure)
-                        {
-
-                            case FigureType.Line:
-                            case FigureType.Ellipse:
-                            case FigureType.Rectangle:
-
-                                _points[1] = new PointF(e.Location.X, e.Location.Y);
-
-                                break;
-                        }
-                    }
-
-                    break;
-
-                case Actions.Scale:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        _selectClass.MouseMove(e, _currentActions);
-                    }
-
-                    break;
-
-                case Actions.SelectRegion:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        _points[1] = new PointF(e.Location.X, e.Location.Y);
-                    }
-
-                    break;
-
-                case Actions.Move:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        _selectClass.MouseMove(e, _currentActions);
-                    }
-
-                    break;
-            }
-
-            DrawForm.Refresh();
-        }
-
-        void Form1_MouseUp(object sender, MouseEventArgs e)
-        {
-
-            switch (_currentActions)
-            {
-                case Actions.Draw:
-
-                    if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
-                    {
-
-                        switch (_currentfigure)
-                        {
-
-                            case FigureType.Line:
-                            case FigureType.Ellipse:
-                            case FigureType.Rectangle:
-
-                                mouseclick = false;
-
-                                _points[1] = new PointF(e.Location.X, e.Location.Y);
-
-                                _drawClass.MouseUp(_currentfigure, _points);
-
-                                _points.Clear();
-
-                                break;
-
-                            case FigureType.PoliLine:
-
-                                _points.Add(new PointF(e.Location.X, e.Location.Y));
-
-                                break;
-
-                            case FigureType.Polygon:
-
-                                _points.Add(new PointF(e.Location.X, e.Location.Y));
-
-                                break;
-                        }
-
-                    }
-
-                    break;
-
-                case Actions.Scale:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        _selectClass.MouseUpSupport();
-                    }
-
-                    if (e.Button == MouseButtons.Right)
-                    {
-                        _selectClass.MouseUp();
-                    }
-
-                    break;
-
-                case Actions.SelectRegion:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-
-                        mouseclick = false;
-
-                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList(), Actions.SelectRegion);
-
-                        _points.Clear();
-
-                    }
-
-                    if (e.Button == MouseButtons.Right)
-                    {
-                        _selectClass.MouseUp();
-                    }
-
-                    break;
-
-                case Actions.SelectPoint:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        _selectClass.MouseDown(e, _drawClass.SeparationZone(),  _drawClass.FiguresList(), Actions.SelectPoint);
-
-                    }
-
-                    if (e.Button == MouseButtons.Right)
-                    {
-                        _selectClass.MouseUp();
-                    }
-
-                    break;
-
-                case Actions.Move:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        //_selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList());
-
-                    }
-
-                    if (e.Button == MouseButtons.Right)
-                    {
-                        _selectClass.MouseUp();
-                    }
-
-                    break;
-            }
-
-            DrawForm.Refresh();
-        }
-
-        void Form1_MouseDown(object sender, MouseEventArgs e)
-        {
-
-            switch (_currentActions)
-            {
-                case Actions.Draw:
-
-                    if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
-                    {
-
-                        switch (_currentfigure)
-                        {
-
-                            case FigureType.Line:
-                            case FigureType.Ellipse:
-                            case FigureType.Rectangle:
-                            case FigureType.PoliLine:
-                            case FigureType.Polygon:
-
-                                mouseclick = true;
-                                _points.Add(new PointF(e.Location.X, e.Location.Y));
-                                _points.Add(new PointF(e.Location.X, e.Location.Y));
-
-                                break;
-                        }
-   
-                    }
-
-                    if (e.Button == MouseButtons.Right)              //если нажата правая кнопка мыши. Сохраняет полилинию
-                    {
-
-                        switch (_currentfigure)
-                        {
-                            case FigureType.PoliLine:
-
-                                if (_points.Count != 0)
-                                {
-                                    _drawClass.MouseUp(_currentfigure, _points);
-                                    _points.Clear();
-                                }
-
-                                break;
-    
-                            case FigureType.Polygon:
-
-                                if (_points.Count != 0)
-                                {
-                                    _drawClass.MouseUp(_currentfigure, _points);
-                                    _points.Clear();
-                                }
-
-                                break;
-                        }
-                    }
-
-
-                    break;
-
-                case Actions.Scale:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        _selectClass.SavePoint(e);
-                    }
-
-                    break;
-
-                case Actions.SelectRegion:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                       _selectClass.MouseUp();
-                    
-                        mouseclick = true;
-                        _points.Add(new PointF(e.Location.X, e.Location.Y));
-                        _points.Add(new PointF(e.Location.X, e.Location.Y));     
-                    }
-
-                    break;
-
-                case Actions.SelectPoint:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        _selectClass.MouseUp();
-
-                    }
-
-                    break;
-                case Actions.Move:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        _selectClass.SavePoint(e);
-                    }
-
-                    break;
-            }
-
-            DrawForm.Refresh();
-        }
 
         //Характеристики обычных фигур
-        public static MainForm.Properties FigureProperties
+        public static Properties FigureProperties
         {
             get { return _figureProperties; }
         }
@@ -379,47 +104,53 @@ namespace PaintedObjectsMoving
         }
 
         //Характеристики опорных точек
-        public static MainForm.PropertiesSupport FigurePropertiesSupport
+        public static PropertiesSupport FigurePropertiesSupport
         {
             get { return _figurePropertiesSupport; }
         }
 
-        //Обновление рабочей области
-        void RefreshBitmap()
-        {
-            _drawClass.RefreshBitmap();
-        }
-
+        //Выбор фигуры
         private void ChangeFigure(FigureType next)
         {
-            _previousfigure = _currentfigure;             //указываем предыдущую выбранную фигуру
-            _currentfigure = next;
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            ActiveForm.ChangeFigure(next);
+            ActiveForm = null;
+
+        }
+
+
+        private void ChangeActions(Actions next)
+        {
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            ActiveForm.ChangeActions(next);
+            ActiveForm = null;
+
         }
 
         //Удаление всех нарисованных фигур
         private void отчиститьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_points.Count != 0)
-            {
-                _points.Clear();
-            }
-            _selectClass.MouseUp();
-            _drawClass.Clear();
-            DrawForm.Invalidate();
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            ActiveForm.DeleteFigure();
+            ActiveForm = null;
         }
 
         //Режим рисования
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
             _currentActions = Actions.Draw;
-            _selectClass.MouseUp();
+            ChangeActions(Actions.Draw);
             ChangeFigure(FigureType.Line);
+
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            ActiveForm.DeleteSupportFigure();
+            ActiveForm = null;
         }
 
         //Режим выделения
         private void toolStripButton7_Click(object sender, EventArgs e)
         {
-            _currentActions = Actions.SelectRegion;
+            ChangeActions(Actions.SelectRegion);
             ChangeFigure(FigureType.RectangleSelect);
         }
         //Эллипс
@@ -469,29 +200,28 @@ namespace PaintedObjectsMoving
         private void toolStripButton8_Click(object sender, EventArgs e)
         {
             _currentActions = Actions.Move;
+            ChangeActions(Actions.Move);
         }
         //Масштабирование
         private void toolStripButton9_Click(object sender, EventArgs e)
         {
             _currentActions = Actions.Scale;
+            ChangeActions(Actions.Scale);
         }
+
         //Копирование
         private void toolStripButton10_Click(object sender, EventArgs e)
         {
-            if (_selectClass.SeleckResult() != null)
-            {
-                _drawClass.ReplicationFigure(_selectClass.SeleckResult());
-            }
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            ActiveForm.СopyFigure();
+            ActiveForm = null;
         }
         //Удаление
         private void toolStripButton11_Click(object sender, EventArgs e)
         {
-            if (_selectClass.SeleckResult() != null)
-            {
-                _drawClass.DeleteFigure(_selectClass.SeleckResult());
-            }
-            _selectClass.MouseUp();
-            DrawForm.Refresh();
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            ActiveForm.DeleteSelectFigure();
+            ActiveForm = null;
         }
 
         // Цвет отрисовки фигур
@@ -556,18 +286,18 @@ namespace PaintedObjectsMoving
             DialogResult D = colorDialog1.ShowDialog();
             if (D == DialogResult.OK)
             {
-                _drawClass.СhangeBackgroundFigure(_selectClass.SeleckResult(), colorDialog1.Color);
+                ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+                ActiveForm.СhangeBackgroundFigure(colorDialog1.Color);
+                ActiveForm = null;
             }
-            DrawForm.Refresh();
+           // DrawForm.Refresh();
         }
 
         private void toolStripButton17_Click(object sender, EventArgs e)
         {
-            if (_selectClass.SeleckResult() != null)
-            {
-                _drawClass.DeleteBackgroundFigure(_selectClass.SeleckResult());
-            }
-            DrawForm.Refresh();
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            ActiveForm.DeleteBackgroundFigure();
+            ActiveForm = null;
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
@@ -575,9 +305,10 @@ namespace PaintedObjectsMoving
             DialogResult D = colorDialog1.ShowDialog();
             if (D == DialogResult.OK)
             {
-                _drawClass.СhangePenColorFigure(_selectClass.SeleckResult(), colorDialog1.Color);
+                ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+                ActiveForm.ColorSelectPen(colorDialog1.Color);
+                ActiveForm = null;
             }
-            DrawForm.Refresh();
         }
 
         private void toolStripButton18_Click(object sender, EventArgs e)
@@ -587,9 +318,10 @@ namespace PaintedObjectsMoving
             linethicknessform.ShowDialog();                         //отображаем форму
             linethicknessform.Dispose();                            //уничтожаем форму
 
-            _drawClass.СhangePenWidthFigure(_selectClass.SeleckResult());
-            
-            DrawForm.Refresh();
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            ActiveForm.СhangePenWidthFigure();
+            ActiveForm = null;
+
         }
 
         private void toolStripButton19_Click(object sender, EventArgs e)
@@ -599,14 +331,58 @@ namespace PaintedObjectsMoving
             linestyleform.ShowDialog();                 //отображаем форму
             linestyleform.Dispose();                    //уничтожаем форму
 
-            _drawClass.СhangePenStyleFigure(_selectClass.SeleckResult());
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            ActiveForm.СhangePenStyleFigure();
+            ActiveForm = null;
 
-            DrawForm.Refresh();
         }
+
 
         private void toolStripButton20_Click(object sender, EventArgs e)
         {
             _currentActions = Actions.SelectPoint;
+            ChangeActions(Actions.SelectPoint);
+        }
+
+        public static bool CreateNewFile
+        {
+            get { return createnewfile; }
+            set { createnewfile = value; }
+        }
+        public static int ChildWidthSize
+        {
+            get { return childwidhtsize; }
+            set { childwidhtsize = value; }
+        }
+        public static int ChildHeightSize
+        {
+            get { return childheightsize; }
+            set { childheightsize = value; }
+        }
+        public static int ChildCounter
+        {
+            get { return childcounter; }
+            set { childcounter = value; }
+        }
+
+        private void новыйToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form FileDialog = new NewFileDialog();                      //создаем форму диалогового окна
+            FileDialog.Text = "Новый файл";                             //задаем заголовок окна
+            FileDialog.ShowDialog();                                    //отображаем диалог
+            if (createnewfile)  //если в диалоговой форме было нажато ОК, то создаем новый файл
+            {
+                Form NewForm = new ChildForm();                       //создаем объект - дочернюю форму-рисунок
+             
+                NewForm.Text = "Рисунок" + ChildCounter.ToString();     //называем ее соответствующе
+                ChildCounter++;                                         //увеличиваем счетчик окон на единицу
+                NewForm.MdiParent = this;                               //указываем родительскую форму
+                NewForm.BackColor = Color.Gray;                         //цвет фона формы - серый
+                NewForm.Width = childwidhtsize;                         //задаем значение ширины окна, хранящееся в переменной
+                NewForm.Height = childheightsize;                       //задаем значение высоты окна, хранящееся в переменной
+               
+                NewForm.Show();                                         //отображаем созданную форму
+            }
         }
 
     }

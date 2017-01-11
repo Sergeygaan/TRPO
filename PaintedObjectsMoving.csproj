@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChildForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChildForm.Designer.cs">
+      <DependentUpon>ChildForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Draw.cs" />
     <Compile Include="EditObject.cs" />
     <Compile Include="LineStyle.cs">
@@ -58,6 +64,12 @@
     <Compile Include="LineThickness.Designer.cs">
       <DependentUpon>LineThickness.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewFileDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewFileDialog.Designer.cs">
+      <DependentUpon>NewFileDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectDraw.cs" />
     <Compile Include="SupportObject.cs" />
     <Compile Include="СonstructionFigure.cs" />
@@ -70,6 +82,9 @@
     <Compile Include="PaintedObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ChildForm.resx">
+      <DependentUpon>ChildForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LineStyle.resx">
       <DependentUpon>LineStyle.cs</DependentUpon>
     </EmbeddedResource>
@@ -78,6 +93,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewFileDialog.resx">
+      <DependentUpon>NewFileDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
