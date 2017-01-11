@@ -288,7 +288,7 @@ namespace PaintedObjectsMoving
                 }
                 ActiveForm = null;
             }
-           // DrawForm.Refresh();
+          
         }
 
         private void toolStripButton17_Click(object sender, EventArgs e)
@@ -317,18 +317,23 @@ namespace PaintedObjectsMoving
 
         private void toolStripButton18_Click(object sender, EventArgs e)
         {
-            LineThickness linethicknessform = new LineThickness();  //создаем форму "Толщина линии"
-            linethicknessform.Text = "Толщина линии фигуры";               //озаглавливаем форму
-            linethicknessform.ShowDialog();                         //отображаем форму
-            linethicknessform.Dispose();                            //уничтожаем форму
+
+            int StaticThickness = _figureProperties.thickness;
+            LineThickness linethicknessform = new LineThickness();          //создаем форму "Толщина линии"
+            linethicknessform.Text = "Толщина линии фигуры";                //озаглавливаем форму
+            linethicknessform.ShowDialog();                                 //отображаем форму
+            linethicknessform.Dispose();                                    //уничтожаем форму
+
+            int CurrentThickness = FigureProperties.thickness;
 
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
             {
-                ActiveForm.СhangePenWidthFigure();
+                ActiveForm.СhangePenWidthFigure(CurrentThickness);
             }
             ActiveForm = null;
 
+            _figureProperties.thickness = StaticThickness;
         }
 
         private void toolStripButton19_Click(object sender, EventArgs e)

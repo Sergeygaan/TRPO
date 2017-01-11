@@ -25,6 +25,10 @@ namespace PaintedObjectsMoving
         private int _widthDraw;
         private int _heightDraw;
 
+        //Классы комманд
+        private СhangePenWidth _penWidth;
+        private СhangePenColor _penColor;
+
         public DrawPaint(int Width, int Height)
         {
             _widthDraw = Width;
@@ -61,12 +65,11 @@ namespace PaintedObjectsMoving
         {
             StyleFigure();
 
+            EditFigure();
+
             _drawObject = new Object(_penFigure, new GraphicsPath(), _brush, _currentfigure);
 
             FiguresBuild[(int)_currentfigure].AddFigure(_drawObject, _points, _iFigureCommand, _figures);
-
-            _indexFigureCommand += 1;
-
 
         }
 
@@ -193,24 +196,33 @@ namespace PaintedObjectsMoving
             }
 
         }
+
+        //Изменение цвета у выбранных фигур
         public void СhangePenColorFigure(List<Object> SeleckResult, Color PenColor)
         {
-            foreach (Object SelectObject in SeleckResult)
+            if (SeleckResult.Count != 0)
             {
-                SelectObject.Pen.Color = PenColor;
-                //SelectObject.Brush = new SolidBrush(ColorСhangeBackground);
+                EditFigure();
 
+                _penColor = new СhangePenColor(SeleckResult, PenColor);
+
+                _iFigureCommand.Add(_penColor);
             }
 
         }
 
-        public void СhangePenWidthFigure(List<Object> SeleckResult)
+        //изменение толщины пера у выбранных фигур
+        public void СhangePenWidthFigure(List<Object> SeleckResult, int CurrentThickness)
         {
-            foreach (Object SelectObject in SeleckResult)
+            if (SeleckResult.Count != 0)
             {
-                SelectObject.Pen.Width = MainForm.FigureProperties.thickness;
-            }
+                EditFigure();
 
+                _penWidth = new СhangePenWidth(SeleckResult, CurrentThickness);
+
+                _iFigureCommand.Add(_penWidth);
+            }
+            
         }
 
         public void СhangePenStyleFigure(List<Object> SeleckResult)
@@ -264,10 +276,14 @@ namespace PaintedObjectsMoving
         {
             if (_indexFigureCommand >= 0)
             {
+               
                 _iFigureCommand[_indexFigureCommand].Undo();
                 //_iFigureCommand.RemoveAt(_iFigureCommand.Count - 1);
                 _indexFigureCommand -= 1;
+
+
             }
+ 
             
         }
 
@@ -275,10 +291,37 @@ namespace PaintedObjectsMoving
         {
             if (_indexFigureCommand < _iFigureCommand.Count - 1)
             {
-                _indexFigureCommand += 1;
-                _iFigureCommand[_indexFigureCommand].Execute();
+                if (_indexFigureCommand == 0)
+                {
+                    _indexFigureCommand += 1;
+                    _iFigureCommand[_indexFigureCommand].Execute();
+                }
+                else
+                {
+                    _indexFigureCommand += 1;
+                    _iFigureCommand[_indexFigureCommand].Execute();
+                }
                 
             }
+        }
+
+
+        public void EditFigure()
+        {
+            if (_indexFigureCommand != _iFigureCommand.Count - 1)
+            {
+
+                int summ = _iFigureCommand.Count - 1 - _indexFigureCommand;
+
+                _iFigureCommand.RemoveRange(_indexFigureCommand + 1, summ);
+
+                _indexFigureCommand = _iFigureCommand.Count - 1;
+
+               
+            }
+
+            _indexFigureCommand += 1;
+            
         }
     }
 }

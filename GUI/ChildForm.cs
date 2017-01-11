@@ -50,7 +50,7 @@ namespace PaintedObjectsMoving
             _figureProperties.dashstyle = System.Drawing.Drawing2D.DashStyle.Solid;
             _figureProperties.fill = false;
             _figureProperties.linecolor = Color.Black;
-            _figureProperties.thickness = 1;
+            //_figureProperties.thickness = 1;
 
             //Характеристика опорных точек
             _figurePropertiesSupport.linecolor = Color.Black;
@@ -434,9 +434,9 @@ namespace PaintedObjectsMoving
             DrawForm.Refresh();
         }
 
-        public void СhangePenWidthFigure()
+        public void СhangePenWidthFigure(int CurrentThickness)
         {
-            _drawClass.СhangePenWidthFigure(_selectClass.SeleckResult());
+            _drawClass.СhangePenWidthFigure(_selectClass.SeleckResult(), CurrentThickness);
 
             DrawForm.Refresh();
         }

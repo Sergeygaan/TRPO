@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\СhangePenColor.cs" />
+    <Compile Include="Commands\СhangePenWidth.cs" />
     <Compile Include="Commands\AddPolygon.cs" />
     <Compile Include="Commands\AddPoliLine.cs" />
     <Compile Include="Commands\AddRectangle.cs" />
@@ -51,12 +53,12 @@
     <Compile Include="Commands\AddLine.cs" />
     <Compile Include="Commands\IFigureCommand.cs" />
     <Compile Include="Commands\Ellipses.cs" />
-    <Compile Include="Commands\IFigureBuild.cs" />
-    <Compile Include="Commands\Line.cs" />
-    <Compile Include="Commands\PoliLine.cs" />
-    <Compile Include="Commands\Polygon.cs" />
-    <Compile Include="Commands\Rectangles.cs" />
-    <Compile Include="Commands\RectangleSelect.cs" />
+    <Compile Include="Build\IFigureBuild.cs" />
+    <Compile Include="Build\Line.cs" />
+    <Compile Include="Build\PoliLine.cs" />
+    <Compile Include="Build\Polygon.cs" />
+    <Compile Include="Build\Rectangles.cs" />
+    <Compile Include="Build\RectangleSelect.cs" />
     <Compile Include="GUI\ChildForm.cs">
       <SubType>Form</SubType>
     </Compile>
