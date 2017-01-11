@@ -59,8 +59,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions\Draw.cs" />
+    <Compile Include="Actions\DrawActoins.cs" />
     <Compile Include="Actions\IActoins.cs" />
+    <Compile Include="Actions\SelectPointActions.cs" />
+    <Compile Include="Actions\SelectRegionActions.cs" />
     <Compile Include="Commands\CleanFigure.cs" />
     <Compile Include="Commands\ReplicationFigure.cs" />
     <Compile Include="Commands\DeleteFigure.cs" />

@@ -1,13 +1,11 @@
 ﻿using MyPaint.CORE;
 using MyPaint.GUI;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace MyPaint
 {
@@ -52,7 +50,6 @@ namespace MyPaint
         /// </summary>
         private static int _childHeightSize;
 
-
         /// <summary>
         /// Структура, хранящая хранящая свойства нового файла.
         /// </summary>
@@ -71,7 +68,6 @@ namespace MyPaint
             InitializeComponent();
 
             DoubleBuffered = true;
-
         }
 
         /// <summary>

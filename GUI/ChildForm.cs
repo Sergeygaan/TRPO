@@ -1,4 +1,5 @@
-﻿using MyPaint.CORE;
+﻿using MyPaint.Actions;
+using MyPaint.CORE;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -125,6 +126,13 @@ namespace MyPaint
         /// </summary>
         private static PropertiesSupport _figurePropertiesSupport;
 
+
+        /// <summary>
+        /// Переменная, хранящая список действий для построения различных фигур.
+        /// </summary>
+        private List<IActoins> _actionsBuild = new List<IActoins>();
+
+
         /// <summary>
         /// Метод, создающий рабочую область, и инициализирующий остальные объекты.
         /// </summary>
@@ -162,6 +170,12 @@ namespace MyPaint
             _figuresBuild.Add(new PoliLine());
             _figuresBuild.Add(new Polygon());
             _figuresBuild.Add(new RectangleSelect());
+
+
+            _actionsBuild.Add(new DrawActoins());
+            _actionsBuild.Add(new SelectRegionActions());
+            _actionsBuild.Add(new SelectPointActions());
+
         }
 
         /// <summary>
@@ -188,60 +202,7 @@ namespace MyPaint
         /// <para name = "e">Переменная, хранящая координаты мыщи</para>
         private void Child_MouseMove(object sender, MouseEventArgs e)
         {
-            switch (_currentActions)
-            {
-                case MainForm.Actions.Draw:
-
-                    if ((e.Button == MouseButtons.Left) && (mouseclick == true))            
-                    {
-                        switch (_currentfigure)
-                        {
-
-                            case MainForm.FigureType.Line:
-                            case MainForm.FigureType.Ellipse:
-                            case MainForm.FigureType.Rectangle:
-
-                                if (_points.Count != 0)
-                                {
-                                    _points[1] = new PointF(e.Location.X, e.Location.Y);
-                                }
-                                break;
-                        }
-                    }
-
-                    break;
-
-                case MainForm.Actions.SelectRegion:
-
-                    if (_selectClass.SeleckResult().Count == 0)
-                    {
-                        if ((e.Button == MouseButtons.Left) && (_points.Count != 0))
-                        {
-                            _points[1] = new PointF(e.Location.X, e.Location.Y);
-                        }
-                    }
-                    else
-                    {
-                        if (e.Button == MouseButtons.Left)
-                        {
-                            _selectClass.MouseMove(e, _currentActions, _figuresBuild);
-                        }
-                    }
-
-                    break;
-
-                case MainForm.Actions.SelectPoint:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        if (_selectClass.SeleckResult().Count != 0)
-                        {
-                            _selectClass.MouseMove(e, _currentActions, _figuresBuild);
-                        }
-                    }
-
-                    break;
-            }
+            _points = _actionsBuild[(int)_currentActions].MouseMove(sender, e, _currentfigure, _selectClass, _currentActions, _figuresBuild);
 
             DrawForm.Refresh();
         }
@@ -253,107 +214,7 @@ namespace MyPaint
         /// <para name = "e">Переменная, хранящая координаты мыщи</para>
         private void Child__MouseUp(object sender, MouseEventArgs e)    // Нажата клавиша 
         {
-            switch (_currentActions)
-            {
-                case MainForm.Actions.Draw:
-
-                    if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
-                    {
-
-                        switch (_currentfigure)
-                        {
-
-                            case MainForm.FigureType.Line:
-                            case MainForm.FigureType.Ellipse:
-                            case MainForm.FigureType.Rectangle:
-
-                                if (_points.Count != 0)
-                                {
-                                    mouseclick = false;
-
-                                    _points[1] = new PointF(e.Location.X, e.Location.Y);
-
-                                    _drawClass.MouseUp(_currentfigure, _points, _figuresBuild);
-
-                                    _points.Clear();
-                                }
-
-
-                                break;
-                        }
-
-                    }
-
-                    break;
-
-                case MainForm.Actions.SelectRegion:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        if (_selectClass.SeleckResult().Count == 0)
-                        {
-                            mouseclick = false;
-
-                            _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList, MainForm.Actions.SelectRegion, _figuresBuild);
-                            _points.Clear();
-                        }
-                        else
-                        {
-                            _selectClass.MouseUpSupport();
-                            _drawClass.СhangeMoveFigure(_selectClass.SeleckResult(), "MouseUp");
-                           
-                        }
-
-                    }
-
-                    if (e.Button == MouseButtons.Right)
-                    {
-                        if (_selectClass.SeleckResult().Count == 0)
-                        {
-                            _selectClass.MouseUp();
-                            
-                        }
-                        else
-                        {
-                            _selectClass.MouseUp();
-                            ChangeActions(LastActions);
-                            
-                        }
-                    }
-
-                    break;
-
-                case MainForm.Actions.SelectPoint:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        if (_selectClass.SeleckResult().Count == 0)
-                        {
-                            _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList, MainForm.Actions.SelectPoint, _figuresBuild);
-
-                        }
-                        else
-                        {
-                            _selectClass.MouseUpSupport();
-                            _drawClass.СhangeMoveFigure(_selectClass.SeleckResult(), "MouseUp");
-                        }
-                    }
-
-                    if (e.Button == MouseButtons.Right)
-                    {
-                        if (_selectClass.SeleckResult().Count == 0)
-                        {
-                            _selectClass.MouseUp();
-                        }
-                        else
-                        {
-                            _selectClass.MouseUp();
-                            ChangeActions(LastActions);
-                        }
-                    }
-
-                    break;
-            }
+            _actionsBuild[(int)_currentActions].MouseUp(sender, e, _currentfigure, _selectClass, _drawClass, _figuresBuild);
             _fileSave = true;
             DrawForm.Refresh();
         }
@@ -365,103 +226,7 @@ namespace MyPaint
         /// <para name = "e">Переменная, хранящая координаты мыщи</para>
         private void Child1_MouseDown(object sender, MouseEventArgs e)  // Нажата отпущена 
         {
-            switch (_currentActions)
-            {
-                case MainForm.Actions.Draw:
-
-                    if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
-                    {
-
-                        switch (_currentfigure)
-                        {
-
-                            case MainForm.FigureType.Line:
-                            case MainForm.FigureType.Ellipse:
-                            case MainForm.FigureType.Rectangle:
-
-
-                                mouseclick = true;
-                                _points.Add(new PointF(e.Location.X, e.Location.Y));
-                                _points.Add(new PointF(e.Location.X, e.Location.Y));
-
-                                break;
-
-                            case MainForm.FigureType.PoliLine:
-                            case MainForm.FigureType.Polygon:
-
-                                mouseclick = true;
-                                _points.Add(new PointF(e.Location.X, e.Location.Y));
-
-                                break;
-
-                        }
-
-                    }
-
-                    if (e.Button == MouseButtons.Right)              //если нажата правая кнопка мыши. Сохраняет полилинию
-                    {
-
-                        switch (_currentfigure)
-                        {
-                            case MainForm.FigureType.Polygon:
-                            case MainForm.FigureType.PoliLine:
-
-                                if (_points.Count != 0)
-                                {
-                                    _drawClass.MouseUp(_currentfigure, _points, _figuresBuild);
-                                    _points.Clear();
-                                }
-
-                                break;
-                        }
-                    }
-
-
-                    break;
-
-                case MainForm.Actions.SelectRegion:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        if (_selectClass.SeleckResult().Count == 0)
-                        {
-                            _selectClass.MouseUp();
-
-                            mouseclick = true;
-                            _points.Add(new PointF(e.Location.X, e.Location.Y));
-                            _points.Add(new PointF(e.Location.X, e.Location.Y));
-                            LastActions = MainForm.Actions.SelectRegion;
-                            
-                        }
-                        else
-                        {
-                            _drawClass.СhangeMoveFigure(_selectClass.SeleckResult(), "Down");
-                            _selectClass.SavePoint(e);
-                        }
-
-                    }
-
-                    break;
-
-                case MainForm.Actions.SelectPoint:
-
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        if (_selectClass.SeleckResult().Count == 0)
-                        {
-                            _selectClass.MouseUp();
-                            LastActions = MainForm.Actions.SelectPoint;
-                        }
-                        else
-                        {
-                            _drawClass.СhangeMoveFigure(_selectClass.SeleckResult(), "Down");
-                            _selectClass.SavePoint(e);
-                        }
-                    }
-
-                    break;
-            }
-
+            _actionsBuild[(int)_currentActions].MouseDown(sender, e, _currentfigure, _selectClass, _drawClass, _figuresBuild);
             DrawForm.Refresh();
         }
 
