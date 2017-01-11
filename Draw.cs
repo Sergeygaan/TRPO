@@ -15,9 +15,8 @@ namespace PaintedObjectsMoving
         private PaintedObject _drawObject;
         private SupportObject _drawSupportObject;
 
-        List<PaintedObject> _figures;//Список с объектами для прорисовки
-        PaintedObject currObj;//Объект, который в данный момент перемещается
-        Point oldPoint;
+        private List<PaintedObject> _figures;//Список с объектами для прорисовки
+
         Bitmap bmp;
 
 
@@ -66,15 +65,6 @@ namespace PaintedObjectsMoving
                     break;
 
             }
-
-            //foreach (PaintedObject DrawObject in _figures)
-            //{
-            //    RectangleF rec = DrawObject.Path.GetBounds();
-
-            //    rec.Inflate(10, 0);
-
-            //    e.Graphics.DrawEllipse(_pen, rec);
-            //}
 
             e.Graphics.DrawImage(bmp, 0, 0);
         }
@@ -139,81 +129,89 @@ namespace PaintedObjectsMoving
 
 
         //Отрисовка опорных точек
-        public void SupportPoint(PaintEventArgs e,  PaintedObject currObj)
+        public void SupportPoint(PaintEventArgs e, List<PaintedObject> SeleckResult)
         {
-           
-                currObj.SelectFigure = false;
-                currObj.ClearListFigure();
+            foreach (PaintedObject SelectObject in SeleckResult)
+            {
+                SelectObject.SelectFigure = false;
+                SelectObject.ClearListFigure();
 
                 //_drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
 
-                switch (currObj.CurrentFigure)
+                switch (SelectObject.CurrentFigure)
                 {
                     case MainForm.FigureType.Rectangle:
 
-                        for (int i = 0; i < currObj.PointSelect.Length; i++)
-                        {
+                            for (int i = 0; i < SelectObject.PointSelect.Length; i++)
+                            {
 
-                            _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
-                            _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
-                            _drawSupportObject.IdFigure = currObj.IdFigure;
-                            _drawSupportObject.ControlPointF = i;
-                          
-                            currObj.AddListFigure(_drawSupportObject);
-                        }
+                                _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
+                                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i]));
+                                _drawSupportObject.IdFigure = SelectObject.IdFigure;
+                                _drawSupportObject.ControlPointF = i;
 
+                                SelectObject.AddListFigure(_drawSupportObject);
+                            }
+                        
+            
                         break;
 
                     case MainForm.FigureType.Line:
 
-                        for (int i = 0; i < currObj.PointSelect.Length; i++)
-                        {
-                            _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
-                            _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
-                            _drawSupportObject.IdFigure = currObj.IdFigure;
-                            _drawSupportObject.ControlPointF = i;
-                           
-                            currObj.AddListFigure(_drawSupportObject);
-                        }
+                            for (int i = 0; i < SelectObject.PointSelect.Length; i++)
+                            {
+                                _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
+                                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i]));
+                                _drawSupportObject.IdFigure = SelectObject.IdFigure;
+                                _drawSupportObject.ControlPointF = i;
+
+                                SelectObject.AddListFigure(_drawSupportObject);
+                            }
+                        
 
                         break;
 
                     case MainForm.FigureType.Ellipse:
 
-                        for (int i = 0; i < currObj.PointSelect.Length; i = i + 3)
-                        {
-                            _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
-                            _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
-                            _drawSupportObject.IdFigure = currObj.IdFigure;
-                            _drawSupportObject.ControlPointF = i;
+                            for (int i = 0; i < SelectObject.PointSelect.Length; i = i + 3)
+                            {
+                                _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
+                                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i]));
+                                _drawSupportObject.IdFigure = SelectObject.IdFigure;
+                                _drawSupportObject.ControlPointF = i;
 
-                            currObj.AddListFigure(_drawSupportObject);
-                        }
-
+                                SelectObject.AddListFigure(_drawSupportObject);
+                            
+                            }
                         break;
 
                 }
-
-
-        }
-
-        public void ReplicationFigure(PaintedObject currObj)
-        {
-                        
-            _figures.Add(currObj.CloneObject());
-            _figures[_figures.Count - 1].IdFigure = _figures.Count - 1;
+            }
 
         }
 
-        public void DeleteFigure(PaintedObject currObj)
+        public void ReplicationFigure(List<PaintedObject> SeleckResult)
         {
-            _figures.RemoveAt(currObj.IdFigure);
-
-            int i = 0;
-            foreach (PaintedObject DrawObject in _figures)
+            foreach (PaintedObject SelectObject in SeleckResult)
             {
-                DrawObject.IdFigure = i;
-                i++;
+                _figures.Add(SelectObject.CloneObject());
+                _figures[_figures.Count - 1].IdFigure = _figures.Count - 1;
+            }
+
+        }
+
+        public void DeleteFigure(List<PaintedObject> SeleckResult)
+        {
+            foreach (PaintedObject SelectObject in SeleckResult)
+            {
+                _figures.RemoveAt(SelectObject.IdFigure);
+
+                int i = 0;
+                foreach (PaintedObject DrawObject in _figures)
+                {
+                    DrawObject.IdFigure = i;
+                    i++;
+                }
             }
              
         }

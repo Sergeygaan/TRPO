@@ -154,6 +154,7 @@ namespace PaintedObjectsMoving
                     break;
             }
 
+            DrawForm.Refresh();
         }
 
         void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -191,7 +192,7 @@ namespace PaintedObjectsMoving
                     break;
             }
 
-            RefreshBitmap();
+            DrawForm.Refresh();
         }
 
 
@@ -234,6 +235,7 @@ namespace PaintedObjectsMoving
         private void рисоватьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _currentActions = Actions.Draw;
+            _selectClass.MouseUp();
         }
 
         //Масштабирование выбранной фигуры
@@ -262,6 +264,7 @@ namespace PaintedObjectsMoving
             {
                 _drawClass.DeleteFigure(_selectClass.SeleckResult());
             }
+            _selectClass.MouseUp();
         }
 
     }

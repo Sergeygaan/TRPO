@@ -11,11 +11,13 @@ namespace PaintedObjectsMoving
     class SelectDraw
     {
 
+        
+        List<PaintedObject> _selectedFigures = new List<PaintedObject>();   //Список выбранных фигур
 
-        private PaintedObject currObj = null;//Объект, который в данный момент перемещается
+       // private PaintedObject currObj = null;//Объект, который в данный момент перемещается
         private SupportObject _supportObj;
         private Point _oldPoint;
-        private Point _oldPointSupport;
+       
         private RectangleF _rectangleF;
         
         private СonstructionFigure _ellipse = new СonstructionFigure();
@@ -23,16 +25,20 @@ namespace PaintedObjectsMoving
 
         public void MouseUp()
         {
-            if (currObj != null)
+            foreach (PaintedObject SelectObject in _selectedFigures)
             {
-                //currObj.Pen.Width -= 1;//Возвращаем ширину пера
-                currObj.ClearListFigure();
-                currObj.PointSelect = null;
-                currObj.SelectFigure = false;
-                currObj = null;//Убираем ссылку на объект
-                _supportObj = null;
-                
+                if (SelectObject != null)
+                {
+                    //currObj.Pen.Width -= 1;//Возвращаем ширину пера
+                    SelectObject.ClearListFigure();
+                    SelectObject.PointSelect = null;
+                    SelectObject.SelectFigure = false;
+                    //SelectObject. = null;//Убираем ссылку на объект
+                    _supportObj = null;
+
+                }
             }
+            _selectedFigures.Clear();
         }
 
         public void MouseUpSupport()
@@ -52,7 +58,7 @@ namespace PaintedObjectsMoving
             _oldPoint = e.Location;
             int figurestartX, figurestartY, figureendX, figureendY;
 
-            if (currObj == null)
+            if (_selectedFigures.Count == 0)
             {
 
                 //Ищем объект, в который попала точка.Если таких несколько, то найден будет первый по списку
@@ -81,34 +87,37 @@ namespace PaintedObjectsMoving
                     
                     if (_rectangleF.Contains(e.Location))
                     {
-                        currObj = DrawObject;//Запоминаем найденный объект
-                        currObj.PointSelect = currObj.Path.PathPoints;
-                        currObj.SelectFigure = true;
-                        //currObj.Pen.Width += 1;//Делаем перо жирнее
+
+                        DrawObject.PointSelect = DrawObject.Path.PathPoints;
+                        DrawObject.SelectFigure = true;
+                        _selectedFigures.Add(DrawObject);
+                       
 
                     }
                 }
             }
             else
             {
-                
-                foreach (SupportObject SupportObjecFigure in currObj.SelectListFigure())
+                foreach (PaintedObject SelectObject in _selectedFigures)
                 {
-
-                    _rectangleF = SupportObjecFigure.Path.GetBounds();
-
-
-                    //_rectangleF.Inflate(100, 50);
-
-
-                    if (_rectangleF.Contains(e.Location))
+                    foreach (SupportObject SupportObjecFigure in SelectObject.SelectListFigure())
                     {
-                        _supportObj = SupportObjecFigure;//Запоминаем найденный объект
-       
-                        //_supportObj.Pen.Width += 5;//Делаем перо жирнее
+
+                        _rectangleF = SupportObjecFigure.Path.GetBounds();
+
+
+                        //_rectangleF.Inflate(100, 50);
+
+
+                        if (_rectangleF.Contains(e.Location))
+                        {
+                            _supportObj = SupportObjecFigure;//Запоминаем найденный объект
+
+                            //_supportObj.Pen.Width += 5;//Делаем перо жирнее
+
+                        }
 
                     }
-
                 }
             }
         }
@@ -121,73 +130,76 @@ namespace PaintedObjectsMoving
 
             deltaX = e.Location.X - _oldPoint.X;
             deltaY = e.Location.Y - _oldPoint.Y;
-
-            switch (_currentActions)
+            foreach (PaintedObject SelectObject in _selectedFigures)
             {
-                case MainForm.Actions.Scale:
+                switch (_currentActions)
+                {
 
-                    //Смещаем нарисованный объект
-                    if ((currObj != null) && (_supportObj != null))
-                    {
+                    case MainForm.Actions.Scale:
 
-                        switch (currObj.CurrentFigure)
+                        //Смещаем нарисованный объект
+                        if ((SelectObject != null) && (_supportObj != null))
                         {
-                            case MainForm.FigureType.Rectangle:
 
-                                if ((currObj.PointSelect[0].X - currObj.PointSelect[2].X != 0) && (currObj.PointSelect[0].Y - currObj.PointSelect[2].Y != 0))
-                                {
-                                    currObj.PointSelect = currObj.Path.PathPoints;
-                                }
-                                _edipParametr.EditObjectRectangle(currObj, _supportObj, deltaX, deltaY);
+                            switch (SelectObject.CurrentFigure)
+                            {
+                                case MainForm.FigureType.Rectangle:
 
-                                break;
+                                    if ((SelectObject.PointSelect[0].X - SelectObject.PointSelect[2].X != 0) && (SelectObject.PointSelect[0].Y - SelectObject.PointSelect[2].Y != 0))
+                                    {
+                                        SelectObject.PointSelect = SelectObject.Path.PathPoints;
+                                    }
+                                    _edipParametr.EditObjectRectangle(SelectObject, _supportObj, deltaX, deltaY);
 
-                            case MainForm.FigureType.Line:
+                                    break;
 
-                                if ((currObj.PointSelect[0].X - currObj.PointSelect[1].X != 0) && (currObj.PointSelect[0].Y - currObj.PointSelect[1].Y != 0))
-                                {
-                                    currObj.PointSelect = currObj.Path.PathPoints;
-                                }
-                                _edipParametr.EditObjectLine(currObj, _supportObj, deltaX, deltaY);
+                                case MainForm.FigureType.Line:
 
-                                break;
+                                    if ((SelectObject.PointSelect[0].X - SelectObject.PointSelect[1].X != 0) && (SelectObject.PointSelect[0].Y - SelectObject.PointSelect[1].Y != 0))
+                                    {
+                                        SelectObject.PointSelect = SelectObject.Path.PathPoints;
+                                    }
+                                    _edipParametr.EditObjectLine(SelectObject, _supportObj, deltaX, deltaY);
 
-                            case MainForm.FigureType.Ellipse:
+                                    break;
+
+                                case MainForm.FigureType.Ellipse:
 
 
-                                _edipParametr.EditObjectEllepse(currObj, _supportObj, deltaX, deltaY);
+                                    _edipParametr.EditObjectEllepse(SelectObject, _supportObj, deltaX, deltaY);
 
-                                currObj.PointSelect = currObj.Path.PathPoints;
+                                    SelectObject.PointSelect = SelectObject.Path.PathPoints;
 
-                                break;
+                                    break;
+                            }
+
+                            _oldPoint = e.Location;
                         }
 
-                        _oldPoint = e.Location;
-                    }
+                        break;
 
-                    break;
+                    case MainForm.Actions.Move:
 
-                case MainForm.Actions.Move:
+                        if (SelectObject != null)
+                        {
+                            SelectObject.PointSelect = SelectObject.Path.PathPoints;
 
-                    if (currObj != null)
-                    {
-                        currObj.PointSelect = currObj.Path.PathPoints;
+                            _edipParametr.MoveObject(SelectObject, deltaX, deltaY);
 
-                        _edipParametr.MoveObject(currObj, deltaX, deltaY);
+                            _oldPoint = e.Location;
+                        }
 
-                        _oldPoint = e.Location;
-                    }
-
-                    break;
+                        break;
+                }
             }
 
-        
         }
+     
 
         //Вернуть выделенный объект 
-        public PaintedObject SeleckResult()
+        public List<PaintedObject> SeleckResult()
         {
-            return currObj;
+            return _selectedFigures;
         }
 
 
