@@ -46,6 +46,18 @@
   <ItemGroup>
     <Compile Include="Draw.cs" />
     <Compile Include="EditObject.cs" />
+    <Compile Include="LineStyle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LineStyle.Designer.cs">
+      <DependentUpon>LineStyle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LineThickness.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LineThickness.Designer.cs">
+      <DependentUpon>LineThickness.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectDraw.cs" />
     <Compile Include="SupportObject.cs" />
     <Compile Include="СonstructionFigure.cs" />
@@ -58,6 +70,12 @@
     <Compile Include="PaintedObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="LineStyle.resx">
+      <DependentUpon>LineStyle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LineThickness.resx">
+      <DependentUpon>LineThickness.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

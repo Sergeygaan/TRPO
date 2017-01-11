@@ -23,6 +23,20 @@ namespace PaintedObjectsMoving
         {
            Draw, Move, Scale, Select
         }
+        public struct Properties
+        {
+            public Color linecolor;  //цвет линии
+            public Color brushcolor; //цвет заливки
+            public int thickness;              //толщина линии
+            /* стиль линии*/
+            public System.Drawing.Drawing2D.DashStyle dashstyle;
+            public bool fill; //true - фигура с заливкой, false - без заливки
+        }
+
+        public struct PropertiesSupport
+        {
+            public Color linecolor;  //цвет линии
+        }
 
         //КЛАССЫ
         private DrawPaint _drawClass;
@@ -34,7 +48,10 @@ namespace PaintedObjectsMoving
         private static FigureType _currentfigure = FigureType.Ellipse;                 //текущая выбранная фигура
         private static FigureType _previousfigure = FigureType.Ellipse;                //предыдущая выбранная фигура
         private Actions _currentActions = Actions.Draw;
-        
+        private static MainForm.Properties _figureProperties;                        //свойства фигуры
+        private static MainForm.PropertiesSupport _figurePropertiesSupport;                 //свойства фигуры
+
+
         //ФЛАГИ
         private bool mouseclick = false;
         
@@ -49,6 +66,17 @@ namespace PaintedObjectsMoving
             //Инициализация классов
             _drawClass = new DrawPaint(DrawForm.Width, DrawForm.Height);
             _selectClass = new SelectDraw();
+
+            //Характеристика фигуры
+            _figureProperties.brushcolor = Color.White;
+            _figureProperties.dashstyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            _figureProperties.fill = false;
+            _figureProperties.linecolor = Color.Black;
+            _figureProperties.thickness = 1;
+
+            //Характеристика опорных точек
+            _figurePropertiesSupport.linecolor = Color.Black;
+
         }
 
         //Отрисовка фигур
@@ -226,6 +254,7 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)
                     {
+                        _selectClass.MouseUp();
                         mouseclick = true;
                         figurestart = e.Location;
                         figureend = e.Location;
@@ -246,7 +275,27 @@ namespace PaintedObjectsMoving
             DrawForm.Refresh();
         }
 
+        //Характеристики обычных фигур
+        public static MainForm.Properties FigureProperties
+        {
+            get { return _figureProperties; }
+        }
+        public static int Thickness
+        {
+            set { _figureProperties.thickness = value; }
+        }
+        public static System.Drawing.Drawing2D.DashStyle StyleOfLine
+        {
+            set { _figureProperties.dashstyle = value; }
+        }
 
+        //Характеристики опорных точек
+        public static MainForm.PropertiesSupport FigurePropertiesSupport
+        {
+            get { return _figurePropertiesSupport; }
+        }
+
+        //Обновление рабочей области
         void RefreshBitmap()
         {
             _drawClass.RefreshBitmap();
@@ -258,6 +307,7 @@ namespace PaintedObjectsMoving
             _currentfigure = next;
         }
 
+        //Удаление всех нарисованных фигур
         private void отчиститьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectClass.MouseUp();
@@ -330,7 +380,7 @@ namespace PaintedObjectsMoving
             DialogResult D = colorDialog1.ShowDialog();
             if (D == DialogResult.OK)
             {
-                _drawClass.ColorPenFigure(colorDialog1.Color);
+                _figureProperties.linecolor = colorDialog1.Color; 
             }
         }
 
@@ -340,11 +390,24 @@ namespace PaintedObjectsMoving
             DialogResult D = colorDialog1.ShowDialog();
             if (D == DialogResult.OK)
             {
-                _drawClass.ColorPenSupportFigure(colorDialog1.Color);
+                _figurePropertiesSupport.linecolor = colorDialog1.Color; 
             }
         }
 
+        private void toolStripButton13_Click(object sender, EventArgs e)
+        {
+            LineThickness linethicknessform = new LineThickness();  //создаем форму "Толщина линии"
+            linethicknessform.Text = "Толщина линии фигуры";               //озаглавливаем форму
+            linethicknessform.ShowDialog();                         //отображаем форму
+            linethicknessform.Dispose();                            //уничтожаем форму
+        }
 
-
+        private void toolStripButton15_Click(object sender, EventArgs e)
+        {
+            LineStyle linestyleform = new LineStyle();  //создаем форму "Стиль линии"
+            linestyleform.Text = "Стиль линии";         //озаглавливаем форму
+            linestyleform.ShowDialog();                 //отображаем форму
+            linestyleform.Dispose();                    //уничтожаем форму
+        }
     }
 }
