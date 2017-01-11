@@ -11,6 +11,7 @@ namespace PaintedObjectsMoving {
         private PointF[] _pointSelect;
         private Point _figureStart = new Point();                          //стартовая точка фигуры
         private Point _figureEnd = new Point();                            //конечная точка фигуры
+        private bool _selectFigure = false;
 
         private MainForm.FigureType _currentfigure;
 
@@ -53,9 +54,10 @@ namespace PaintedObjectsMoving {
             set { _pointSelect = value; }
         }
 
-        public void Clean()
+        public bool SelectFigure
         {
-           // _pointSelect.;
+            get { return _selectFigure; }
+            set { _selectFigure = value; }
         }
 
         public Point FigureStart

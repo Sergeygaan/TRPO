@@ -19,7 +19,11 @@ namespace PaintedObjectsMoving
         {
             currObj.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
 
-           
+            foreach (SupportObject SuppportObject in currObj.SelectListFigure())
+            {
+                SuppportObject.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
+
+            }
         }
 
 

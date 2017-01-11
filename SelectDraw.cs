@@ -27,6 +27,7 @@ namespace PaintedObjectsMoving
                 //currObj.Pen.Width -= 1;//Возвращаем ширину пера
                 currObj.ClearListFigure();
                 currObj.PointSelect = null;
+                currObj.SelectFigure = false;
                 currObj = null;//Убираем ссылку на объект
                 _supportObj = null;
                 
@@ -71,7 +72,7 @@ namespace PaintedObjectsMoving
                     {
                         currObj = DrawObject;//Запоминаем найденный объект
                         currObj.PointSelect = currObj.Path.PathPoints;
-
+                        currObj.SelectFigure = true;
                         //currObj.Pen.Width += 1;//Делаем перо жирнее
 
                     }
@@ -80,27 +81,23 @@ namespace PaintedObjectsMoving
             else
             {
                 
-                foreach (SupportObject SupportObject in currObj.SelectListFigure())
+                foreach (SupportObject SupportObjecFigure in currObj.SelectListFigure())
                 {
 
-                    //currObj.SelectListFigure()[1].Pen.Width += 5;
-                    //MessageBox.Show(currObj.SelectListFigure().Count().ToString());
+                    _rectangleF = SupportObjecFigure.Path.GetBounds();
 
 
-                    //_rectangleF = SupportObject.Path.GetBounds();
+                    //_rectangleF.Inflate(100, 50);
 
 
-                    //    _rectangleF.Inflate(100, 50);
+                    if (_rectangleF.Contains(e.Location))
+                    {
+                        _supportObj = SupportObjecFigure;//Запоминаем найденный объект
 
+                        
+                        _supportObj.Pen.Width += 5;//Делаем перо жирнее
 
-                    //if (_rectangleF.Contains(e.Location))
-                    //{
-                    //    _supportObj = SupportObject;//Запоминаем найденный объект
-
-                    //    MessageBox.Show("asdasd");
-                    //    _supportObj.Pen.Width += 5;//Делаем перо жирнее
-
-                    //}
+                    }
 
                 }
             }

@@ -20,6 +20,7 @@ namespace PaintedObjectsMoving
         Point oldPoint;
         Bitmap bmp;
 
+
         public int _widthDraw;
         public int _heightDraw;
 
@@ -140,17 +141,21 @@ namespace PaintedObjectsMoving
         //Отрисовка опорных точек
         public void SupportPoint(PaintEventArgs e,  PaintedObject currObj)
         {
-            currObj.ClearListFigure();
-
-            _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
-
-            for (int i = 0; i < currObj.PointSelect.Length; i++)
+            if (currObj.SelectFigure == true)
             {
+                currObj.SelectFigure = false;
+                currObj.ClearListFigure();
 
-                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
+                //_drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
 
-                // e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(currObj.PointSelect[i]));
-                currObj.AddListFigure(_drawSupportObject);
+                for (int i = 0; i < currObj.PointSelect.Length; i++)
+                {
+                    _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
+                    _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
+
+                    // e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(currObj.PointSelect[i]));
+                    currObj.AddListFigure(_drawSupportObject);
+                }
             }
 
             //switch (currObj.CurrentFigure)
