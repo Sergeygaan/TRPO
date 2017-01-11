@@ -16,7 +16,7 @@ namespace PaintedObjectsMoving
         private Pen _penFigure;
         private Object _drawObject;
         private Rectangle _rect;
-        private SolidBrush _brush;
+        private bool _brushFill;
         private MainForm.FigureType _currentfigure;
         private bool _saveProjectClear = false;
 
@@ -81,10 +81,14 @@ namespace PaintedObjectsMoving
 
             if (_currentfigure == MainForm.FigureType.PoliLine)
             {
-                _brush = null;
+                _brushFill = false;
+            }
+            else
+            {
+                _brushFill = MainForm.FigureProperties.fill;
             }
 
-            _drawObject = new Object(_penFigure, new GraphicsPath(), _brush, _currentfigure);
+            _drawObject = new Object(_penFigure, new GraphicsPath(), MainForm.FigureProperties.brushcolor, _currentfigure, _brushFill);
 
             FiguresBuild[(int)_currentfigure].AddFigure(_drawObject, Points, _iFigureCommand, _figures);
 
@@ -110,7 +114,7 @@ namespace PaintedObjectsMoving
                 {
                     DrawList.DrawPath(DrawObject.Pen, DrawObject.Path);
 
-                    if (DrawObject.Brush != null)
+                    if (DrawObject.Fill == true)
                     {
                         DrawList.FillPath(DrawObject.Brush, DrawObject.Path);  //Заливка
                     }
@@ -293,15 +297,6 @@ namespace PaintedObjectsMoving
         {
             _penFigure = new Pen(MainForm.FigureProperties.linecolor, MainForm.FigureProperties.thickness);
             _penFigure.DashStyle = MainForm.FigureProperties.dashstyle;
-
-                if (MainForm.FigureProperties.fill == false)
-                {
-                    _brush = null;
-                }
-                else
-                {
-                    _brush = new SolidBrush(MainForm.FigureProperties.brushcolor);
-                }
 
         }
 

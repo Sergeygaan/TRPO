@@ -54,18 +54,14 @@ namespace PaintedObjectsMoving.CORE
                 _figureProperties._lineColorPen = SelectObjectResult.Pen.Color;
                 _figureProperties._thicknessPen = SelectObjectResult.Pen.Width;
                 _figureProperties._dashStylePen = SelectObjectResult.Pen.DashStyle;
+                _figureProperties._fill = SelectObjectResult.Fill;
 
-                if (SelectObjectResult.Brush == null)
+                if (_figureProperties._fill == true)
                 {
-                    _figureProperties._fill = false;
-                    
+                    _figureProperties._brushColorPen = SelectObjectResult.BrushColor;
+
                 }
-                else
-                {
-                    
-                    _figureProperties._brushColorPen = SelectObjectResult.Brush.Color;
-                    _figureProperties._fill = true;
-                }
+
                 //Характеристики точек
                 _figureProperties._pointFigure = SelectObjectResult.Path.PathPoints;
                 _figureProperties._typesFigure = SelectObjectResult.Path.PathTypes;
@@ -87,22 +83,12 @@ namespace PaintedObjectsMoving.CORE
             {
 
                 Pen NewPen = new Pen(LoadObject._lineColorPen, LoadObject._thicknessPen);
+                NewPen.DashStyle = LoadObject._dashStylePen;
 
                 GraphicsPath NewPath = new GraphicsPath(LoadObject._pointFigure, LoadObject._typesFigure);
 
 
-                SolidBrush NewBrush;
-
-                if (LoadObject._fill == true)
-                {
-                    NewBrush = new SolidBrush(LoadObject._brushColorPen);
-                }
-                else
-                {
-                    NewBrush = null;
-                }
-
-                Object NewObject = new Object(NewPen, NewPath, NewBrush, LoadObject._currentFigure);
+                Object NewObject = new Object(NewPen, NewPath, LoadObject._brushColorPen, LoadObject._currentFigure, LoadObject._fill);
 
 
                 NewObject.IdFigure = LoadObject._idFigure;

@@ -14,19 +14,22 @@ namespace PaintedObjectsMoving.CORE
         private List<Object> _seleckResult;
 
 
-        private SolidBrush [] _brush;
+        private Color [] _brush;
+        private bool [] _fill;
         private string _operatorValue;
 
         public DeleteBackgroundFigure(List<Object> SeleckResult)
         {
  
-            _brush = new SolidBrush[SeleckResult.Count];
+            _brush = new Color[SeleckResult.Count];
+            _fill = new bool[SeleckResult.Count];
 
 
             int i = 0;
             foreach (Object SelectObject in SeleckResult)
             {
-                _brush[i] = SelectObject.Brush;
+                _fill[i] = SelectObject.Fill;
+                _brush[i] = SelectObject.BrushColor;
                 i++;
                 
             }
@@ -37,7 +40,7 @@ namespace PaintedObjectsMoving.CORE
             {
                 if (SelectObject.CurrentFigure != MainForm.FigureType.PoliLine)
                 {
-                    SelectObject.Brush = null;
+                    SelectObject.Fill = false;
                 }
             }
             _operatorValue = "Удаление фона у выделенных фигур";
@@ -49,7 +52,7 @@ namespace PaintedObjectsMoving.CORE
             {
                 if (SelectObject.CurrentFigure != MainForm.FigureType.PoliLine)
                 {
-                    SelectObject.Brush = null;
+                    SelectObject.Fill = false;
                 }
             }
             _operatorValue = "Удаление фона у выделенных фигур";
@@ -62,7 +65,8 @@ namespace PaintedObjectsMoving.CORE
             {
                 if (SelectObject.CurrentFigure != MainForm.FigureType.PoliLine)
                 {
-                    SelectObject.Brush = _brush[i];
+                    SelectObject.BrushColor = _brush[i];
+                    SelectObject.Fill = _fill[i];
                 }
                 i++;
             }

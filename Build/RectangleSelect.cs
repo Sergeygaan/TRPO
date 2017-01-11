@@ -31,7 +31,7 @@ namespace PaintedObjectsMoving.CORE
         /// <para name = "PenFigure">Кисть которая будет использоваться в построение эллипса</para>
         public void PaintFigure(PaintEventArgs e, List<PointF> Points, Pen PenFigure)
         {
-            e.Graphics.DrawRectangle(PenFigure, _сonstructionFigure.ShowRectangle(Points[0], Points[1]));
+            e.Graphics.DrawRectangle(_penFigureSelect, _сonstructionFigure.ShowRectangle(Points[0], Points[1]));
         }
 
         /// <summary>

@@ -15,7 +15,8 @@ namespace PaintedObjectsMoving {
         private PointF _figureEnd = new Point();                            //конечная точка фигуры
         private bool _selectFigure = false;
         private int _idFigure;
-        private SolidBrush _brush = null;
+        private SolidBrush _brush;
+        private bool _fill;
 
         private MainForm.FigureType _currentFigure;
 
@@ -95,28 +96,42 @@ namespace PaintedObjectsMoving {
             set { _figureEnd = value; }
         }
 
-        public SolidBrush @Brush
+        public Color BrushColor
+        {
+            get { return _brush.Color; }
+            set { _brush.Color = value; }
+        }
+
+        public SolidBrush Brush
         {
             get { return _brush; }
             set { _brush = value; }
+        }
+
+        public bool Fill
+        {
+            get { return _fill; }
+            set { _fill = value; }
         }
         public Pen @Pen {
 			get { return _pen; }
 			set { _pen = value; }
 		}
 
-		public Object(Pen pen, GraphicsPath path, SolidBrush brush, MainForm.FigureType CurrentFigure) {
+		public Object(Pen pen, GraphicsPath path, Color brush, MainForm.FigureType CurrentFigure, bool Fill)
+        {
+            _brush = new SolidBrush(Color.Black);
             _path = path;
             _pen = pen;
-            _brush = brush;
+            _brush.Color = brush;
             _currentFigure = CurrentFigure;
+            _fill = Fill;
 
         }
 
         public Object CloneObject()
         {
-            //Pen CopiPen = new Pen(_pen.Color);
-            return new Object(this.Pen, this.Path.Clone() as GraphicsPath, _brush, _currentFigure);
+            return new Object(Pen, Path.Clone() as GraphicsPath, _brush.Color, _currentFigure, _fill);
         }
 
     }

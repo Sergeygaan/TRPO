@@ -45,8 +45,8 @@ namespace PaintedObjectsMoving
         private static PropertiesSupport _figurePropertiesSupport;          //свойства фигуры
 
         private static int _childCounter = 1;                                            //счетчик дочерних окон для выдачи надписи РИСУНОК1, РИСУНОК2...
-        private static int _childWidhtSize;                                        //переменная, хранящая заданную ширину дочернего окна
-        private static int _childHeightSize;                                       //переменная, хранящая заданную высоту дочернего окна
+        private static int _childWidhtSize;                                             //переменная, хранящая заданную ширину дочернего окна
+        private static int _childHeightSize;                                            //переменная, хранящая заданную высоту дочернего окна
 
         //ФЛАГИ
         private static bool _createNewFile = false;                                      //true - создать файл
@@ -432,9 +432,9 @@ namespace PaintedObjectsMoving
             FileDialog.Text = "Новый файл";                             //задаем заголовок окна
             FileDialog.ShowDialog();                                    //отображаем диалог
 
-            if (_createNewFile)  //если в диалоговой форме было нажато ОК, то создаем новый файл
+            if (_createNewFile)                                         //если в диалоговой форме было нажато ОК, то создаем новый файл
             {
-                Form NewForm = new ChildForm();                       //создаем объект - дочернюю форму-рисунок
+                Form NewForm = new ChildForm();                         //создаем объект - дочернюю форму-рисунок
              
                 NewForm.Text = "Рисунок" + ChildCounter.ToString();     //называем ее соответствующе
                 ChildCounter++;                                         //увеличиваем счетчик окон на единицу
@@ -442,7 +442,6 @@ namespace PaintedObjectsMoving
                 NewForm.BackColor = Color.Gray;                         //цвет фона формы - серый
                 NewForm.Width = _childWidhtSize;                         //задаем значение ширины окна, хранящееся в переменной
                 NewForm.Height = _childHeightSize;                       //задаем значение высоты окна, хранящееся в переменной
-                NewForm.Location = new Point(0, 0);
                 
                 NewForm.Show();                                         //отображаем созданную форму
             }
@@ -577,7 +576,6 @@ namespace PaintedObjectsMoving
                                
                                 ChildCounter++;                                         //увеличиваем счетчик окон на единицу
                                 NewForm.MdiParent = this;                               //указываем родительскую форму
-                                NewForm.BackColor = Color.Gray;                         //цвет фона формы - серый
 
                                 NewForm.Width = _childWidhtSize;                         //задаем значение ширины окна, хранящееся в переменной
                                 NewForm.Height = _childHeightSize;                       //задаем значение высоты окна, хранящееся в переменной
