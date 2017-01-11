@@ -86,14 +86,6 @@ namespace PaintedObjectsMoving
             
             Rectangle rect = Rectangle.FromLTRB(Left, Top, Right, Down);
 
-            //if (rect == null)
-            //{
-            //    if (width != height) throw new Exception("Не удалось построить эллипс!");
-            //    else throw new Exception("Не удалось построить круг!");
-            //}
-            /*if (fill) obj.FillEllipse(Brush, rect); */                                  //выполняем заливку если  fill = true
-            //obj.DrawEllipse(new Pen(Color.Black), rect);                                               //рисуем прямоугольник
-
             return rect;
         }
 

@@ -31,8 +31,8 @@ namespace PaintedObjectsMoving
         //ПЕРЕМЕННЫЕ
         private Point figurestart = new Point();                          //стартовая точка фигуры
         private Point figureend = new Point();                            //конечная точка фигуры
-        private static FigureType _currentfigure = FigureType.Rectangle;                 //текущая выбранная фигура
-        private static FigureType _previousfigure = FigureType.Rectangle;                //предыдущая выбранная фигура
+        private static FigureType _currentfigure = FigureType.Ellipse;                 //текущая выбранная фигура
+        private static FigureType _previousfigure = FigureType.Ellipse;                //предыдущая выбранная фигура
         private Actions _currentActions = Actions.Draw;
         
         //ФЛАГИ
@@ -131,6 +131,11 @@ namespace PaintedObjectsMoving
                     break;
 
                 case Actions.Scale:
+
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        _selectClass.MouseUpSupport();
+                    }
 
                     if (e.Button == MouseButtons.Right)
                     {

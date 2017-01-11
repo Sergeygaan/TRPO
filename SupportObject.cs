@@ -11,11 +11,18 @@ namespace PaintedObjectsMoving
     {
         private GraphicsPath path;
         private Pen pen;
+        private int _controlPointF;
 
         public GraphicsPath Path
         {
             get { return path; }
             set { path = value; }
+        }
+
+        public int ControlPointF
+        {
+            get { return _controlPointF; }
+            set { _controlPointF = value; }
         }
 
         public Pen @Pen

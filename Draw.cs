@@ -141,61 +141,55 @@ namespace PaintedObjectsMoving
         //Отрисовка опорных точек
         public void SupportPoint(PaintEventArgs e,  PaintedObject currObj)
         {
-            if (currObj.SelectFigure == true)
-            {
+           
                 currObj.SelectFigure = false;
                 currObj.ClearListFigure();
 
                 //_drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
 
-                for (int i = 0; i < currObj.PointSelect.Length; i++)
+                switch (currObj.CurrentFigure)
                 {
-                    _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
-                    _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
+                    case MainForm.FigureType.Rectangle:
 
-                    // e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(currObj.PointSelect[i]));
-                    currObj.AddListFigure(_drawSupportObject);
+                        for (int i = 0; i < currObj.PointSelect.Length; i++)
+                        {
+
+                            _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
+                            _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
+                            _drawSupportObject.ControlPointF = i;
+                          
+                            currObj.AddListFigure(_drawSupportObject);
+                        }
+
+                        break;
+
+                    case MainForm.FigureType.Line:
+
+                        for (int i = 0; i < currObj.PointSelect.Length; i++)
+                        {
+                            _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
+                            _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
+                            _drawSupportObject.ControlPointF = i;
+                           
+                            currObj.AddListFigure(_drawSupportObject);
+                        }
+
+                        break;
+
+                    case MainForm.FigureType.Ellipse:
+
+                        for (int i = 0; i < currObj.PointSelect.Length; i = i + 1)
+                        {
+                            _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
+                            _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
+                            _drawSupportObject.ControlPointF = i;
+                           
+                            currObj.AddListFigure(_drawSupportObject);
+                        }
+
+                        break;
+
                 }
-            }
-
-            //switch (currObj.CurrentFigure)
-            //{
-            //    case MainForm.FigureType.Rectangle:
-
-            //        //currObj.ClearListFigure();
-
-            //        for (int i = 0; i < currObj.PointSelect.Length; i++)
-            //        {
-
-            //            _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
-
-            //            // e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(currObj.PointSelect[i]));
-            //            currObj.AddListFigure(_drawSupportObject);
-            //        }
-
-            //        break;
-
-            //    case MainForm.FigureType.Line:
-
-            //        for (int i = 0; i < currObj.PointSelect.Length; i++)
-            //        {
-            //            //e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(currObj.PointSelect[i]));
-            //            currObj.AddListFigure(new SupportObject(new Pen(Color.FromArgb(0, 123, 240)), new GraphicsPath()));
-            //        }
-
-            //        break;
-
-            //    case MainForm.FigureType.Ellipse:
-
-            //        for (int i = 0; i < currObj.PointSelect.Length; i = i + 3)
-            //        {
-            //            //e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(currObj.PointSelect[i]));
-            //            currObj.AddListFigure(new SupportObject(new Pen(Color.FromArgb(0, 123, 240)), new GraphicsPath()));
-            //        }
-
-            //        break;
-                    
-            //}
 
 
         }
