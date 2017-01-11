@@ -43,7 +43,7 @@
             "Точка",
             "Пунктир точка",
             "Пунктир точка точка"});
-            this.Styles.Location = new System.Drawing.Point(12, 26);
+            this.Styles.Location = new System.Drawing.Point(40, 32);
             this.Styles.Name = "Styles";
             this.Styles.Size = new System.Drawing.Size(121, 21);
             this.Styles.TabIndex = 7;
@@ -52,7 +52,7 @@
             // Label
             // 
             this.Label.AutoSize = true;
-            this.Label.Location = new System.Drawing.Point(12, 9);
+            this.Label.Location = new System.Drawing.Point(37, 9);
             this.Label.Name = "Label";
             this.Label.Size = new System.Drawing.Size(113, 13);
             this.Label.TabIndex = 6;
@@ -60,7 +60,7 @@
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(186, 59);
+            this.CancelButton.Location = new System.Drawing.Point(105, 59);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 5;
@@ -82,7 +82,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(281, 92);
+            this.ClientSize = new System.Drawing.Size(200, 92);
             this.Controls.Add(this.Styles);
             this.Controls.Add(this.Label);
             this.Controls.Add(this.CancelButton);

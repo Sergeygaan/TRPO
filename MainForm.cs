@@ -449,5 +449,39 @@ namespace PaintedObjectsMoving
             }
             DrawForm.Refresh();
         }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            DialogResult D = colorDialog1.ShowDialog();
+            if (D == DialogResult.OK)
+            {
+                _drawClass.СhangePenColorFigure(_selectClass.SeleckResult(), colorDialog1.Color);
+            }
+            DrawForm.Refresh();
+        }
+
+        private void toolStripButton18_Click(object sender, EventArgs e)
+        {
+            LineThickness linethicknessform = new LineThickness();  //создаем форму "Толщина линии"
+            linethicknessform.Text = "Толщина линии фигуры";               //озаглавливаем форму
+            linethicknessform.ShowDialog();                         //отображаем форму
+            linethicknessform.Dispose();                            //уничтожаем форму
+
+            _drawClass.СhangePenWidthFigure(_selectClass.SeleckResult());
+            
+            DrawForm.Refresh();
+        }
+
+        private void toolStripButton19_Click(object sender, EventArgs e)
+        {
+            LineStyle linestyleform = new LineStyle();  //создаем форму "Стиль линии"
+            linestyleform.Text = "Стиль линии";         //озаглавливаем форму
+            linestyleform.ShowDialog();                 //отображаем форму
+            linestyleform.Dispose();                    //уничтожаем форму
+
+            _drawClass.СhangePenStyleFigure(_selectClass.SeleckResult());
+
+            DrawForm.Refresh();
+        }
     }
 }

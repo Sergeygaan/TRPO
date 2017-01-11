@@ -120,13 +120,13 @@ namespace PaintedObjectsMoving
             return rect;
         }
 
-        public Rectangle SelectFigure(PointF SelectPoint)
+        public Rectangle SelectFigure(PointF SelectPoint, float Width)
         {
-
-            Left = (int)SelectPoint.X - 5;
-            Down = (int)SelectPoint.Y - 5;
-            Top = (int)SelectPoint.Y + 5;
-            Right = (int)SelectPoint.X + 5;
+            
+            Left = (int)(SelectPoint.X - 5 - Width / 2);
+            Down = (int)(SelectPoint.Y - 5 - Width / 2);
+            Top = (int)(SelectPoint.Y + 5 + Width / 2);
+            Right = (int)(SelectPoint.X + 5 + Width / 2);
 
             Rectangle rect = Rectangle.FromLTRB(Right, Down, Left, Top);
 

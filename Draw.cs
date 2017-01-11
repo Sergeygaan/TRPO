@@ -12,6 +12,7 @@ namespace PaintedObjectsMoving
         private СonstructionFigure _ellipse;
 
         private Pen _penFigure;
+        private Pen _penFigureSelect;
         private PaintedObject _drawObject;
         private SupportObject _drawSupportObject;
         private Rectangle _rect;
@@ -39,6 +40,7 @@ namespace PaintedObjectsMoving
             bmp = new Bitmap(Width, Height);
 
             _ellipse = new СonstructionFigure();
+            _penFigureSelect = new Pen(Color.Black, 1);
 
         }
 
@@ -69,7 +71,7 @@ namespace PaintedObjectsMoving
 
                 case MainForm.FigureType.RectangleSelect:
 
-                    e.Graphics.DrawRectangle(_penFigure, _ellipse.ShowRectangle(figurestart, figureend));
+                    e.Graphics.DrawRectangle(_penFigureSelect, _ellipse.ShowRectangle(figurestart, figureend));
                   
                     break;
             }
@@ -164,8 +166,8 @@ namespace PaintedObjectsMoving
                             for (int i = 0; i < SelectObject.PointSelect.Length; i++)
                             {
 
-                                _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, MainForm.FigureProperties.thickness), new GraphicsPath());
-                                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i]));
+                                _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
+                                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
                                 _drawSupportObject.IdFigure = SelectObject.IdFigure;
                                 _drawSupportObject.ControlPointF = i;
 
@@ -179,8 +181,8 @@ namespace PaintedObjectsMoving
 
                             for (int i = 0; i < SelectObject.PointSelect.Length; i++)
                             {
-                                _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, MainForm.FigureProperties.thickness), new GraphicsPath());
-                                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i]));
+                                _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
+                                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
                                 _drawSupportObject.IdFigure = SelectObject.IdFigure;
                                 _drawSupportObject.ControlPointF = i;
 
@@ -194,8 +196,8 @@ namespace PaintedObjectsMoving
 
                             for (int i = 0; i < SelectObject.PointSelect.Length; i = i + 3)
                             {
-                                _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, MainForm.FigureProperties.thickness), new GraphicsPath());
-                                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i]));
+                                _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
+                                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
                                 _drawSupportObject.IdFigure = SelectObject.IdFigure;
                                 _drawSupportObject.ControlPointF = i;
 
@@ -256,6 +258,34 @@ namespace PaintedObjectsMoving
 
                 SelectObject.Brush = new SolidBrush(ColorСhangeBackground);
 
+            }
+
+        }
+        public void СhangePenColorFigure(List<PaintedObject> SeleckResult, Color PenColor)
+        {
+            foreach (PaintedObject SelectObject in SeleckResult)
+            {
+                SelectObject.Pen.Color = PenColor;
+                //SelectObject.Brush = new SolidBrush(ColorСhangeBackground);
+
+            }
+
+        }
+
+        public void СhangePenWidthFigure(List<PaintedObject> SeleckResult)
+        {
+            foreach (PaintedObject SelectObject in SeleckResult)
+            {
+                SelectObject.Pen.Width = MainForm.FigureProperties.thickness;
+            }
+
+        }
+
+        public void СhangePenStyleFigure(List<PaintedObject> SeleckResult)
+        {
+            foreach (PaintedObject SelectObject in SeleckResult)
+            {
+                SelectObject.Pen.DashStyle = MainForm.FigureProperties.dashstyle;
             }
 
         }
