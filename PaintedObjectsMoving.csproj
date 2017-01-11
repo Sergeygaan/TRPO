@@ -64,7 +64,7 @@
     <Compile Include="GUI\ChildForm.Designer.cs">
       <DependentUpon>ChildForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CORE\Draw.cs" />
+    <Compile Include="CORE\DrawPaint.cs" />
     <Compile Include="CORE\EditObject.cs" />
     <Compile Include="GUI\LineStyle.cs">
       <SubType>Form</SubType>

@@ -196,7 +196,7 @@ namespace PaintedObjectsMoving
 
                         mouseclick = false;
 
-                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList(), MainForm.Actions.SelectRegion, _figuresBuild);
+                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.IFigureCommand(), MainForm.Actions.SelectRegion, _figuresBuild);
 
                         _points.Clear();
 
@@ -213,7 +213,7 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)
                     {
-                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList(), MainForm.Actions.SelectPoint, _figuresBuild);
+                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.IFigureCommand(), MainForm.Actions.SelectPoint, _figuresBuild);
 
                     }
 

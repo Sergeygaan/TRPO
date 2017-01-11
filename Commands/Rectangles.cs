@@ -33,16 +33,16 @@ namespace PaintedObjectsMoving.CORE
             _figuresBuild.Add(_addFigureRectangle);
         }
 
-        public void AddSupportPoint(Object SelectObject)
+        public void AddSupportPoint(IFigureCommand SelectObject)
         {
-            for (int i = 0; i < SelectObject.PointSelect.Length; i++)
+            for (int i = 0; i < SelectObject.Output().PointSelect.Length; i++)
             {
                 _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
-                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
-                _drawSupportObject.IdFigure = SelectObject.IdFigure;
+                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.Output().PointSelect[i], SelectObject.Output().Pen.Width));
+                _drawSupportObject.IdFigure = SelectObject.Output().IdFigure;
                 _drawSupportObject.ControlPointF = i;
 
-                SelectObject.AddListFigure(_drawSupportObject);
+                SelectObject.Output().AddListFigure(_drawSupportObject);
             }
         }
 
@@ -55,10 +55,10 @@ namespace PaintedObjectsMoving.CORE
             EdipParametr.EditObjectRectangle(SelectObject, SupportObj, DeltaX, DeltaY);
         }
 
-        public void ScaleFigure(MouseEventArgs e, Object DrawObject, List<Object> SelectedFigures)
+        public void ScaleFigure(MouseEventArgs e, IFigureCommand DrawObject, List<IFigureCommand> SelectedFigures)
         {
-            DrawObject.PointSelect = DrawObject.Path.PathPoints;
-            DrawObject.SelectFigure = true;
+            DrawObject.Output().PointSelect = DrawObject.Output().Path.PathPoints;
+            DrawObject.Output().SelectFigure = true;
             //DrawObject.Pen.Width += 1;
             SelectedFigures.Add(DrawObject);
         }
