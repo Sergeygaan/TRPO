@@ -16,7 +16,7 @@ namespace PaintedObjectsMoving
         private SupportObject _supportObj;
         private Point oldPoint;
         private RectangleF _rectangleF;
-        private PointF[] PointSelect;
+        
         private СonstructionFigure _ellipse = new СonstructionFigure();
         private EditObject _edipParametr = new EditObject();
 
@@ -38,7 +38,7 @@ namespace PaintedObjectsMoving
         {
             if (_supportObj != null)
             {
-                _supportObj.Pen.Width -= 5;
+                //_supportObj.Pen.Width -= 5;
                 _supportObj = null;
 
             }
@@ -77,7 +77,7 @@ namespace PaintedObjectsMoving
                         _rectangleF.Inflate(5, 10);
                     }
 
-
+                    
                     if (_rectangleF.Contains(e.Location))
                     {
                         currObj = DrawObject;//Запоминаем найденный объект
@@ -104,7 +104,7 @@ namespace PaintedObjectsMoving
                     {
                         _supportObj = SupportObjecFigure;//Запоминаем найденный объект
        
-                        _supportObj.Pen.Width += 5;//Делаем перо жирнее
+                        //_supportObj.Pen.Width += 5;//Делаем перо жирнее
 
                     }
 

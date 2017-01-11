@@ -12,11 +12,25 @@ namespace PaintedObjectsMoving
         private GraphicsPath path;
         private Pen pen;
         private int _controlPointF;
+        private PointF _controlPoint;
+        private int _idFigure;
+
+        public int IdFigure
+        {
+            get { return _idFigure; }
+            set { _idFigure = value; }
+        }
 
         public GraphicsPath Path
         {
             get { return path; }
             set { path = value; }
+        }
+
+        public PointF ControlPoint
+        {
+            get { return _controlPoint; }
+            set { _controlPoint = value; }
         }
 
         public int ControlPointF

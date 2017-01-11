@@ -111,7 +111,7 @@ namespace PaintedObjectsMoving
             //Начальная и конечная координата
             _drawObject.FigureStart = figurestart;
             _drawObject.FigureEnd = figureend;
-
+            _drawObject.IdFigure = _figures.Count;
             _figures.Add(_drawObject);
 
         }
@@ -156,6 +156,7 @@ namespace PaintedObjectsMoving
 
                             _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
                             _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
+                            _drawSupportObject.IdFigure = currObj.IdFigure;
                             _drawSupportObject.ControlPointF = i;
                           
                             currObj.AddListFigure(_drawSupportObject);
@@ -169,6 +170,7 @@ namespace PaintedObjectsMoving
                         {
                             _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
                             _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
+                            _drawSupportObject.IdFigure = currObj.IdFigure;
                             _drawSupportObject.ControlPointF = i;
                            
                             currObj.AddListFigure(_drawSupportObject);
@@ -182,8 +184,9 @@ namespace PaintedObjectsMoving
                         {
                             _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
                             _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
-                            _drawSupportObject.ControlPointF = i  ;
-                           
+                            _drawSupportObject.IdFigure = currObj.IdFigure;
+                            _drawSupportObject.ControlPointF = i;
+
                             currObj.AddListFigure(_drawSupportObject);
                         }
 

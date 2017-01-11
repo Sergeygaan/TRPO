@@ -12,10 +12,17 @@ namespace PaintedObjectsMoving {
         private Point _figureStart = new Point();                          //стартовая точка фигуры
         private Point _figureEnd = new Point();                            //конечная точка фигуры
         private bool _selectFigure = false;
+        private int _idFigure;
 
         private MainForm.FigureType _currentfigure;
 
         List<SupportObject> _supportFigures = new List<SupportObject>();
+
+        public int IdFigure
+        {
+            get { return _idFigure; }
+            set { _idFigure = value; }
+        }
 
         public GraphicsPath Path {
 			get { return path; }
