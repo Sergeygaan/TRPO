@@ -281,48 +281,63 @@ namespace PaintedObjectsMoving
             DrawForm.Invalidate();
         }
 
+        //Квадрат
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            ChangeFigure(FigureType.Rectangle);
+        }
 
-        //Отрисовка фигур
-        private void рисоватьToolStripMenuItem_Click(object sender, EventArgs e)
+        //Режим рисования
+        private void toolStripButton5_Click(object sender, EventArgs e)
         {
             _currentActions = Actions.Draw;
             _selectClass.MouseUp();
             ChangeFigure(FigureType.Line);
         }
 
-        //Масштабирование выбранной фигуры
-        private void масштабироватьToolStripMenuItem_Click(object sender, EventArgs e)
+        //Режим выделения
+        private void toolStripButton7_Click(object sender, EventArgs e)
         {
-            _currentActions = Actions.Scale;
+            _currentActions = Actions.Select;
+            ChangeFigure(FigureType.RectangleSelect);
         }
-
-        // Перемещение выбранной фигуры
-        private void перемещатьToolStripMenuItem1_Click(object sender, EventArgs e)
+        //Эллипс
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            ChangeFigure(FigureType.Ellipse);
+        }
+        //Линия
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            ChangeFigure(FigureType.Line);
+        }
+        //Перемещение
+        private void toolStripButton8_Click(object sender, EventArgs e)
         {
             _currentActions = Actions.Move;
         }
-
-        private void копироватьToolStripMenuItem_Click(object sender, EventArgs e)
+        //Масштабирование
+        private void toolStripButton9_Click(object sender, EventArgs e)
+        {
+            _currentActions = Actions.Scale;
+        }
+        //Копирование
+        private void toolStripButton10_Click(object sender, EventArgs e)
         {
             if (_selectClass.SeleckResult() != null)
             {
                 _drawClass.ReplicationFigure(_selectClass.SeleckResult());
             }
         }
-
-        private void удаитьToolStripMenuItem_Click(object sender, EventArgs e)
+        //Удаление
+        private void toolStripButton11_Click(object sender, EventArgs e)
         {
             if (_selectClass.SeleckResult() != null)
             {
                 _drawClass.DeleteFigure(_selectClass.SeleckResult());
             }
             _selectClass.MouseUp();
-        }
-
-        private void выделениеToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            _currentActions = Actions.Select;
-            ChangeFigure(FigureType.RectangleSelect);
+            DrawForm.Refresh();
         }
     }
 }
