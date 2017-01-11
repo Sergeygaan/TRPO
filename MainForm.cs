@@ -62,7 +62,7 @@ namespace PaintedObjectsMoving
             if (_selectClass.SeleckResult() != null)
             {
 
-                _drawClass.SupportPoint(e, _selectClass.SeleckFigure(), _selectClass.SeleckResult());
+                _drawClass.SupportPoint(e, _selectClass.SeleckResult());
 
             }
 
@@ -219,6 +219,7 @@ namespace PaintedObjectsMoving
 
         private void отчиститьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            _selectClass.MouseUp();
             _drawClass.Clear();
             DrawForm.Invalidate();
         }

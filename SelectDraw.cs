@@ -11,10 +11,14 @@ namespace PaintedObjectsMoving
     class SelectDraw
     {
 
-        private PaintedObject currObj;//Объект, который в данный момент перемещается
+
+        private PaintedObject currObj = null;//Объект, который в данный момент перемещается
+        private SupportObject _supportObj;
         private Point oldPoint;
         private RectangleF _rectangleF;
         private PointF[] PointSelect;
+        private СonstructionFigure _ellipse = new СonstructionFigure();
+        private EditObject _edipParametr = new EditObject();
 
         public void MouseUp()
         {
@@ -31,43 +35,61 @@ namespace PaintedObjectsMoving
             //Запоминаем положение курсора
             oldPoint = e.Location;
             int figurestartX, figurestartY, figureendX, figureendY;
-            
-            //Ищем объект, в который попала точка.Если таких несколько, то найден будет первый по списку
-            foreach (PaintedObject DrawObject in _figures)
+
+            if (currObj == null)
             {
 
-                figurestartX = DrawObject.FigureStart.X;
-                figurestartY = DrawObject.FigureStart.Y;
-
-                figureendX = DrawObject.FigureEnd.X;
-                figureendY = DrawObject.FigureEnd.Y;
-
-                // Получение области выделения
-                _rectangleF = DrawObject.Path.GetBounds();
-
-                if (figurestartX == figureendX)
+                //Ищем объект, в который попала точка.Если таких несколько, то найден будет первый по списку
+                foreach (PaintedObject DrawObject in _figures)
                 {
-                    _rectangleF.Inflate(10, 5);
+
+                    figurestartX = DrawObject.FigureStart.X;
+                    figurestartY = DrawObject.FigureStart.Y;
+
+                    figureendX = DrawObject.FigureEnd.X;
+                    figureendY = DrawObject.FigureEnd.Y;
+
+                    // Получение области выделения
+                    _rectangleF = DrawObject.Path.GetBounds();
+
+                    if (figurestartX == figureendX)
+                    {
+                        _rectangleF.Inflate(10, 5);
+                    }
+
+                    if (figurestartY == figureendY)
+                    {
+                        _rectangleF.Inflate(5, 10);
+                    }
+
+
+                    if (_rectangleF.Contains(e.Location))
+                    {
+                        currObj = DrawObject;//Запоминаем найденный объект
+                        PointSelect = currObj.Path.PathPoints;
+
+                        //currObj.Pen.Width += 1;//Делаем перо жирнее
+
+                    }
                 }
-
-                if (figurestartY == figureendY)
-                {
-                    _rectangleF.Inflate(5, 10);
-                }
-
-
-                if (_rectangleF.Contains(e.Location))
-                {
-                    currObj = DrawObject;//Запоминаем найденный объект
-                    PointSelect = currObj.Path.PathPoints;
-
-                    //currObj.Pen.Width += 1;//Делаем перо жирнее
-
-                }
-                
             }
+            else
+            {
+                foreach (SupportObject SupportObject in currObj.ListFigure())
+                {
+                    if (SupportObject.Path.GetBounds().Contains(e.Location))
+                    {
+                        _supportObj = SupportObject;//Запоминаем найденный объект
+                                                    //PointSelect = _supportObj.Path.PathPoints;
 
+                        _supportObj.Pen.Width += 1;//Делаем перо жирнее
+
+                    }
+
+                }
+            }
         }
+
 
         public void MouseMove(MouseEventArgs e)
         {
@@ -89,46 +111,38 @@ namespace PaintedObjectsMoving
                     //Смещаем нарисованный объект
                     if (currObj != null)
                     {
-                        //Перемещение
-                        currObj.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
 
-                       // currObj.Path.Flatten();
-
-                        PointSelect = currObj.Path.PathPoints;
-
-                        //MessageBox.Show(PointSelect[3].ToString());
-
-                        
-                       // MessageBox.Show(currObj.Path.GetLastPoint().ToString());
-                       // MessageBox.Show(currObj.Path.PointCount.ToString());
-                        
-                        //currObj.Path.AddRectangle(_ellipse.Show(figurestart, oldPoint));
-
-
+                        //PointSelect[0].X += deltaX;
+                        //PointSelect[0].Y += deltaY;
                         //currObj.Path.Reset();
-                        //currObj.Path.AddLine(currObj.FigureStart, oldPoint);
-                        //DrawForm.Refresh();
-                        //DrawForm.Invalidate();
-                        //currObj.Path.Transform(new Matrix(-1, 0, 1, 0, 0, 0));
+                        //currObj.Path.AddRectangle(_ellipse.ShowRectangle1(PointSelect[0], PointSelect[2]));
 
-                        //Запоминаем новое положение курсора
+                        //PointSelect[0].X += deltaX;
+                        //PointSelect[2].Y += deltaY;
+                        //currObj.Path.Reset();
+                        //currObj.Path.AddRectangle(_ellipse.ShowRectangle1(PointSelect[0], PointSelect[2]));
+
+                        //PointSelect[2].X += deltaX;
+                        //PointSelect[0].Y += deltaY;
+                        //currObj.Path.Reset();
+                        //currObj.Path.AddRectangle(_ellipse.ShowRectangle1(PointSelect[0], PointSelect[2]));
+
+                        //Перемещение
+
+                        _edipParametr.MoveObject(currObj, deltaX, deltaY);
+                        //currObj.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
+
+                        if ((PointSelect[0].X - PointSelect[2].X != 0) && (PointSelect[0].Y - PointSelect[2].Y != 0))
+                        {
+                            currObj.PointSelect = currObj.Path.PathPoints;
+                        }
+
                         oldPoint = e.Location;
  
                     }
         }
 
-
-        //Вернуть начальную координату
-        public PointF[] SeleckFigure()
-        {            
-            return PointSelect;
-        }
-
         //Вернуть конечную координату
-        public Point SelectFigureEnd()
-        {
-            return currObj.FigureEnd;
-        }
 
         //Вернуть выделенный объект 
         public PaintedObject SeleckResult()

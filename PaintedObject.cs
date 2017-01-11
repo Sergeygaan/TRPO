@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -7,21 +8,49 @@ namespace PaintedObjectsMoving {
     {
 		private GraphicsPath path;
         private Pen pen;
-
+        private PointF[] _pointSelect;
         private Point _figureStart = new Point();                          //стартовая точка фигуры
         private Point _figureEnd = new Point();                            //конечная точка фигуры
 
         private MainForm.FigureType _currentfigure;
 
+        List<SupportObject> _supportFigures = new List<SupportObject>();
+
         public GraphicsPath Path {
 			get { return path; }
 			set { path = value; }
-		}
+        }
 
+        //Добавить опорную фигуру в список
+        public void AddListFigure(SupportObject AddFigure)
+        {
+            _supportFigures.Add(AddFigure);
+        }
+
+        //Отчистить список опорных фигур
+        public void ClearListFigure()
+        {
+            _supportFigures.Clear();
+        }
+
+        //Вернуть список опорных фигур
+        public List<SupportObject> ListFigure()
+        {
+            return _supportFigures;
+        }
+
+        //Вернуть фигуры
         public MainForm.FigureType CurrentFigure
         {
             get { return _currentfigure; }
             set { _currentfigure = value; }
+        }
+
+        //Вернуть координаты
+        public PointF[] PointSelect
+        {
+            get { return _pointSelect; }
+            set { _pointSelect = value; }
         }
 
         public Point FigureStart
