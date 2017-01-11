@@ -30,6 +30,8 @@ namespace PaintedObjectsMoving
         private СhangePenColor _penColor;
         private СhangePenStyle _penStyle;
         private СhangeMove _penMove;
+        private СhangeBackgroundFigure _brushColor;
+        private DeleteBackgroundFigure _deleteBrush;
 
         public DrawPaint(int Width, int Height)
         {
@@ -149,24 +151,28 @@ namespace PaintedObjectsMoving
         //Удаление фона у выбранных фигур
         public void DeleteBackgroundFigure(List<Object> SeleckResult)
         {
-            foreach (Object SelectObject in SeleckResult)
+
+            if (SeleckResult.Count != 0)
             {
+                EditFigure();
 
-                SelectObject.Brush = null;
-               
+                _deleteBrush = new DeleteBackgroundFigure(SeleckResult);
+
+                _iFigureCommand.Add(_deleteBrush);
             }
-
         }
+
+
         //Изменение фона у выбранных фигур
         public void СhangeBackgroundFigure(List<Object> SeleckResult, Color ColorСhangeBackground)
         {
-            foreach (Object SelectObject in SeleckResult)
+            if (SeleckResult.Count != 0)
             {
-                if (SelectObject.CurrentFigure != MainForm.FigureType.PoliLine)
-                {
-                    SelectObject.Brush = new SolidBrush(ColorСhangeBackground);
-                }
+                EditFigure();
 
+                _brushColor = new СhangeBackgroundFigure(SeleckResult, ColorСhangeBackground);
+
+                _iFigureCommand.Add(_brushColor);
             }
 
         }
