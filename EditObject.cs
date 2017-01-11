@@ -23,7 +23,7 @@ namespace PaintedObjectsMoving
         {
             currObj.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
 
-            MoveObjectSupport(currObj, deltaX, deltaY);
+            //MoveObjectSupport(currObj, deltaX, deltaY);
         }
 
         public void EditObjectRectangle(PaintedObject currObj, SupportObject _supportObj, int deltaX, int deltaY)
@@ -77,7 +77,7 @@ namespace PaintedObjectsMoving
 
             }
 
-            MoveObjectSupport(currObj, deltaX, deltaY);
+           // MoveObjectSupport(currObj, deltaX, deltaY);
         }
 
 
@@ -109,7 +109,7 @@ namespace PaintedObjectsMoving
                 }
             }
 
-            MoveObjectSupport(currObj, deltaX, deltaY);
+           // MoveObjectSupport(currObj, deltaX, deltaY);
         }
 
 
@@ -200,7 +200,7 @@ namespace PaintedObjectsMoving
                 }
             }
 
-            MoveObjectSupport(currObj, deltaX, deltaY);
+            // MoveObjectSupport(currObj, deltaX, deltaY);
         }
 
         public void MoveObjectSupport(PaintedObject currObj, int deltaX, int deltaY)

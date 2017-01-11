@@ -45,8 +45,8 @@ namespace PaintedObjectsMoving
         //ПЕРЕМЕННЫЕ
         private Point figurestart = new Point();                          //стартовая точка фигуры
         private Point figureend = new Point();                            //конечная точка фигуры
-        private static FigureType _currentfigure = FigureType.Ellipse;                 //текущая выбранная фигура
-        private static FigureType _previousfigure = FigureType.Ellipse;                //предыдущая выбранная фигура
+        private static FigureType _currentfigure = FigureType.Line;                 //текущая выбранная фигура
+        private static FigureType _previousfigure = FigureType.Line;                //предыдущая выбранная фигура
         private Actions _currentActions = Actions.Draw;
         private static MainForm.Properties _figureProperties;                        //свойства фигуры
         private static MainForm.PropertiesSupport _figurePropertiesSupport;                 //свойства фигуры
