@@ -19,11 +19,9 @@ namespace PaintedObjectsMoving
             Rectangle, Square, Ellipse, Circle, Curve, Line
         }
 
-        PaintedObject currObj;//Объект, который в данный момент перемещается
-        Point oldPoint;
-
-
+        //КЛАССЫ
         private DrawPaint _drawClass;
+        private SelectDraw _selectClass;
 
         //ПЕРЕМЕННЫЕ
         private Point figurestart = new Point();                          //стартовая точка фигуры
@@ -42,15 +40,27 @@ namespace PaintedObjectsMoving
 
             //_pen.DashStyle = System.Drawing.Drawing2D.DashStyle.DashDotDot;
 
+            //Инициализация классов
             _drawClass = new DrawPaint(DrawForm.Width, DrawForm.Height);
+            _selectClass = new SelectDraw();
         }
 
+        //Отрисовка фигур
         void Form1_Paint(object sender, PaintEventArgs e)
         {
-            
             RefreshBitmap();
 
             _drawClass.Paint(e, _currentfigure, figurestart, figureend);
+
+
+            if (_selectClass.SeleckResult() != null)
+            {
+
+                _drawClass.SupportPoint(e, _selectClass.SeleckFigure());
+
+
+            }
+
 
         }
 
@@ -58,46 +68,8 @@ namespace PaintedObjectsMoving
         {
             if (e.Button == MouseButtons.Right)
             {
-                switch (e.Button)
-                {
-                    case MouseButtons.Right:
-                        //Считаем смещение курсора
-                        int deltaX, deltaY;
 
-                        //int figurestartX, figurestartY, figureendX, figureendY;
-                        deltaX = e.Location.X - oldPoint.X;
-                        deltaY = e.Location.Y - oldPoint.Y;
-
-                        //figurestartX = e.Location.X - oldPoint.X;
-                        //figurestartY = e.Location.X - oldPoint.Y;
-
-
-                        //figureendX = e.Location.X - oldPoint.X;
-                        //figureendX = e.Location.X - oldPoint.X;
-
-
-                        //Смещаем нарисованный объект
-                        if (currObj != null)
-                        {
-                            //Перемещение
-                            //currObj.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
-
-                            //currObj.Path.AddRectangle(_ellipse.Show(figurestart, oldPoint));
-
-
-                            currObj.Path.Reset();
-                            currObj.Path.AddLine(currObj.FigureStart, oldPoint);
-                            //DrawForm.Refresh();
-                            //DrawForm.Invalidate();
-                            //currObj.Path.Transform(new Matrix(-1, 0, 1, 0, 0, 0));
-
-                            //Запоминаем новое положение курсора
-                            oldPoint = e.Location;
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                _selectClass.MouseMove(e);
 
             }
 
@@ -108,18 +80,13 @@ namespace PaintedObjectsMoving
             }
 
             DrawForm.Refresh();
-            DrawForm.Invalidate();
         }
 
         void Form1_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
-                if (currObj != null)
-                {
-                    currObj.Pen.Width -= 1;//Возвращаем ширину пера
-                    currObj = null;//Убираем ссылку на объект
-                }
+                _selectClass.MouseUp();
             }
 
             if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
@@ -143,18 +110,10 @@ namespace PaintedObjectsMoving
 
             if (e.Button == MouseButtons.Right)
             {
-                //Запоминаем положение курсора
-                oldPoint = e.Location;
-                //Ищем объект, в который попала точка.Если таких несколько, то найден будет первый по списку
-                foreach (PaintedObject DrawObject in _drawClass.FiguresList())
-                {
-                    if (DrawObject.Path.GetBounds().Contains(e.Location))
-                    {
-                        currObj = DrawObject;//Запоминаем найденный объект
-                        currObj.Pen.Width += 1;//Делаем перо жирнее
-                        return;
-                    }
-                }
+
+                _selectClass.MouseDown(e, _drawClass.FiguresList());
+                
+
             }
             if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
             {
@@ -162,7 +121,7 @@ namespace PaintedObjectsMoving
                 figurestart = e.Location;
             }
 
-
+            RefreshBitmap();
         }
         void RefreshBitmap()
         {

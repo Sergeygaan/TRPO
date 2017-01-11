@@ -9,7 +9,7 @@ namespace PaintedObjectsMoving
     class DrawPaint
     {
 
-        private Ellipse _ellipse;
+        private СonstructionFigure _ellipse;
 
         private Pen _pen;
         private PaintedObject _drawObject;
@@ -35,8 +35,8 @@ namespace PaintedObjectsMoving
             _figures = new List<PaintedObject>();
             bmp = new Bitmap(Width, Height);
 
-            _ellipse = new Ellipse();
-            _pen = new Pen(Color.Black, 2);
+            _ellipse = new СonstructionFigure();
+            _pen = new Pen(Color.Black, 4);
 
         }
 
@@ -46,7 +46,7 @@ namespace PaintedObjectsMoving
             {
                 case MainForm.FigureType.Rectangle:
 
-                    e.Graphics.DrawRectangle(_pen, _ellipse.Show(figurestart, figureend));
+                    e.Graphics.DrawRectangle(_pen, _ellipse.ShowRectangle(figurestart, figureend));
 
                     break;
 
@@ -58,11 +58,20 @@ namespace PaintedObjectsMoving
 
                 case MainForm.FigureType.Ellipse:
 
-                    e.Graphics.DrawEllipse(_pen, _ellipse.Show(figurestart, figureend));
+                    e.Graphics.DrawEllipse(_pen, _ellipse.ShowEllipse(figurestart, figureend));
 
                     break;
 
             }
+
+            //foreach (PaintedObject DrawObject in _figures)
+            //{
+            //    RectangleF rec = DrawObject.Path.GetBounds();
+
+            //    rec.Inflate(10, 0);
+
+            //    e.Graphics.DrawEllipse(_pen, rec);
+            //}
 
             e.Graphics.DrawImage(bmp, 0, 0);
         }
@@ -70,13 +79,13 @@ namespace PaintedObjectsMoving
         public void MouseUp(MainForm.FigureType _currentfigure, Point figurestart, Point figureend)
         {
 
-            _drawObject = new PaintedObject(new Pen(Color.FromArgb(0, 123, 240)), new GraphicsPath());
+            _drawObject = new PaintedObject(new Pen(Color.FromArgb(0, 123, 240), 4), new GraphicsPath());
 
             switch (_currentfigure)
             {
                 case MainForm.FigureType.Rectangle:
 
-                    _drawObject.Path.AddRectangle(_ellipse.Show(figurestart, figureend));
+                    _drawObject.Path.AddRectangle(_ellipse.ShowRectangle(figurestart, figureend));
 
                     break;
 
@@ -88,7 +97,7 @@ namespace PaintedObjectsMoving
 
                 case MainForm.FigureType.Ellipse:
 
-                    _drawObject.Path.AddEllipse(_ellipse.Show(figurestart, figureend));
+                    _drawObject.Path.AddEllipse(_ellipse.ShowEllipse(figurestart, figureend));
 
                     break;
 
@@ -114,6 +123,16 @@ namespace PaintedObjectsMoving
                     DrawList.DrawPath(DrawObject.Pen, DrawObject.Path);
                 }
             }
+        }
+
+        public void SupportPoint(PaintEventArgs e, PointF[] SupporFigureStart )
+        {
+ 
+            e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(SupporFigureStart[0]));
+
+            e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(SupporFigureStart[1]));
+
+
         }
 
         public void Clear()

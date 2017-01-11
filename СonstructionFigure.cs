@@ -16,7 +16,7 @@ namespace PaintedObjectsMoving
      * а "Круг"; и в методе Show появится строка
      * построения эллипса по заданному прямоугольнику
      */
-    class Ellipse 
+    class СonstructionFigure
     {
         //ПЕРЕМЕННЫЕ
         private int Top;                //верхняя координата эллипса
@@ -97,7 +97,7 @@ namespace PaintedObjectsMoving
         }
 
         //МЕТОДЫ
-        public Rectangle Show(Point start, Point end)
+        public Rectangle ShowRectangle(Point start, Point end)
         {
             /*          true        false
              * Hide     скрыть      отобразить
@@ -125,5 +125,51 @@ namespace PaintedObjectsMoving
 
             return rect;
         }
+
+        public Rectangle ShowEllipse(Point start, Point end)
+        {
+            /*          true        false
+             * Hide     скрыть      отобразить
+             * Dash     пунктиром   выбранным стилем
+             */
+
+            /*создаем прямоугольник с заданными координатами,
+             * учитывая сдвиг при прокрутке
+             */
+            Left = (start.X - end.X > 0) ? end.X : start.X;
+            Down = (start.Y - end.Y > 0) ? start.Y : end.Y;
+            Top = (start.Y - end.Y > 0) ? end.Y : start.Y;
+            Right = (start.X - end.X > 0) ? start.X : end.X;
+
+            //width = Math.Abs(end.X - start.X);              //вычисляем высоту эллипса
+            //height = Math.Abs(end.Y - start.Y);             //вычисляем ширину эллипса
+
+            Rectangle rect = Rectangle.FromLTRB(Left, Top, Right, Down);
+
+            //if (rect == null)
+            //{
+            //    if (width != height) throw new Exception("Не удалось построить эллипс!");
+            //    else throw new Exception("Не удалось построить круг!");
+            //}
+            /*if (fill) obj.FillEllipse(Brush, rect); */                                  //выполняем заливку если  fill = true
+            //obj.DrawEllipse(new Pen(Color.Black), rect);                                               //рисуем прямоугольник
+
+            return rect;
+        }
+
+        public Rectangle SelectFigure(PointF start)
+        {
+
+            Left = (int)start.X - 5;
+            Down = (int)start.Y - 5;
+            Top = (int)start.Y + 5;
+            Right = (int)start.X + 5;
+
+
+            Rectangle rect = Rectangle.FromLTRB(Left, Top, Right, Down);
+
+            return rect;
+        }
+
     }
 }

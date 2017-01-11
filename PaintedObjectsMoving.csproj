@@ -45,7 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Draw.cs" />
-    <Compile Include="Ellipse.cs" />
+    <Compile Include="SelectDraw.cs" />
+    <Compile Include="СonstructionFigure.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

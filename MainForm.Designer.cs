@@ -101,8 +101,8 @@
             // отчиститьToolStripMenuItem
             // 
             this.отчиститьToolStripMenuItem.Name = "отчиститьToolStripMenuItem";
-            this.отчиститьToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
-            this.отчиститьToolStripMenuItem.Text = "Отчистить";
+            this.отчиститьToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.отчиститьToolStripMenuItem.Text = "Очистить";
             this.отчиститьToolStripMenuItem.Click += new System.EventHandler(this.отчиститьToolStripMenuItem_Click);
             // 
             // MainForm
