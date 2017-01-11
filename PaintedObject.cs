@@ -83,17 +83,26 @@ namespace PaintedObjectsMoving {
 			get { return pen; }
 			set { pen = value; }
 		}
-		public PaintedObject(Pen pen, GraphicsPath path) {
+		public PaintedObject(Pen pen, GraphicsPath path, MainForm.FigureType CurrentFigure) {
 			this.path = path;
 			this.pen = pen;
-		}
+            _currentfigure = CurrentFigure;
+
+        }
 
 		#region ICloneable Members
 
 		public object Clone() {
-			return new PaintedObject(this.Pen, this.Path.Clone() as GraphicsPath);
+
+			return new PaintedObject(this.Pen, this.Path.Clone() as GraphicsPath, _currentfigure);
 		}
 
-		#endregion
-	}
+        public PaintedObject CloneObject()
+        {
+
+            return new PaintedObject(this.Pen, this.Path.Clone() as GraphicsPath, _currentfigure);
+        }
+
+        #endregion
+    }
 }

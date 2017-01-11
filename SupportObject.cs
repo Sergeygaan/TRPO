@@ -54,7 +54,7 @@ namespace PaintedObjectsMoving
 
         public object Clone()
         {
-            return new PaintedObject(this.Pen, this.Path.Clone() as GraphicsPath);
+            return new SupportObject(this.Pen, this.Path.Clone() as GraphicsPath);
         }
 
         #endregion

@@ -83,31 +83,31 @@ namespace PaintedObjectsMoving
         public void MouseUp(MainForm.FigureType _currentfigure, Point figurestart, Point figureend)
         {
 
-            _drawObject = new PaintedObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
-
             switch (_currentfigure)
             {
                 case MainForm.FigureType.Rectangle:
 
+                    _drawObject = new PaintedObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath(), _currentfigure);
                     _drawObject.Path.AddRectangle(_ellipse.ShowRectangle(figurestart, figureend));
 
                     break;
 
                 case MainForm.FigureType.Line:
 
+                    _drawObject = new PaintedObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath(), _currentfigure);
                     _drawObject.Path.AddLine(figurestart, figureend);
 
                     break;
 
                 case MainForm.FigureType.Ellipse:
 
+                    _drawObject = new PaintedObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath(), _currentfigure);
                     _drawObject.Path.AddEllipse(_ellipse.ShowEllipse(figurestart, figureend));
 
                     break;
 
             }
-            //Фигура которая рисовалась
-            _drawObject.CurrentFigure = _currentfigure;
+
             //Начальная и конечная координата
             _drawObject.FigureStart = figurestart;
             _drawObject.FigureEnd = figureend;
@@ -195,6 +195,27 @@ namespace PaintedObjectsMoving
                 }
 
 
+        }
+
+        public void ReplicationFigure(PaintedObject currObj)
+        {
+                        
+            _figures.Add(currObj.CloneObject());
+            _figures[_figures.Count - 1].IdFigure = _figures.Count - 1;
+
+        }
+
+        public void DeleteFigure(PaintedObject currObj)
+        {
+            _figures.RemoveAt(currObj.IdFigure);
+
+            int i = 0;
+            foreach (PaintedObject DrawObject in _figures)
+            {
+                DrawObject.IdFigure = i;
+                i++;
+            }
+             
         }
 
         public void Clear()

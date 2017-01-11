@@ -250,12 +250,18 @@ namespace PaintedObjectsMoving
 
         private void копироватьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (_selectClass.SeleckResult() != null)
+            {
+                _drawClass.ReplicationFigure(_selectClass.SeleckResult());
+            }
         }
 
         private void удаитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (_selectClass.SeleckResult() != null)
+            {
+                _drawClass.DeleteFigure(_selectClass.SeleckResult());
+            }
         }
 
     }

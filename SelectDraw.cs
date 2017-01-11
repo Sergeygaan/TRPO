@@ -162,8 +162,6 @@ namespace PaintedObjectsMoving
                                 break;
                         }
 
-                        //_edipParametr.MoveObject(currObj, deltaX, deltaY);
-
                         _oldPoint = e.Location;
                     }
 
@@ -171,11 +169,15 @@ namespace PaintedObjectsMoving
 
                 case MainForm.Actions.Move:
 
-                    currObj.PointSelect = currObj.Path.PathPoints;
+                    if (currObj != null)
+                    {
+                        currObj.PointSelect = currObj.Path.PathPoints;
 
-                    _edipParametr.MoveObject(currObj, deltaX, deltaY);
+                        _edipParametr.MoveObject(currObj, deltaX, deltaY);
 
-                    _oldPoint = e.Location;
+                        _oldPoint = e.Location;
+                    }
+
                     break;
             }
 

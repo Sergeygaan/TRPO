@@ -47,7 +47,7 @@
             this.DrawForm.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.DrawForm.Location = new System.Drawing.Point(0, 27);
             this.DrawForm.Name = "DrawForm";
-            this.DrawForm.Size = new System.Drawing.Size(1001, 428);
+            this.DrawForm.Size = new System.Drawing.Size(1039, 503);
             this.DrawForm.TabIndex = 0;
             this.DrawForm.TabStop = false;
             this.DrawForm.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
@@ -63,7 +63,7 @@
             this.действияToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1001, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1039, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -125,7 +125,7 @@
             // рисоватьToolStripMenuItem
             // 
             this.рисоватьToolStripMenuItem.Name = "рисоватьToolStripMenuItem";
-            this.рисоватьToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.рисоватьToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.рисоватьToolStripMenuItem.Text = "Рисовать";
             this.рисоватьToolStripMenuItem.Click += new System.EventHandler(this.рисоватьToolStripMenuItem_Click);
             // 
@@ -137,7 +137,7 @@
             this.масштабироватьToolStripMenuItem1,
             this.перемещатьToolStripMenuItem1});
             this.выделитьToolStripMenuItem.Name = "выделитьToolStripMenuItem";
-            this.выделитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.выделитьToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.выделитьToolStripMenuItem.Text = "Выделить";
             // 
             // копироватьToolStripMenuItem
@@ -172,7 +172,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1001, 450);
+            this.ClientSize = new System.Drawing.Size(1039, 525);
             this.Controls.Add(this.DrawForm);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
