@@ -6,13 +6,14 @@ using System.Drawing.Drawing2D;
 namespace PaintedObjectsMoving {
 	class PaintedObject : ICloneable
     {
-		private GraphicsPath path;
-        private Pen pen;
+		private GraphicsPath _path;
+        private Pen _pen;
         private PointF[] _pointSelect;
         private Point _figureStart = new Point();                          //стартовая точка фигуры
         private Point _figureEnd = new Point();                            //конечная точка фигуры
         private bool _selectFigure = false;
         private int _idFigure;
+        private SolidBrush _brush = null;
 
         private MainForm.FigureType _currentfigure;
 
@@ -25,8 +26,8 @@ namespace PaintedObjectsMoving {
         }
 
         public GraphicsPath Path {
-			get { return path; }
-			set { path = value; }
+			get { return _path; }
+			set { _path = value; }
         }
 
         //Добавить опорную фигуру в список
@@ -79,13 +80,19 @@ namespace PaintedObjectsMoving {
             set { _figureEnd = value; }
         }
 
+        public SolidBrush Brush
+        {
+            get { return _brush; }
+            set { _brush = value; }
+        }
         public Pen @Pen {
-			get { return pen; }
-			set { pen = value; }
+			get { return _pen; }
+			set { _pen = value; }
 		}
-		public PaintedObject(Pen pen, GraphicsPath path, MainForm.FigureType CurrentFigure) {
-			this.path = path;
-			this.pen = pen;
+		public PaintedObject(Pen pen, GraphicsPath path, SolidBrush brush, MainForm.FigureType CurrentFigure) {
+            _path = path;
+            _pen = pen;
+            _brush = brush;
             _currentfigure = CurrentFigure;
 
         }
@@ -94,13 +101,13 @@ namespace PaintedObjectsMoving {
 
 		public object Clone() {
 
-			return new PaintedObject(this.Pen, this.Path.Clone() as GraphicsPath, _currentfigure);
+			return new PaintedObject(this.Pen, this.Path.Clone() as GraphicsPath, _brush, _currentfigure);
 		}
 
         public PaintedObject CloneObject()
         {
-
-            return new PaintedObject(this.Pen, this.Path.Clone() as GraphicsPath, _currentfigure);
+            Pen CopiPen = new Pen(_pen.Color);
+            return new PaintedObject(CopiPen, this.Path.Clone() as GraphicsPath, _brush, _currentfigure);
         }
 
         #endregion

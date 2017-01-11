@@ -15,6 +15,7 @@ namespace PaintedObjectsMoving
         private PaintedObject _drawObject;
         private SupportObject _drawSupportObject;
         private Rectangle _rect;
+        private SolidBrush _brush;
 
         private List<PaintedObject> _figures;//Список с объектами для прорисовки
 
@@ -84,7 +85,7 @@ namespace PaintedObjectsMoving
         {
             StyleFigure();
 
-            _drawObject = new PaintedObject(_penFigure, new GraphicsPath(), _currentfigure);
+            _drawObject = new PaintedObject(_penFigure, new GraphicsPath(), _brush, _currentfigure);
 
             switch (_currentfigure)
             {
@@ -122,17 +123,19 @@ namespace PaintedObjectsMoving
         {
             if (bmp != null) bmp.Dispose();
 
-            //SolidBrush brush = new SolidBrush(Color.Red);
-
             bmp = new Bitmap(_widthDraw, _heightDraw);
             //Прорисовка всех объектов из списка
+
             using (Graphics DrawList = Graphics.FromImage(bmp))
             {
                 foreach (PaintedObject DrawObject in _figures)
                 {
                     DrawList.DrawPath(DrawObject.Pen, DrawObject.Path);
 
-                    //DrawList.FillPath(brush, DrawObject.Path);  //Заливка
+                    if (DrawObject.Brush != null)
+                    {
+                        DrawList.FillPath(DrawObject.Brush, DrawObject.Path);  //Заливка
+                    }
 
                     foreach (SupportObject SuppportObject in DrawObject.SelectListFigure())
                     {
@@ -238,6 +241,15 @@ namespace PaintedObjectsMoving
         {
             _penFigure = new Pen(MainForm.FigureProperties.linecolor, MainForm.FigureProperties.thickness);
             _penFigure.DashStyle = MainForm.FigureProperties.dashstyle;
+
+            if (MainForm.FigureProperties.fill == false)
+            {
+                _brush = null;
+            }
+            else
+            {
+                _brush = new SolidBrush(MainForm.FigureProperties.brushcolor);
+            }
 
         }
 

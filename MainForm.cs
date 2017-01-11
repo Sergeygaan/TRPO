@@ -409,5 +409,26 @@ namespace PaintedObjectsMoving
             linestyleform.ShowDialog();                 //отображаем форму
             linestyleform.Dispose();                    //уничтожаем форму
         }
+
+        //Включить заливку
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            _figureProperties.fill = true; 
+        }
+
+        //Отключить заливку
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            _figureProperties.fill = false;
+        }
+
+        private void toolStripButton16_Click(object sender, EventArgs e)
+        {
+            DialogResult D = colorDialog1.ShowDialog();
+            if (D == DialogResult.OK)
+            {
+                _figureProperties.brushcolor = colorDialog1.Color;
+            }
+        }
     }
 }

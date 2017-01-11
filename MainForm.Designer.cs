@@ -51,6 +51,12 @@
             this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.toolStripButton14 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel7 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton16 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.DrawForm)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -109,7 +115,11 @@
             this.toolStripButton13,
             this.toolStripButton15,
             this.toolStripLabel5,
-            this.toolStripButton12});
+            this.toolStripButton12,
+            this.toolStripButton14,
+            this.toolStripLabel7,
+            this.toolStripSplitButton1,
+            this.toolStripButton16});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1040, 25);
@@ -307,6 +317,57 @@
             this.toolStripButton11.Text = "Удалить";
             this.toolStripButton11.Click += new System.EventHandler(this.toolStripButton11_Click);
             // 
+            // toolStripButton14
+            // 
+            this.toolStripButton14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton14.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton14.Image")));
+            this.toolStripButton14.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton14.Name = "toolStripButton14";
+            this.toolStripButton14.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton14.Text = "toolStripButton14";
+            // 
+            // toolStripLabel7
+            // 
+            this.toolStripLabel7.Name = "toolStripLabel7";
+            this.toolStripLabel7.Size = new System.Drawing.Size(52, 22);
+            this.toolStripLabel7.Text = "Заливка";
+            // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3});
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(32, 22);
+            this.toolStripSplitButton1.Text = "Вкл / Выкл заливку";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Text = "Да ";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Text = "Нет +";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // toolStripButton16
+            // 
+            this.toolStripButton16.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton16.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton16.Image")));
+            this.toolStripButton16.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton16.Name = "toolStripButton16";
+            this.toolStripButton16.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton16.Text = "Цвет заливки";
+            this.toolStripButton16.Click += new System.EventHandler(this.toolStripButton16_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -361,6 +422,12 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel6;
         private System.Windows.Forms.ToolStripButton toolStripButton13;
         private System.Windows.Forms.ToolStripButton toolStripButton15;
+        private System.Windows.Forms.ToolStripButton toolStripButton14;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel7;
+        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripButton toolStripButton16;
     }
 }
 
