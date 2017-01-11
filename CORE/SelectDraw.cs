@@ -87,7 +87,6 @@ namespace PaintedObjectsMoving
             if (_selectedFigures.Count == 0)
             {
 
-                //Ищем объект, в который попала точка.Если таких несколько, то найден будет первый по списку
                 foreach (Object DrawObject in _figures)
                 {
 

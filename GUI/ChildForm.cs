@@ -171,6 +171,7 @@ namespace PaintedObjectsMoving
                     if (e.Button == MouseButtons.Left)
                     {
                         _selectClass.MouseUpSupport();
+                        _drawClass.СhangeMoveFigure(_selectClass.SeleckResult(), "MouseUp");
                     }
 
                     if (e.Button == MouseButtons.Right)
@@ -302,7 +303,9 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)
                     {
+                        _drawClass.СhangeMoveFigure(_selectClass.SeleckResult(), "Down");
                         _selectClass.SavePoint(e);
+                        
                     }
 
                     break;
@@ -333,8 +336,9 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)
                     {
-                        _selectClass.SavePoint(e);
                         _drawClass.СhangeMoveFigure(_selectClass.SeleckResult(), "Down");
+                        _selectClass.SavePoint(e);
+                        
                     }
 
                     break;

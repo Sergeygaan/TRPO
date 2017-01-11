@@ -10,64 +10,71 @@ namespace PaintedObjectsMoving.CORE
 {
     class СhangeMove : IFigureCommand
     {
-        private List<Object> _seleckResultUndo = new List<Object>();
-        private List<Object> _seleckResultRedo = new List<Object>();
-        private List<Object> _figures;
+        private List<Object> _seleckResult;
+      
+      
+        private GraphicsPath [] _pathUndo;
+        private GraphicsPath [] _pathRedo;
 
-        //Ошибка в данном методе
-        public СhangeMove(List<Object> SeleckResult, List<Object> Figures)
+        public СhangeMove(List<Object> SeleckResult)
         {
-            _figures = Figures;
+            _seleckResult = SeleckResult.GetRange(0, SeleckResult.Count);
+
+            _pathRedo = new GraphicsPath[_seleckResult.Count];
+
+            _pathUndo = new GraphicsPath[SeleckResult.Count];
 
             int i = 0;
-            foreach (Object SelectObject in SeleckResult)
+            foreach (Object SelectObjectResult in _seleckResult)
             {
-                _seleckResultUndo.Add(SelectObject.CloneObject());
-                _seleckResultUndo[i].IdFigure = SelectObject.IdFigure;
+                _pathUndo[i] = (GraphicsPath)SelectObjectResult.PathClone.Clone();
                 i++;
             }
 
         }
 
-        public void MouseUpMove(List<Object> SeleckResult)
+        public void СhangeMoveEnd(List<Object> SeleckResult)
         {
+
+            _pathRedo = new GraphicsPath[SeleckResult.Count];
+
             int i = 0;
             foreach (Object SelectObject in SeleckResult)
             {
-                _seleckResultRedo.Add(SelectObject.CloneObject());
-                _seleckResultRedo[i].IdFigure = SelectObject.IdFigure;
+                _pathRedo[i] = (GraphicsPath)SelectObject.PathClone.Clone();
+
                 i++;
             }
 
         }
+
 
         public void Execute()
         {
-            foreach (Object SelectObject in _seleckResultRedo)
-            {
-                _figures[SelectObject.IdFigure] = null;
-                _figures[SelectObject.IdFigure] = SelectObject;
 
+            int i = 0;
+            foreach (Object ObjectRedo in _seleckResult)
+            {
+                ObjectRedo.Path = (GraphicsPath)_pathRedo[i].Clone();
+              
+                i++;
             }
 
         }
 
         public void Undo()
         {
-            UndoFigure();
-        }
 
-
-        public void UndoFigure()
-        {
-            foreach (Object SelectObject in _seleckResultUndo)
+            int i = 0;
+            foreach (Object ObjectUndo in _seleckResult)
             {
-                _figures[SelectObject.IdFigure] = null;
-                _figures[SelectObject.IdFigure] = SelectObject;
-                
-            }
+                ObjectUndo.Path = (GraphicsPath)_pathUndo[i].Clone();
+               
+                i++;
 
+            }
         }
+
 
 
     }

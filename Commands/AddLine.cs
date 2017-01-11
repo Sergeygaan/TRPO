@@ -14,10 +14,6 @@ namespace PaintedObjectsMoving.CORE
         private Object _drawObject;
         private List<Object> _figures;
 
-        public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
-        {
-            e.Graphics.DrawLine(_penFigure, _points[0], _points[1]);
-        }
 
         public void AddFigure(Object DrawObject, List<PointF> Points, List<Object> Figures)
         {
@@ -25,11 +21,15 @@ namespace PaintedObjectsMoving.CORE
             _points = Points;
             _figures = Figures;
             _drawObject.Path.AddLine(_points[0], _points[1]);
+
+
         }
 
         public void Execute()
         {
-            _figures.Insert(_drawObject.IdFigure, _drawObject);
+            _figures.Add(null);
+            _figures[_drawObject.IdFigure] = _drawObject;
+            //MessageBox.Show(_drawObject.Path.PathPoints[1].X.ToString());
         }
 
         public void Undo()

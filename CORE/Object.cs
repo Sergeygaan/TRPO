@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace PaintedObjectsMoving {
-	class Object : ICloneable
+	class Object 
     {
 		private GraphicsPath _path;
         private Pen _pen;
@@ -28,6 +28,12 @@ namespace PaintedObjectsMoving {
         public GraphicsPath Path {
 			get { return _path; }
 			set { _path = value; }
+        }
+
+        public GraphicsPath PathClone
+        {
+            get { return (GraphicsPath)_path.Clone(); }
+            set { _path = value; }
         }
 
         //Добавить опорную фигуру в список
@@ -104,19 +110,11 @@ namespace PaintedObjectsMoving {
 
         }
 
-		#region ICloneable Members
-
-		public object Clone() {
-
-			return new Object(this.Pen, this.Path.Clone() as GraphicsPath, _brush, _currentfigure);
-		}
-
         public Object CloneObject()
         {
             //Pen CopiPen = new Pen(_pen.Color);
             return new Object(this.Pen, this.Path.Clone() as GraphicsPath, _brush, _currentfigure);
         }
 
-        #endregion
     }
 }

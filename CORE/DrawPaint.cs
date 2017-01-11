@@ -202,24 +202,21 @@ namespace PaintedObjectsMoving
         //изменение положения фигуры при перемещении
         public void СhangeMoveFigure(List<Object> SeleckResult, string Boot)
         {
-            
             if (SeleckResult.Count != 0)
             {
                 if (Boot == "Down")
                 {
                     EditFigure();
 
-                    _penMove = new СhangeMove(SeleckResult, _figures);
-
+                    _penMove = new СhangeMove(SeleckResult);
                 }
                 else
                 {
-                    _penMove.MouseUpMove(SeleckResult);
-                   
+                    _penMove.СhangeMoveEnd(SeleckResult);
+
                     _iFigureCommand.Add(_penMove);
                 }
                 
-
             }
 
         }
@@ -312,6 +309,7 @@ namespace PaintedObjectsMoving
 
         public void EditFigure()
         {
+           
             if (_indexFigureCommand != _iFigureCommand.Count - 1)
             {
 

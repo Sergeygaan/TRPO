@@ -13,7 +13,6 @@ namespace PaintedObjectsMoving.CORE
         private СonstructionFigure _ellipse = new СonstructionFigure();
         private List<PointF> _points;
         private Object _drawObject;
-        private Object _drawObjectClone;
         private List<Object> _figures;
 
         public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
@@ -28,13 +27,12 @@ namespace PaintedObjectsMoving.CORE
             _figures = Figures;
 
             _drawObject.Path.AddEllipse(_ellipse.ShowRectangle(_points[0], _points[1]));
-            _drawObjectClone = DrawObject.CloneObject();
-            _drawObjectClone.IdFigure = DrawObject.IdFigure;
+         
         }
 
         public void Execute()
         {
-            _figures.Insert(_drawObjectClone.IdFigure, _drawObjectClone);
+            _figures.Insert(_drawObject.IdFigure, _drawObject);
         }
 
         public void Undo()
