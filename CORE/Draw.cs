@@ -200,7 +200,7 @@ namespace PaintedObjectsMoving
                 if (SelectObject.SelectFigure == true)
                 {
                     SelectObject.SelectFigure = false;
-                    //SelectObject.ClearListFigure();
+                    SelectObject.ClearListFigure();
 
 
                     switch (SelectObject.CurrentFigure)
@@ -238,7 +238,7 @@ namespace PaintedObjectsMoving
 
                         case MainForm.FigureType.Ellipse:
 
-                            for (int i = 0; i < SelectObject.PointSelect.Length; i = i + 3)
+                            for (int i = 0; i < SelectObject.PointSelect.Length; i += 3)
                             {
                                 _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
                                 _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
@@ -263,7 +263,6 @@ namespace PaintedObjectsMoving
 
                                 SelectObject.AddListFigure(_drawSupportObject);
                             }
-
 
                             break;
 

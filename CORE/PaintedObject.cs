@@ -36,6 +36,13 @@ namespace PaintedObjectsMoving {
             _supportFigures.Add(AddFigure);
         }
 
+        public void EditListFigure(int index,Rectangle Rectangles)
+        {
+            _supportFigures[index].Path.Reset();
+
+            _supportFigures[index].Path.AddEllipse(Rectangles);
+        }
+
         //Отчистить список опорных фигур
         public void ClearListFigure()
         {

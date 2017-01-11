@@ -18,6 +18,8 @@ namespace PaintedObjectsMoving
         public void MoveObject(PaintedObject currObj, int deltaX, int deltaY)
         {
             currObj.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
+
+            MoveObjectSupport(currObj, deltaX, deltaY);
         }
 
         public void EditObjectRectangle(PaintedObject currObj, SupportObject _supportObj, int deltaX, int deltaY)
@@ -112,7 +114,7 @@ namespace PaintedObjectsMoving
 
             }
 
-           // MoveObjectSupport(currObj, deltaX, deltaY);
+            MoveObjectSupport(currObj, deltaX, deltaY);
         }
 
 
@@ -144,7 +146,7 @@ namespace PaintedObjectsMoving
                 }
             }
 
-           MoveObjectSupport(currObj, _supportObj, deltaX, deltaY);
+           MoveObjectSupport(currObj, deltaX, deltaY);
         }
 
 
@@ -254,7 +256,7 @@ namespace PaintedObjectsMoving
                 }
             }
 
-            // MoveObjectSupport(currObj, deltaX, deltaY);
+            MoveObjectSupport(currObj, deltaX, deltaY);
         }
 
         public void EditObjectPoliLine(PaintedObject currObj, SupportObject _supportObj, int deltaX, int deltaY)
@@ -276,19 +278,35 @@ namespace PaintedObjectsMoving
                 }
                 
             }
+            MoveObjectSupport(currObj, deltaX, deltaY);
         }
 
-
-        public void MoveObjectSupport(PaintedObject currObj, SupportObject _supportObj, int deltaX, int deltaY)
+        private СonstructionFigure _ellipse = new СonstructionFigure();
+        
+        public void MoveObjectSupport(PaintedObject currObj, int deltaX, int deltaY)
         {
-            foreach (SupportObject SuppportObject in currObj.SelectListFigure())
-            {
-                if (SuppportObject == _supportObj)
-                {
-                    SuppportObject.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
-                }
 
+            foreach (SupportObject SelectObject in currObj.SelectListFigure())
+            {
+
+                if (currObj.CurrentFigure != MainForm.FigureType.Ellipse)
+                {
+                    for (int i = 0; i < currObj.PointSelect.Length; i++)
+                    {
+                        currObj.EditListFigure(i, _ellipse.SelectFigure(currObj.PointSelect[i], currObj.Pen.Width));
+                    }
+                }
+                else
+                {
+                    int k = 0;
+                    for (int i = 0; i < currObj.PointSelect.Length; i +=3)
+                    {
+                        currObj.EditListFigure(k, _ellipse.SelectFigure(currObj.PointSelect[i], currObj.Pen.Width));
+                        k++;
+                    }
+                }
             }
+
         }
 
 
