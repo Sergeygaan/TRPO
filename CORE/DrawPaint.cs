@@ -343,12 +343,12 @@ namespace PaintedObjectsMoving
                 if (_indexFigureCommand == 0)
                 {
                     _indexFigureCommand += 1;
-                    _iFigureCommand[_indexFigureCommand].Execute();
+                    _iFigureCommand[_indexFigureCommand].Redo();
                 }
                 else
                 {
                     _indexFigureCommand += 1;
-                    _iFigureCommand[_indexFigureCommand].Execute();
+                    _iFigureCommand[_indexFigureCommand].Redo();
                 }
                 
             }
@@ -385,6 +385,12 @@ namespace PaintedObjectsMoving
 
         //Возвращяет список со всеми фигурами
         public List<Object> FiguresList
+        {
+            get { return _figures; }
+            set { _figures = value; }
+        }
+
+        public List<Object> FiguresListObject
         {
             get { return _figures; }
             set { _figures = value; }

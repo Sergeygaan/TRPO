@@ -43,7 +43,7 @@ namespace PaintedObjectsMoving.CORE
             _operatorValue = "Удаление фона у выделенных фигур";
         }
 
-        public void Execute()
+        public void Redo()
         {
             foreach (Object SelectObject in _seleckResult)
             {

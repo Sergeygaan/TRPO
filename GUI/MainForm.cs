@@ -472,7 +472,6 @@ namespace PaintedObjectsMoving
             if (ActiveForm != null)
             {
 
-
                 Stream myStream;
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
@@ -485,8 +484,7 @@ namespace PaintedObjectsMoving
                     if ((myStream = saveFileDialog1.OpenFile()) != null)
                     {
                         myStream.Close();
-                        _saveProect = new SaveProect();
-                        _saveProect.Save(ActiveForm.HistoryCommand, ActiveForm.HistoryFigure);
+                        _saveProect = new SaveProect(ActiveForm.HistoryFigure, _childWidhtSize, _childHeightSize);
 
                         BinaryFormatter binFormat = new BinaryFormatter();
                         // Сохранить объект в локальном файле.
@@ -494,6 +492,7 @@ namespace PaintedObjectsMoving
                         {
                             binFormat.Serialize(fStream, _saveProect);
                         }
+                        
                     }
                 }
 
@@ -541,6 +540,63 @@ namespace PaintedObjectsMoving
 
             }
             ActiveForm = null;
+        }
+
+        private void LoadProject(object sender, EventArgs e)
+        {
+
+        Stream myStream = null;
+        OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+        openFileDialog1.Filter = "dat files (*.dat)|*.dat";
+        openFileDialog1.FilterIndex = 2;
+        openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    if ((myStream = openFileDialog1.OpenFile()) != null)
+                    {
+                        using (myStream)
+                        {
+                            myStream.Close();
+
+                            BinaryFormatter formatter = new BinaryFormatter();
+                            using (FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.OpenOrCreate))
+                            {
+                                SaveProect LoadProject = (SaveProect)formatter.Deserialize(fs);
+
+                                Form NewForm = new ChildForm();                       //создаем объект - дочернюю форму-рисунок
+                                NewForm.Text = "Рисунок" + ChildCounter.ToString();     //называем ее соответствующе
+
+                                
+                                ChildCounter++;                                         //увеличиваем счетчик окон на единицу
+                                NewForm.MdiParent = this;                               //указываем родительскую форму
+                                NewForm.BackColor = Color.Gray;                         //цвет фона формы - серый
+
+                                NewForm.Width = LoadProject.ChildWidhtSize();                         //задаем значение ширины окна, хранящееся в переменной
+                                NewForm.Height = LoadProject.ChildHeightSize();                       //задаем значение высоты окна, хранящееся в переменной
+
+                                NewForm.Show();                                         //отображаем созданную форму
+
+                                ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+                                if (ActiveForm != null)
+                                {
+                                    ActiveForm.HistoryFigure = LoadProject.LoadProject();                            
+                                }
+                                ActiveForm = null;
+
+                            }
+
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                }
+           }
         }
 
     }

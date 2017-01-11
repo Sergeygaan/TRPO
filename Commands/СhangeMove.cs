@@ -55,7 +55,7 @@ namespace PaintedObjectsMoving.CORE
         }
 
 
-        public void Execute()
+        public void Redo()
         {
 
             int i = 0;

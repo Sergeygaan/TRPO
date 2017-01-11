@@ -9,12 +9,33 @@ using System.Windows.Forms;
 namespace PaintedObjectsMoving.CORE
 {
     [Serializable]
+    /// <summary>
+    /// Класс, выполнящий различные действия над многоугольником.
+    /// </summary>
     class Polygon : IFigureBuild
     {
+        /// <summary>
+        /// Переменная, хранящая класс для построения и создания эллипса.
+        /// </summary>
         private AddPolygon _addFigureAddPolygon;
-        private СonstructionFigure _ellipse = new СonstructionFigure();
+
+        /// <summary>
+        /// Переменная, хранящая класс для построения структуры эллипса.
+        /// </summary>
+        private СonstructionFigure _сonstructionFigure = new СonstructionFigure();
+
+        /// <summary>
+        /// Переменная, хранящая опорные точки.
+        /// </summary>
         private SupportObject _drawSupportObject;
 
+
+        /// <summary>
+        /// Метод, выполняющий отрисовку многоугольника при построении.
+        /// </summary>
+        /// <para name = "e">Объект хранящий данные для отображения эллипса</para>
+        /// <para name = "Points">Точки для построения эллипса</para>
+        /// <para name = "PenFigure">Кисть которая будет использоваться в построение эллипса</para>
         public void PaintFigure(PaintEventArgs e, List<PointF> Points, Pen PenFigure)
         {
             if (Points.Count > 1)
@@ -25,6 +46,13 @@ namespace PaintedObjectsMoving.CORE
             }
         }
 
+        /// <summary>
+        /// Метод, выполняющий сохранение многоугольника.
+        /// </summary>
+        /// <para name = "DrawObject">Переменна для хранения эллипса</para>
+        /// <para name = "Points">Точки для построения эллипса</para>
+        /// <para name = "FiguresBuild">Список комманд для хранения комманды построения эллипса</para>
+        /// <para name = "Figures">Список объектов для хранения всех фигур</para>
         public void AddFigure(Object DrawObject, List<PointF> Points, List<IFigureCommand> FiguresBuild, List<Object> Figures)
         {
             _addFigureAddPolygon = new AddPolygon();
@@ -38,12 +66,17 @@ namespace PaintedObjectsMoving.CORE
             FiguresBuild.Add(_addFigureAddPolygon);
         }
 
+
+        /// <summary>
+        /// Метод, выполняющий отрисовку опорных точек.
+        /// </summary>
+        /// <para name = "SelectObject">Переменная хранащая объект для которого нужно построить опорные точки</para>
         public void AddSupportPoint(Object SelectObject)
         {
             for (int i = 0; i < SelectObject.PointSelect.Length; i++)
             {
                 _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
-                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
+                _drawSupportObject.Path.AddEllipse(_сonstructionFigure.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
                 _drawSupportObject.IdFigure = SelectObject.IdFigure;
                 _drawSupportObject.ControlPointF = i;
 
@@ -51,6 +84,14 @@ namespace PaintedObjectsMoving.CORE
             }
         }
 
+        /// <summary>
+        /// Метод, отвечающий за перемещение и масштабирование фигур.
+        /// </summary>
+        /// <para name = "SelectObject">Переменная хранащая объект для которого нужно выполнять действия</para>
+        /// <para name = "SupportObj">Переменная хранащая опорные точки выбранного объекта</para>
+        /// <para name = "DeltaX">Переменная хранащая разницу по координате X</para>
+        /// <para name = "DeltaY">Переменная хранащая разницу по координате Y</para>
+        /// /// <para name = "EdipParametr">Объекта класса необходимый для выполнения масштабирования</para>
         public void ScaleSelectFigure(Object SelectObject, SupportObject SupportObj, int DeltaX, int DeltaY, EditObject EdipParametr)
         {
             if ((SelectObject.PointSelect[0].X - SelectObject.PointSelect[1].X != 0) && (SelectObject.PointSelect[0].Y - SelectObject.PointSelect[1].Y != 0))
@@ -61,6 +102,12 @@ namespace PaintedObjectsMoving.CORE
 
         }
 
+        /// <summary>
+        /// Метод, выполняющий выделение фигуры
+        /// </summary>
+        /// <para name = "e">Переменная хранащая значение координат курсора мыши</para>
+        /// <para name = "DrawObject">Переменная хранащая объект выделения</para>
+        /// <para name = "SelectedFigures">Список выделенных объектов</para>
         public void ScaleFigure(MouseEventArgs e, Object DrawObject, List<Object> SelectedFigures)
         {
             DrawObject.PointSelect = DrawObject.Path.PathPoints;

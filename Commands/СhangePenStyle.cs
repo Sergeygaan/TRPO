@@ -42,7 +42,7 @@ namespace PaintedObjectsMoving.CORE
             _operatorValue = "Изменение стиля линии";
         }
 
-        public void Execute()
+        public void Redo()
         {
             foreach (Object SelectObject in _seleckResult)
             {

@@ -10,7 +10,7 @@ namespace PaintedObjectsMoving.CORE
     interface IFigureCommand
     {
 
-        void Execute();
+        void Redo();
 
         void Undo();
 

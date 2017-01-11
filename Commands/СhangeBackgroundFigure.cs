@@ -45,7 +45,7 @@ namespace PaintedObjectsMoving.CORE
             _operatorValue = "Изменение фона выделенных фигур";
         }
 
-        public void Execute()
+        public void Redo()
         {
             foreach (Object SelectObject in _seleckResult)
             {

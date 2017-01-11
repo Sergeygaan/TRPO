@@ -17,7 +17,7 @@ namespace PaintedObjectsMoving {
         private int _idFigure;
         private SolidBrush _brush = null;
 
-        private MainForm.FigureType _currentfigure;
+        private MainForm.FigureType _currentFigure;
 
         private List<SupportObject> _supportFigures = new List<SupportObject>();
 
@@ -66,8 +66,8 @@ namespace PaintedObjectsMoving {
         //Вернуть фигуры
         public MainForm.FigureType CurrentFigure
         {
-            get { return _currentfigure; }
-            set { _currentfigure = value; }
+            get { return _currentFigure; }
+            set { _currentFigure = value; }
         }
 
         //Вернуть координаты
@@ -109,14 +109,14 @@ namespace PaintedObjectsMoving {
             _path = path;
             _pen = pen;
             _brush = brush;
-            _currentfigure = CurrentFigure;
+            _currentFigure = CurrentFigure;
 
         }
 
         public Object CloneObject()
         {
             //Pen CopiPen = new Pen(_pen.Color);
-            return new Object(this.Pen, this.Path.Clone() as GraphicsPath, _brush, _currentfigure);
+            return new Object(this.Pen, this.Path.Clone() as GraphicsPath, _brush, _currentFigure);
         }
 
     }

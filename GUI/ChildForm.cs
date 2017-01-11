@@ -7,8 +7,7 @@ namespace PaintedObjectsMoving
 {
     public partial class ChildForm : Form
     {
-        private List<IFigureCommand> _HistoryCommand = new List<IFigureCommand>();
-
+       
         //КЛАССЫ
         private DrawPaint _drawClass;
         private SelectDraw _selectClass;

@@ -99,6 +99,7 @@
             this.toolStripButton19 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton18 = new System.Windows.Forms.ToolStripButton();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.загрузитьПроектToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -123,6 +124,7 @@
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.новыйToolStripMenuItem,
             this.toolStripMenuItem7,
+            this.загрузитьПроектToolStripMenuItem,
             this.экспортироватьПроектToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
@@ -807,6 +809,13 @@
             this.toolStripButton18.Text = "Изменить толщину линии (Ctrl+Alt+T)";
             this.toolStripButton18.Click += new System.EventHandler(this.ChangeFigureStyle);
             // 
+            // загрузитьПроектToolStripMenuItem
+            // 
+            this.загрузитьПроектToolStripMenuItem.Name = "загрузитьПроектToolStripMenuItem";
+            this.загрузитьПроектToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.загрузитьПроектToolStripMenuItem.Text = "Загрузить проект";
+            this.загрузитьПроектToolStripMenuItem.Click += new System.EventHandler(this.LoadProject);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -912,6 +921,7 @@
         private System.Windows.Forms.ToolStripMenuItem выключитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem цветЗаливкиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem экспортироватьПроектToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem загрузитьПроектToolStripMenuItem;
     }
 }
 

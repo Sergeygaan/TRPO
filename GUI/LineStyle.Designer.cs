@@ -98,7 +98,7 @@
 
         private System.Windows.Forms.ComboBox Styles;
         private System.Windows.Forms.Label Label;
-        private System.Windows.Forms.Button CancelButton;
+        private new System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Button OKButton;
     }
 }
