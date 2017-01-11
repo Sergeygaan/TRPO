@@ -25,7 +25,11 @@ namespace PaintedObjectsMoving
             if (currObj != null)
             {
                 //currObj.Pen.Width -= 1;//Возвращаем ширину пера
+                currObj.ClearListFigure();
+                currObj.PointSelect = null;
                 currObj = null;//Убираем ссылку на объект
+                _supportObj = null;
+                
             }
         }
 
@@ -66,7 +70,7 @@ namespace PaintedObjectsMoving
                     if (_rectangleF.Contains(e.Location))
                     {
                         currObj = DrawObject;//Запоминаем найденный объект
-                        PointSelect = currObj.Path.PathPoints;
+                        currObj.PointSelect = currObj.Path.PathPoints;
 
                         //currObj.Pen.Width += 1;//Делаем перо жирнее
 
@@ -75,16 +79,28 @@ namespace PaintedObjectsMoving
             }
             else
             {
-                foreach (SupportObject SupportObject in currObj.ListFigure())
+                
+                foreach (SupportObject SupportObject in currObj.SelectListFigure())
                 {
-                    if (SupportObject.Path.GetBounds().Contains(e.Location))
-                    {
-                        _supportObj = SupportObject;//Запоминаем найденный объект
-                                                    //PointSelect = _supportObj.Path.PathPoints;
 
-                        _supportObj.Pen.Width += 1;//Делаем перо жирнее
+                    //currObj.SelectListFigure()[1].Pen.Width += 5;
+                    //MessageBox.Show(currObj.SelectListFigure().Count().ToString());
 
-                    }
+
+                    //_rectangleF = SupportObject.Path.GetBounds();
+
+
+                    //    _rectangleF.Inflate(100, 50);
+
+
+                    //if (_rectangleF.Contains(e.Location))
+                    //{
+                    //    _supportObj = SupportObject;//Запоминаем найденный объект
+
+                    //    MessageBox.Show("asdasd");
+                    //    _supportObj.Pen.Width += 5;//Делаем перо жирнее
+
+                    //}
 
                 }
             }
@@ -132,14 +148,14 @@ namespace PaintedObjectsMoving
                         _edipParametr.MoveObject(currObj, deltaX, deltaY);
                         //currObj.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
 
-                        if ((PointSelect[0].X - PointSelect[2].X != 0) && (PointSelect[0].Y - PointSelect[2].Y != 0))
-                        {
-                            currObj.PointSelect = currObj.Path.PathPoints;
-                        }
-
+                        //if ((PointSelect[0].X - PointSelect[2].X != 0) && (PointSelect[0].Y - PointSelect[2].Y != 0))
+                        //{
+                        //    currObj.PointSelect = currObj.Path.PathPoints;
+                        //}
+                        
                         oldPoint = e.Location;
- 
-                    }
+                        currObj.PointSelect = currObj.Path.PathPoints;
+            }
         }
 
         //Вернуть конечную координату

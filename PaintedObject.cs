@@ -34,7 +34,7 @@ namespace PaintedObjectsMoving {
         }
 
         //Вернуть список опорных фигур
-        public List<SupportObject> ListFigure()
+        public List<SupportObject> SelectListFigure()
         {
             return _supportFigures;
         }
@@ -51,6 +51,11 @@ namespace PaintedObjectsMoving {
         {
             get { return _pointSelect; }
             set { _pointSelect = value; }
+        }
+
+        public void Clean()
+        {
+           // _pointSelect.;
         }
 
         public Point FigureStart

@@ -13,6 +13,7 @@ namespace PaintedObjectsMoving
 
         private Pen _pen;
         private PaintedObject _drawObject;
+        private SupportObject _drawSupportObject;
 
         List<PaintedObject> _figures;//Список с объектами для прорисовки
         PaintedObject currObj;//Объект, который в данный момент перемещается
@@ -125,6 +126,12 @@ namespace PaintedObjectsMoving
                 foreach (PaintedObject DrawObject in _figures)
                 {
                     DrawList.DrawPath(DrawObject.Pen, DrawObject.Path);
+
+                    foreach (SupportObject SuppportObject in DrawObject.SelectListFigure())
+                    {
+                        DrawList.DrawPath(SuppportObject.Pen, SuppportObject.Path);
+
+                    }
                 }
             }
         }
@@ -135,39 +142,55 @@ namespace PaintedObjectsMoving
         {
             currObj.ClearListFigure();
 
-            switch (currObj.CurrentFigure)
+            _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
+
+            for (int i = 0; i < currObj.PointSelect.Length; i++)
             {
-                case MainForm.FigureType.Rectangle:
 
-                    for (int i = 0; i < currObj.PointSelect.Length; i++)
-                    {
-                        e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(currObj.PointSelect[i]));
-                        currObj.AddListFigure(new SupportObject(new Pen(Color.FromArgb(0, 123, 240)), new GraphicsPath()));
-                    }
+                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
 
-                    break;
-
-                case MainForm.FigureType.Line:
-
-                    for (int i = 0; i < currObj.PointSelect.Length; i++)
-                    {
-                        e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(currObj.PointSelect[i]));
-                        currObj.AddListFigure(new SupportObject(new Pen(Color.FromArgb(0, 123, 240)), new GraphicsPath()));
-                    }
-
-                    break;
-
-                case MainForm.FigureType.Ellipse:
-
-                    for (int i = 0; i < currObj.PointSelect.Length; i = i + 3)
-                    {
-                        e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(currObj.PointSelect[i]));
-                        currObj.AddListFigure(new SupportObject(new Pen(Color.FromArgb(0, 123, 240)), new GraphicsPath()));
-                    }
-
-                    break;
-
+                // e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(currObj.PointSelect[i]));
+                currObj.AddListFigure(_drawSupportObject);
             }
+
+            //switch (currObj.CurrentFigure)
+            //{
+            //    case MainForm.FigureType.Rectangle:
+
+            //        //currObj.ClearListFigure();
+
+            //        for (int i = 0; i < currObj.PointSelect.Length; i++)
+            //        {
+
+            //            _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
+
+            //            // e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(currObj.PointSelect[i]));
+            //            currObj.AddListFigure(_drawSupportObject);
+            //        }
+
+            //        break;
+
+            //    case MainForm.FigureType.Line:
+
+            //        for (int i = 0; i < currObj.PointSelect.Length; i++)
+            //        {
+            //            //e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(currObj.PointSelect[i]));
+            //            currObj.AddListFigure(new SupportObject(new Pen(Color.FromArgb(0, 123, 240)), new GraphicsPath()));
+            //        }
+
+            //        break;
+
+            //    case MainForm.FigureType.Ellipse:
+
+            //        for (int i = 0; i < currObj.PointSelect.Length; i = i + 3)
+            //        {
+            //            //e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(currObj.PointSelect[i]));
+            //            currObj.AddListFigure(new SupportObject(new Pen(Color.FromArgb(0, 123, 240)), new GraphicsPath()));
+            //        }
+
+            //        break;
+                    
+            //}
 
 
         }
