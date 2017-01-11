@@ -11,10 +11,18 @@ namespace PaintedObjectsMoving {
         private Point _figureStart = new Point();                          //стартовая точка фигуры
         private Point _figureEnd = new Point();                            //конечная точка фигуры
 
+        private MainForm.FigureType _currentfigure;
+
         public GraphicsPath Path {
 			get { return path; }
 			set { path = value; }
 		}
+
+        public MainForm.FigureType CurrentFigure
+        {
+            get { return _currentfigure; }
+            set { _currentfigure = value; }
+        }
 
         public Point FigureStart
         {

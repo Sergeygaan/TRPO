@@ -170,19 +170,6 @@ namespace PaintedObjectsMoving
             return rect;
         }
 
-        public Rectangle SelectFigure1(PointF end)
-        {
-
-            Left = (int)end.X - 5;
-            Down = (int)end.Y - 5;
-            Top = (int)end.Y + 5;
-            Right = (int)end.X + 5;
-
-
-            Rectangle rect = Rectangle.FromLTRB(Left, Top, Right, Down);
-
-            return rect;
-        }
 
     }
 }

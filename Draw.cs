@@ -36,7 +36,7 @@ namespace PaintedObjectsMoving
             bmp = new Bitmap(Width, Height);
 
             _ellipse = new СonstructionFigure();
-            _pen = new Pen(Color.Black, 4);
+            _pen = new Pen(Color.Black, 1);
 
         }
 
@@ -79,7 +79,7 @@ namespace PaintedObjectsMoving
         public void MouseUp(MainForm.FigureType _currentfigure, Point figurestart, Point figureend)
         {
 
-            _drawObject = new PaintedObject(new Pen(Color.FromArgb(0, 123, 240), 4), new GraphicsPath());
+            _drawObject = new PaintedObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
 
             switch (_currentfigure)
             {
@@ -102,7 +102,9 @@ namespace PaintedObjectsMoving
                     break;
 
             }
-
+            //Фигура которая рисовалась
+            _drawObject.CurrentFigure = _currentfigure;
+            //Начальная и конечная координата
             _drawObject.FigureStart = figurestart;
             _drawObject.FigureEnd = figureend;
 
@@ -125,10 +127,10 @@ namespace PaintedObjectsMoving
             }
         }
 
-        public void SupportPoint(PaintEventArgs e, PointF[] SupporFigureStart, MainForm.FigureType _currentfigure)
+        public void SupportPoint(PaintEventArgs e, PointF[] SupporFigureStart, PaintedObject currObj)
         {
 
-            switch (_currentfigure)
+            switch (currObj.CurrentFigure)
             {
                 case MainForm.FigureType.Rectangle:
 
@@ -136,7 +138,7 @@ namespace PaintedObjectsMoving
                     {
                         e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(SupporFigureStart[i]));
                     }
-                   
+
                     break;
 
                 case MainForm.FigureType.Line:
@@ -150,7 +152,7 @@ namespace PaintedObjectsMoving
 
                 case MainForm.FigureType.Ellipse:
 
-                    for (int i = 0; i < SupporFigureStart.Length; i++)
+                    for (int i = 0; i < SupporFigureStart.Length; i = i + 3)
                     {
                         e.Graphics.DrawEllipse(_pen, _ellipse.SelectFigure(SupporFigureStart[i]));
                     }
@@ -158,6 +160,7 @@ namespace PaintedObjectsMoving
                     break;
 
             }
+
 
         }
 

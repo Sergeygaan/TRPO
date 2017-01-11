@@ -21,7 +21,7 @@ namespace PaintedObjectsMoving
         {
             if (currObj != null)
             {
-                currObj.Pen.Width -= 1;//Возвращаем ширину пера
+                //currObj.Pen.Width -= 1;//Возвращаем ширину пера
                 currObj = null;//Убираем ссылку на объект
             }
         }
@@ -61,14 +61,12 @@ namespace PaintedObjectsMoving
                 if (_rectangleF.Contains(e.Location))
                 {
                     currObj = DrawObject;//Запоминаем найденный объект
-                    currObj.Pen.Width += 1;//Делаем перо жирнее
-
-                    
-
-                    return;
+                    //currObj.Pen.Width += 1;//Делаем перо жирнее
+   
                 }
                 
             }
+
         }
 
         public void MouseMove(MouseEventArgs e)
@@ -138,7 +136,7 @@ namespace PaintedObjectsMoving
             return currObj.FigureEnd;
         }
 
-        //Вернуть выделенный объект координату
+        //Вернуть выделенный объект 
         public PaintedObject SeleckResult()
         {
             return currObj;
