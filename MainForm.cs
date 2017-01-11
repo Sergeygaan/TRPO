@@ -88,7 +88,7 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)
                     {
-                        _selectClass.MouseMove(e);
+                        _selectClass.MouseMove(e, _currentActions);
                     }
 
                     break;
@@ -97,7 +97,7 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)
                     {
-                        _selectClass.MouseMove(e);
+                        _selectClass.MouseMove(e, _currentActions);
                     }
 
                     break;
@@ -146,7 +146,7 @@ namespace PaintedObjectsMoving
 
                 case Actions.Move:
 
-                    if (e.Button == MouseButtons.Left)
+                    if (e.Button == MouseButtons.Right)
                     {
                         _selectClass.MouseUp();
                     }
@@ -229,19 +229,34 @@ namespace PaintedObjectsMoving
             DrawForm.Invalidate();
         }
 
+
+        //Отрисовка фигур
         private void рисоватьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _currentActions = Actions.Draw;
         }
 
+        //Масштабирование выбранной фигуры
         private void масштабироватьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _currentActions = Actions.Scale;
         }
 
-        private void перемещатьToolStripMenuItem_Click(object sender, EventArgs e)
+        // Перемещение выбранной фигуры
+        private void перемещатьToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             _currentActions = Actions.Move;
         }
+
+        private void копироватьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void удаитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

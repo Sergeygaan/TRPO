@@ -22,8 +22,6 @@ namespace PaintedObjectsMoving
         public void MoveObject(PaintedObject currObj, int deltaX, int deltaY)
         {
             currObj.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
-
-          
         }
 
         public void EditObjectRectangle(PaintedObject currObj, SupportObject _supportObj, int deltaX, int deltaY)

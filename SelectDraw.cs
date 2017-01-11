@@ -14,7 +14,8 @@ namespace PaintedObjectsMoving
 
         private PaintedObject currObj = null;//Объект, который в данный момент перемещается
         private SupportObject _supportObj;
-        private Point oldPoint;
+        private Point _oldPoint;
+        private Point _oldPointSupport;
         private RectangleF _rectangleF;
         
         private СonstructionFigure _ellipse = new СonstructionFigure();
@@ -48,7 +49,7 @@ namespace PaintedObjectsMoving
         public void MouseDown(MouseEventArgs e, List<PaintedObject> _figures)
         {
             //Запоминаем положение курсора
-            oldPoint = e.Location;
+            _oldPoint = e.Location;
             int figurestartX, figurestartY, figureendX, figureendY;
 
             if (currObj == null)
@@ -113,22 +114,17 @@ namespace PaintedObjectsMoving
         }
 
 
-        public void MouseMove(MouseEventArgs e)
+        public void MouseMove(MouseEventArgs e, MainForm.Actions _currentActions)
         {
-                    //Считаем смещение курсора
-                    int deltaX, deltaY;
+            //Считаем смещение курсора
+            int deltaX, deltaY;
 
-                    //int figurestartX, figurestartY, figureendX, figureendY;
-                    deltaX = e.Location.X - oldPoint.X;
-                    deltaY = e.Location.Y - oldPoint.Y;
+            deltaX = e.Location.X - _oldPoint.X;
+            deltaY = e.Location.Y - _oldPoint.Y;
 
-                    //figurestartX = e.Location.X - oldPoint.X;
-                    //figurestartY = e.Location.X - oldPoint.Y;
-
-
-                    //figureendX = e.Location.X - oldPoint.X;
-                    //figureendX = e.Location.X - oldPoint.X;
-
+            switch (_currentActions)
+            {
+                case MainForm.Actions.Scale:
 
                     //Смещаем нарисованный объект
                     if ((currObj != null) && (_supportObj != null))
@@ -158,21 +154,32 @@ namespace PaintedObjectsMoving
 
                             case MainForm.FigureType.Ellipse:
 
-                                //if ((currObj.PointSelect[0].X - currObj.PointSelect[3].X != 0) && (currObj.PointSelect[0].Y - currObj.PointSelect[1].Y != 0))
-                                //{
-                                //    currObj.PointSelect = currObj.Path.PathPoints;
-                                //}
+
                                 _edipParametr.EditObjectEllepse(currObj, _supportObj, deltaX, deltaY);
 
-                                 currObj.PointSelect = currObj.Path.PathPoints;
-                        break;
+                                currObj.PointSelect = currObj.Path.PathPoints;
+
+                                break;
                         }
 
-              
-                        //currObj.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
+                        //_edipParametr.MoveObject(currObj, deltaX, deltaY);
 
-                        oldPoint = e.Location;
-                       }
+                        _oldPoint = e.Location;
+                    }
+
+                    break;
+
+                case MainForm.Actions.Move:
+
+                    currObj.PointSelect = currObj.Path.PathPoints;
+
+                    _edipParametr.MoveObject(currObj, deltaX, deltaY);
+
+                    _oldPoint = e.Location;
+                    break;
+            }
+
+        
         }
 
         //Вернуть выделенный объект 
