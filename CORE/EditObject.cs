@@ -15,14 +15,14 @@ namespace PaintedObjectsMoving
         private PointF _pointEnd;
 
 
-        public void MoveObject(PaintedObject currObj, int deltaX, int deltaY)
+        public void MoveObject(Object currObj, int deltaX, int deltaY)
         {
             currObj.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
 
             MoveObjectSupport(currObj, deltaX, deltaY);
         }
 
-        public void EditObjectRectangle(PaintedObject currObj, SupportObject _supportObj, int deltaX, int deltaY)
+        public void EditObjectRectangle(Object currObj, SupportObject _supportObj, int deltaX, int deltaY)
         {
 
             if (currObj.IdFigure == _supportObj.IdFigure)
@@ -44,7 +44,7 @@ namespace PaintedObjectsMoving
 
                         }
                         currObj.Path.Reset();
-                        currObj.Path.AddRectangle(_constructerFigure.ShowRectangle1(currObj.PointSelect[0], currObj.PointSelect[2]));
+                        currObj.Path.AddRectangle(_constructerFigure.ShowRectangle(currObj.PointSelect[0], currObj.PointSelect[2]));
 
 
                         break;
@@ -65,7 +65,7 @@ namespace PaintedObjectsMoving
                         
 
                         currObj.Path.Reset();
-                        currObj.Path.AddRectangle(_constructerFigure.ShowRectangle1(currObj.PointSelect[0], currObj.PointSelect[2]));
+                        currObj.Path.AddRectangle(_constructerFigure.ShowRectangle(currObj.PointSelect[0], currObj.PointSelect[2]));
 
 
                         break;
@@ -85,7 +85,7 @@ namespace PaintedObjectsMoving
                         }
 
                         currObj.Path.Reset();
-                        currObj.Path.AddRectangle(_constructerFigure.ShowRectangle1(currObj.PointSelect[0], currObj.PointSelect[2]));
+                        currObj.Path.AddRectangle(_constructerFigure.ShowRectangle(currObj.PointSelect[0], currObj.PointSelect[2]));
 
 
                         break;
@@ -106,7 +106,7 @@ namespace PaintedObjectsMoving
                         }
 
                         currObj.Path.Reset();
-                        currObj.Path.AddRectangle(_constructerFigure.ShowRectangle1(currObj.PointSelect[0], currObj.PointSelect[2]));
+                        currObj.Path.AddRectangle(_constructerFigure.ShowRectangle(currObj.PointSelect[0], currObj.PointSelect[2]));
 
 
                         break;
@@ -118,7 +118,7 @@ namespace PaintedObjectsMoving
         }
 
 
-        public void EditObjectLine(PaintedObject currObj, SupportObject _supportObj, int deltaX, int deltaY)
+        public void EditObjectLine(Object currObj, SupportObject _supportObj, int deltaX, int deltaY)
         {
 
             if (currObj.IdFigure == _supportObj.IdFigure)
@@ -150,7 +150,7 @@ namespace PaintedObjectsMoving
         }
 
 
-        public void EditObjectEllepse(PaintedObject currObj, SupportObject _supportObj, int deltaX, int deltaY)
+        public void EditObjectEllepse(Object currObj, SupportObject _supportObj, int deltaX, int deltaY)
         {
 
             if (currObj.IdFigure == _supportObj.IdFigure)
@@ -175,7 +175,7 @@ namespace PaintedObjectsMoving
 
                         currObj.Path.Reset();
 
-                        currObj.Path.AddEllipse(_constructerFigure.ShowRectangle1(_pointEnd, _pointStart));
+                        currObj.Path.AddEllipse(_constructerFigure.ShowRectangle(_pointEnd, _pointStart));
 
                         break;
 
@@ -201,7 +201,7 @@ namespace PaintedObjectsMoving
 
                         currObj.Path.Reset();
 
-                        currObj.Path.AddEllipse(_constructerFigure.ShowRectangle1(_pointStart, _pointEnd));
+                        currObj.Path.AddEllipse(_constructerFigure.ShowRectangle(_pointStart, _pointEnd));
 
                         break;
 
@@ -226,7 +226,7 @@ namespace PaintedObjectsMoving
 
                         currObj.Path.Reset();
 
-                        currObj.Path.AddEllipse(_constructerFigure.ShowRectangle1(_pointStart, _pointEnd));
+                        currObj.Path.AddEllipse(_constructerFigure.ShowRectangle(_pointStart, _pointEnd));
 
                         break;
 
@@ -250,7 +250,7 @@ namespace PaintedObjectsMoving
 
                         currObj.Path.Reset();
 
-                        currObj.Path.AddEllipse(_constructerFigure.ShowRectangle1(_pointStart, _pointEnd));
+                        currObj.Path.AddEllipse(_constructerFigure.ShowRectangle(_pointStart, _pointEnd));
 
                         break;
                 }
@@ -259,7 +259,7 @@ namespace PaintedObjectsMoving
             MoveObjectSupport(currObj, deltaX, deltaY);
         }
 
-        public void EditObjectPoliLine(PaintedObject currObj, SupportObject _supportObj, int deltaX, int deltaY)
+        public void EditObjectPoliLine(Object currObj, SupportObject _supportObj, int deltaX, int deltaY)
         {
 
             if (currObj.IdFigure == _supportObj.IdFigure)
@@ -283,7 +283,7 @@ namespace PaintedObjectsMoving
 
         private СonstructionFigure _ellipse = new СonstructionFigure();
         
-        public void MoveObjectSupport(PaintedObject currObj, int deltaX, int deltaY)
+        public void MoveObjectSupport(Object currObj, int deltaX, int deltaY)
         {
 
             foreach (SupportObject SelectObject in currObj.SelectListFigure())

@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace PaintedObjectsMoving {
-	class PaintedObject : ICloneable
+	class Object : ICloneable
     {
 		private GraphicsPath _path;
         private Pen _pen;
@@ -96,7 +96,7 @@ namespace PaintedObjectsMoving {
 			get { return _pen; }
 			set { _pen = value; }
 		}
-		public PaintedObject(Pen pen, GraphicsPath path, SolidBrush brush, MainForm.FigureType CurrentFigure) {
+		public Object(Pen pen, GraphicsPath path, SolidBrush brush, MainForm.FigureType CurrentFigure) {
             _path = path;
             _pen = pen;
             _brush = brush;
@@ -108,13 +108,13 @@ namespace PaintedObjectsMoving {
 
 		public object Clone() {
 
-			return new PaintedObject(this.Pen, this.Path.Clone() as GraphicsPath, _brush, _currentfigure);
+			return new Object(this.Pen, this.Path.Clone() as GraphicsPath, _brush, _currentfigure);
 		}
 
-        public PaintedObject CloneObject()
+        public Object CloneObject()
         {
             //Pen CopiPen = new Pen(_pen.Color);
-            return new PaintedObject(this.Pen, this.Path.Clone() as GraphicsPath, _brush, _currentfigure);
+            return new Object(this.Pen, this.Path.Clone() as GraphicsPath, _brush, _currentfigure);
         }
 
         #endregion

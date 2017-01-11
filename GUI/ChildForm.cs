@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PaintedObjectsMoving.CORE;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,9 +15,11 @@ namespace PaintedObjectsMoving
         //КЛАССЫ
         private DrawPaint _drawClass;
         private SelectDraw _selectClass;
+        private Data _dataSet; 
 
         //ПЕРЕМЕННЫЕ
         private List<PointF> _points = new List<PointF>();
+        private List<IFigureBuild> _figuresBuild = new List<IFigureBuild>();
 
         private static MainForm.FigureType _currentfigure = MainForm.FigureType.Line;                 //текущая выбранная фигура
         private static MainForm.FigureType _previousfigure = MainForm.FigureType.Line;                //предыдущая выбранная фигура
@@ -43,6 +46,14 @@ namespace PaintedObjectsMoving
 
             _selectClass = new SelectDraw();
 
+            _dataSet = new Data();
+
+            _dataSet.Linecolor = Color.Black;
+            _dataSet.Dashstyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            _dataSet.Fill = false;
+            _dataSet.Thickness = 1;
+            _dataSet.Brushcolor = Color.White; 
+
             //Характеристика фигуры
             _figureProperties.brushcolor = Color.White;
             _figureProperties.dashstyle = System.Drawing.Drawing2D.DashStyle.Solid;
@@ -53,17 +64,23 @@ namespace PaintedObjectsMoving
             //Характеристика опорных точек
             _figurePropertiesSupport.linecolor = Color.Black;
 
+            _figuresBuild.Add(new Rectangles());
+            _figuresBuild.Add(new Ellipses());
+            _figuresBuild.Add(new Line());
+            _figuresBuild.Add(new PoliLine());
+            _figuresBuild.Add(new Polygon());
+            _figuresBuild.Add(new RectangleSelect());
         }
 
         private void Child_Paint(object sender, PaintEventArgs e)
         {
             RefreshBitmap();
 
-            _drawClass.Paint(e, _currentfigure, _points);
+            _drawClass.Paint(e, _currentfigure, _points, _figuresBuild);
 
             if (_selectClass.SeleckResult() != null)
             {
-                _drawClass.SupportPoint(e, _selectClass.SeleckResult());
+                _drawClass.SupportPoint(e, _selectClass.SeleckResult(), _figuresBuild);
             }
         }
 
@@ -96,7 +113,7 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)
                     {
-                        _selectClass.MouseMove(e, _currentActions);
+                        _selectClass.MouseMove(e, _currentActions, _figuresBuild);
                     }
 
                     break;
@@ -114,7 +131,7 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)
                     {
-                        _selectClass.MouseMove(e, _currentActions);
+                        _selectClass.MouseMove(e, _currentActions, _figuresBuild);
                     }
 
                     break;
@@ -145,25 +162,13 @@ namespace PaintedObjectsMoving
 
                                     _points[1] = new PointF(e.Location.X, e.Location.Y);
 
-                                    _drawClass.MouseUp(_currentfigure, _points);
+                                    _drawClass.MouseUp(_currentfigure, _points, _figuresBuild);
 
                                     _points.Clear();
                                 }
 
 
                                 break;
-
-                            //case MainForm.FigureType.PoliLine:
-
-                            //    _points.Add(new PointF(e.Location.X, e.Location.Y));
-
-                            //    break;
-
-                            //case MainForm.FigureType.Polygon:
-
-                            //    _points.Add(new PointF(e.Location.X, e.Location.Y));
-
-                            //    break;
                         }
 
                     }
@@ -191,7 +196,7 @@ namespace PaintedObjectsMoving
 
                         mouseclick = false;
 
-                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList(), MainForm.Actions.SelectRegion);
+                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList(), MainForm.Actions.SelectRegion, _figuresBuild);
 
                         _points.Clear();
 
@@ -208,7 +213,7 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)
                     {
-                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList(), MainForm.Actions.SelectPoint);
+                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList(), MainForm.Actions.SelectPoint, _figuresBuild);
 
                     }
 
@@ -281,7 +286,7 @@ namespace PaintedObjectsMoving
 
                                 if (_points.Count != 0)
                                 {
-                                    _drawClass.MouseUp(_currentfigure, _points);
+                                    _drawClass.MouseUp(_currentfigure, _points, _figuresBuild);
                                     _points.Clear();
                                 }
 
@@ -291,7 +296,7 @@ namespace PaintedObjectsMoving
 
                                 if (_points.Count != 0)
                                 {
-                                    _drawClass.MouseUp(_currentfigure, _points);
+                                    _drawClass.MouseUp(_currentfigure, _points, _figuresBuild);
                                     _points.Clear();
                                 }
 

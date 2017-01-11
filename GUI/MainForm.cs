@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PaintedObjectsMoving.CORE;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -8,15 +9,9 @@ namespace PaintedObjectsMoving
 {
     public partial class MainForm : Form
     {
-        //ПЕРЕЧИСЛЕНИЕ
-        /*зададим перечисление, имеющее
-         * в качестве значений названия
-         * фигур, которые будут использованы
-         * для определения, какую именно рисовать
-         */
         public enum FigureType
         {
-            Rectangle, Ellipse, Line, RectangleSelect, PoliLine, Polygon
+            Rectangle, Ellipse, Line, PoliLine, Polygon, RectangleSelect
         }
 
         public enum Actions
@@ -24,16 +19,6 @@ namespace PaintedObjectsMoving
            Draw, Move, Scale, SelectRegion, SelectPoint
         }
         public struct Properties
-        {
-            public Color linecolor;  //цвет линии
-            public Color brushcolor; //цвет заливки
-            public int thickness;              //толщина линии
-            /* стиль линии*/
-            public System.Drawing.Drawing2D.DashStyle dashstyle;
-            public bool fill; //true - фигура с заливкой, false - без заливки
-        }
-
-        public struct PropertiesForm
         {
             public Color linecolor;  //цвет линии
             public Color brushcolor; //цвет заливки
@@ -395,6 +380,7 @@ namespace PaintedObjectsMoving
             Form FileDialog = new NewFileDialog();                      //создаем форму диалогового окна
             FileDialog.Text = "Новый файл";                             //задаем заголовок окна
             FileDialog.ShowDialog();                                    //отображаем диалог
+
             if (createnewfile)  //если в диалоговой форме было нажато ОК, то создаем новый файл
             {
                 Form NewForm = new ChildForm();                       //создаем объект - дочернюю форму-рисунок

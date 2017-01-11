@@ -44,6 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddPolygon.cs" />
+    <Compile Include="Commands\AddPoliLine.cs" />
+    <Compile Include="Commands\AddRectangle.cs" />
+    <Compile Include="Commands\AddEllipse.cs" />
+    <Compile Include="Commands\AddLine.cs" />
+    <Compile Include="Commands\IFigureCommand.cs" />
+    <Compile Include="CORE\Data.cs" />
+    <Compile Include="Commands\Ellipses.cs" />
+    <Compile Include="Commands\IFigureBuild.cs" />
+    <Compile Include="Commands\Line.cs" />
+    <Compile Include="Commands\PoliLine.cs" />
+    <Compile Include="Commands\Polygon.cs" />
+    <Compile Include="Commands\Rectangles.cs" />
+    <Compile Include="Commands\RectangleSelect.cs" />
     <Compile Include="GUI\ChildForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,7 +93,7 @@
     <Compile Include="GUI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CORE\PaintedObject.cs" />
+    <Compile Include="CORE\Object.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GUI\ChildForm.resx">
@@ -117,9 +131,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Command\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

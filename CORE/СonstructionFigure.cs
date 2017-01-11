@@ -39,87 +39,19 @@ namespace PaintedObjectsMoving
         //МЕТОДЫ
         public Rectangle ShowRectangle(PointF start, PointF end)
         {
-            /*          true        false
-             * Hide     скрыть      отобразить
-             * Dash     пунктиром   выбранным стилем
-             */
 
-            /*создаем прямоугольник с заданными координатами,
-             * учитывая сдвиг при прокрутке
-             */
             Left = (int)((start.X - end.X > 0) ? end.X : start.X);
             Down = (int)((start.Y - end.Y > 0) ? start.Y : end.Y);
             Top = (int)((start.Y - end.Y > 0) ? end.Y : start.Y);
             Right = (int)((start.X - end.X > 0) ? start.X : end.X);
 
             
-
             Rectangle rect = Rectangle.FromLTRB(Left, Top , Right , Down );
 
-            //if (rect == null)
-            //{
-            //    if (width != height) throw new Exception("Не удалось построить эллипс!");
-            //    else throw new Exception("Не удалось построить круг!");
-            //}
-            /*if (fill) obj.FillEllipse(Brush, rect); */                                  //выполняем заливку если  fill = true
-            //obj.DrawEllipse(new Pen(Color.Black), rect);                                               //рисуем прямоугольник
-
             return rect;
         }
 
-        public Rectangle ShowRectangle1(PointF start, PointF end)
-        {
-            /*          true        false
-             * Hide     скрыть      отобразить
-             * Dash     пунктиром   выбранным стилем
-             */
-
-            /*создаем прямоугольник с заданными координатами,
-             * учитывая сдвиг при прокрутке
-             */
-            Left = (int)((start.X - end.X > 0) ? end.X : start.X);
-            Down = (int)((start.Y - end.Y > 0) ? start.Y : end.Y);
-            Top = (int)((start.Y - end.Y > 0) ? end.Y : start.Y);
-            Right = (int)((start.X - end.X > 0) ? start.X : end.X);
-
-
-            
-            Rectangle rect = Rectangle.FromLTRB(Left, Top, Right, Down);
-
-            return rect;
-        }
-
-        public Rectangle ShowEllipse(PointF start, PointF end)
-        {
-            /*          true        false
-             * Hide     скрыть      отобразить
-             * Dash     пунктиром   выбранным стилем
-             */
-
-            /*создаем прямоугольник с заданными координатами,
-             * учитывая сдвиг при прокрутке
-             */
-            Left = (int)((start.X - end.X > 0) ? end.X : start.X);
-            Down = (int)((start.Y - end.Y > 0) ? start.Y : end.Y);
-            Top = (int)((start.Y - end.Y > 0) ? end.Y : start.Y);
-            Right = (int)((start.X - end.X > 0) ? start.X : end.X);
-
-            //width = Math.Abs(end.X - start.X);              //вычисляем высоту эллипса
-            //height = Math.Abs(end.Y - start.Y);             //вычисляем ширину эллипса
-
-            Rectangle rect = Rectangle.FromLTRB(Left, Top, Right, Down);
-
-            //if (rect == null)
-            //{
-            //    if (width != height) throw new Exception("Не удалось построить эллипс!");
-            //    else throw new Exception("Не удалось построить круг!");
-            //}
-            /*if (fill) obj.FillEllipse(Brush, rect); */                                  //выполняем заливку если  fill = true
-            //obj.DrawEllipse(new Pen(Color.Black), rect);                                               //рисуем прямоугольник
-
-            return rect;
-        }
-
+    
         public Rectangle SelectFigure(PointF SelectPoint, float Width)
         {
             
