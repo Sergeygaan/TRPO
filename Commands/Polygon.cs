@@ -24,30 +24,29 @@ namespace PaintedObjectsMoving.CORE
             }
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild)
+        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild, List<Object> Figures)
         {
             _addFigureAddPolygon = new AddPolygon();
-            _addFigureAddPolygon.AddFigure(DrawObject, _points);
-            _addFigureAddPolygon.Execute();
-
+            _addFigureAddPolygon.AddFigure(DrawObject, _points, Figures);
+            
             _addFigureAddPolygon.Output().FigureStart = _points[0];
             _addFigureAddPolygon.Output().FigureEnd = _points[1];
             _addFigureAddPolygon.Output().IdFigure = _figuresBuild.Count;
 
-
+            Figures.Add(_addFigureAddPolygon.Output());
             _figuresBuild.Add(_addFigureAddPolygon);
         }
 
-        public void AddSupportPoint(IFigureCommand SelectObject)
+        public void AddSupportPoint(Object SelectObject)
         {
-            for (int i = 0; i < SelectObject.Output().PointSelect.Length; i++)
+            for (int i = 0; i < SelectObject.PointSelect.Length; i++)
             {
                 _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
-                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.Output().PointSelect[i], SelectObject.Output().Pen.Width));
-                _drawSupportObject.IdFigure = SelectObject.Output().IdFigure;
+                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
+                _drawSupportObject.IdFigure = SelectObject.IdFigure;
                 _drawSupportObject.ControlPointF = i;
 
-                SelectObject.Output().AddListFigure(_drawSupportObject);
+                SelectObject.AddListFigure(_drawSupportObject);
             }
         }
 
@@ -61,10 +60,10 @@ namespace PaintedObjectsMoving.CORE
 
         }
 
-        public void ScaleFigure(MouseEventArgs e, IFigureCommand DrawObject, List<IFigureCommand> SelectedFigures)
+        public void ScaleFigure(MouseEventArgs e, Object DrawObject, List<Object> SelectedFigures)
         {
-            DrawObject.Output().PointSelect = DrawObject.Output().Path.PathPoints;
-            DrawObject.Output().SelectFigure = true;
+            DrawObject.PointSelect = DrawObject.Path.PathPoints;
+            DrawObject.SelectFigure = true;
             //DrawObject.Pen.Width += 1;
             SelectedFigures.Add(DrawObject);
         }

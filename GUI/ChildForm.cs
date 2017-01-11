@@ -15,8 +15,7 @@ namespace PaintedObjectsMoving
         //КЛАССЫ
         private DrawPaint _drawClass;
         private SelectDraw _selectClass;
-        private Data _dataSet; 
-
+       
         //ПЕРЕМЕННЫЕ
         private List<PointF> _points = new List<PointF>();
         private List<IFigureBuild> _figuresBuild = new List<IFigureBuild>();
@@ -45,14 +44,6 @@ namespace PaintedObjectsMoving
             _drawClass = new DrawPaint(DrawForm.Width, DrawForm.Height);
 
             _selectClass = new SelectDraw();
-
-            _dataSet = new Data();
-
-            _dataSet.Linecolor = Color.Black;
-            _dataSet.Dashstyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            _dataSet.Fill = false;
-            _dataSet.Thickness = 1;
-            _dataSet.Brushcolor = Color.White; 
 
             //Характеристика фигуры
             _figureProperties.brushcolor = Color.White;
@@ -196,7 +187,7 @@ namespace PaintedObjectsMoving
 
                         mouseclick = false;
 
-                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.IFigureCommand(), MainForm.Actions.SelectRegion, _figuresBuild);
+                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList(), MainForm.Actions.SelectRegion, _figuresBuild);
 
                         _points.Clear();
 
@@ -213,7 +204,7 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)
                     {
-                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.IFigureCommand(), MainForm.Actions.SelectPoint, _figuresBuild);
+                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList(), MainForm.Actions.SelectPoint, _figuresBuild);
 
                     }
 
@@ -450,5 +441,18 @@ namespace PaintedObjectsMoving
             DrawForm.Refresh();
         }
 
+        public void UndoFigure()
+        {
+            _drawClass.UndoFigure();
+
+            DrawForm.Refresh();
+        }
+
+        public void RedoFigure()
+        {
+            _drawClass.RedoFigure();
+
+            DrawForm.Refresh();
+        }
     }
 }

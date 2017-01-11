@@ -11,13 +11,13 @@ namespace PaintedObjectsMoving.CORE
     {
         void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure);
 
-        void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild);
+        void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> FiguresBuild, List<Object> Figures);
 
-        void AddSupportPoint(IFigureCommand SelectObject);
+        void AddSupportPoint(Object SelectObject);
 
         void ScaleSelectFigure(Object SelectObject, SupportObject SupportObj, int DeltaX, int DeltaY, EditObject EdipParametr);
 
-        void ScaleFigure(MouseEventArgs e, IFigureCommand DrawObject, List<IFigureCommand> SelectedFigures);
+        void ScaleFigure(MouseEventArgs e, Object DrawObject, List<Object> _selectedFigures);
 
     }
 }

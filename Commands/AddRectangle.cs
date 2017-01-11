@@ -13,26 +13,29 @@ namespace PaintedObjectsMoving.CORE
         private СonstructionFigure _ellipse = new СonstructionFigure();
         private List<PointF> _points;
         private Object _drawObject;
+        private List<Object> _figures;
 
         public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
         {
             e.Graphics.DrawRectangle(_penFigure, _ellipse.ShowRectangle(_points[0], _points[1]));
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> Points)
+        public void AddFigure(Object DrawObject, List<PointF> Points, List<Object> Figures)
         {
             _drawObject = DrawObject;
             _points = Points;
+            _figures = Figures;
+            _drawObject.Path.AddRectangle(_ellipse.ShowRectangle(_points[0], _points[1]));
         }
 
         public void Execute()
         {
-            _drawObject.Path.AddRectangle(_ellipse.ShowRectangle(_points[0], _points[1]));
+            _figures.Add(_drawObject);
         }
 
         public void Undo()
         {
-
+            UndoFigure();
         }
 
         public Object Output()
@@ -40,5 +43,9 @@ namespace PaintedObjectsMoving.CORE
             return _drawObject;
         }
 
+        public void UndoFigure()
+        {
+            _figures.Remove(_drawObject);
+        }
     }
 }

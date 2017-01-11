@@ -44,14 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\СhangePenStyleFigure.cs" />
     <Compile Include="Commands\AddPolygon.cs" />
     <Compile Include="Commands\AddPoliLine.cs" />
     <Compile Include="Commands\AddRectangle.cs" />
     <Compile Include="Commands\AddEllipse.cs" />
     <Compile Include="Commands\AddLine.cs" />
     <Compile Include="Commands\IFigureCommand.cs" />
-    <Compile Include="CORE\Data.cs" />
     <Compile Include="Commands\Ellipses.cs" />
     <Compile Include="Commands\IFigureBuild.cs" />
     <Compile Include="Commands\Line.cs" />
@@ -65,7 +63,7 @@
     <Compile Include="GUI\ChildForm.Designer.cs">
       <DependentUpon>ChildForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CORE\DrawPaint.cs" />
+    <Compile Include="CORE\Draw.cs" />
     <Compile Include="CORE\EditObject.cs" />
     <Compile Include="GUI\LineStyle.cs">
       <SubType>Form</SubType>

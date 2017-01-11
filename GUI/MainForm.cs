@@ -375,6 +375,26 @@ namespace PaintedObjectsMoving
             set { childcounter = value; }
         }
 
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            if (ActiveForm != null)
+            {
+                ActiveForm.UndoFigure();
+            }
+            ActiveForm = null;
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            if (ActiveForm != null)
+            {
+                ActiveForm.RedoFigure();
+            }
+            ActiveForm = null;
+        }
+
         private void новыйToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form FileDialog = new NewFileDialog();                      //создаем форму диалогового окна

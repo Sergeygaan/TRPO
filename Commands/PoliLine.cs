@@ -24,32 +24,31 @@ namespace PaintedObjectsMoving.CORE
             }
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild)
+        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild, List<Object> Figures)
         {
 
             _addFigurePoliLine = new AddPoliLine();
-            _addFigurePoliLine.AddFigure(DrawObject, _points);
-            _addFigurePoliLine.Execute();
-
+            _addFigurePoliLine.AddFigure(DrawObject, _points, Figures);
+            
             _addFigurePoliLine.Output().FigureStart = _points[0];
             _addFigurePoliLine.Output().FigureEnd = _points[1];
             _addFigurePoliLine.Output().IdFigure = _figuresBuild.Count;
 
-
+            Figures.Add(_addFigurePoliLine.Output());
             _figuresBuild.Add(_addFigurePoliLine);
 
         }
 
-        public void AddSupportPoint(IFigureCommand SelectObject)
+        public void AddSupportPoint(Object SelectObject)
         {
-            for (int i = 0; i < SelectObject.Output().PointSelect.Length; i++)
+            for (int i = 0; i < SelectObject.PointSelect.Length; i++)
             {
                 _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
-                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.Output().PointSelect[i], SelectObject.Output().Pen.Width));
-                _drawSupportObject.IdFigure = SelectObject.Output().IdFigure;
+                _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
+                _drawSupportObject.IdFigure = SelectObject.IdFigure;
                 _drawSupportObject.ControlPointF = i;
 
-                SelectObject.Output().AddListFigure(_drawSupportObject);
+                SelectObject.AddListFigure(_drawSupportObject);
             }
         }
 
@@ -63,21 +62,21 @@ namespace PaintedObjectsMoving.CORE
 
         }
 
-        public void ScaleFigure(MouseEventArgs e, IFigureCommand DrawObject, List<IFigureCommand> SelectedFigures)
+        public void ScaleFigure(MouseEventArgs e, Object DrawObject, List<Object> SelectedFigures)
         {
             
-            for (int i = 1; i < DrawObject.Output().Path.PathPoints.Length; i++)
+            for (int i = 1; i < DrawObject.Path.PathPoints.Length; i++)
             {
                 float PoliLineX, PoliLineY;
 
-                PoliLineY = (-(DrawObject.Output().Path.PathPoints[i - 1].X * DrawObject.Output().Path.PathPoints[i].Y - DrawObject.Output().Path.PathPoints[i].X * DrawObject.Output().Path.PathPoints[i - 1].Y) - ((DrawObject.Output().Path.PathPoints[i - 1].Y - DrawObject.Output().Path.PathPoints[i].Y) * e.Location.X)) / (DrawObject.Output().Path.PathPoints[i].X - DrawObject.Output().Path.PathPoints[i - 1].X);
+                PoliLineY = (-(DrawObject.Path.PathPoints[i - 1].X * DrawObject.Path.PathPoints[i].Y - DrawObject.Path.PathPoints[i].X * DrawObject.Path.PathPoints[i - 1].Y) - ((DrawObject.Path.PathPoints[i - 1].Y - DrawObject.Path.PathPoints[i].Y) * e.Location.X)) / (DrawObject.Path.PathPoints[i].X - DrawObject.Path.PathPoints[i - 1].X);
 
-                PoliLineX = (-(DrawObject.Output().Path.PathPoints[i - 1].X * DrawObject.Output().Path.PathPoints[i].Y - DrawObject.Output().Path.PathPoints[i].X * DrawObject.Output().Path.PathPoints[i - 1].Y) - ((DrawObject.Output().Path.PathPoints[i].X - DrawObject.Output().Path.PathPoints[i - 1].X) * e.Location.Y)) / (DrawObject.Output().Path.PathPoints[i - 1].Y - DrawObject.Output().Path.PathPoints[i].Y);
+                PoliLineX = (-(DrawObject.Path.PathPoints[i - 1].X * DrawObject.Path.PathPoints[i].Y - DrawObject.Path.PathPoints[i].X * DrawObject.Path.PathPoints[i - 1].Y) - ((DrawObject.Path.PathPoints[i].X - DrawObject.Path.PathPoints[i - 1].X) * e.Location.Y)) / (DrawObject.Path.PathPoints[i - 1].Y - DrawObject.Path.PathPoints[i].Y);
 
-                if ((e.Location.Y >= PoliLineY - DrawObject.Output().Pen.Width - 2) && (e.Location.Y <= PoliLineY + DrawObject.Output().Pen.Width + 2) || (e.Location.X >= PoliLineX - DrawObject.Output().Pen.Width - 2) && (e.Location.X <= PoliLineX + DrawObject.Output().Pen.Width + 2))
+                if ((e.Location.Y >= PoliLineY - DrawObject.Pen.Width - 2) && (e.Location.Y <= PoliLineY + DrawObject.Pen.Width + 2) || (e.Location.X >= PoliLineX - DrawObject.Pen.Width - 2) && (e.Location.X <= PoliLineX + DrawObject.Pen.Width + 2))
                 {
-                    DrawObject.Output().PointSelect = DrawObject.Output().Path.PathPoints;
-                    DrawObject.Output().SelectFigure = true;
+                    DrawObject.PointSelect = DrawObject.Path.PathPoints;
+                    DrawObject.SelectFigure = true;
                     //DrawObject.Pen.Width += 1;
                     SelectedFigures.Add(DrawObject);
                 }

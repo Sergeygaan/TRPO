@@ -13,50 +13,39 @@ namespace PaintedObjectsMoving.CORE
         private СonstructionFigure _ellipse = new СonstructionFigure();
         private List<PointF> _points;
         private Object _drawObject;
+        private List<Object> _figures;
 
         public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
         {
             e.Graphics.DrawEllipse(_penFigure, _ellipse.ShowRectangle(_points[0], _points[1]));
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> Points)
+        public void AddFigure(Object DrawObject, List<PointF> Points, List<Object> Figures)
         {
             _drawObject = DrawObject;
             _points = Points;
+            _figures = Figures;
+
+            _drawObject.Path.AddEllipse(_ellipse.ShowRectangle(_points[0], _points[1]));
         }
 
         public void Execute()
         {
-            _drawObject.Path.AddEllipse(_ellipse.ShowRectangle(_points[0], _points[1]));
+            _figures.Add(_drawObject);
         }
 
         public void Undo()
         {
-
+            UndoFigure();
         }
 
         public Object Output()
         {
             return _drawObject;
         }
-
-
-
-
-        public void AddSupportPoint(Object SelectObject)
+        public void UndoFigure()
         {
+            _figures.Remove(_drawObject);
         }
-
-        public void ScaleSelectFigure(Object SelectObject, SupportObject SupportObj, int DeltaX, int DeltaY, EditObject EdipParametr)
-        {
-          
-        }
-
-
-        public void ScaleFigure(MouseEventArgs e, Object DrawObject, List<Object> SelectedFigures)
-        {
-           
-        }
-
     }
 }

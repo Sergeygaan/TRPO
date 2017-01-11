@@ -11,11 +11,9 @@ namespace PaintedObjectsMoving
 {
     class SelectDraw
     {
-           //Список выбранных фигур
+        List<Object> _selectedFigures = new List<Object>();   //Список выбранных фигур
 
-        private List<IFigureCommand> _selectedFigures = new List<IFigureCommand>();
-
-        // private Object currObj = null;//Объект, который в данный момент перемещается
+       // private Object currObj = null;//Объект, который в данный момент перемещается
         private SupportObject _supportObj;
         private Point _oldPoint;
        
@@ -28,14 +26,14 @@ namespace PaintedObjectsMoving
 
         public void MouseUp()
         {
-            foreach (var SelectObject in _selectedFigures)
+            foreach (Object SelectObject in _selectedFigures)
             {
                 if (SelectObject != null)
                 {
                     //SelectObject.Pen.Width -= 1;//Возвращаем ширину пера
-                    SelectObject.Output().ClearListFigure();
-                    SelectObject.Output().PointSelect = null;
-                    SelectObject.Output().SelectFigure = false;
+                    SelectObject.ClearListFigure();
+                    SelectObject.PointSelect = null;
+                    SelectObject.SelectFigure = false;
                     //SelectObject. = null;//Убираем ссылку на объект
                     _supportObj = null;
 
@@ -60,9 +58,9 @@ namespace PaintedObjectsMoving
 
             if (_selectedFigures.Count != 0)
             {
-                foreach (var SelectObject in _selectedFigures)
+                foreach (Object SelectObject in _selectedFigures)
                 {
-                    foreach (SupportObject SupportObjecFigure in SelectObject.Output().SelectListFigure())
+                    foreach (SupportObject SupportObjecFigure in SelectObject.SelectListFigure())
                     {
 
                         _rectangleF = SupportObjecFigure.Path.GetBounds();
@@ -79,7 +77,7 @@ namespace PaintedObjectsMoving
             }
         }
 
-        public void MouseDown(MouseEventArgs e, Rectangle Rect, List<IFigureCommand> IFigureCommand, MainForm.Actions _currentActions, List<IFigureBuild> FiguresBuild)
+        public void MouseDown(MouseEventArgs e, Rectangle Rect, List<Object> _figures, MainForm.Actions _currentActions, List<IFigureBuild> FiguresBuild)
         {
             //Запоминаем положение курсора
             _oldPoint = e.Location;
@@ -90,17 +88,17 @@ namespace PaintedObjectsMoving
             {
 
                 //Ищем объект, в который попала точка.Если таких несколько, то найден будет первый по списку
-                foreach (var DrawObject in IFigureCommand)
+                foreach (Object DrawObject in _figures)
                 {
 
-                    figurestartX = DrawObject.Output().FigureStart.X;
-                    figurestartY = DrawObject.Output().FigureStart.Y;
+                    figurestartX = DrawObject.FigureStart.X;
+                    figurestartY = DrawObject.FigureStart.Y;
 
-                    figureendX = DrawObject.Output().FigureEnd.X;
-                    figureendY = DrawObject.Output().FigureEnd.Y;
+                    figureendX = DrawObject.FigureEnd.X;
+                    figureendY = DrawObject.FigureEnd.Y;
 
                     // Получение области выделения
-                    _rectangleF = DrawObject.Output().Path.GetBounds();
+                    _rectangleF = DrawObject.Path.GetBounds();
 
                     if (figurestartX == figureendX)
                     {
@@ -119,8 +117,8 @@ namespace PaintedObjectsMoving
 
                             if (_rectangleF.IntersectsWith(Rect))
                             {
-                                DrawObject.Output().PointSelect = DrawObject.Output().Path.PathPoints;
-                                DrawObject.Output().SelectFigure = true;
+                                DrawObject.PointSelect = DrawObject.Path.PathPoints;
+                                DrawObject.SelectFigure = true;
                                 //DrawObject.Pen.Width += 1;
                                 _selectedFigures.Add(DrawObject);
 
@@ -132,7 +130,7 @@ namespace PaintedObjectsMoving
 
                             if (_rectangleF.Contains(e.Location))
                             {
-                                FiguresBuild[(int)DrawObject.Output().CurrentFigure].ScaleFigure(e, DrawObject, _selectedFigures);
+                                FiguresBuild[(int)DrawObject.CurrentFigure].ScaleFigure(e, DrawObject, _selectedFigures);
                             }
 
                             break;
@@ -151,7 +149,7 @@ namespace PaintedObjectsMoving
             deltaX = e.Location.X - _oldPoint.X;
             deltaY = e.Location.Y - _oldPoint.Y;
 
-            foreach (var SelectObject in _selectedFigures)
+            foreach (Object SelectObject in _selectedFigures)
             {
                 switch (_currentActions)
                 {
@@ -161,7 +159,7 @@ namespace PaintedObjectsMoving
                         //Масштабирование опорных точек
                         if ((SelectObject != null) && (_supportObj != null))
                         {
-                            FiguresBuild[(int)SelectObject.Output().CurrentFigure].ScaleSelectFigure(SelectObject.Output(), _supportObj, deltaX, deltaY, _edipParametr);
+                            FiguresBuild[(int)SelectObject.CurrentFigure].ScaleSelectFigure(SelectObject, _supportObj, deltaX, deltaY, _edipParametr);
 
                             _oldPoint = e.Location;
                         }
@@ -173,9 +171,9 @@ namespace PaintedObjectsMoving
 
                         if (SelectObject != null)
                         {
-                            SelectObject.Output().PointSelect = SelectObject.Output().Path.PathPoints;
+                            SelectObject.PointSelect = SelectObject.Path.PathPoints;
 
-                            _edipParametr.MoveObject(SelectObject.Output(), deltaX, deltaY);
+                            _edipParametr.MoveObject(SelectObject, deltaX, deltaY);
 
                             _oldPoint = e.Location;
                         }
@@ -185,10 +183,10 @@ namespace PaintedObjectsMoving
             }
 
         }
-
+     
 
         //Вернуть выделенный объект 
-        public List<IFigureCommand> SeleckResult()
+        public List<Object> SeleckResult()
         {
             return _selectedFigures;
         }

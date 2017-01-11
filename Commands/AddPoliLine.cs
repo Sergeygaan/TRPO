@@ -12,7 +12,7 @@ namespace PaintedObjectsMoving.CORE
     {
         private List<PointF> _points;
         private Object _drawObject;
-
+        private List<Object> _figures;
         public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
         {
             if (_points.Count > 1)
@@ -23,22 +23,25 @@ namespace PaintedObjectsMoving.CORE
             }
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> Points)
+        public void AddFigure(Object DrawObject, List<PointF> Points, List<Object> Figures)
         {
             _drawObject = DrawObject;
             _points = Points;
-        }
+            _figures = Figures;
 
-        public void Execute()
-        {
             PointF[] PointPoliLine = _points.ToArray();
 
             _drawObject.Path.AddLines(PointPoliLine);
         }
 
+        public void Execute()
+        {
+            _figures.Add(_drawObject);
+        }
+
         public void Undo()
         {
-
+            UndoFigure();
         }
 
         public Object Output()
@@ -46,6 +49,10 @@ namespace PaintedObjectsMoving.CORE
             return _drawObject;
         }
 
-       
+        public void UndoFigure()
+        {
+            _figures.Remove(_drawObject);
+        }
+
     }
 }

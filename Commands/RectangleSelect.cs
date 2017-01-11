@@ -18,13 +18,13 @@ namespace PaintedObjectsMoving.CORE
             e.Graphics.DrawRectangle(_penFigureSelect, _ellipse.ShowRectangle(_points[0], _points[1]));
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild) { }
+        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild, List<Object> Figures) { }
 
-        public void AddSupportPoint(IFigureCommand SelectObject) { }
+        public void AddSupportPoint(Object SelectObject) { }
 
         public void ScaleSelectFigure(Object SelectObject, SupportObject SupportObj, int DeltaX, int DeltaY, EditObject EdipParametr) { }
 
-        public void ScaleFigure(MouseEventArgs e, IFigureCommand DrawObject, List<IFigureCommand> SelectedFigures) { }
+        public void ScaleFigure(MouseEventArgs e, Object DrawObject, List<Object> SelectedFigures) { }
 
     }
 }

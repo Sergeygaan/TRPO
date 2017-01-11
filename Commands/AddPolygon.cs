@@ -12,6 +12,7 @@ namespace PaintedObjectsMoving.CORE
     {
         private List<PointF> _points;
         private Object _drawObject;
+        private List<Object> _figures;
 
         public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
         {
@@ -23,14 +24,12 @@ namespace PaintedObjectsMoving.CORE
             }
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> Points)
+        public void AddFigure(Object DrawObject, List<PointF> Points, List<Object> Figures)
         {
             _drawObject = DrawObject;
             _points = Points;
-        }
+            _figures = Figures;
 
-        public void Execute()
-        {
             PointF[] PointPolygon = _points.ToArray();
 
             _drawObject.Path.AddLines(PointPolygon);
@@ -38,9 +37,14 @@ namespace PaintedObjectsMoving.CORE
             _drawObject.Path.CloseFigure();
         }
 
+        public void Execute()
+        {
+            _figures.Add(_drawObject);
+        }
+
         public void Undo()
         {
-
+            UndoFigure();
         }
 
         public Object Output()
@@ -48,20 +52,9 @@ namespace PaintedObjectsMoving.CORE
             return _drawObject;
         }
 
-        public void AddSupportPoint(Object SelectObject)
+        public void UndoFigure()
         {
+            _figures.Remove(_drawObject);
         }
-
-        public void ScaleSelectFigure(Object SelectObject, SupportObject SupportObj, int DeltaX, int DeltaY, EditObject EdipParametr)
-        {
-          
-        }
-
-
-        public void ScaleFigure(MouseEventArgs e, Object DrawObject, List<Object> SelectedFigures)
-        {
-           
-        }
-
     }
 }

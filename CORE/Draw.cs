@@ -10,7 +10,7 @@ namespace PaintedObjectsMoving
     class DrawPaint
     {
         private List<IFigureCommand> _iFigureCommand = new List<IFigureCommand>();
-        private List<Object> _figure = new List<Object>();
+        private int _indexFigureCommand = -1;
         private СonstructionFigure _ellipse;
 
         private Pen _penFigure;
@@ -18,9 +18,7 @@ namespace PaintedObjectsMoving
         private Rectangle _rect;
         private SolidBrush _brush;
 
-
-        private СhangePenStyleFigure _penStyleFigure;
-        // private List<Object> _figures;//Список с объектами для прорисовки
+        private List<Object> _figures;//Список с объектами для прорисовки
 
         Bitmap bmp;
 
@@ -32,7 +30,7 @@ namespace PaintedObjectsMoving
             _widthDraw = Width;
             _heightDraw = Height;
 
-            
+            _figures = new List<Object>();
             bmp = new Bitmap(Width, Height);
 
             _ellipse = new СonstructionFigure();
@@ -65,9 +63,11 @@ namespace PaintedObjectsMoving
 
             _drawObject = new Object(_penFigure, new GraphicsPath(), _brush, _currentfigure);
 
-            FiguresBuild[(int)_currentfigure].AddFigure(_drawObject, _points, _iFigureCommand);
+            FiguresBuild[(int)_currentfigure].AddFigure(_drawObject, _points, _iFigureCommand, _figures);
 
-         
+            _indexFigureCommand += 1;
+
+
         }
 
 
@@ -80,16 +80,16 @@ namespace PaintedObjectsMoving
 
             using (Graphics DrawList = Graphics.FromImage(bmp))
             {
-                foreach (var DrawObject in _iFigureCommand)
+                foreach (Object DrawObject in _figures)
                 {
-                    DrawList.DrawPath(DrawObject.Output().Pen, DrawObject.Output().Path);
+                    DrawList.DrawPath(DrawObject.Pen, DrawObject.Path);
 
-                    if (DrawObject.Output().Brush != null)
+                    if (DrawObject.Brush != null)
                     {
-                        DrawList.FillPath(DrawObject.Output().Brush, DrawObject.Output().Path);  //Заливка
+                        DrawList.FillPath(DrawObject.Brush, DrawObject.Path);  //Заливка
                     }
 
-                    foreach (SupportObject SuppportObject in DrawObject.Output().SelectListFigure())
+                    foreach (SupportObject SuppportObject in DrawObject.SelectListFigure())
                     {
                         DrawList.DrawPath(SuppportObject.Pen, SuppportObject.Path);
                     }
@@ -126,16 +126,16 @@ namespace PaintedObjectsMoving
 
 
         //Отрисовка опорных точек
-        public void SupportPoint(PaintEventArgs e, List<IFigureCommand> SeleckResult, List<IFigureBuild> FiguresBuild)
+        public void SupportPoint(PaintEventArgs e, List<Object> SeleckResult, List<IFigureBuild> FiguresBuild)
         {
-            foreach (var SelectObject in SeleckResult)
+            foreach (Object SelectObject in SeleckResult)
             {
-                if (SelectObject.Output().SelectFigure == true)
+                if (SelectObject.SelectFigure == true)
                 {
-                    SelectObject.Output().SelectFigure = false;
-                    SelectObject.Output().ClearListFigure();
+                    SelectObject.SelectFigure = false;
+                    SelectObject.ClearListFigure();
 
-                    FiguresBuild[(int)SelectObject.Output().CurrentFigure].AddSupportPoint(SelectObject);
+                    FiguresBuild[(int)SelectObject.CurrentFigure].AddSupportPoint(SelectObject);
 
                 }
 
@@ -143,84 +143,82 @@ namespace PaintedObjectsMoving
         }
 
         //Копирование выбранных фигур
-        public void ReplicationFigure(List<IFigureCommand> SeleckResult)
+        public void ReplicationFigure(List<Object> SeleckResult)
         {
-            foreach (var SelectObject in SeleckResult)
+            foreach (Object SelectObject in SeleckResult)
             {
-                //_iFigureCommand.Add(SelectObject.Output().CloneObject());
-                //_iFigureCommand[_iFigureCommand.Count - 1].Output().IdFigure = _iFigureCommand.Count - 1;
+                _figures.Add(SelectObject.CloneObject());
+                _figures[_figures.Count - 1].IdFigure = _figures.Count - 1;
             }
 
         }
 
         //Удаление выбранных фигуры
-        public void DeleteFigure(List<IFigureCommand> SeleckResult)
+        public void DeleteFigure(List<Object> SeleckResult)
         {
-            foreach (var SelectObject in SeleckResult)
+            foreach (Object SelectObject in SeleckResult)
             {
-                _iFigureCommand.RemoveAt(SelectObject.Output().IdFigure);
+                _figures.RemoveAt(SelectObject.IdFigure);
 
                 int i = 0;
-                foreach (var DrawObject in _iFigureCommand)
+                foreach (Object DrawObject in _figures)
                 {
-                    DrawObject.Output().IdFigure = i;
+                    DrawObject.IdFigure = i;
                     i++;
                 }
             }
              
         }
         //Удаление фона у выбранных фигур
-        public void DeleteBackgroundFigure(List<IFigureCommand> SeleckResult)
+        public void DeleteBackgroundFigure(List<Object> SeleckResult)
         {
-            foreach (var SelectObject in SeleckResult)
+            foreach (Object SelectObject in SeleckResult)
             {
 
-                SelectObject.Output().Brush = null;
+                SelectObject.Brush = null;
                
             }
 
         }
         //Изменение фона у выбранных фигур
-        public void СhangeBackgroundFigure(List<IFigureCommand> SeleckResult, Color ColorСhangeBackground)
+        public void СhangeBackgroundFigure(List<Object> SeleckResult, Color ColorСhangeBackground)
         {
-            foreach (var SelectObject in SeleckResult)
+            foreach (Object SelectObject in SeleckResult)
             {
-                if (SelectObject.Output().CurrentFigure != MainForm.FigureType.PoliLine)
+                if (SelectObject.CurrentFigure != MainForm.FigureType.PoliLine)
                 {
-                    SelectObject.Output().Brush = new SolidBrush(ColorСhangeBackground);
+                    SelectObject.Brush = new SolidBrush(ColorСhangeBackground);
                 }
 
             }
 
         }
-        public void СhangePenColorFigure(List<IFigureCommand> SeleckResult, Color PenColor)
+        public void СhangePenColorFigure(List<Object> SeleckResult, Color PenColor)
         {
-            foreach (var SelectObject in SeleckResult)
+            foreach (Object SelectObject in SeleckResult)
             {
-
-                SelectObject.Output().Pen.Color = PenColor;
+                SelectObject.Pen.Color = PenColor;
                 //SelectObject.Brush = new SolidBrush(ColorСhangeBackground);
 
             }
 
         }
 
-        public void СhangePenWidthFigure(List<IFigureCommand> SeleckResult)
+        public void СhangePenWidthFigure(List<Object> SeleckResult)
         {
-            foreach (var SelectObject in SeleckResult)
+            foreach (Object SelectObject in SeleckResult)
             {
-                SelectObject.Output().Pen.Width = MainForm.FigureProperties.thickness;
+                SelectObject.Pen.Width = MainForm.FigureProperties.thickness;
             }
 
         }
 
-        public void СhangePenStyleFigure(List<IFigureCommand> SeleckResult)
+        public void СhangePenStyleFigure(List<Object> SeleckResult)
         {
-            _penStyleFigure = new СhangePenStyleFigure();
-            _penStyleFigure.AddFigure(SeleckResult);
-            _penStyleFigure.Execute();
-
-            _iFigureCommand.Add(_penStyleFigure);
+            foreach (Object SelectObject in SeleckResult)
+            {
+                SelectObject.Pen.DashStyle = MainForm.FigureProperties.dashstyle;
+            }
 
         }
 
@@ -244,20 +242,43 @@ namespace PaintedObjectsMoving
         // Отчищает список с фигурами
         public void Clear()
         {
+            _figures.Clear();
             _iFigureCommand.Clear();
+            _indexFigureCommand = -1;
         }
 
 
         //Возвращяет список со всеми фигурами
-        public List<IFigureCommand> IFigureCommand()
+        public List<Object> FiguresList()
         {
-            return _iFigureCommand;
+            return _figures;
         }
 
         //Возвращение зоны выделения
         public Rectangle SeparationZone()
         {
             return _rect;
+        }
+
+        public void UndoFigure()
+        {
+            if (_indexFigureCommand >= 0)
+            {
+                _iFigureCommand[_indexFigureCommand].Undo();
+                //_iFigureCommand.RemoveAt(_iFigureCommand.Count - 1);
+                _indexFigureCommand -= 1;
+            }
+            
+        }
+
+        public void RedoFigure()
+        {
+            if (_indexFigureCommand < _iFigureCommand.Count - 1)
+            {
+                _indexFigureCommand += 1;
+                _iFigureCommand[_indexFigureCommand].Execute();
+                
+            }
         }
     }
 }
