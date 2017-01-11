@@ -36,6 +36,8 @@ namespace PaintedObjectsMoving
             this.AutoScroll = true;                             //разрешаем скроллинг
 
             DoubleBuffered = true;
+            //DrawForm.BackColor = Color.FromArgb(0, 0, 0, 0);
+
 
             //Инициализация классов
             _drawClass = new DrawPaint(DrawForm.Width, DrawForm.Height);
@@ -464,6 +466,18 @@ namespace PaintedObjectsMoving
             DrawForm.Refresh();
         }
 
+        //Экспортирование рисунка
+        public PictureBox SaveProject()
+        {
+            _drawClass.SaveProject(DrawForm);
+            return DrawForm;
+        
+        }
+        //Отчистка после экспорта
+        public void ClearProject()
+        {
+            _drawClass.ClearProject(DrawForm);
+        }
 
         public object HistoryCommand
         {

@@ -19,10 +19,11 @@ namespace PaintedObjectsMoving
         private Rectangle _rect;
         private SolidBrush _brush;
         private MainForm.FigureType _currentfigure;
+        private bool _saveProjectClear = false;
 
         private List<Object> _figures;//Список с объектами для прорисовки
 
-        Bitmap bmp;
+        private Bitmap bmp;
 
         private int _widthDraw;
         private int _heightDraw;
@@ -99,6 +100,12 @@ namespace PaintedObjectsMoving
 
             using (Graphics DrawList = Graphics.FromImage(bmp))
             {
+                if (_saveProjectClear == true)
+                {
+                    DrawList.Clear(Color.White);
+                    _saveProjectClear = false;
+                }
+
                 foreach (Object DrawObject in _figures)
                 {
                     DrawList.DrawPath(DrawObject.Pen, DrawObject.Path);
@@ -255,7 +262,7 @@ namespace PaintedObjectsMoving
             }
 
         }
-
+        //Изменение стиля линй у выделенных фигур
         public void СhangeSupportPenStyleFigure(Color NextColor, List<Object> SeleckResult)
         {
 
@@ -265,6 +272,20 @@ namespace PaintedObjectsMoving
 
             _iFigureCommand.Add(_supportPenColor);
             
+        }
+
+        public void SaveProject(PictureBox DrawForm)
+        {
+            _saveProjectClear = true;
+            RefreshBitmap();
+
+            DrawForm.Image = bmp;
+        }
+
+        public void ClearProject(PictureBox DrawForm)
+        {
+            DrawForm.Image = null;
+            DrawForm.Invalidate();
         }
 
         //редактирование стилей для каждой фигуры

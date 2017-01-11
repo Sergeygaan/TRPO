@@ -35,7 +35,7 @@
             // DrawForm
             // 
             this.DrawForm.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.DrawForm.Location = new System.Drawing.Point(-1, -2);
+            this.DrawForm.Location = new System.Drawing.Point(-1, -1);
             this.DrawForm.Name = "DrawForm";
             this.DrawForm.Size = new System.Drawing.Size(1200, 1200);
             this.DrawForm.TabIndex = 1;
@@ -49,10 +49,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.GrayText;
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(922, 491);
             this.Controls.Add(this.DrawForm);
             this.DoubleBuffered = true;
+            this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.Name = "ChildForm";
             this.Text = "ChildForm";
             this.TopMost = true;

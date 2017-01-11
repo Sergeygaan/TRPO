@@ -118,89 +118,26 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="C_StrokeSize_md" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\C_StrokeSize_md.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="C_ColorFill_md" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\C_ColorFill_md.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Rounded Rectangle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Rounded Rectangle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="C_StrokeStyle_md" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\C_StrokeStyle_md.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="P_Rectangle_Lg_N" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\P_Rectangle_Lg_N.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="openFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\openFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="P_NewSkin_Sm_N" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\P_NewSkin_Sm_N.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="P_TextSize_Md_N_D" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\P_TextSize_Md_N_D.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="poligon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\poligon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="C_ColorDisabledFill_md" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\C_ColorDisabledFill_md.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LineColor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LineColor.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="P_Line_Lg_N" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\P_Line_Lg_N.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="P_Delete_Wi_R1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\P_Delete_Wi_R1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="P_Delete_Wi_R" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\P_Delete_Wi_R.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="closeFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\closeFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="P_Ellipse_Lg_N" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\P_Ellipse_Lg_N.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="C_ColorStroke_md" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\C_ColorStroke_md.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mergeorMaintainOrder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mergeorMaintainOrder.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="newFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\newFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="SizeNS (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SizeNS (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="C_ColorFill_Over_md" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\C_ColorFill_Over_md.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="saveFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\saveFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="P_PoliLine_Lg_N" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\P_PoliLine_Lg_N.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="C_ColorStroke_md" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\C_ColorStroke_md.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="P_MonitorIn0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\P_MonitorIn0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="brush-artist_318-33254" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\brush-artist_318-33254.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="P_Delete_Wi_R" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P_Delete_Wi_R.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cpo2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cpo2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="P_TextSize_Md_N_D" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P_TextSize_Md_N_D.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="del" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\del.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mas1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mas1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="P_Rectangle_Lg_N" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P_Rectangle_Lg_N.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pentagon_3246" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pentagon_3246.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -208,13 +145,82 @@
   <data name="poli" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\poli.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SelectPoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SelectPoint.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="brush-artist_318-33254" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\brush-artist_318-33254.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="C_StrokeSize_md" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\C_StrokeSize_md.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="P_Line_Lg_N" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P_Line_Lg_N.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cpo2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cpo2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="del" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\del.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="C_ColorDisabledFill_md" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\C_ColorDisabledFill_md.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="poligon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\poligon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mas1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mas1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mergeorMaintainOrder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mergeorMaintainOrder.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="C_ColorFill_md" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\C_ColorFill_md.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SilectRegion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SilectRegion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="P_PoliLine_Lg_N" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P_PoliLine_Lg_N.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="P_NewSkin_Sm_N" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P_NewSkin_Sm_N.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="P_Ellipse_Lg_N" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P_Ellipse_Lg_N.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="P_Delete_Wi_R1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P_Delete_Wi_R1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="speed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\speed1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineColor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LineColor.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="C_StrokeStyle_md" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\C_StrokeStyle_md.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Rounded Rectangle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Rounded Rectangle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="openFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\openFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="newFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\newFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="saveFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\saveFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SelectPoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SelectPoint.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="closeFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\closeFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Redo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Redo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Undo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Undo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
