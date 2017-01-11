@@ -31,7 +31,7 @@ namespace PaintedObjectsMoving.CORE
             
             _addFigureAddPolygon.Output().FigureStart = _points[0];
             _addFigureAddPolygon.Output().FigureEnd = _points[1];
-            _addFigureAddPolygon.Output().IdFigure = _figuresBuild.Count;
+            _addFigureAddPolygon.Output().IdFigure = Figures.Count;
 
             Figures.Add(_addFigureAddPolygon.Output());
             _figuresBuild.Add(_addFigureAddPolygon);

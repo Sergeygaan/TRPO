@@ -160,8 +160,7 @@ namespace PaintedObjectsMoving
                         if ((SelectObject != null) && (_supportObj != null))
                         {
                             FiguresBuild[(int)SelectObject.CurrentFigure].ScaleSelectFigure(SelectObject, _supportObj, deltaX, deltaY, _edipParametr);
-
-                            _oldPoint = e.Location;
+ 
                         }
 
                         break;
@@ -175,11 +174,12 @@ namespace PaintedObjectsMoving
 
                             _edipParametr.MoveObject(SelectObject, deltaX, deltaY);
 
-                            _oldPoint = e.Location;
                         }
 
                         break;
                 }
+
+                _oldPoint = e.Location;
             }
 
         }

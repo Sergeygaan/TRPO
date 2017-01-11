@@ -14,6 +14,7 @@ namespace PaintedObjectsMoving.CORE
         private List<PointF> _points;
         private Object _drawObject;
         private List<Object> _figures;
+        private Object _drawObjectClone;
 
         public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
         {
@@ -26,11 +27,12 @@ namespace PaintedObjectsMoving.CORE
             _points = Points;
             _figures = Figures;
             _drawObject.Path.AddRectangle(_ellipse.ShowRectangle(_points[0], _points[1]));
+            _drawObjectClone = DrawObject.CloneObject();
         }
 
         public void Execute()
         {
-            _figures.Add(_drawObject);
+            _figures.Insert(_drawObjectClone.IdFigure, _drawObjectClone);
         }
 
         public void Undo()
@@ -45,7 +47,7 @@ namespace PaintedObjectsMoving.CORE
 
         public void UndoFigure()
         {
-            _figures.Remove(_drawObject);
+            _figures.RemoveAt(_drawObject.IdFigure);
         }
     }
 }

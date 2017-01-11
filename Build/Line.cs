@@ -19,18 +19,18 @@ namespace PaintedObjectsMoving.CORE
             e.Graphics.DrawLine(_penFigure, _points[0], _points[1]);
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild, List<Object> Figures)
+        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresCommand, List<Object> Figures)
         {
             _addFigureLine = new AddLine();
             _addFigureLine.AddFigure(DrawObject, _points, Figures);
           
             _addFigureLine.Output().FigureStart = _points[0];
             _addFigureLine.Output().FigureEnd = _points[1];
-            _addFigureLine.Output().IdFigure = _figuresBuild.Count;
+            _addFigureLine.Output().IdFigure = Figures.Count;
 
             Figures.Add(_addFigureLine.Output());
 
-            _figuresBuild.Add(_addFigureLine);
+            _figuresCommand.Add(_addFigureLine);
         }
 
 

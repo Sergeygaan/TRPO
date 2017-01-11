@@ -28,6 +28,8 @@ namespace PaintedObjectsMoving
         //Классы комманд
         private СhangePenWidth _penWidth;
         private СhangePenColor _penColor;
+        private СhangePenStyle _penStyle;
+        private СhangeMove _penMove;
 
         public DrawPaint(int Width, int Height)
         {
@@ -99,34 +101,6 @@ namespace PaintedObjectsMoving
                 }
             }
         }
-
-
-        //public void RefreshBitmap()
-        //{
-        //    if (bmp != null) bmp.Dispose();
-
-        //    bmp = new Bitmap(_widthDraw, _heightDraw);
-        //    //Прорисовка всех объектов из списка
-
-        //    using (Graphics DrawList = Graphics.FromImage(bmp))
-        //    {
-        //        foreach (Object DrawObject in _iFigureCommand)
-        //        {
-        //            DrawList.DrawPath(DrawObject.Pen, DrawObject.Path);
-
-        //            if (DrawObject.Brush != null)
-        //            {
-        //                DrawList.FillPath(DrawObject.Brush, DrawObject.Path);  //Заливка
-        //            }
-
-        //            foreach (SupportObject SuppportObject in DrawObject.SelectListFigure())
-        //            {
-        //                DrawList.DrawPath(SuppportObject.Pen, SuppportObject.Path);
-        //            }
-        //        }
-        //    }
-        //}
-
 
         //Отрисовка опорных точек
         public void SupportPoint(PaintEventArgs e, List<Object> SeleckResult, List<IFigureBuild> FiguresBuild)
@@ -212,24 +186,54 @@ namespace PaintedObjectsMoving
         }
 
         //изменение толщины пера у выбранных фигур
-        public void СhangePenWidthFigure(List<Object> SeleckResult, int CurrentThickness)
+        public void СhangePenWidthFigure(List<Object> SeleckResult)
         {
             if (SeleckResult.Count != 0)
             {
                 EditFigure();
 
-                _penWidth = new СhangePenWidth(SeleckResult, CurrentThickness);
+                _penWidth = new СhangePenWidth(SeleckResult, MainForm.FigureProperties.thickness);
 
                 _iFigureCommand.Add(_penWidth);
             }
             
         }
 
+        //изменение положения фигуры при перемещении
+        public void СhangeMoveFigure(List<Object> SeleckResult, string Boot)
+        {
+            
+            if (SeleckResult.Count != 0)
+            {
+                if (Boot == "Down")
+                {
+                    EditFigure();
+
+                    _penMove = new СhangeMove(SeleckResult, _figures);
+
+                }
+                else
+                {
+                    _penMove.MouseUpMove(SeleckResult);
+                   
+                    _iFigureCommand.Add(_penMove);
+                }
+                
+
+            }
+
+        }
+
+        //Изменить стиль линий у выбранных фигур
         public void СhangePenStyleFigure(List<Object> SeleckResult)
         {
-            foreach (Object SelectObject in SeleckResult)
+            if (SeleckResult.Count != 0)
             {
-                SelectObject.Pen.DashStyle = MainForm.FigureProperties.dashstyle;
+                EditFigure();
+
+                _penStyle = new СhangePenStyle(SeleckResult, MainForm.FigureProperties.dashstyle);
+
+                _iFigureCommand.Add(_penStyle);
             }
 
         }
@@ -271,7 +275,7 @@ namespace PaintedObjectsMoving
         {
             return _rect;
         }
-
+        //Дейстие назад
         public void UndoFigure()
         {
             if (_indexFigureCommand >= 0)
@@ -286,7 +290,7 @@ namespace PaintedObjectsMoving
  
             
         }
-
+        //Действие вперед
         public void RedoFigure()
         {
             if (_indexFigureCommand < _iFigureCommand.Count - 1)

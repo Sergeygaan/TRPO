@@ -329,7 +329,7 @@ namespace PaintedObjectsMoving
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
             {
-                ActiveForm.СhangePenWidthFigure(CurrentThickness);
+                ActiveForm.СhangePenWidthFigure();
             }
             ActiveForm = null;
 
@@ -338,6 +338,9 @@ namespace PaintedObjectsMoving
 
         private void toolStripButton19_Click(object sender, EventArgs e)
         {
+
+            DashStyle StaticThickness = _figureProperties.dashstyle;
+
             LineStyle linestyleform = new LineStyle();  //создаем форму "Стиль линии"
             linestyleform.Text = "Стиль линии";         //озаглавливаем форму
             linestyleform.ShowDialog();                 //отображаем форму
@@ -350,6 +353,7 @@ namespace PaintedObjectsMoving
             }
             ActiveForm = null;
 
+            _figureProperties.dashstyle = StaticThickness;
         }
 
 

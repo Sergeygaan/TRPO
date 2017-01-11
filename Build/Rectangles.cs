@@ -27,7 +27,7 @@ namespace PaintedObjectsMoving.CORE
 
             _addFigureRectangle.Output().FigureStart = _points[0];
             _addFigureRectangle.Output().FigureEnd = _points[1];
-            _addFigureRectangle.Output().IdFigure = _figuresBuild.Count;
+            _addFigureRectangle.Output().IdFigure = Figures.Count;
 
             Figures.Add(_addFigureRectangle.Output());
             _figuresBuild.Add(_addFigureRectangle);

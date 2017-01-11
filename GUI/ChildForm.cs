@@ -219,7 +219,7 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)
                     {
-                        //_selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList());
+                        _drawClass.СhangeMoveFigure(_selectClass.SeleckResult(), "MouseUp");
 
                     }
 
@@ -334,6 +334,7 @@ namespace PaintedObjectsMoving
                     if (e.Button == MouseButtons.Left)
                     {
                         _selectClass.SavePoint(e);
+                        _drawClass.СhangeMoveFigure(_selectClass.SeleckResult(), "Down");
                     }
 
                     break;
@@ -434,9 +435,9 @@ namespace PaintedObjectsMoving
             DrawForm.Refresh();
         }
 
-        public void СhangePenWidthFigure(int CurrentThickness)
+        public void СhangePenWidthFigure()
         {
-            _drawClass.СhangePenWidthFigure(_selectClass.SeleckResult(), CurrentThickness);
+            _drawClass.СhangePenWidthFigure(_selectClass.SeleckResult());
 
             DrawForm.Refresh();
         }

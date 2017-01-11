@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\СhangePenColor.cs" />
+    <Compile Include="Commands\СhangePenStyle.cs" />
+    <Compile Include="Commands\СhangeMove.cs" />
     <Compile Include="Commands\СhangePenWidth.cs" />
     <Compile Include="Commands\AddPolygon.cs" />
     <Compile Include="Commands\AddPoliLine.cs" />

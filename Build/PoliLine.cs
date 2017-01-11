@@ -32,7 +32,7 @@ namespace PaintedObjectsMoving.CORE
             
             _addFigurePoliLine.Output().FigureStart = _points[0];
             _addFigurePoliLine.Output().FigureEnd = _points[1];
-            _addFigurePoliLine.Output().IdFigure = _figuresBuild.Count;
+            _addFigurePoliLine.Output().IdFigure = Figures.Count;
 
             Figures.Add(_addFigurePoliLine.Output());
             _figuresBuild.Add(_addFigurePoliLine);
