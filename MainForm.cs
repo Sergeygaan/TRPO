@@ -16,7 +16,7 @@ namespace PaintedObjectsMoving
          */
         public enum FigureType
         {
-            Rectangle, Square, Ellipse, Circle, Curve, Line, RectangleSelect
+            Rectangle, Ellipse, Line, RectangleSelect, PoliLine
         }
 
         public enum Actions
@@ -252,22 +252,6 @@ namespace PaintedObjectsMoving
             _drawClass.RefreshBitmap();
         }
 
-
-        private void прямоугольникToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ChangeFigure(FigureType.Rectangle);
-        }
-
-        private void эллипсToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ChangeFigure(FigureType.Ellipse);
-        }
-
-        private void линияToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ChangeFigure(FigureType.Line);
-        }
-
         private void ChangeFigure(FigureType next)
         {
             _previousfigure = _currentfigure;             //указываем предыдущую выбранную фигуру
@@ -339,5 +323,28 @@ namespace PaintedObjectsMoving
             _selectClass.MouseUp();
             DrawForm.Refresh();
         }
+
+        // Цвет отрисовки фигур
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            DialogResult D = colorDialog1.ShowDialog();
+            if (D == DialogResult.OK)
+            {
+                _drawClass.ColorPenFigure(colorDialog1.Color);
+            }
+        }
+
+        //Цвет отрисовки опорных точек
+        private void toolStripButton12_Click(object sender, EventArgs e)
+        {
+            DialogResult D = colorDialog1.ShowDialog();
+            if (D == DialogResult.OK)
+            {
+                _drawClass.ColorPenSupportFigure(colorDialog1.Color);
+            }
+        }
+
+
+
     }
 }

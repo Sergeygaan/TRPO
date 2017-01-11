@@ -11,10 +11,14 @@ namespace PaintedObjectsMoving
 
         private СonstructionFigure _ellipse;
 
-        private Pen _pen;
+        private Pen _penFigure;
+        private Pen _penSupportFigure;
         private PaintedObject _drawObject;
         private SupportObject _drawSupportObject;
         private Rectangle _rect;
+
+        private Color _colorFigure;
+        private Color _colorSupportFigure;
 
         private List<PaintedObject> _figures;//Список с объектами для прорисовки
 
@@ -38,36 +42,39 @@ namespace PaintedObjectsMoving
             bmp = new Bitmap(Width, Height);
 
             _ellipse = new СonstructionFigure();
-            _pen = new Pen(Color.Black, 1);
 
+            _colorFigure = Color.Black;
+            _colorSupportFigure = Color.Blue;
         }
 
         //Отрисовка фигур и возвращение области выделения
         public void Paint(PaintEventArgs e, MainForm.FigureType _currentfigure, Point figurestart, Point figureend)
         {
+            _penFigure = new Pen(Color.Black, 1);
+
             switch (_currentfigure)
             {
                 case MainForm.FigureType.Rectangle:
 
-                    e.Graphics.DrawRectangle(_pen, _ellipse.ShowRectangle(figurestart, figureend));
+                    e.Graphics.DrawRectangle(_penFigure, _ellipse.ShowRectangle(figurestart, figureend));
 
                     break;
 
                 case MainForm.FigureType.Line:
 
-                    e.Graphics.DrawLine(_pen, figurestart, figureend);
+                    e.Graphics.DrawLine(_penFigure, figurestart, figureend);
 
                     break;
 
                 case MainForm.FigureType.Ellipse:
 
-                    e.Graphics.DrawEllipse(_pen, _ellipse.ShowEllipse(figurestart, figureend));
+                    e.Graphics.DrawEllipse(_penFigure, _ellipse.ShowEllipse(figurestart, figureend));
 
                     break;
 
                 case MainForm.FigureType.RectangleSelect:
 
-                    e.Graphics.DrawRectangle(_pen, _ellipse.ShowRectangle(figurestart, figureend));
+                    e.Graphics.DrawRectangle(_penFigure, _ellipse.ShowRectangle(figurestart, figureend));
                   
                     break;
             }
@@ -81,7 +88,7 @@ namespace PaintedObjectsMoving
         //Сохранение фигур
         public void MouseUp(MainForm.FigureType _currentfigure, Point figurestart, Point figureend)
         {
-            _drawObject = new PaintedObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath(), _currentfigure);
+            _drawObject = new PaintedObject(new Pen(_colorFigure, 1), new GraphicsPath(), _currentfigure);
 
             switch (_currentfigure)
             {
@@ -106,6 +113,7 @@ namespace PaintedObjectsMoving
             }
 
             //Начальная и конечная координата
+
             _drawObject.FigureStart = figurestart;
             _drawObject.FigureEnd = figureend;
             _drawObject.IdFigure = _figures.Count;
@@ -117,6 +125,9 @@ namespace PaintedObjectsMoving
         public void RefreshBitmap()
         {
             if (bmp != null) bmp.Dispose();
+
+            //SolidBrush brush = new SolidBrush(Color.Red);
+
             bmp = new Bitmap(_widthDraw, _heightDraw);
             //Прорисовка всех объектов из списка
             using (Graphics DrawList = Graphics.FromImage(bmp))
@@ -124,6 +135,8 @@ namespace PaintedObjectsMoving
                 foreach (PaintedObject DrawObject in _figures)
                 {
                     DrawList.DrawPath(DrawObject.Pen, DrawObject.Path);
+
+                    //DrawList.FillPath(brush, DrawObject.Path);  //Заливка
 
                     foreach (SupportObject SuppportObject in DrawObject.SelectListFigure())
                     {
@@ -152,7 +165,7 @@ namespace PaintedObjectsMoving
                             for (int i = 0; i < SelectObject.PointSelect.Length; i++)
                             {
 
-                                _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
+                                _drawSupportObject = new SupportObject(new Pen(_colorSupportFigure, 1), new GraphicsPath());
                                 _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i]));
                                 _drawSupportObject.IdFigure = SelectObject.IdFigure;
                                 _drawSupportObject.ControlPointF = i;
@@ -167,7 +180,7 @@ namespace PaintedObjectsMoving
 
                             for (int i = 0; i < SelectObject.PointSelect.Length; i++)
                             {
-                                _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
+                                _drawSupportObject = new SupportObject(new Pen(_colorSupportFigure, 1), new GraphicsPath());
                                 _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i]));
                                 _drawSupportObject.IdFigure = SelectObject.IdFigure;
                                 _drawSupportObject.ControlPointF = i;
@@ -182,7 +195,7 @@ namespace PaintedObjectsMoving
 
                             for (int i = 0; i < SelectObject.PointSelect.Length; i = i + 3)
                             {
-                                _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
+                                _drawSupportObject = new SupportObject(new Pen(_colorSupportFigure, 1), new GraphicsPath());
                                 _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i]));
                                 _drawSupportObject.IdFigure = SelectObject.IdFigure;
                                 _drawSupportObject.ControlPointF = i;
@@ -230,6 +243,20 @@ namespace PaintedObjectsMoving
         {
             _figures.Clear();
         }
+
+        //Цвет фигуры
+        public void ColorPenFigure(Color ColorFigure)
+        {
+            _colorFigure = ColorFigure;
+        }
+        //Цвет опорных точек
+        public void ColorPenSupportFigure(Color ColorSupportFigure)
+        {
+            
+            _colorSupportFigure = ColorSupportFigure;
+        }
+
+
 
         //Возвращяет список со всеми фигурами
         public List<PaintedObject> FiguresList()
