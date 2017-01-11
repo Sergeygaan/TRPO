@@ -45,45 +45,55 @@ namespace PaintedObjectsMoving
         }
 
         //Отрисовка фигур и возвращение области выделения
-        public void Paint(PaintEventArgs e, MainForm.FigureType _currentfigure, Point figurestart, Point figureend)
+        public void Paint(PaintEventArgs e, MainForm.FigureType _currentfigure, List<PointF> _points)
         {
-            StyleFigure();
-
-            switch (_currentfigure)
+            if (_points.Count != 0)
             {
-                case MainForm.FigureType.Rectangle:
+                StyleFigure();
 
-                    e.Graphics.DrawRectangle(_penFigure, _ellipse.ShowRectangle(figurestart, figureend));
+                switch (_currentfigure)
+                {
+                    case MainForm.FigureType.Rectangle:
 
-                    break;
+                        e.Graphics.DrawRectangle(_penFigure, _ellipse.ShowRectangle(_points[0], _points[1]));
 
-                case MainForm.FigureType.Line:
+                        break;
 
-                    e.Graphics.DrawLine(_penFigure, figurestart, figureend);
+                    case MainForm.FigureType.Line:
 
-                    break;
+                        e.Graphics.DrawLine(_penFigure, _points[0], _points[1]);
 
-                case MainForm.FigureType.Ellipse:
+                        break;
 
-                    e.Graphics.DrawEllipse(_penFigure, _ellipse.ShowEllipse(figurestart, figureend));
+                    case MainForm.FigureType.Ellipse:
 
-                    break;
+                        e.Graphics.DrawEllipse(_penFigure, _ellipse.ShowEllipse(_points[0], _points[1]));
 
-                case MainForm.FigureType.RectangleSelect:
+                        break;
 
-                    e.Graphics.DrawRectangle(_penFigureSelect, _ellipse.ShowRectangle(figurestart, figureend));
-                  
-                    break;
+                    case MainForm.FigureType.RectangleSelect:
+
+                        e.Graphics.DrawRectangle(_penFigureSelect, _ellipse.ShowRectangle(_points[0], _points[1]));
+
+                        break;
+
+                    case MainForm.FigureType.PoliLine:
+
+                        //e.Graphics.DrawLines(_penFigure, points);
+
+                        break;
+                }
+
+
+                _rect = _ellipse.ShowRectangle(_points[0], _points[1]);
             }
 
-
-            _rect = _ellipse.ShowRectangle(figurestart, figureend);
             e.Graphics.DrawImage(bmp, 0, 0);
 
         }
 
         //Сохранение фигур
-        public void MouseUp(MainForm.FigureType _currentfigure, Point figurestart, Point figureend)
+        public void MouseUp(MainForm.FigureType _currentfigure, List<PointF> _points)
         {
             StyleFigure();
 
@@ -93,19 +103,25 @@ namespace PaintedObjectsMoving
             {
                 case MainForm.FigureType.Rectangle:
 
-                    _drawObject.Path.AddRectangle(_ellipse.ShowRectangle(figurestart, figureend));
+                    _drawObject.Path.AddRectangle(_ellipse.ShowRectangle(_points[0], _points[1]));
 
                     break;
 
                 case MainForm.FigureType.Line:
 
-                    _drawObject.Path.AddLine(figurestart, figureend);
+                    _drawObject.Path.AddLine(_points[0], _points[1]);
 
                     break;
 
                 case MainForm.FigureType.Ellipse:
 
-                    _drawObject.Path.AddEllipse(_ellipse.ShowEllipse(figurestart, figureend));
+                    _drawObject.Path.AddEllipse(_ellipse.ShowEllipse(_points[0], _points[1]));
+
+                    break;
+
+                case MainForm.FigureType.PoliLine:
+
+                   // _drawObject.Path.AddLines(points);
 
                     break;
 
@@ -113,8 +129,8 @@ namespace PaintedObjectsMoving
 
             //Начальная и конечная координата
 
-            _drawObject.FigureStart = figurestart;
-            _drawObject.FigureEnd = figureend;
+            _drawObject.FigureStart = _points[0];
+            _drawObject.FigureEnd = _points[1];
             _drawObject.IdFigure = _figures.Count;
             _figures.Add(_drawObject);
 

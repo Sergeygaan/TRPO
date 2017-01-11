@@ -37,7 +37,7 @@ namespace PaintedObjectsMoving
         }
 
         //МЕТОДЫ
-        public Rectangle ShowRectangle(Point start, Point end)
+        public Rectangle ShowRectangle(PointF start, PointF end)
         {
             /*          true        false
              * Hide     скрыть      отобразить
@@ -47,10 +47,10 @@ namespace PaintedObjectsMoving
             /*создаем прямоугольник с заданными координатами,
              * учитывая сдвиг при прокрутке
              */
-            Left = (start.X - end.X > 0) ? end.X : start.X;
-            Down = (start.Y - end.Y > 0) ? start.Y : end.Y;
-            Top = (start.Y - end.Y > 0) ? end.Y : start.Y;
-            Right = (start.X - end.X > 0) ? start.X : end.X;
+            Left = (int)((start.X - end.X > 0) ? end.X : start.X);
+            Down = (int)((start.Y - end.Y > 0) ? start.Y : end.Y);
+            Top = (int)((start.Y - end.Y > 0) ? end.Y : start.Y);
+            Right = (int)((start.X - end.X > 0) ? start.X : end.X);
 
             
 
@@ -89,7 +89,7 @@ namespace PaintedObjectsMoving
             return rect;
         }
 
-        public Rectangle ShowEllipse(Point start, Point end)
+        public Rectangle ShowEllipse(PointF start, PointF end)
         {
             /*          true        false
              * Hide     скрыть      отобразить
@@ -99,10 +99,10 @@ namespace PaintedObjectsMoving
             /*создаем прямоугольник с заданными координатами,
              * учитывая сдвиг при прокрутке
              */
-            Left = (start.X - end.X > 0) ? end.X : start.X;
-            Down = (start.Y - end.Y > 0) ? start.Y : end.Y;
-            Top = (start.Y - end.Y > 0) ? end.Y : start.Y;
-            Right = (start.X - end.X > 0) ? start.X : end.X;
+            Left = (int)((start.X - end.X > 0) ? end.X : start.X);
+            Down = (int)((start.Y - end.Y > 0) ? start.Y : end.Y);
+            Top = (int)((start.Y - end.Y > 0) ? end.Y : start.Y);
+            Right = (int)((start.X - end.X > 0) ? start.X : end.X);
 
             //width = Math.Abs(end.X - start.X);              //вычисляем высоту эллипса
             //height = Math.Abs(end.Y - start.Y);             //вычисляем ширину эллипса

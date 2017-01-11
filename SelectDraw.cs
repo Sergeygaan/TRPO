@@ -74,12 +74,12 @@ namespace PaintedObjectsMoving
         }
 
 
-        public void MouseDown(MouseEventArgs e, Rectangle Rect, List<PaintedObject> _figures)
+        public void MouseDown(MouseEventArgs e, Rectangle Rect, List<PaintedObject> _figures, MainForm.Actions _currentActions)
         {
             //Запоминаем положение курсора
             _oldPoint = e.Location;
 
-            int figurestartX, figurestartY, figureendX, figureendY;
+            float figurestartX, figurestartY, figureendX, figureendY;
 
             if (_selectedFigures.Count == 0)
             {
@@ -107,14 +107,71 @@ namespace PaintedObjectsMoving
                         _rectangleF.Inflate(5, 10);
                     }
 
-                    if (_rectangleF.IntersectsWith(Rect))
+                    switch (_currentActions)
                     {
 
-                        DrawObject.PointSelect = DrawObject.Path.PathPoints;
-                        DrawObject.SelectFigure = true;
-                        //DrawObject.Pen.Width += 1;
-                        _selectedFigures.Add(DrawObject);
+                        case MainForm.Actions.SelectRegion:
 
+                            if (_rectangleF.IntersectsWith(Rect))
+                            {
+                                DrawObject.PointSelect = DrawObject.Path.PathPoints;
+                                DrawObject.SelectFigure = true;
+                                //DrawObject.Pen.Width += 1;
+                                _selectedFigures.Add(DrawObject);
+
+                            }
+
+                            break;
+
+                        case MainForm.Actions.SelectPoint:
+
+                            if (_rectangleF.Contains(e.Location))
+                            {
+
+                                switch (DrawObject.CurrentFigure)
+                                {
+
+                                    case MainForm.FigureType.Rectangle:
+
+                                        DrawObject.PointSelect = DrawObject.Path.PathPoints;
+                                        DrawObject.SelectFigure = true;
+                                        //DrawObject.Pen.Width += 1;
+                                        _selectedFigures.Add(DrawObject);
+
+                                        break;
+
+                                    case MainForm.FigureType.Line:
+
+                                        //MessageBox.Show(DrawObject.Path.PathPoints[0].X.ToString());
+
+                                        float x, y;
+
+                                        y = (-(DrawObject.Path.PathPoints[1].X * DrawObject.Path.PathPoints[0].Y - DrawObject.Path.PathPoints[0].X * DrawObject.Path.PathPoints[1].Y) - ((DrawObject.Path.PathPoints[1].Y - DrawObject.Path.PathPoints[0].Y) * e.Location.X)) / (DrawObject.Path.PathPoints[0].X - DrawObject.Path.PathPoints[1].X);
+
+                                        x = (-(DrawObject.Path.PathPoints[1].X * DrawObject.Path.PathPoints[0].Y - DrawObject.Path.PathPoints[0].X * DrawObject.Path.PathPoints[1].Y) - ((DrawObject.Path.PathPoints[0].X - DrawObject.Path.PathPoints[1].X) * e.Location.Y)) / (DrawObject.Path.PathPoints[1].Y - DrawObject.Path.PathPoints[0].Y);
+
+                                        if ((e.Location.Y >= y - DrawObject.Pen.Width - 2) && (e.Location.Y <= y + DrawObject.Pen.Width + 2) || (e.Location.X >= x - DrawObject.Pen.Width - 2) && (e.Location.X <= x + DrawObject.Pen.Width + 2))
+                                        {
+                                            DrawObject.PointSelect = DrawObject.Path.PathPoints;
+                                            DrawObject.SelectFigure = true;
+                                            //DrawObject.Pen.Width += 1;
+                                            _selectedFigures.Add(DrawObject);
+                                        }
+
+                                        break;
+
+                                    case MainForm.FigureType.Ellipse:
+
+                                        DrawObject.PointSelect = DrawObject.Path.PathPoints;
+                                        DrawObject.SelectFigure = true;
+                                        //DrawObject.Pen.Width += 1;
+                                        _selectedFigures.Add(DrawObject);
+
+                                        break;
+                                }
+
+                            }
+                            break;
 
                     }
 
@@ -123,7 +180,6 @@ namespace PaintedObjectsMoving
 
         }
 
-
         public void MouseMove(MouseEventArgs e, MainForm.Actions _currentActions)
         {
             //Считаем смещение курсора
@@ -131,6 +187,7 @@ namespace PaintedObjectsMoving
 
             deltaX = e.Location.X - _oldPoint.X;
             deltaY = e.Location.Y - _oldPoint.Y;
+
             foreach (PaintedObject SelectObject in _selectedFigures)
             {
                 switch (_currentActions)

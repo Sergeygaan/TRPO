@@ -9,8 +9,8 @@ namespace PaintedObjectsMoving {
 		private GraphicsPath _path;
         private Pen _pen;
         private PointF[] _pointSelect;
-        private Point _figureStart = new Point();                          //стартовая точка фигуры
-        private Point _figureEnd = new Point();                            //конечная точка фигуры
+        private PointF _figureStart = new Point();                          //стартовая точка фигуры
+        private PointF _figureEnd = new Point();                            //конечная точка фигуры
         private bool _selectFigure = false;
         private int _idFigure;
         private SolidBrush _brush = null;
@@ -68,13 +68,13 @@ namespace PaintedObjectsMoving {
             set { _selectFigure = value; }
         }
 
-        public Point FigureStart
+        public PointF FigureStart
         {
             get { return _figureStart; }
             set { _figureStart = value; }
         }
 
-        public Point FigureEnd
+        public PointF FigureEnd
         {
             get { return _figureEnd; }
             set { _figureEnd = value; }

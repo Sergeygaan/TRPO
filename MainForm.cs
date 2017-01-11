@@ -21,7 +21,7 @@ namespace PaintedObjectsMoving
 
         public enum Actions
         {
-           Draw, Move, Scale, Select
+           Draw, Move, Scale, SelectRegion, SelectPoint
         }
         public struct Properties
         {
@@ -43,8 +43,8 @@ namespace PaintedObjectsMoving
         private SelectDraw _selectClass;
 
         //ПЕРЕМЕННЫЕ
-        private Point figurestart = new Point();                          //стартовая точка фигуры
-        private Point figureend = new Point();                            //конечная точка фигуры
+        private List<PointF> _points = new List<PointF>();
+
         private static FigureType _currentfigure = FigureType.Line;                 //текущая выбранная фигура
         private static FigureType _previousfigure = FigureType.Line;                //предыдущая выбранная фигура
         private Actions _currentActions = Actions.Draw;
@@ -82,17 +82,16 @@ namespace PaintedObjectsMoving
         //Отрисовка фигур
         void Form1_Paint(object sender, PaintEventArgs e)
         {
+
             RefreshBitmap();
 
-            _drawClass.Paint(e, _currentfigure, figurestart, figureend);
-
+            _drawClass.Paint(e, _currentfigure, _points);
 
             if (_selectClass.SeleckResult() != null)
             {
-
                 _drawClass.SupportPoint(e, _selectClass.SeleckResult());
-
             }
+            
 
         }
 
@@ -105,10 +104,8 @@ namespace PaintedObjectsMoving
 
                     if ((e.Button == MouseButtons.Left) && (mouseclick == true))            //если нажата левая кнопка мыши
                     {
-                        figureend = e.Location;
-
+                        _points[1] = new PointF(e.Location.X, e.Location.Y);
                     }
-
 
                     break;
 
@@ -121,12 +118,11 @@ namespace PaintedObjectsMoving
 
                     break;
 
-                case Actions.Select:
+                case Actions.SelectRegion:
 
                     if (e.Button == MouseButtons.Left)
                     {
-                        figureend = e.Location;
-                        _selectClass.MouseMove(e, _currentActions);
+                        _points[1] = new PointF(e.Location.X, e.Location.Y);
                     }
 
                     break;
@@ -153,18 +149,20 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
                     {
-                        mouseclick = false;
-                        figureend = e.Location;
+                        if (_currentfigure != FigureType.PoliLine)
+                        {
+                            mouseclick = false;
 
-                        _drawClass.MouseUp(_currentfigure, figurestart, figureend);
+                            _points[1] = new PointF(e.Location.X, e.Location.Y);
 
-                        figurestart.X = 0;
-                        figurestart.Y = 0;
-                        figureend.X = 0;
-                        figureend.Y = 0;
+
+                            _drawClass.MouseUp(_currentfigure, _points);
+
+                            _points.Clear();
+                        }
+
 
                     }
-
 
                     break;
 
@@ -182,19 +180,32 @@ namespace PaintedObjectsMoving
 
                     break;
 
-                case Actions.Select:
+                case Actions.SelectRegion:
 
                     if (e.Button == MouseButtons.Left)
                     {
 
                         mouseclick = false;
-                      
-                        figurestart.X = 0;
-                        figurestart.Y = 0;
-                        figureend.X = 0;
-                        figureend.Y = 0;
+                     
 
-                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList());
+                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList(), Actions.SelectRegion);
+
+                        _points.Clear();
+
+                    }
+
+                    if (e.Button == MouseButtons.Right)
+                    {
+                        _selectClass.MouseUp();
+                    }
+
+                    break;
+
+                case Actions.SelectPoint:
+
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        _selectClass.MouseDown(e, _drawClass.SeparationZone(),  _drawClass.FiguresList(), Actions.SelectPoint);
 
                     }
 
@@ -233,9 +244,16 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
                     {
-                        mouseclick = true;
-                        figurestart = e.Location;
-                        figureend = e.Location;
+
+                        if (_currentfigure != FigureType.PoliLine)
+                        {
+                            _points.Clear();
+
+                            mouseclick = true;
+                            _points.Add(new PointF(e.Location.X, e.Location.Y));
+                            _points.Add(new PointF(e.Location.X, e.Location.Y));
+                        }
+                        
                     }
 
 
@@ -250,14 +268,32 @@ namespace PaintedObjectsMoving
 
                     break;
 
-                case Actions.Select:
+                case Actions.SelectRegion:
+
+                    if (e.Button == MouseButtons.Left)
+                    {
+
+                        if (_currentfigure != FigureType.PoliLine)
+                        {
+                            _points.Clear();
+
+                            _selectClass.MouseUp();
+
+                            mouseclick = true;
+                            _points.Add(new PointF(e.Location.X, e.Location.Y));
+                            _points.Add(new PointF(e.Location.X, e.Location.Y));
+                        }
+
+
+                    }
+
+                    break;
+
+                case Actions.SelectPoint:
 
                     if (e.Button == MouseButtons.Left)
                     {
                         _selectClass.MouseUp();
-                        mouseclick = true;
-                        figurestart = e.Location;
-                        figureend = e.Location;
 
                     }
 
@@ -326,7 +362,7 @@ namespace PaintedObjectsMoving
         //Режим выделения
         private void toolStripButton7_Click(object sender, EventArgs e)
         {
-            _currentActions = Actions.Select;
+            _currentActions = Actions.SelectRegion;
             ChangeFigure(FigureType.RectangleSelect);
         }
         //Эллипс
@@ -344,6 +380,15 @@ namespace PaintedObjectsMoving
             if (_currentActions == Actions.Draw)
             {
                 ChangeFigure(FigureType.Rectangle);
+            }
+        }
+        
+        //Полилиния
+        private void toolStripButton21_Click(object sender, EventArgs e)
+        {
+            if (_currentActions == Actions.Draw)
+            {
+                ChangeFigure(FigureType.PoliLine);
             }
         }
 
@@ -493,5 +538,11 @@ namespace PaintedObjectsMoving
 
             DrawForm.Refresh();
         }
+
+        private void toolStripButton20_Click(object sender, EventArgs e)
+        {
+            _currentActions = Actions.SelectPoint;
+        }
+
     }
 }
