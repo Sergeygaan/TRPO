@@ -21,7 +21,7 @@ namespace PaintedObjectsMoving
 
         public enum Actions
         {
-           Draw, Move, Scale
+           Draw, Move, Scale, Select
         }
 
         //КЛАССЫ
@@ -93,6 +93,16 @@ namespace PaintedObjectsMoving
 
                     break;
 
+                case Actions.Select:
+
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        figureend = e.Location;
+                        _selectClass.MouseMove(e, _currentActions);
+                    }
+
+                    break;
+
                 case Actions.Move:
 
                     if (e.Button == MouseButtons.Left)
@@ -144,7 +154,36 @@ namespace PaintedObjectsMoving
 
                     break;
 
+                case Actions.Select:
+
+                    if (e.Button == MouseButtons.Left)
+                    {
+
+                        mouseclick = false;
+                      
+                        figurestart.X = 0;
+                        figurestart.Y = 0;
+                        figureend.X = 0;
+                        figureend.Y = 0;
+
+                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList());
+
+                    }
+
+                    if (e.Button == MouseButtons.Right)
+                    {
+                        _selectClass.MouseUp();
+                    }
+
+                    break;
+
                 case Actions.Move:
+
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        //_selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList());
+
+                    }
 
                     if (e.Button == MouseButtons.Right)
                     {
@@ -178,16 +217,27 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)
                     {
-                        _selectClass.MouseDown(e, _drawClass.FiguresList());
+                        _selectClass.SavePoint(e);
                     }
 
                     break;
 
+                case Actions.Select:
+
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        mouseclick = true;
+                        figurestart = e.Location;
+                        figureend = e.Location;
+
+                    }
+
+                    break;
                 case Actions.Move:
 
                     if (e.Button == MouseButtons.Left)
                     {
-                        _selectClass.MouseDown(e, _drawClass.FiguresList());
+                        _selectClass.SavePoint(e);
                     }
 
                     break;
@@ -237,6 +287,7 @@ namespace PaintedObjectsMoving
         {
             _currentActions = Actions.Draw;
             _selectClass.MouseUp();
+            ChangeFigure(FigureType.Line);
         }
 
         //Масштабирование выбранной фигуры
@@ -270,7 +321,8 @@ namespace PaintedObjectsMoving
 
         private void выделениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            _currentActions = Actions.Select;
+            ChangeFigure(FigureType.RectangleSelect);
         }
     }
 }

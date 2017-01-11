@@ -10,8 +10,6 @@ namespace PaintedObjectsMoving
 {
     class SelectDraw
     {
-
-        
         List<PaintedObject> _selectedFigures = new List<PaintedObject>();   //Список выбранных фигур
 
        // private PaintedObject currObj = null;//Объект, который в данный момент перемещается
@@ -51,11 +49,36 @@ namespace PaintedObjectsMoving
             }
         }
 
+        public void SavePoint(MouseEventArgs e)
+        {
+            _oldPoint = e.Location;
 
-        public void MouseDown(MouseEventArgs e, List<PaintedObject> _figures)
+            if (_selectedFigures.Count != 0)
+            {
+                foreach (PaintedObject SelectObject in _selectedFigures)
+                {
+                    foreach (SupportObject SupportObjecFigure in SelectObject.SelectListFigure())
+                    {
+
+                        _rectangleF = SupportObjecFigure.Path.GetBounds();
+
+                        if (_rectangleF.Contains(e.Location))
+                        {
+                            _supportObj = SupportObjecFigure;
+
+                        }
+
+                    }
+                }
+            }
+        }
+
+
+        public void MouseDown(MouseEventArgs e, Rectangle Rect, List<PaintedObject> _figures)
         {
             //Запоминаем положение курсора
             _oldPoint = e.Location;
+
             int figurestartX, figurestartY, figureendX, figureendY;
 
             if (_selectedFigures.Count == 0)
@@ -84,45 +107,20 @@ namespace PaintedObjectsMoving
                         _rectangleF.Inflate(5, 10);
                     }
 
-                  
-
-
-                    if (_rectangleF.Contains(e.Location))
+                    if (_rectangleF.IntersectsWith(Rect))
                     {
 
                         DrawObject.PointSelect = DrawObject.Path.PathPoints;
                         DrawObject.SelectFigure = true;
                         DrawObject.Pen.Width += 1;
                         _selectedFigures.Add(DrawObject);
-                       
+
 
                     }
+
                 }
             }
-            else
-            {
-                foreach (PaintedObject SelectObject in _selectedFigures)
-                {
-                    foreach (SupportObject SupportObjecFigure in SelectObject.SelectListFigure())
-                    {
 
-                        _rectangleF = SupportObjecFigure.Path.GetBounds();
-
-
-                        //_rectangleF.Inflate(100, 50);
-
-
-                        if (_rectangleF.Contains(e.Location))
-                        {
-                            _supportObj = SupportObjecFigure;//Запоминаем найденный объект
-
-                            //_supportObj.Pen.Width += 5;//Делаем перо жирнее
-
-                        }
-
-                    }
-                }
-            }
         }
 
 

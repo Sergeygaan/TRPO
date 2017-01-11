@@ -14,6 +14,7 @@ namespace PaintedObjectsMoving
         private Pen _pen;
         private PaintedObject _drawObject;
         private SupportObject _drawSupportObject;
+        private Rectangle _rect;
 
         private List<PaintedObject> _figures;//Список с объектами для прорисовки
 
@@ -63,9 +64,18 @@ namespace PaintedObjectsMoving
                     e.Graphics.DrawEllipse(_pen, _ellipse.ShowEllipse(figurestart, figureend));
 
                     break;
+
+                case MainForm.FigureType.RectangleSelect:
+
+                    e.Graphics.DrawRectangle(_pen, _ellipse.ShowRectangle(figurestart, figureend));
+                  
+                    break;
             }
 
+
+            _rect = _ellipse.ShowRectangle(figurestart, figureend);
             e.Graphics.DrawImage(bmp, 0, 0);
+
         }
 
         //Сохранение фигур
@@ -227,5 +237,9 @@ namespace PaintedObjectsMoving
             return _figures;
         }
 
+        public Rectangle SeparationZone()
+        {
+            return _rect;
+        }
     }
 }
