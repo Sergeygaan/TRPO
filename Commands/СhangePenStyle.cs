@@ -16,6 +16,8 @@ namespace PaintedObjectsMoving.CORE
 
         private DashStyle _dashStyle;
 
+        private string _operatorValue;
+
         public СhangePenStyle(List<Object> SeleckResult, DashStyle DashStyle)
         {
             _dashStyle = DashStyle;
@@ -36,7 +38,7 @@ namespace PaintedObjectsMoving.CORE
             {
                 SelectObject.Pen.DashStyle = _dashStyle;
             }
-
+            _operatorValue = "Изменение стиля линии";
         }
 
         public void Execute()
@@ -45,15 +47,10 @@ namespace PaintedObjectsMoving.CORE
             {
                 SelectObject.Pen.DashStyle = _dashStyle;
             }
+            _operatorValue = "Изменение стиля линии";
         }
 
         public void Undo()
-        {
-            UndoFigure();
-        }
-
-
-        public void UndoFigure()
         {
             int i = 0;
             foreach (Object SelectObject in _seleckResult)
@@ -61,8 +58,13 @@ namespace PaintedObjectsMoving.CORE
                 SelectObject.Pen.DashStyle = _penWidth[i];
                 i++;
             }
+
+            _operatorValue = "Отмена измменения стиля линии";
         }
 
-
+        public string Operation()
+        {
+            return _operatorValue;
+        }
     }
 }

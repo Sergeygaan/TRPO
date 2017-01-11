@@ -1,17 +1,14 @@
 ﻿using PaintedObjectsMoving.CORE;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace PaintedObjectsMoving
 {
     public partial class ChildForm : Form
     {
+        private List<IFigureCommand> _HistoryCommand = new List<IFigureCommand>();
+
         //КЛАССЫ
         private DrawPaint _drawClass;
         private SelectDraw _selectClass;
@@ -458,6 +455,13 @@ namespace PaintedObjectsMoving
             _drawClass.RedoFigure();
 
             DrawForm.Refresh();
+        }
+
+
+
+        public object HistoryCommand()
+        {
+            return _drawClass.IFigureCommand();
         }
     }
 }

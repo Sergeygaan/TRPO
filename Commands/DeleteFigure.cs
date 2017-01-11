@@ -13,6 +13,7 @@ namespace PaintedObjectsMoving.CORE
         private List<Object> _seleckResult;
         private List<Object> _saveFigure;
         private List<Object> _figure;
+        private string _operatorValue;
 
         public DeleteFigure(List<Object> SeleckResult, List<Object> Figures)
         {
@@ -33,7 +34,7 @@ namespace PaintedObjectsMoving.CORE
                 }
 
             }
-
+            _operatorValue = "Удаление выделенных фигур";
         }
 
         public void Execute()
@@ -48,7 +49,7 @@ namespace PaintedObjectsMoving.CORE
                     i++;
                 }
             }
-
+            _operatorValue = "Удаление выделенных фигур";
         }
 
         public void Undo()
@@ -64,7 +65,12 @@ namespace PaintedObjectsMoving.CORE
                 DrawObject.IdFigure = i;
                 i++;
             }
+            _operatorValue = "Восстановление выделенных фигур";
+        }
 
+        public string Operation()
+        {
+            return _operatorValue;
         }
 
     }

@@ -14,5 +14,7 @@ namespace PaintedObjectsMoving.CORE
 
         void Undo();
 
+        string Operation();
+
     }
 }

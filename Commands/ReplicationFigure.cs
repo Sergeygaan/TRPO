@@ -15,7 +15,7 @@ namespace PaintedObjectsMoving.CORE
         private List<Object> _figure;
         private int _summFigureSelect;
         private int _summFigureBase;
-
+        private string _operatorValue;
         public ReplicationFigure(List<Object> SeleckResult, List<Object> Figures)
         {
             _summFigureSelect = SeleckResult.Count;
@@ -33,6 +33,8 @@ namespace PaintedObjectsMoving.CORE
                 _figure.Add(SelectObject.CloneObject());
                 _figure[_figure.Count - 1].IdFigure = _figure.Count - 1;
             }
+
+            _operatorValue = "Копирование выделенных фигур";
         }
 
         public void Execute()
@@ -43,13 +45,18 @@ namespace PaintedObjectsMoving.CORE
                 _figure.Add(SelectObject.CloneObject());
                 _figure[_figure.Count - 1].IdFigure = _figure.Count - 1;
             }
-
+            _operatorValue = "Копирование выделенных фигур";
         }
 
         public void Undo()
         {
             _figure.RemoveRange(_summFigureBase, _summFigureSelect);
+            _operatorValue = "Удаление скопированных фигур";
+        }
 
+        public string Operation()
+        {
+            return _operatorValue;
         }
 
     }

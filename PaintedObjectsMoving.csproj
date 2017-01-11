@@ -73,6 +73,12 @@
     </Compile>
     <Compile Include="CORE\DrawPaint.cs" />
     <Compile Include="CORE\EditObject.cs" />
+    <Compile Include="GUI\HistoryDesign.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\HistoryDesign.Designer.cs">
+      <DependentUpon>HistoryDesign.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\LineStyle.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +111,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GUI\ChildForm.resx">
       <DependentUpon>ChildForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\HistoryDesign.resx">
+      <DependentUpon>HistoryDesign.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\LineStyle.resx">
       <DependentUpon>LineStyle.cs</DependentUpon>

@@ -15,8 +15,9 @@ namespace PaintedObjectsMoving.CORE
         public int _currentThickness;
 
         private float[] _penWidth;
+        private string _operatorValue;
 
-       public СhangePenWidth(List<Object> SeleckResult, int CurrentThickness)
+        public СhangePenWidth(List<Object> SeleckResult, int CurrentThickness)
         {
             _currentThickness = CurrentThickness;
 
@@ -36,7 +37,7 @@ namespace PaintedObjectsMoving.CORE
             {
                 SelectObject.Pen.Width = _currentThickness;
             }
-
+            _operatorValue = "Изменение толщины линии";
         }
 
         public void Execute()
@@ -45,15 +46,10 @@ namespace PaintedObjectsMoving.CORE
             {
                 SelectObject.Pen.Width = _currentThickness;
             }
+            _operatorValue = "Изменение толщины линии";
         }
 
         public void Undo()
-        {
-            UndoFigure();
-        }
-
-
-        public void UndoFigure()
         {
             int i = 0;
             foreach (Object SelectObject in _seleckResult)
@@ -61,8 +57,14 @@ namespace PaintedObjectsMoving.CORE
                 SelectObject.Pen.Width = _penWidth[i];
                 i++;
             }
+            _operatorValue = "Отмена изменения толщины линии";
         }
 
+
+        public string Operation()
+        {
+            return _operatorValue;
+        }
 
     }
 }

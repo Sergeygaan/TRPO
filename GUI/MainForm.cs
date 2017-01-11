@@ -1,4 +1,5 @@
 ﻿using PaintedObjectsMoving.CORE;
+using PaintedObjectsMoving.GUI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -139,7 +140,9 @@ namespace PaintedObjectsMoving
         //Режим выделения
         private void toolStripButton7_Click(object sender, EventArgs e)
         {
+            _currentActions = Actions.SelectRegion;
             ChangeActions(Actions.SelectRegion);
+
             ChangeFigure(FigureType.RectangleSelect);
         }
         //Эллипс
@@ -425,5 +428,22 @@ namespace PaintedObjectsMoving
             }
         }
 
+        //Отображение древа проекта
+        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            HistoryDesign HistiryForm = new HistoryDesign();
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            if (ActiveForm != null)
+            {
+                HistiryForm.Text = "История построения";         //озаглавливаем форму
+                HistiryForm.ListBox(ActiveForm.HistoryCommand());
+
+                HistiryForm.ShowDialog();                 //отображаем форму
+
+            }
+            ActiveForm = null;
+
+            HistiryForm.Dispose();                    //уничтожаем форму
+        }
     }
 }

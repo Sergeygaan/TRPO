@@ -16,6 +16,8 @@ namespace PaintedObjectsMoving.CORE
         private GraphicsPath [] _pathUndo;
         private GraphicsPath [] _pathRedo;
 
+        private string _operatorValue;
+
         public СhangeMove(List<Object> SeleckResult)
         {
             _seleckResult = SeleckResult.GetRange(0, SeleckResult.Count);
@@ -30,6 +32,8 @@ namespace PaintedObjectsMoving.CORE
                 _pathUndo[i] = (GraphicsPath)SelectObjectResult.PathClone.Clone();
                 i++;
             }
+
+            _operatorValue = "Перемещение объеста";
 
         }
 
@@ -46,6 +50,8 @@ namespace PaintedObjectsMoving.CORE
                 i++;
             }
 
+            _operatorValue = "Перемещение объеста";
+
         }
 
 
@@ -59,6 +65,8 @@ namespace PaintedObjectsMoving.CORE
               
                 i++;
             }
+
+            _operatorValue = "Отмена перемещение объеста";
 
         }
 
@@ -76,6 +84,9 @@ namespace PaintedObjectsMoving.CORE
         }
 
 
-
+        public string Operation()
+        {
+            return _operatorValue;
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace PaintedObjectsMoving.CORE
         public Color _currentColor;
 
         private SolidBrush [] _brush;
+        private string _operatorValue;
 
         public СhangeBackgroundFigure(List<Object> SeleckResult, Color CurrentColor)
         {
@@ -40,7 +41,7 @@ namespace PaintedObjectsMoving.CORE
                     SelectObject.Brush = new SolidBrush(_currentColor);
                 }
             }
-
+            _operatorValue = "Изменение фона выделенных фигур";
         }
 
         public void Execute()
@@ -52,6 +53,7 @@ namespace PaintedObjectsMoving.CORE
                     SelectObject.Brush = new SolidBrush(_currentColor);
                 }
             }
+            _operatorValue = "Изменение фона выделенных фигур";
         }
 
         public void Undo()
@@ -65,7 +67,13 @@ namespace PaintedObjectsMoving.CORE
                 }
                 i++;
             }
+            _operatorValue = "Отмена изменения фона выделенных фигур";
         }
 
+
+        public string Operation()
+        {
+            return _operatorValue;
+        }
     }
 }

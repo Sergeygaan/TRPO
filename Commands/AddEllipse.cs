@@ -14,6 +14,8 @@ namespace PaintedObjectsMoving.CORE
         private List<PointF> _points;
         private Object _drawObject;
         private List<Object> _figures;
+        private string _operatorValue;
+
 
         public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
         {
@@ -27,18 +29,27 @@ namespace PaintedObjectsMoving.CORE
             _figures = Figures;
 
             _drawObject.Path.AddEllipse(_ellipse.ShowRectangle(_points[0], _points[1]));
-         
+
+            _operatorValue = "Добавление эллипса";
+
+
         }
 
         public void Execute()
         {
             _figures.Insert(_drawObject.IdFigure, _drawObject);
+            _operatorValue = "Добавление эллипса";
         }
 
         public void Undo()
         {
-            MessageBox.Show(_drawObject.IdFigure.ToString());
             _figures.RemoveAt(_drawObject.IdFigure);
+            _operatorValue = "Удаление эллипса";
+        }
+
+        public string Operation()
+        {
+            return _operatorValue;
         }
 
         public Object Output()

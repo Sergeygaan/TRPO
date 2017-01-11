@@ -16,7 +16,9 @@ namespace PaintedObjectsMoving.CORE
 
         private Color [] _penColor;
 
-       public СhangePenColor(List<Object> SeleckResult, Color CurrentColor)
+        private string _operatorValue;
+
+        public СhangePenColor(List<Object> SeleckResult, Color CurrentColor)
         {
             _currentColor = CurrentColor;
 
@@ -36,7 +38,7 @@ namespace PaintedObjectsMoving.CORE
             {
                 SelectObject.Pen.Color = _currentColor;
             }
-
+            _operatorValue = "Изменение цвета линии";
         }
 
         public void Execute()
@@ -45,15 +47,10 @@ namespace PaintedObjectsMoving.CORE
             {
                 SelectObject.Pen.Color = _currentColor;
             }
+            _operatorValue = "Изменение цвета линии";
         }
 
         public void Undo()
-        {
-            UndoFigure();
-        }
-
-
-        public void UndoFigure()
         {
             int i = 0;
             foreach (Object SelectObject in _seleckResult)
@@ -61,8 +58,15 @@ namespace PaintedObjectsMoving.CORE
                 SelectObject.Pen.Color = _penColor[i];
                 i++;
             }
+
+            _operatorValue = "Отмена изменения цвета линии";
         }
 
+
+        public string Operation()
+        {
+            return _operatorValue;
+        }
 
     }
 }

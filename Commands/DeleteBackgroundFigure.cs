@@ -14,6 +14,7 @@ namespace PaintedObjectsMoving.CORE
 
 
         private SolidBrush [] _brush;
+        private string _operatorValue;
 
         public DeleteBackgroundFigure(List<Object> SeleckResult)
         {
@@ -38,7 +39,7 @@ namespace PaintedObjectsMoving.CORE
                     SelectObject.Brush = null;
                 }
             }
-
+            _operatorValue = "Удаление фона у выделенных фигур";
         }
 
         public void Execute()
@@ -50,6 +51,7 @@ namespace PaintedObjectsMoving.CORE
                     SelectObject.Brush = null;
                 }
             }
+            _operatorValue = "Удаление фона у выделенных фигур";
         }
 
         public void Undo()
@@ -63,6 +65,13 @@ namespace PaintedObjectsMoving.CORE
                 }
                 i++;
             }
+            _operatorValue = "Восстановление фона у выделенных фигур";
+        }
+
+
+        public string Operation()
+        {
+            return _operatorValue;
         }
 
     }

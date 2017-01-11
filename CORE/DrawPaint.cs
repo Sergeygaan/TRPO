@@ -338,5 +338,12 @@ namespace PaintedObjectsMoving
             _indexFigureCommand += 1;
             
         }
+
+
+        //Метод возвращяющий список команд в проекте
+        public List<IFigureCommand> IFigureCommand()
+        {
+            return _iFigureCommand;
+        }
     }
 }
