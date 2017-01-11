@@ -28,6 +28,8 @@ namespace PaintedObjectsMoving.CORE
             _figures = Figures;
             _drawObject.Path.AddRectangle(_ellipse.ShowRectangle(_points[0], _points[1]));
             _drawObjectClone = DrawObject.CloneObject();
+            _drawObjectClone.IdFigure = DrawObject.IdFigure;
+
         }
 
         public void Execute()

@@ -14,7 +14,7 @@ namespace PaintedObjectsMoving.CORE
         private List<Object> _seleckResultRedo = new List<Object>();
         private List<Object> _figures;
 
-
+        //Ошибка в данном методе
         public СhangeMove(List<Object> SeleckResult, List<Object> Figures)
         {
             _figures = Figures;
@@ -45,7 +45,7 @@ namespace PaintedObjectsMoving.CORE
         {
             foreach (Object SelectObject in _seleckResultRedo)
             {
-                
+                _figures[SelectObject.IdFigure] = null;
                 _figures[SelectObject.IdFigure] = SelectObject;
 
             }
@@ -62,7 +62,7 @@ namespace PaintedObjectsMoving.CORE
         {
             foreach (Object SelectObject in _seleckResultUndo)
             {
-                
+                _figures[SelectObject.IdFigure] = null;
                 _figures[SelectObject.IdFigure] = SelectObject;
                 
             }

@@ -37,6 +37,7 @@ namespace PaintedObjectsMoving.CORE
 
             _drawObject.Path.CloseFigure();
             _drawObjectClone = DrawObject.CloneObject();
+            _drawObjectClone.IdFigure = DrawObject.IdFigure;
         }
 
         public void Execute()

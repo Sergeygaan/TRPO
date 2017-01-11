@@ -35,6 +35,7 @@ namespace PaintedObjectsMoving.CORE
             _drawObject.Path.AddLines(PointPoliLine);
 
             _drawObjectClone = DrawObject.CloneObject();
+            _drawObjectClone.IdFigure = DrawObject.IdFigure;
         }
 
         public void Execute()

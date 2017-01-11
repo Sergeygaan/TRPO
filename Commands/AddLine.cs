@@ -12,7 +12,6 @@ namespace PaintedObjectsMoving.CORE
     {
         private List<PointF> _points;
         private Object _drawObject;
-        private Object _drawObjectClone;
         private List<Object> _figures;
 
         public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
@@ -26,13 +25,11 @@ namespace PaintedObjectsMoving.CORE
             _points = Points;
             _figures = Figures;
             _drawObject.Path.AddLine(_points[0], _points[1]);
-            _drawObjectClone = DrawObject.CloneObject();
         }
 
         public void Execute()
         {
-            _figures.Insert(_drawObjectClone.IdFigure, _drawObjectClone);
-
+            _figures.Insert(_drawObject.IdFigure, _drawObject);
         }
 
         public void Undo()
