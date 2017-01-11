@@ -106,8 +106,8 @@ namespace PaintedObjectsMoving {
 
         public PaintedObject CloneObject()
         {
-            Pen CopiPen = new Pen(_pen.Color);
-            return new PaintedObject(CopiPen, this.Path.Clone() as GraphicsPath, _brush, _currentfigure);
+            //Pen CopiPen = new Pen(_pen.Color);
+            return new PaintedObject(this.Pen, this.Path.Clone() as GraphicsPath, _brush, _currentfigure);
         }
 
         #endregion

@@ -27,7 +27,7 @@ namespace PaintedObjectsMoving
             {
                 if (SelectObject != null)
                 {
-                    SelectObject.Pen.Width -= 1;//Возвращаем ширину пера
+                    //SelectObject.Pen.Width -= 1;//Возвращаем ширину пера
                     SelectObject.ClearListFigure();
                     SelectObject.PointSelect = null;
                     SelectObject.SelectFigure = false;
@@ -112,7 +112,7 @@ namespace PaintedObjectsMoving
 
                         DrawObject.PointSelect = DrawObject.Path.PathPoints;
                         DrawObject.SelectFigure = true;
-                        DrawObject.Pen.Width += 1;
+                        //DrawObject.Pen.Width += 1;
                         _selectedFigures.Add(DrawObject);
 
 

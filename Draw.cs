@@ -202,6 +202,7 @@ namespace PaintedObjectsMoving
                                 SelectObject.AddListFigure(_drawSupportObject);
                             
                             }
+
                         break;
 
                 }
@@ -236,7 +237,7 @@ namespace PaintedObjectsMoving
             }
              
         }
-
+        //Удаление фона у выбранных фигур
         public void DeleteBackgroundFigure(List<PaintedObject> SeleckResult)
         {
             foreach (PaintedObject SelectObject in SeleckResult)
@@ -247,7 +248,7 @@ namespace PaintedObjectsMoving
             }
 
         }
-
+        //Изменение фона у выбранных фигур
         public void СhangeBackgroundFigure(List<PaintedObject> SeleckResult, Color ColorСhangeBackground)
         {
             foreach (PaintedObject SelectObject in SeleckResult)
@@ -259,6 +260,7 @@ namespace PaintedObjectsMoving
 
         }
 
+        //редактирование стилей для каждой фигуры
         public void StyleFigure()
         {
             _penFigure = new Pen(MainForm.FigureProperties.linecolor, MainForm.FigureProperties.thickness);
@@ -288,6 +290,7 @@ namespace PaintedObjectsMoving
             return _figures;
         }
 
+        //Возвращение зоны выделения
         public Rectangle SeparationZone()
         {
             return _rect;
