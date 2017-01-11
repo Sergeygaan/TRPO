@@ -6,9 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving.CORE
+namespace MyPaint.CORE
 {
-    [Serializable]
     /// <summary>
     /// Класс, выполнящий различные действия над эллипсом.
     /// </summary>
@@ -23,6 +22,21 @@ namespace PaintedObjectsMoving.CORE
         /// Переменная, хранящая класс для построения структуры эллипса.
         /// </summary>
         private СonstructionFigure _сonstructionFigure = new СonstructionFigure();
+
+        /// <summary>
+        /// Переменная, хранящая класс для построеня структуры фигур.
+        /// </summary>
+        private СonstructionFigure _figureBuild = new СonstructionFigure();
+
+        /// <summary>
+        /// Переменная, хранящая координаты начальной точки.
+        /// </summary>
+        private PointF _pointStart;
+
+        /// <summary>
+        /// Переменная, хранящая координаты конечной точки.
+        /// </summary>
+        private PointF _pointEnd;
 
         /// <summary>
         /// Переменная, хранящая опорные точки.
@@ -68,7 +82,7 @@ namespace PaintedObjectsMoving.CORE
         {
             for (int i = 0; i < SelectObject.PointSelect.Length; i += 3)
             {
-                _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
+                _drawSupportObject = new SupportObject(new Pen(ChildForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
                 _drawSupportObject.Path.AddEllipse(_сonstructionFigure.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
                 _drawSupportObject.IdFigure = SelectObject.IdFigure;
                 _drawSupportObject.ControlPointF = i;
@@ -88,9 +102,103 @@ namespace PaintedObjectsMoving.CORE
         /// /// <para name = "EdipParametr">Объекта класса необходимый для выполнения масштабирования</para>
         public void ScaleSelectFigure(Object SelectObject, SupportObject SupportObj, int DeltaX, int DeltaY, EditObject EdipParametr)
         {
-            EdipParametr.EditObjectEllepse(SelectObject, SupportObj, DeltaX, DeltaY);
-
+          
             SelectObject.PointSelect = SelectObject.Path.PathPoints;
+
+            if (SelectObject.IdFigure == SupportObj.IdFigure)
+            {
+                switch (SupportObj.ControlPointF)
+                {
+                    case 12:
+
+                        if (SelectObject.PointSelect[0].X + DeltaX > SelectObject.PointSelect[6].X)
+                        {
+                            SelectObject.PointSelect[0].X += DeltaX;
+
+                        }
+
+                        SelectObject.PointSelect[0].Y += DeltaY;
+
+                        _pointStart.X = SelectObject.PointSelect[6].X;
+                        _pointStart.Y = SelectObject.PointSelect[9].Y;
+
+                        _pointEnd.X = SelectObject.PointSelect[0].X;
+                        _pointEnd.Y = SelectObject.PointSelect[3].Y;
+
+                        SelectObject.Path.Reset();
+
+                        SelectObject.Path.AddEllipse(_figureBuild.ShowRectangle(_pointEnd, _pointStart));
+
+                        break;
+
+
+                    case 3:
+
+                        if (SelectObject.PointSelect[3].Y + DeltaY > SelectObject.PointSelect[9].Y)
+                        {
+                            SelectObject.PointSelect[3].Y += DeltaY;
+
+                        }
+
+                        SelectObject.PointSelect[3].X += DeltaX;
+
+                        _pointStart.X = SelectObject.PointSelect[6].X;
+                        _pointStart.Y = SelectObject.PointSelect[9].Y;
+
+                        _pointEnd.X = SelectObject.PointSelect[0].X;
+                        _pointEnd.Y = SelectObject.PointSelect[3].Y;
+
+                        SelectObject.Path.Reset();
+
+                        SelectObject.Path.AddEllipse(_figureBuild.ShowRectangle(_pointStart, _pointEnd));
+
+                        break;
+
+                    case 6:
+
+                        if (SelectObject.PointSelect[6].X + DeltaX < SelectObject.PointSelect[0].X)
+                        {
+                            SelectObject.PointSelect[6].X += DeltaX;
+
+                        }
+
+                        SelectObject.PointSelect[6].Y += DeltaY;
+
+                        _pointStart.X = SelectObject.PointSelect[6].X;
+                        _pointStart.Y = SelectObject.PointSelect[9].Y;
+
+                        _pointEnd.X = SelectObject.PointSelect[0].X;
+                        _pointEnd.Y = SelectObject.PointSelect[3].Y;
+
+                        SelectObject.Path.Reset();
+
+                        SelectObject.Path.AddEllipse(_figureBuild.ShowRectangle(_pointStart, _pointEnd));
+
+                        break;
+
+                    case 9:
+                        if (SelectObject.PointSelect[9].Y + DeltaY < SelectObject.PointSelect[3].Y)
+                        {
+                            SelectObject.PointSelect[9].Y += DeltaY;
+
+                        }
+
+                        SelectObject.PointSelect[9].X += DeltaX;
+
+                        _pointStart.X = SelectObject.PointSelect[6].X;
+                        _pointStart.Y = SelectObject.PointSelect[9].Y;
+
+                        _pointEnd.X = SelectObject.PointSelect[0].X;
+                        _pointEnd.Y = SelectObject.PointSelect[3].Y;
+
+                        SelectObject.Path.Reset();
+
+                        SelectObject.Path.AddEllipse(_figureBuild.ShowRectangle(_pointStart, _pointEnd));
+
+                        break;
+                }
+            }
+            EdipParametr.MoveObjectSupport(SelectObject, DeltaX, DeltaY);
         }
 
         /// <summary>

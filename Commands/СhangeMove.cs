@@ -6,18 +6,37 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving.CORE
+namespace MyPaint.CORE
 {
-    [Serializable]
+    /// <summary>
+    /// Класс, выполняющий перемещения фигур.
+    /// </summary>
     class СhangeMove : IFigureCommand
     {
+        /// <summary>
+        /// Переменная, хранящая скопированый список выделенных фигур.ы
+        /// </summary>
         private List<Object> _seleckResult;
-      
+
+        /// <summary>
+        /// Переменная, хранящая положение фигуры до перемещения.
+        /// </summary>
         private GraphicsPath [] _pathUndo;
+
+        /// <summary>
+        /// Переменная, хранящая положение фигуры после перемещения.
+        /// </summary>
         private GraphicsPath [] _pathRedo;
 
+        /// <summary>
+        /// Переменная, хранящая строку с текущим действием.
+        /// </summary>
         private string _operatorValue;
 
+        /// <summary>
+        /// Метод, выполняющий изменения цвета заливки у выбранных фигур.
+        /// </summary>
+        /// <para name = "SeleckResult">Переменная, хранящая список выделенных фигур</para>
         public СhangeMove(List<Object> SeleckResult)
         {
             _seleckResult = SeleckResult.GetRange(0, SeleckResult.Count);
@@ -37,6 +56,9 @@ namespace PaintedObjectsMoving.CORE
 
         }
 
+        /// <summary>
+        /// Метод, выполняющий сохранения координат фигуры после перемещения.
+        /// </summary>
         public void СhangeMoveEnd(List<Object> SeleckResult)
         {
 
@@ -50,11 +72,13 @@ namespace PaintedObjectsMoving.CORE
                 i++;
             }
 
-            _operatorValue = "Перемещение объеста";
+            _operatorValue = "Перемещение объекта";
 
         }
 
-
+        /// <summary>
+        /// Метод, выполняющий действие "Повторить".
+        /// </summary>
         public void Redo()
         {
 
@@ -66,10 +90,12 @@ namespace PaintedObjectsMoving.CORE
                 i++;
             }
 
-            _operatorValue = "Отмена перемещение объеста";
+            _operatorValue = "Перемещение объекта";
 
         }
-
+        /// <summary>
+        /// Метод, возвращающий строку с текущим действием.
+        /// </summary>
         public void Undo()
         {
 
@@ -79,11 +105,13 @@ namespace PaintedObjectsMoving.CORE
                 ObjectUndo.Path = (GraphicsPath)_pathUndo[i].Clone();
                
                 i++;
-
+                _operatorValue = "Отмена перемещение объекта";
             }
         }
 
-
+        /// <summary>
+        /// Метод, возвращающий строку с текущим действием.
+        /// </summary>
         public string Operation()
         {
             return _operatorValue;

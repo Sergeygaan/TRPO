@@ -6,16 +6,38 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving.CORE
+namespace MyPaint.CORE
 {
-    [Serializable]
+    /// <summary>
+    /// Класс, выполняющий изменение цвета отрисовки линий опорных точек у выбранных фигур
+    /// </summary>
     class СhangeSupportPenColor : IFigureCommand
     {
+        /// <summary>
+        /// Переменная, хранящая скопированый список выделенных фигур.
+        /// </summary>
         private List<Object> _seleckResult;
+
+        /// <summary>
+        /// Переменная, хранящая новый цвет линий опорных точек.
+        /// </summary>
         private Color _nextColor;
+
+        /// <summary>
+        /// Переменная, хранящая цвет линий опорных точек до их изменения.
+        /// </summary>
         private Color[] _penColor;
+
+        /// <summary>
+        /// Переменная, хранящая строку с текущим действием.
+        /// </summary>
         private string _operatorValue;
 
+        /// <summary>
+        /// Метод, выполняющий изменения цвета линий у выбранных фигур.
+        /// </summary>
+        /// <para name = "NextColor">Переменная, хранящая новый цвет линий опорных точек.</para>
+        /// <para name = "SeleckResult">Переменная, хранящая список выделенных фигур</para>
         public СhangeSupportPenColor(Color NextColor, List<Object> SeleckResult)
         {
             _nextColor = NextColor;
@@ -39,6 +61,9 @@ namespace PaintedObjectsMoving.CORE
             _operatorValue = "Изменение цвета линии опорных точек";
         }
 
+        /// <summary>
+        /// Метод, выполняющий действие "Повторить".
+        /// </summary>
         public void Redo()
         {
             foreach (Object SelectObject in _seleckResult)
@@ -54,6 +79,9 @@ namespace PaintedObjectsMoving.CORE
             _operatorValue = "Изменение цвета линии опорных точек";
         }
 
+        /// <summary>
+        /// Метод, выполняющий действие "Отменить".
+        /// </summary>
         public void Undo()
         {
             int i = 0;
@@ -70,7 +98,9 @@ namespace PaintedObjectsMoving.CORE
             _operatorValue = "Отмена изменения цвета линии опорных точек";
         }
 
-
+        /// <summary>
+        /// Метод, возвращающий строку с текущим действием.
+        /// </summary>
         public string Operation()
         {
             return _operatorValue;

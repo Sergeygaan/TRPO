@@ -1,4 +1,4 @@
-﻿using PaintedObjectsMoving.CORE;
+﻿using MyPaint.CORE;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,20 +7,41 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving
+namespace MyPaint
 {
-    [Serializable]
+    /// <summary>
+    /// Класс, выполняющий выделение фигур.
+    /// </summary>
     class SelectDraw
     {
-        private List<Object> _selectedFigures = new List<Object>();   //Список выбранных фигур
+        /// <summary>
+        /// Переменная, хранящая список с выделенными фигурами.
+        /// </summary>
+        private List<Object> _selectedFigures = new List<Object>();
 
-       // private Object currObj = null;//Объект, который в данный момент перемещается
+        /// <summary>
+        /// Переменная, хранящая выделенную фигуру.
+        /// </summary>
         private SupportObject _supportObj;
+
+        /// <summary>
+        /// Переменная, хранящая тукущие координаты мыщи.
+        /// </summary>
         private Point _oldPoint;
+
+        /// <summary>
+        /// Переменная, хранящая зону выделения.
+        /// </summary>
         private RectangleF _rectangleF;
-        private СonstructionFigure _ellipse = new СonstructionFigure();
+
+        /// <summary>
+        /// Переменная, хранящая класс с действиями над фигурами.
+        /// </summary>
         private EditObject _edipParametr = new EditObject();
 
+        /// <summary>
+        /// Метод, выполняющий отмену выделения.
+        /// </summary>
         public void MouseUp()
         {
             foreach (Object SelectObject in _selectedFigures)
@@ -74,6 +95,14 @@ namespace PaintedObjectsMoving
             }
         }
 
+        /// <summary>
+        /// Метод, выполняющий выделение фигур.
+        /// </summary>
+        /// <para name = "e">Переменная, хранящая координаты мыши.</para>
+        /// <para name = "Rect">Переменная, хранящая зону выделения.</para>
+        /// <para name = "Figures">Переменная, хранящая список всех фигур.</para>
+        /// <para name = "CurrentActions">Переменная, хранящая действие над выбранной фигурой.</para>
+        /// <para name = "FiguresBuild">Переменная, хранящая список действий.</para>
         public void MouseDown(MouseEventArgs e, Rectangle Rect, List<Object> Figures, MainForm.Actions CurrentActions, List<IFigureBuild> FiguresBuild)
         {
             //Запоминаем положение курсора
@@ -137,6 +166,12 @@ namespace PaintedObjectsMoving
 
         }
 
+        /// <summary>
+        /// Метод, выполняющий действия над выделенными фигурами.
+        /// </summary>
+        /// <para name = "e">Переменная, хранящая координаты мыши.</para>
+        /// <para name = "CurrentActions">Переменная, хранящая действие над выбранной фигурой.</para>
+        /// <para name = "FiguresBuild">Переменная, хранящая список действий.</para>
         public void MouseMove(MouseEventArgs e, MainForm.Actions CurrentActions, List<IFigureBuild> FiguresBuild)
         {
             //Считаем смещение курсора
@@ -147,47 +182,34 @@ namespace PaintedObjectsMoving
 
             foreach (Object SelectObject in _selectedFigures)
             {
-                switch (CurrentActions)
+              
+                //Масштабирование опорных точек
+                if ((SelectObject != null) && (_supportObj != null))
                 {
-
-                    case MainForm.Actions.Scale:
-
-                        //Масштабирование опорных точек
-                        if ((SelectObject != null) && (_supportObj != null))
-                        {
-                            FiguresBuild[(int)SelectObject.CurrentFigure].ScaleSelectFigure(SelectObject, _supportObj, deltaX, deltaY, _edipParametr);
+                    FiguresBuild[(int)SelectObject.CurrentFigure].ScaleSelectFigure(SelectObject, _supportObj, deltaX, deltaY, _edipParametr);
  
-                        }
+                }
+                else
+                {
+                    if (SelectObject != null)
+                    {
+                        SelectObject.PointSelect = SelectObject.Path.PathPoints;
 
-                        break;
-                     
-                    // Перемещение фигуры
-                    case MainForm.Actions.Move:
-
-                        if (SelectObject != null)
-                        {
-                            SelectObject.PointSelect = SelectObject.Path.PathPoints;
-
-                            _edipParametr.MoveObject(SelectObject, deltaX, deltaY);
-
-                        }
-
-                        break;
+                        _edipParametr.MoveObject(SelectObject, deltaX, deltaY);
+                    }
                 }
 
                 _oldPoint = e.Location;
             }
 
         }
-     
 
-        //Вернуть выделенный объект 
+        /// <summary>
+        /// Метод, возвращающий список выделенных фигур.
+        /// </summary>
         public List<Object> SeleckResult()
         {
             return _selectedFigures;
         }
-
-
-
     }
 }

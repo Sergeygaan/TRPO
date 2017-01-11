@@ -6,9 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving.CORE
+namespace MyPaint.CORE
 {
-    [Serializable]
     /// <summary>
     /// Класс, выполнящий различные действия над многоугольником.
     /// </summary>
@@ -75,7 +74,7 @@ namespace PaintedObjectsMoving.CORE
         {
             for (int i = 0; i < SelectObject.PointSelect.Length; i++)
             {
-                _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
+                _drawSupportObject = new SupportObject(new Pen(ChildForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
                 _drawSupportObject.Path.AddEllipse(_сonstructionFigure.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
                 _drawSupportObject.IdFigure = SelectObject.IdFigure;
                 _drawSupportObject.ControlPointF = i;
@@ -98,7 +97,25 @@ namespace PaintedObjectsMoving.CORE
             {
                 SelectObject.PointSelect = SelectObject.Path.PathPoints;
             }
-            EdipParametr.EditObjectPoliLine(SelectObject, SupportObj, DeltaX, DeltaY);
+
+            if (SelectObject.IdFigure == SupportObj.IdFigure)
+            {
+
+                SelectObject.PointSelect[SupportObj.ControlPointF].X += DeltaX;
+                SelectObject.PointSelect[SupportObj.ControlPointF].Y += DeltaY;
+
+                PointF[] PointF = SelectObject.PointSelect.ToArray();
+                SelectObject.Path.Reset();
+                SelectObject.Path.AddLines(PointF);
+
+                if (SelectObject.CurrentFigure == MainForm.FigureType.Polygon)
+                {
+                    SelectObject.Path.CloseFigure();
+                }
+
+            }
+
+            EdipParametr.MoveObjectSupport(SelectObject, DeltaX, DeltaY);
 
         }
 

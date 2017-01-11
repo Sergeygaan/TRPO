@@ -7,36 +7,41 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving
+namespace MyPaint
 {
+    /// <summary>
+    /// Класс, выполняющий создание новой рабочей области.
+    /// </summary>
     public partial class NewFileDialog : Form
     {
-        //КОНСТАНТЫ
-        const string outofrangetitle = "Вне установленного диапазона!";
-        const string outofnumberrange = "Число должно находиться в диапазоне от 10 до 2000.";
-        const string notdigittitle = "Введенный символ не является числом!";
-        const string notdigitmessage = "Введенные сиволы должны быть цифрами.";
-
-        //ФЛАГИ
-        /*                  true                                false
-         * inputerror       введена цифра вне диапазона         ввод числа осуществлен правильно
-         * notdigit         введена НЕ цифра                    все введенные символы - цифры
-         * emptyfield       одно или несколько полей пусты      все необходимые поля заполнены
-         */
+        /// <summary>
+        /// Переменная, хранащая значение о диапазоне цифр.
+        /// </summary>
         private bool inputerror = false;
+
+        /// <summary>
+        /// Переменная, хранащая значение о вводе цифр.
+        /// </summary>
         private bool notdigit = false;
+
+        /// <summary>
+        /// Переменная, хранащая значение о заполении поля.
+        /// </summary>
         private bool emptyfield = false;
 
+        /// <summary>
+        /// Метод, выполняющий инициализирующий остальные объекты.
+        /// </summary>
         public NewFileDialog()
         {
             InitializeComponent();
         }
 
-        private void NewFileDialog_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Метод, выполняющий создание новой рабочей области.
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void OKbutton_Click(object sender, EventArgs e)
         {
             if (UserSize.Checked)
@@ -78,6 +83,11 @@ namespace PaintedObjectsMoving
             MainForm.CreateNewFile = true;
         }
 
+        /// <summary>
+        /// Метод, выполняющий отмену создания новой рабочей области.
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void CANCELbutton_Click(object sender, EventArgs e)
         {
             /*так как мы отказываемся от создания файла,

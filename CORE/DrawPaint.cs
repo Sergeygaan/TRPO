@@ -1,44 +1,143 @@
-﻿using PaintedObjectsMoving.CORE;
+﻿using MyPaint.CORE;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving
+namespace MyPaint
 {
+    /// <summary>
+    /// Класс, выполняющий отрисовку фигур.
+    /// </summary>
     class DrawPaint
     {
+        /// <summary>
+        /// Переменная, хранящая список команд.
+        /// </summary>
         private List<IFigureCommand> _iFigureCommand = new List<IFigureCommand>();
-        private int _indexFigureCommand = -1;
-        private СonstructionFigure _ellipse;
 
+        /// <summary>
+        /// Переменная, хранящая интекс текущей команды.
+        /// </summary>
+        private int _indexFigureCommand = -1;
+
+        /// <summary>
+        /// Переменная, хранящая класс для построеня структуры фигур.
+        /// </summary>
+        private СonstructionFigure _figureBuild;
+
+        /// <summary>
+        /// Переменная, хранящая параметры кисти для отрисовки фигур.
+        /// </summary>
         private Pen _penFigure;
+
+        /// <summary>
+        /// Переменная, хранящая объекс для отрисовки фигур.
+        /// </summary>
         private Object _drawObject;
+
+        /// <summary>
+        /// Переменная, хранящая прямоугольник для выделения фигур.
+        /// </summary>
         private Rectangle _rect;
+
+        /// <summary>
+        /// Переменная, хранящая значения о заливки фигур.
+        /// </summary>
         private bool _brushFill;
+
+        /// <summary>
+        /// Переменная, хранящая значения о текущей выбранной фигуры.
+        /// </summary>
         private MainForm.FigureType _currentfigure;
+
+        /// <summary>
+        /// Переменная, хранящая значения о сохранение проекта.
+        /// </summary>
         private bool _saveProjectClear = false;
 
+        /// <summary>
+        /// Переменная, хранящая хранящая список со всеми фигурами.
+        /// </summary>
         private List<Object> _figures;                          //Список с объектами для прорисовки
+
+        /// <summary>
+        /// Переменная, хранящая список с фигурами при загрузке старого проекта.
+        /// </summary>
         private List<Object> _figuresLoad = new List<Object>();
+
+        /// <summary>
+        /// Переменная, хранящая зону отрисовки фигур.
+        /// </summary>
         private Bitmap _bmp;
 
+        /// <summary>
+        /// Переменная, хранящая ширину зоны отрисовки.
+        /// </summary>
         private int _widthDraw;
+
+        /// <summary>
+        /// Переменная, хранящая высоту зоны отрисовки.
+        /// </summary>
         private int _heightDraw;
 
         //Классы комманд
+        /// <summary>
+        /// Переменная, хранящая класс с командой для изменения размера кисти.
+        /// </summary>
         private СhangePenWidth _penWidth;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для изменения цвета кисти.
+        /// </summary>
         private СhangePenColor _penColor;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для изменения стиля кисти.
+        /// </summary>
         private СhangePenStyle _penStyle;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для изменения перемещения фигур.
+        /// </summary>
         private СhangeMove _penMove;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для изменения цвета заливки.
+        /// </summary>
         private СhangeBackgroundFigure _brushColor;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для удаления заливки.
+        /// </summary>
         private DeleteBackgroundFigure _deleteBrush;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для удаления фигур.
+        /// </summary>
         private DeleteFigure _deleteFigure;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для копирования фигур.
+        /// </summary>
         private ReplicationFigure _replicationFigure;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для изменения цвета опорных точек.
+        /// </summary>
         private СhangeSupportPenColor _supportPenColor;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой дляотчистки рабочей области.
+        /// </summary>
         private CleanFigure _cleanFigure;
 
+        /// <summary>
+        /// Метод, создающий рабочую область, и инициализирующий остальные объекты.
+        /// </summary>
+        /// <para name = "Width">Переменная, хранящая  ширину рабочей области.</para>
+        /// <para name = "Height">Переменная, хранящая  высоту рабочей области</para>
         public DrawPaint(int Width, int Height)
         {
             _widthDraw = Width;
@@ -47,11 +146,17 @@ namespace PaintedObjectsMoving
             _figures = new List<Object>();
             _bmp = new Bitmap(Width, Height);
 
-            _ellipse = new СonstructionFigure();
+            _figureBuild = new СonstructionFigure();
 
         }
 
-        //Отрисовка фигур и возвращение области выделения
+        /// <summary>
+        /// Метод, выполняющий отрисовку фигур и возвращение области выделения.
+        /// </summary>
+        /// <para name = "e">Переменная, хранящая  события отрисовки.</para>
+        /// <para name = "Currentfigure">Переменная, хранящая  текущую выбранную фигуру</para>
+        /// <para name = "Points">Переменная, хранящая  координаты отрисовки фигуры</para>
+        /// <para name = "FiguresBuild">Переменная, хранящая класс отрисовки</para>
         public void Paint(PaintEventArgs e, MainForm.FigureType Currentfigure, List<PointF> Points, List<IFigureBuild> FiguresBuild)
         {
             _currentfigure = Currentfigure;
@@ -64,7 +169,7 @@ namespace PaintedObjectsMoving
 
                 if (Points.Count > 1)
                 {
-                    _rect = _ellipse.ShowRectangle(Points[0], Points[1]);
+                    _rect = _figureBuild.ShowRectangle(Points[0], Points[1]);
                 }
             }
 
@@ -72,7 +177,12 @@ namespace PaintedObjectsMoving
 
         }
 
-        //Сохранение фигур
+        /// <summary>
+        /// Метод, выполняющий сохранение фигур.
+        /// </summary>
+        /// <para name = "Currentfigure">Переменная, хранящая  текущую выбранную фигуру</para>
+        /// <para name = "Points">Переменная, хранящая  координаты отрисовки фигуры</para>
+        /// <para name = "FiguresBuild">Переменная, хранящая класс отрисовки</para>
         public void MouseUp(MainForm.FigureType Currentfigure, List<PointF> Points, List<IFigureBuild> FiguresBuild)
         {
             StyleFigure();
@@ -85,16 +195,19 @@ namespace PaintedObjectsMoving
             }
             else
             {
-                _brushFill = MainForm.FigureProperties.fill;
+                _brushFill = ChildForm.FigureProperties.fill;
             }
 
-            _drawObject = new Object(_penFigure, new GraphicsPath(), MainForm.FigureProperties.brushcolor, _currentfigure, _brushFill);
+            _drawObject = new Object(_penFigure, new GraphicsPath(), ChildForm.FigureProperties.brushcolor, _currentfigure, _brushFill);
 
             FiguresBuild[(int)_currentfigure].AddFigure(_drawObject, Points, _iFigureCommand, _figures);
 
         }
 
 
+        /// <summary>
+        /// Метод, выполняющий отрисовку всех фигур на рабочей области.
+        /// </summary>
         public void RefreshBitmap()
         {
             if (_bmp != null) _bmp.Dispose();
@@ -127,7 +240,12 @@ namespace PaintedObjectsMoving
             }
         }
 
-        //Отрисовка опорных точек
+        /// <summary>
+        /// Метод, выполняющий отрисовку опорных точек.
+        /// </summary>
+        /// <para name = "e">Переменная, хранящая  события отрисовки.</para>
+        /// <para name = "SeleckResult">Переменная, хранящая  список выделенных фигур.</para>
+        /// <para name = "FiguresBuild">Переменная, хранящая класс отрисовки.</para>
         public void SupportPoint(PaintEventArgs e, List<Object> SeleckResult, List<IFigureBuild> FiguresBuild)
         {
             foreach (Object SelectObject in SeleckResult)
@@ -144,7 +262,10 @@ namespace PaintedObjectsMoving
             }
         }
 
-        //Копирование выбранных фигур
+        /// <summary>
+        /// Метод, выполняющий копирование выбранных фигур.
+        /// </summary>
+        /// <para name = "SeleckResult">Переменная, хранящая  список выделенных фигур.</para>
         public void ReplicationFigure(List<Object> SeleckResult)
         {
             if (SeleckResult.Count != 0)
@@ -158,7 +279,10 @@ namespace PaintedObjectsMoving
 
         }
 
-        //Удаление выбранных фигуры
+        /// <summary>
+        /// Метод, выполняющий удаление выбранных фигуры.
+        /// </summary>
+        /// <para name = "SeleckResult">Переменная, хранящая  список выделенных фигур.</para>
         public void DeleteFigure(List<Object> SeleckResult)
         {
             if (SeleckResult.Count != 0)
@@ -172,9 +296,10 @@ namespace PaintedObjectsMoving
             
         }
 
-
-
-        //Удаление фона у выбранных фигур
+        /// <summary>
+        /// Метод, выполняющий удаление фона у выбранных фигур.
+        /// </summary>
+        /// <para name = "SeleckResult">Переменная, хранящая  список выделенных фигур.</para>
         public void DeleteBackgroundFigure(List<Object> SeleckResult)
         {
 
@@ -188,8 +313,11 @@ namespace PaintedObjectsMoving
             }
         }
 
-
-        //Изменение фона у выбранных фигур
+        /// <summary>
+        /// Метод, выполняющий изменение цвета фона у выбранных фигур.
+        /// </summary>
+        /// <para name = "SeleckResult">Переменная, хранящая  список выделенных фигур.</para>
+        /// <para name = "ColorСhangeBackground">Переменная, хранящая новый цвет фона.</para>
         public void СhangeBackgroundFigure(List<Object> SeleckResult, Color ColorСhangeBackground)
         {
             if (SeleckResult.Count != 0)
@@ -203,7 +331,11 @@ namespace PaintedObjectsMoving
 
         }
 
-        //Изменение цвета у выбранных фигур
+        /// <summary>
+        /// Метод, выполняющий изменение цвета кисти у выбранных фигур.
+        /// </summary>
+        /// <para name = "SeleckResult">Переменная, хранящая  список выделенных фигур.</para>
+        /// <para name = "PenColor">Переменная, хранящая новый цвет кисти.</para>
         public void СhangePenColorFigure(List<Object> SeleckResult, Color PenColor)
         {
             if (SeleckResult.Count != 0)
@@ -217,21 +349,28 @@ namespace PaintedObjectsMoving
 
         }
 
-        //изменение толщины пера у выбранных фигур
+        /// <summary>
+        /// Метод, выполняющий изменение толщины пера у выбранных фигур.
+        /// </summary>
+        /// <para name = "SeleckResult">Переменная, хранящая список выделенных фигур.</para>
         public void СhangePenWidthFigure(List<Object> SeleckResult)
         {
             if (SeleckResult.Count != 0)
             {
                 EditFigure();
 
-                _penWidth = new СhangePenWidth(SeleckResult, MainForm.FigureProperties.thickness);
+                _penWidth = new СhangePenWidth(SeleckResult, ChildForm.FigureProperties.thickness);
 
                 _iFigureCommand.Add(_penWidth);
             }
             
         }
 
-        //изменение положения фигуры при перемещении
+        /// <summary>
+        /// Метод, выполняющий изменение положения фигуры при перемещении.
+        /// </summary>
+        /// <para name = "SeleckResult">Переменная, хранящая список выделенных фигур.</para>
+        /// <para name = "Boot">Переменная, хранящая текущее действие над фигурой.</para>
         public void СhangeMoveFigure(List<Object> SeleckResult, string Boot)
         {
             if (SeleckResult.Count != 0)
@@ -253,23 +392,30 @@ namespace PaintedObjectsMoving
 
         }
 
-        //Изменить стиль линий у выбранных фигур
+        /// <summary>
+        /// Метод, выполняющий изменения стиля линий у выбранных фигур.
+        /// </summary>
+        /// <para name = "SeleckResult">Переменная, хранящая список выделенных фигур.</para>
         public void СhangePenStyleFigure(List<Object> SeleckResult)
         {
             if (SeleckResult.Count != 0)
             {
                 EditFigure();
 
-                _penStyle = new СhangePenStyle(SeleckResult, MainForm.FigureProperties.dashstyle);
+                _penStyle = new СhangePenStyle(SeleckResult, ChildForm.FigureProperties.dashstyle);
 
                 _iFigureCommand.Add(_penStyle);
             }
 
         }
-        //Изменение стиля линй у выделенных фигур
+
+        /// <summary>
+        /// Метод, выполняющий изменения цвета линий у опорных точек.
+        /// </summary>
+        /// <para name = "NextColor">Переменная, хранящая новый цвет опорных точек.</para>
+        /// <para name = "SeleckResult">Переменная, хранящая список выделенных фигур.</para>
         public void СhangeSupportPenStyleFigure(Color NextColor, List<Object> SeleckResult)
         {
-
             EditFigure();
 
             _supportPenColor = new СhangeSupportPenColor(NextColor, SeleckResult);
@@ -278,6 +424,10 @@ namespace PaintedObjectsMoving
             
         }
 
+        /// <summary>
+        /// Метод, выполняющий импорт изображения.
+        /// </summary>
+        /// <para name = "DrawForm">Переменная, хранящая ссылку на область отрисовки фигур.</para>
         public void SaveProject(PictureBox DrawForm)
         {
             _saveProjectClear = true;
@@ -286,21 +436,30 @@ namespace PaintedObjectsMoving
             DrawForm.Image = _bmp;
         }
 
+
+        /// <summary>
+        /// Метод, выполняющий отчистку проекта.
+        /// </summary>
+        /// <para name = "DrawForm">Переменная, хранящая ссылку на область отрисовки фигур.</para>
         public void ClearProject(PictureBox DrawForm)
         {
             DrawForm.Image = null;
             DrawForm.Invalidate();
         }
 
-        //редактирование стилей для каждой фигуры
+        /// <summary>
+        /// Метод, выполняющий редактирование стилей для каждой фигуры.
+        /// </summary>
         public void StyleFigure()
         {
-            _penFigure = new Pen(MainForm.FigureProperties.linecolor, MainForm.FigureProperties.thickness);
-            _penFigure.DashStyle = MainForm.FigureProperties.dashstyle;
+            _penFigure = new Pen(ChildForm.FigureProperties.linecolor, ChildForm.FigureProperties.thickness);
+            _penFigure.DashStyle = ChildForm.FigureProperties.dashstyle;
 
         }
 
-        // Отчищает список с фигурами
+        /// <summary>
+        /// Метод, выполняющий отчищает список с фигурами.
+        /// </summary>
         public void Clear()
         {
             if (_figures.Count != 0)
@@ -311,20 +470,19 @@ namespace PaintedObjectsMoving
 
                 _iFigureCommand.Add(_cleanFigure);
             }
-
-            //_figures.Clear();
-            //_iFigureCommand.Clear();
-            //_indexFigureCommand = -1;
         }
 
-        //Возвращение зоны выделения
+        /// <summary>
+        /// Метод, возвращающий зону выделения.
+        /// </summary>
         public Rectangle SeparationZone()
         {
             return _rect;
         }
 
-
-        //Дейстие назад
+        /// <summary>
+        /// Метод, выполняющий действие "Отменить".
+        /// </summary>
         public void UndoFigure()
         {
             if (_indexFigureCommand >= 0)
@@ -334,9 +492,11 @@ namespace PaintedObjectsMoving
                 _indexFigureCommand -= 1;
             }
  
-            
         }
-        //Действие вперед
+
+        /// <summary>
+        /// Метод, выполняющий действие "Повторить".
+        /// </summary>
         public void RedoFigure()
         {
             if (_indexFigureCommand < _iFigureCommand.Count - 1)
@@ -356,7 +516,9 @@ namespace PaintedObjectsMoving
         }
 
 
-        // Проверка списка команд и удаление лишних элементов
+        /// <summary>
+        /// Метод, выполняющий проверку списка команд и удаление лишних элементов.
+        /// </summary>
         public void EditFigure()
         {
            
@@ -376,21 +538,27 @@ namespace PaintedObjectsMoving
         }
 
 
-        //Метод возвращяющий список команд в проекте_iFigureCommand;
-
+        /// <summary>
+        /// Метод, возвращяющий список команд в проекте_iFigureCommand.
+        /// </summary>
         public List<IFigureCommand> IFigureCommand
         {
             get { return _iFigureCommand; }
             set { _iFigureCommand = value; }
         }
 
-        //Возвращяет список со всеми фигурами
+        /// <summary>
+        /// Метод, возвращяющий список со всеми фигурами.
+        /// </summary>
         public List<Object> FiguresList
         {
             get { return _figures; }
             set { _figures = value; }
         }
 
+        /// <summary>
+        /// Метод, возвращяющий и принимающий список с фигурами.
+        /// </summary>
         public List<Object> FiguresListObject
         {
             get { return _figures; }
@@ -399,6 +567,12 @@ namespace PaintedObjectsMoving
                 _figures = value;
                 _figuresLoad = value.GetRange(0, value.Count);
             }
+        }
+
+        public int IndexCommand
+        {
+            get { return _indexFigureCommand; }
+            set { _indexFigureCommand = value; }
         }
 
     }

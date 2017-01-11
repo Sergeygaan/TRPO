@@ -6,9 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving.CORE
+namespace MyPaint.CORE
 {
-    [Serializable]
     /// <summary>
     /// Класс, выполнящий различные действия над линией.
     /// </summary>
@@ -69,7 +68,7 @@ namespace PaintedObjectsMoving.CORE
         {
             for (int i = 0; i < SelectObject.PointSelect.Length; i++)
             {
-                _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
+                _drawSupportObject = new SupportObject(new Pen(ChildForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
                 _drawSupportObject.Path.AddEllipse(_сonstructionFigure.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
                 _drawSupportObject.IdFigure = SelectObject.IdFigure;
                 _drawSupportObject.ControlPointF = i;
@@ -92,7 +91,33 @@ namespace PaintedObjectsMoving.CORE
             {
                 SelectObject.PointSelect = SelectObject.Path.PathPoints;
             }
-            EdipParametr.EditObjectLine(SelectObject, SupportObj, DeltaX, DeltaY);
+            //EdipParametr.EditObjectLine(SelectObject, SupportObj, DeltaX, DeltaY);
+            if (SelectObject.IdFigure == SupportObj.IdFigure)
+            {
+                switch (SupportObj.ControlPointF)
+                {
+                    case 0:
+
+                        SelectObject.PointSelect[0].X += DeltaX;
+                        SelectObject.PointSelect[0].Y += DeltaY;
+                        SelectObject.Path.Reset();
+                        //CurrObj.Path.AddRectangle(_constructerFigure.ShowRectangle1(CurrObj.PointSelect[0], CurrObj.PointSelect[2]));
+                        SelectObject.Path.AddLine(SelectObject.PointSelect[0], SelectObject.PointSelect[1]);
+
+                        break;
+
+                    case 1:
+
+                        SelectObject.PointSelect[1].X += DeltaX;
+                        SelectObject.PointSelect[1].Y += DeltaY;
+                        SelectObject.Path.Reset();
+                        SelectObject.Path.AddLine(SelectObject.PointSelect[0], SelectObject.PointSelect[1]);
+
+                        break;
+                }
+            }
+
+            EdipParametr.MoveObjectSupport(SelectObject, DeltaX, DeltaY);
         }
 
 

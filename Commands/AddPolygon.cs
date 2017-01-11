@@ -6,9 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving.CORE
+namespace MyPaint.CORE
 {
-    [Serializable]
 
     /// <summary>
     /// Класс, содержащий комманды для построения многоугольника.

@@ -1,5 +1,5 @@
-﻿using PaintedObjectsMoving.CORE;
-using PaintedObjectsMoving.GUI;
+﻿using MyPaint.CORE;
+using MyPaint.GUI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,124 +9,128 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
-namespace PaintedObjectsMoving
+namespace MyPaint
 {
+    /// <summary>
+    /// Класс, являющийся гланым в программе.
+    /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Переменная, хранящая список фигур.
+        /// </summary>
         public enum FigureType
         {
             Rectangle, Ellipse, Line, PoliLine, Polygon, RectangleSelect
         }
 
+        /// <summary>
+        /// Переменная, хранящая список действий.
+        /// </summary>
         public enum Actions
         {
-           Draw, Move, Scale, SelectRegion, SelectPoint
-        }
-        public struct Properties
-        {
-            public Color linecolor;  //цвет линии
-            public Color brushcolor; //цвет заливки
-            public int thickness;              //толщина линии
-            /* стиль линии*/
-            public System.Drawing.Drawing2D.DashStyle dashstyle;
-            public bool fill; //true - фигура с заливкой, false - без заливки
+           Draw, SelectRegion, SelectPoint
         }
 
-        public struct PropertiesSupport
-        {
-            public Color linecolor;  //цвет линии
-        }
-
-        //ПЕРЕМЕННЫЕ
-        private List<PointF> _points = new List<PointF>();
-
+        /// <summary>
+        /// Структура, хранящая текущее действие.
+        /// </summary>
         private Actions _currentActions = Actions.Draw;
-        private static Properties _figureProperties;                        //свойства фигуры
-        private static PropertiesSupport _figurePropertiesSupport;          //свойства фигуры
 
-        private static int _childCounter = 1;                                            //счетчик дочерних окон для выдачи надписи РИСУНОК1, РИСУНОК2...
-        private static int _childWidhtSize;                                             //переменная, хранящая заданную ширину дочернего окна
-        private static int _childHeightSize;                                            //переменная, хранящая заданную высоту дочернего окна
+        /// <summary>
+        /// Структура, хранящая счетчик дочерних окон.
+        /// </summary>
+        private static int _childCounter = 1;
 
-        //ФЛАГИ
-        private static bool _createNewFile = false;                                      //true - создать файл
+        /// <summary>
+        /// Структура, хранящая хранящая заданную ширину дочернего окна.
+        /// </summary>
+        private static int _childWidhtSize;
 
+        /// <summary>
+        /// Структура, хранящая хранящая заданную высоту дочернего окна.
+        /// </summary>
+        private static int _childHeightSize;
+
+
+        /// <summary>
+        /// Структура, хранящая хранящая свойства нового файла.
+        /// </summary>
+        private static bool _createNewFile = false;                                    
+
+        /// <summary>
+        /// Структура, хранящая класс для соранения проекта.
+        /// </summary>
         private SaveProect _saveProect;
 
+        /// <summary>
+        /// Метод, инициализирующий остальные объекты.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
 
             DoubleBuffered = true;
 
-            //Характеристика фигуры
-            _figureProperties.brushcolor = Color.White;
-            _figureProperties.dashstyle = DashStyle.Solid;
-            _figureProperties.fill = false;
-            _figureProperties.linecolor = Color.Black;
-            _figureProperties.thickness = 1;
-
-            //Характеристика опорных точек
-            _figurePropertiesSupport.linecolor = Color.Black;
-
         }
 
-        //Характеристики обычных фигур
-        public static Properties FigureProperties
-        {
-            get { return _figureProperties; }
-        }
-        public static int Thickness
-        {
-            set { _figureProperties.thickness = value; }
-        }
-        public static DashStyle StyleOfLine
-        {
-            set { _figureProperties.dashstyle = value; }
-        }
-
-        //Характеристики опорных точек
-        public static PropertiesSupport FigurePropertiesSupport
-        {
-            get { return _figurePropertiesSupport; }
-        }
-
-        //Выбор фигуры
-        private void ChangeFigure(FigureType next)
+        /// <summary>
+        /// Метод, выполняющий выбор фигуры.
+        /// </summary>
+        /// /// <para name = "Next">Переменная, хранящая выбранную фигуру.</para>
+        private void ChangeFigure(FigureType Next)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
             {
-                ActiveForm.ChangeFigure(next);
+                ActiveForm.ChangeFigure(Next);
             }
             ActiveForm = null;
 
         }
 
-
-        private void ChangeActions(Actions next)
+        /// <summary>
+        /// Метод, выполняющий выбор действия.
+        /// </summary>
+        /// /// <para name = "NextActions">Переменная, хранящая выбранное действие.</para>
+        private void ChangeActions(Actions NextActions)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
             {
-                ActiveForm.ChangeActions(next);
+                ActiveForm.ChangeActions(NextActions);
             }
             ActiveForm = null;
 
         }
 
-        //Удаление всех нарисованных фигур
+        /// <summary>
+        /// Метод, выполняющий удаление всех нарисованных фигур.
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void DeleteProject(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
             {
-                ActiveForm.DeleteFigure();
+                if (ActiveForm.SelectFigure() == false)
+                {
+                    ActiveForm.DeleteFigure();
+                }
+                else
+                {
+                    ActiveForm.DeleteSelectFigure();
+                }
             }
             ActiveForm = null;
         }
 
-        //Режим рисования
+        /// <summary>
+        /// Метод, выполняющий выбор действия "Рисование".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void Painting(object sender, EventArgs e)
         {
             _currentActions = Actions.Draw;
@@ -142,7 +146,11 @@ namespace PaintedObjectsMoving
             ActiveForm = null;
         }
 
-        //Режим выделения
+        /// <summary>
+        /// Метод, выполняющий выбор действия "Выделение".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void RegionSelect(object sender, EventArgs e)
         {
             _currentActions = Actions.SelectRegion;
@@ -150,7 +158,12 @@ namespace PaintedObjectsMoving
 
             ChangeFigure(FigureType.RectangleSelect);
         }
-        //Эллипс
+
+        /// <summary>
+        /// Метод, выполняющий выбор фигуры "Эллипс".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void ConstructEllipse(object sender, EventArgs e)
         {
             if (_currentActions == Actions.Draw)
@@ -159,7 +172,11 @@ namespace PaintedObjectsMoving
             }
         }
 
-        //Квадрат
+        /// <summary>
+        /// Метод, выполняющий выбор фигуры "Квадрат".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void ConstructRectangle(object sender, EventArgs e)
         {
             if (_currentActions == Actions.Draw)
@@ -167,8 +184,12 @@ namespace PaintedObjectsMoving
                 ChangeFigure(FigureType.Rectangle);
             }
         }
-        
-        //Полилиния
+
+        /// <summary>
+        /// Метод, выполняющий выбор фигуры "Полилиния".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void ConstructPoliline(object sender, EventArgs e)
         {
             if (_currentActions == Actions.Draw)
@@ -177,7 +198,11 @@ namespace PaintedObjectsMoving
             }
         }
 
-        //Линия
+        /// <summary>
+        /// Метод, выполняющий выбор фигуры "Линия".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void ConstructLine(object sender, EventArgs e)
         {
             if(_currentActions == Actions.Draw)
@@ -185,7 +210,12 @@ namespace PaintedObjectsMoving
                 ChangeFigure(FigureType.Line);
             }
         }
-        // Многоугольник
+
+        /// <summary>
+        /// Метод, выполняющий выбор фигуры "Многоугольник".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void ConstructRegion(object sender, EventArgs e)
         {
             if (_currentActions == Actions.Draw)
@@ -193,21 +223,12 @@ namespace PaintedObjectsMoving
                 ChangeFigure(FigureType.Polygon);
             }
         }
-        //Перемещение
-        private void DisplacementFigure(object sender, EventArgs e)
-        {
-            _currentActions = Actions.Move;
-            ChangeActions(Actions.Move);
-        }
 
-        //Масштабирование
-        private void ScalingFigure(object sender, EventArgs e)
-        {
-            _currentActions = Actions.Scale;
-            ChangeActions(Actions.Scale);
-        }
-
-        //Копирование
+        /// <summary>
+        /// Метод, выполняющий действия "Копирование".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void СopyingFigure(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
@@ -218,98 +239,183 @@ namespace PaintedObjectsMoving
             ActiveForm = null;
         }
 
-        //Удаление
-        private void DeleteFigure(object sender, EventArgs e)
+        /// <summary>
+        /// Метод, выполняющий действия "Изменение цвета линии".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
+        private void ColorFigure(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
             {
-                ActiveForm.DeleteSelectFigure();
+                DialogResult D = colorDialog1.ShowDialog();
+                if (D == DialogResult.OK)
+                {
+                    if (ActiveForm.SelectFigure() == false)
+                    {
+                        ChildForm.ColorLine = colorDialog1.Color;
+                    }
+                    else
+                    {
+                        ActiveForm.ColorSelectPen(colorDialog1.Color);
+                    }
+                }
             }
             ActiveForm = null;
         }
 
-        // Цвет отрисовки фигур
-        private void ColorFigure(object sender, EventArgs e)
-        {
-            DialogResult D = colorDialog1.ShowDialog();
-            if (D == DialogResult.OK)
-            {
-                _figureProperties.linecolor = colorDialog1.Color; 
-            }
-        }
-
-        //Цвет отрисовки опорных точек
+        /// <summary>
+        /// Метод, выполняющий действия "Изменение цвета линии опорных точек".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void ColorSupportPoint(object sender, EventArgs e)
         {
-            DialogResult D = colorDialog1.ShowDialog();
-            if (D == DialogResult.OK)
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            if (ActiveForm != null)
             {
-                _figurePropertiesSupport.linecolor = colorDialog1.Color;
-
-                ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-                if (ActiveForm != null)
+                DialogResult D = colorDialog1.ShowDialog();
+                if (D == DialogResult.OK)
                 {
-                    ActiveForm.СhangeSupportPenStyleFigure(_figurePropertiesSupport.linecolor);
+                    ChildForm.ColorSupport = colorDialog1.Color;
+                    ActiveForm.СhangeSupportPenStyleFigure(ChildForm.ColorSupport);
                 }
-                ActiveForm = null;
             }
+            ActiveForm = null;
         }
 
+        /// <summary>
+        /// Метод, выполняющий действия "Изменение толщины линии".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void FigureThickness(object sender, EventArgs e)
         {
-            LineThickness linethicknessform = new LineThickness();  //создаем форму "Толщина линии"
-            linethicknessform.Text = "Толщина линии фигуры";               //озаглавливаем форму
-            linethicknessform.ShowDialog();                         //отображаем форму
-            linethicknessform.Dispose();                            //уничтожаем форму
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            if (ActiveForm != null)
+            {
+                if (ActiveForm.SelectFigure() == false)
+                {
+                    LineThickness linethicknessform = new LineThickness();  //создаем форму "Толщина линии"
+                    linethicknessform.Text = "Толщина линии фигуры";               //озаглавливаем форму
+                    linethicknessform.ShowDialog();                         //отображаем форму
+                    linethicknessform.Dispose();                            //уничтожаем форму
+                }
+                else
+                {
+                    int StaticThickness = ChildForm.Thickness;
+                    LineThickness linethicknessform = new LineThickness();
+                    linethicknessform.Text = "Толщина линии фигуры";
+                    linethicknessform.ShowDialog();
+                    linethicknessform.Dispose();
+
+                    ActiveForm.СhangePenWidthFigure();
+
+                    ActiveForm = null;
+
+                    ChildForm.Thickness = StaticThickness;
+                }
+            }
+            ActiveForm = null;
         }
 
+        /// <summary>
+        /// Метод, выполняющий действия "Изменение стиля линии".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void FigureStyle(object sender, EventArgs e)
         {
-            LineStyle linestyleform = new LineStyle();  //создаем форму "Стиль линии"
-            linestyleform.Text = "Стиль линии";         //озаглавливаем форму
-            linestyleform.ShowDialog();                 //отображаем форму
-            linestyleform.Dispose();                    //уничтожаем форму
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            if (ActiveForm != null)
+            {
+                if (ActiveForm.SelectFigure() == false)
+                {
+                    LineStyle linestyleform = new LineStyle();  //создаем форму "Стиль линии"
+                    linestyleform.Text = "Стиль линии";         //озаглавливаем форму
+                    linestyleform.ShowDialog();                 //отображаем форму
+                    linestyleform.Dispose();                    //уничтожаем форму
+                }
+                else
+                {
+                    DashStyle StaticThickness = ChildForm.StyleOfLine;
+
+                    LineStyle linestyleform = new LineStyle();  //создаем форму "Стиль линии"
+                    linestyleform.Text = "Стиль линии";         //озаглавливаем форму
+                    linestyleform.ShowDialog();                 //отображаем форму
+                    linestyleform.Dispose();                    //уничтожаем форму
+
+                    ActiveForm.СhangePenStyleFigure();
+
+                    ChildForm.StyleOfLine = StaticThickness;
+                }
+            }
+            ActiveForm = null;
         }
 
-        //Включить заливку
+        /// <summary>
+        /// Метод, выполняющий действия "Включить заливку".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void IncludingFills(object sender, EventArgs e)
         {
-            _figureProperties.fill = true; 
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            if (ActiveForm != null)
+            {
+                ChildForm.FillFigure = true;
+            }
+            ActiveForm = null;
         }
 
-        //Отключить заливку
+        /// <summary>
+        /// Метод, выполняющий действия "Отключить заливку".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void OffFill(object sender, EventArgs e)
         {
-            _figureProperties.fill = false;
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            if (ActiveForm != null)
+            {
+                ChildForm.FillFigure = false;
+            }
+            ActiveForm = null;
         }
 
+        /// <summary>
+        /// Метод, выполняющий действия "Выбор цвета заливки".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void ColorFill(object sender, EventArgs e)
         {
-            DialogResult D = colorDialog1.ShowDialog();
-            if (D == DialogResult.OK)
-            {
-                _figureProperties.brushcolor = colorDialog1.Color;
-            }
-        }
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
 
-        //Изменение цвета заливки выбранных фигур
-        private void ChangeFillColor(object sender, EventArgs e)
-        {
-            DialogResult D = colorDialog1.ShowDialog();
-            if (D == DialogResult.OK)
+            if (ActiveForm != null)
             {
-                ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-                if (ActiveForm != null)
+                DialogResult D = colorDialog1.ShowDialog();
+                if (D == DialogResult.OK)
                 {
-                    ActiveForm.СhangeBackgroundFigure(colorDialog1.Color);
+                    if (ActiveForm.SelectFigure() == false)
+                    {
+                        ChildForm.FillColorFigure = colorDialog1.Color;
+                    }
+                    else
+                    {
+                        ActiveForm.СhangeBackgroundFigure(colorDialog1.Color);
+                    }
                 }
-                ActiveForm = null;
             }
-          
+            ActiveForm = null;
         }
 
-        //Удаление заливки у выбранных фигур
+        /// <summary>
+        /// Метод, выполняющий действия "Удаление заливки".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void DeleteFillColor(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
@@ -320,91 +426,58 @@ namespace PaintedObjectsMoving
             ActiveForm = null;
         }
 
-
-        //изменение цвета отрисовки выбранной фигуры
-        private void ChangeColorFigure(object sender, EventArgs e)
-        {
-            DialogResult D = colorDialog1.ShowDialog();
-            if (D == DialogResult.OK)
-            {
-                ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-                if (ActiveForm != null)
-                {
-                    ActiveForm.ColorSelectPen(colorDialog1.Color);
-                }
-                ActiveForm = null;
-            }
-        }
-
-        private void ChangeFigureTrisee(object sender, EventArgs e)
-        {
-
-            int StaticThickness = _figureProperties.thickness;
-            LineThickness linethicknessform = new LineThickness();          //создаем форму "Толщина линии"
-            linethicknessform.Text = "Толщина линии фигуры";                //озаглавливаем форму
-            linethicknessform.ShowDialog();                                 //отображаем форму
-            linethicknessform.Dispose();                                    //уничтожаем форму
-
-            int CurrentThickness = FigureProperties.thickness;
-
-            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-            if (ActiveForm != null)
-            {
-                ActiveForm.СhangePenWidthFigure();
-            }
-            ActiveForm = null;
-
-            _figureProperties.thickness = StaticThickness;
-        }
-
-        private void ChangeFigureStyle(object sender, EventArgs e)
-        {
-
-            DashStyle StaticThickness = _figureProperties.dashstyle;
-
-            LineStyle linestyleform = new LineStyle();  //создаем форму "Стиль линии"
-            linestyleform.Text = "Стиль линии";         //озаглавливаем форму
-            linestyleform.ShowDialog();                 //отображаем форму
-            linestyleform.Dispose();                    //уничтожаем форму
-
-            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
-            if (ActiveForm != null)
-            {
-                ActiveForm.СhangePenStyleFigure();
-            }
-            ActiveForm = null;
-
-            _figureProperties.dashstyle = StaticThickness;
-        }
-
-
+        /// <summary>
+        /// Метод, выполняющий выбор действия "Выделеник точкой".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void PointSelect(object sender, EventArgs e)
         {
             _currentActions = Actions.SelectPoint;
             ChangeActions(Actions.SelectPoint);
         }
 
+        /// <summary>
+        /// Метод, выполняющий действия над новым файлом.
+        /// </summary>
         public static bool CreateNewFile
         {
             get { return _createNewFile; }
             set { _createNewFile = value; }
         }
+
+        /// <summary>
+        /// Метод, выполняющий действия над шириной дочернео окна.
+        /// </summary>
         public static int ChildWidthSize
         {
             get { return _childWidhtSize; }
             set { _childWidhtSize = value; }
         }
+
+        /// <summary>
+        /// Метод, выполняющий действия над высотой дочернео окна.
+        /// </summary>
         public static int ChildHeightSize
         {
             get { return _childHeightSize; }
             set { _childHeightSize = value; }
         }
+
+        /// <summary>
+        /// Метод, выполняющий действия номером дочернего окна.
+        /// </summary>
         public static int ChildCounter
         {
             get { return _childCounter; }
             set { _childCounter = value; }
         }
 
+        /// <summary>
+        /// Метод, выполняющий действие "Отменить".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void Undo(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
@@ -415,6 +488,11 @@ namespace PaintedObjectsMoving
             ActiveForm = null;
         }
 
+        /// <summary>
+        /// Метод, выполняющий действие "Повторить".
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void Redo(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
@@ -425,7 +503,11 @@ namespace PaintedObjectsMoving
             ActiveForm = null;
         }
 
-        //Создание нового проекта
+        /// <summary>
+        /// Метод, создающий новый проект.
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void NewProject(object sender, EventArgs e)
         {
             Form FileDialog = new NewFileDialog();                      //создаем форму диалогового окна
@@ -434,7 +516,7 @@ namespace PaintedObjectsMoving
 
             if (_createNewFile)                                         //если в диалоговой форме было нажато ОК, то создаем новый файл
             {
-                Form NewForm = new ChildForm();                         //создаем объект - дочернюю форму-рисунок
+                Form NewForm = new ChildForm(this);                         //создаем объект - дочернюю форму-рисунок
              
                 NewForm.Text = "Рисунок" + ChildCounter.ToString();     //называем ее соответствующе
                 ChildCounter++;                                         //увеличиваем счетчик окон на единицу
@@ -447,31 +529,40 @@ namespace PaintedObjectsMoving
             }
         }
 
-        //Отображение древа проекта
+        /// <summary>
+        /// Метод, отображающий историю изменения дочернего окна.
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void HistoryProject(object sender, EventArgs e)
         {
             HistoryDesign HistiryForm = new HistoryDesign();
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
             {
+                
                 HistiryForm.Text = "История построения";         //озаглавливаем форму
-                HistiryForm.ListBox(ActiveForm.HistoryCommand);
-
+                HistiryForm.ListBox(ActiveForm.HistoryCommand, ActiveForm.IndexCommand);
+               
                 HistiryForm.ShowDialog();                 //отображаем форму
 
+                ActiveForm.IndexCommand = HistiryForm.IndexCommand();
             }
             ActiveForm = null;
 
             HistiryForm.Dispose();                    //уничтожаем форму
         }
 
-        //Сохранение проекта
-        private void SaveProject(object sender, EventArgs e)
+        /// <summary>
+        /// Метод, выполняющий сохранение проекта.
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
+        public void SaveProject(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
             {
-
                 Stream myStream;
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
@@ -500,6 +591,11 @@ namespace PaintedObjectsMoving
             ActiveForm = null;
         }
 
+        /// <summary>
+        /// Метод, выполняющий экспорт проекта.
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void ExportProject(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
@@ -542,6 +638,11 @@ namespace PaintedObjectsMoving
             ActiveForm = null;
         }
 
+        /// <summary>
+        /// Метод, выполняющий загрузку проекта.
+        /// </summary>
+        /// <para name = "sender">Переменная, хранящая объект.</para>
+        /// <para name = "e">Переменная, хранящая список событий.</para>
         private void LoadProject(object sender, EventArgs e)
         {
 
@@ -570,7 +671,7 @@ namespace PaintedObjectsMoving
                                 ChildWidthSize = LoadProject.ChildWidhtSize();
                                 ChildHeightSize = LoadProject.ChildHeightSize();
 
-                                Form NewForm = new ChildForm();                       //создаем объект - дочернюю форму-рисунок
+                                Form NewForm = new ChildForm(this);                       //создаем объект - дочернюю форму-рисунок
                                 NewForm.Text = "Рисунок" + ChildCounter.ToString();     //называем ее соответствующе
 
                                

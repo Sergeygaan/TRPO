@@ -6,18 +6,38 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving.CORE
+namespace MyPaint.CORE
 {
-    [Serializable]
+
+    /// <summary>
+    /// Класс, выполняющий удаление заливки у выбранных фигур
+    /// </summary>
     class DeleteBackgroundFigure : IFigureCommand
     {
+        /// <summary>
+        /// Переменная, хранящая список выделенных фигур
+        /// </summary>
         private List<Object> _seleckResult;
 
-
+        /// <summary>
+        /// Переменная, хранящая цвет заливки у выделенных фигур.
+        /// </summary>
         private Color [] _brush;
+
+        /// <summary>
+        /// Переменная, хранящая значение о заливке фигур.
+        /// </summary>
         private bool [] _fill;
+
+        /// <summary>
+        /// Переменная, хранящая строку с текущим действием.
+        /// </summary>
         private string _operatorValue;
 
+        /// <summary>
+        /// Метод, выполняющий удаление заливки у выбранных фигур.
+        /// </summary>
+        /// <para name = "SeleckResult">Переменная, хранящая список выделенных фигур</para>
         public DeleteBackgroundFigure(List<Object> SeleckResult)
         {
  
@@ -46,6 +66,9 @@ namespace PaintedObjectsMoving.CORE
             _operatorValue = "Удаление фона у выделенных фигур";
         }
 
+        /// <summary>
+        /// Метод, выполняющий действие "Повторить".
+        /// </summary>
         public void Redo()
         {
             foreach (Object SelectObject in _seleckResult)
@@ -58,6 +81,9 @@ namespace PaintedObjectsMoving.CORE
             _operatorValue = "Удаление фона у выделенных фигур";
         }
 
+        /// <summary>
+        /// Метод, выполняющий действие "Отменить".
+        /// </summary>
         public void Undo()
         {
             int i = 0;
@@ -73,7 +99,9 @@ namespace PaintedObjectsMoving.CORE
             _operatorValue = "Восстановление фона у выделенных фигур";
         }
 
-
+        /// <summary>
+        /// Метод, возвращающий строку с текущим действием.
+        /// </summary>
         public string Operation()
         {
             return _operatorValue;

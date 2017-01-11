@@ -6,10 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving.CORE
+namespace MyPaint.CORE
 {
-    [Serializable]
-
     /// <summary>
     /// Класс, выполнящий различные действия над прямоугольником.
     /// </summary>
@@ -19,6 +17,11 @@ namespace PaintedObjectsMoving.CORE
         /// Переменная, хранящая класс для построения и создания эллипса.
         /// </summary>
         private AddRectangle _addFigureRectangle;
+
+        /// <summary>
+        /// Переменная, хранящая класс для построеня структуры фигур.
+        /// </summary>
+        private СonstructionFigure _figureBuild = new СonstructionFigure();
 
         /// <summary>
         /// Переменная, хранящая класс для построения структуры эллипса.
@@ -70,7 +73,7 @@ namespace PaintedObjectsMoving.CORE
         {
             for (int i = 0; i < SelectObject.PointSelect.Length; i++)
             {
-                _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
+                _drawSupportObject = new SupportObject(new Pen(ChildForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
                 _drawSupportObject.Path.AddEllipse(_сonstructionFigure.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
                 _drawSupportObject.IdFigure = SelectObject.IdFigure;
                 _drawSupportObject.ControlPointF = i;
@@ -93,7 +96,97 @@ namespace PaintedObjectsMoving.CORE
             {
                 SelectObject.PointSelect = SelectObject.Path.PathPoints;
             }
-            EdipParametr.EditObjectRectangle(SelectObject, SupportObj, DeltaX, DeltaY);
+           
+            if (SelectObject.IdFigure == SupportObj.IdFigure)
+            {
+
+                switch (SupportObj.ControlPointF)
+                {
+                    case 0:
+
+                        if (SelectObject.PointSelect[0].X + DeltaX < SelectObject.PointSelect[1].X)
+                        {
+                            SelectObject.PointSelect[0].X += DeltaX;
+
+                        }
+
+                        if (SelectObject.PointSelect[0].Y + DeltaY < SelectObject.PointSelect[3].Y)
+                        {
+                            SelectObject.PointSelect[0].Y += DeltaY;
+
+                        }
+                        SelectObject.Path.Reset();
+                        SelectObject.Path.AddRectangle(_figureBuild.ShowRectangle(SelectObject.PointSelect[0], SelectObject.PointSelect[2]));
+
+
+                        break;
+
+                    case 1:
+
+                        if (SelectObject.PointSelect[2].X + DeltaX > SelectObject.PointSelect[0].X)
+                        {
+                            SelectObject.PointSelect[2].X += DeltaX;
+
+                        }
+
+                        if (SelectObject.PointSelect[0].Y + DeltaY < SelectObject.PointSelect[2].Y)
+                        {
+                            SelectObject.PointSelect[0].Y += DeltaY;
+
+                        }
+
+
+                        SelectObject.Path.Reset();
+                        SelectObject.Path.AddRectangle(_figureBuild.ShowRectangle(SelectObject.PointSelect[0], SelectObject.PointSelect[2]));
+
+
+                        break;
+
+                    case 2:
+
+                        if (SelectObject.PointSelect[2].X + DeltaX > SelectObject.PointSelect[3].X)
+                        {
+                            SelectObject.PointSelect[2].X += DeltaX;
+
+                        }
+
+                        if (SelectObject.PointSelect[2].Y + DeltaY > SelectObject.PointSelect[1].Y)
+                        {
+                            SelectObject.PointSelect[2].Y += DeltaY;
+
+                        }
+
+                        SelectObject.Path.Reset();
+                        SelectObject.Path.AddRectangle(_figureBuild.ShowRectangle(SelectObject.PointSelect[0], SelectObject.PointSelect[2]));
+
+
+                        break;
+
+                    case 3:
+
+
+                        if (SelectObject.PointSelect[0].X + DeltaX < SelectObject.PointSelect[2].X)
+                        {
+                            SelectObject.PointSelect[0].X += DeltaX;
+
+                        }
+
+                        if (SelectObject.PointSelect[2].Y + DeltaY > SelectObject.PointSelect[0].Y)
+                        {
+                            SelectObject.PointSelect[2].Y += DeltaY;
+
+                        }
+
+                        SelectObject.Path.Reset();
+                        SelectObject.Path.AddRectangle(_figureBuild.ShowRectangle(SelectObject.PointSelect[0], SelectObject.PointSelect[2]));
+
+
+                        break;
+                }
+
+            }
+
+            EdipParametr.MoveObjectSupport(SelectObject, DeltaX, DeltaY);
         }
 
         /// <summary>

@@ -4,40 +4,93 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 
 
-namespace PaintedObjectsMoving.CORE
+namespace MyPaint.CORE
 {
     [Serializable]
+    /// <summary>
+    /// Класс, выполняющий сохранение списка фигур.
+    /// </summary>
     public class SaveProect
     {
+        /// <summary>
+        /// Переменная, хранящая список с сохранеными объектами.
+        /// </summary>
         private List<PropertiesFigure> _figurePropertiesList = new List<PropertiesFigure>();
 
         [Serializable]
+        /// <summary>
+        /// Структура, хранящая основные характеристики фигуры.
+        /// </summary>
         public struct PropertiesFigure
         {
-            public Color _lineColorPen;  
-            public Color _brushColorPen; 
-            public float _thicknessPen;              
-            public System.Drawing.Drawing2D.DashStyle _dashStylePen;
-            public bool _fill;
-           //
+            /// <summary>
+            /// Переменная, хранящая цвет кисти.
+            /// </summary>
+            public Color _lineColorPen;
 
+            /// <summary>
+            /// Переменная, хранящая цвет заливки.
+            /// </summary>
+            public Color _brushColorPen;
+
+            /// <summary>
+            /// Переменная, хранящая толщину кисти.
+            /// </summary>
+            public float _thicknessPen;
+
+            /// <summary>
+            /// Переменная, хранящая стиль кисти.
+            /// </summary>
+            public System.Drawing.Drawing2D.DashStyle _dashStylePen;
+
+            /// <summary>
+            /// Переменная, хранящая параметры заливки.
+            /// </summary>
+            public bool _fill;
+
+            /// <summary>
+            /// Переменная, хранящая набор точек фигуры.
+            /// </summary>
             public PointF[] _pointFigure;
+
+            /// <summary>
+            /// Переменная, хранящая тип структуры.
+            /// </summary>
             public byte[] _typesFigure;
 
+            /// <summary>
+            /// Переменная, хранящая номер фигуры.
+            /// </summary>
             public int _idFigure;
+
+            /// <summary>
+            /// Переменная, хранящая тип фигуры.
+            /// </summary>
             public MainForm.FigureType _currentFigure;
 
 
         }
-
-        //переменные окна
+        /// <summary>
+        /// Переменная, хранящая ширину окна.
+        /// </summary>
         private int _childWidhtSize;
+
+        /// <summary>
+        /// Переменная, хранящая высоту окна.
+        /// </summary>
         private int _childHeightSize;
 
+        /// <summary>
+        /// Переменная, хранящая стурктуру для сохранения.
+        /// </summary>
         private PropertiesFigure _figureProperties;
 
-        //public object _figureCommand = new object();
-
+        /// <summary>
+        /// Метод, выполняющий сериализацию списка фигур.
+        /// </summary>
+        /// <para name = "Figures">Переменная, хранящая список фигур.</para>
+        /// <para name = "ChildWidhtSize">Переменная, хранящая ширину окна.</para>
+        /// <para name = "ChildHeightSize">Переменная, хранящая высоту окна.</para>
         public SaveProect(object Figures,int ChildWidhtSize,int ChildHeightSize)
         {
             _childWidhtSize = ChildWidhtSize;
@@ -75,6 +128,9 @@ namespace PaintedObjectsMoving.CORE
 
         }
 
+        /// <summary>
+        /// Метод, выполняющий десериализацию списка фигур.
+        /// </summary>
         public object LoadProject()
         {
             List<Object> _figures = new List<Object>();
@@ -100,18 +156,25 @@ namespace PaintedObjectsMoving.CORE
 
         }
 
-
+        /// <summary>
+        /// Метод, возвращающий список фигур.
+        /// </summary>
         public List<PropertiesFigure> FigurePropertiesList()
         {
             return _figurePropertiesList;
         }
 
-
+        /// <summary>
+        /// Метод, возвращающий ширину окна.
+        /// </summary>
         public int ChildWidhtSize()
         {
             return _childWidhtSize;
         }
 
+        /// <summary>
+        /// Метод, возвращающий высоту окна.
+        /// </summary>
         public int ChildHeightSize()
         {
             return _childHeightSize;

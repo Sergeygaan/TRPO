@@ -6,18 +6,53 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving.CORE
+namespace MyPaint.CORE
 {
-    [Serializable]
+    /// <summary>
+    /// Класс, выполняющий копирование выбранных фигур
+    /// </summary>
     class ReplicationFigure : IFigureCommand
     {
+        /// <summary>
+        /// Переменная, хранящая скопированый список выделенных фигур
+        /// </summary>
         private List<Object> _seleckFigure;
+
+        /// <summary>
+        /// Переменная, хранящая скопированый список всех фигур
+        /// </summary>
         private List<Object> _saveFigure;
+
+        /// <summary>
+        /// Переменная, хранящая скопированый список скопированных фигур
+        /// </summary>
         private List<Object> _saveResult;
+
+        /// <summary>
+        /// Переменная, хранящая ссылку на список фигур
+        /// </summary>
         private List<Object> _figure;
+
+        /// <summary>
+        /// Переменная, хранящая количество элементов в списке с выделенными фигурами.
+        /// </summary>
         private int _summFigureSelect;
+
+        /// <summary>
+        /// Переменная, хранящая количество элементов в списке со всеми фигурами.
+        /// </summary>
         private int _summFigureBase;
+
+        /// <summary>
+        /// Переменная, хранящая строку с текущим действием.
+        /// </summary>
         private string _operatorValue;
+
+        /// <summary>
+        /// Метод, выполняющий копирование выбранных фигур.
+        /// </summary>
+        /// <para name = "SeleckResult">Переменная, хранящая список выделенных фигур</para>
+        /// <para name = "Figures">Переменная, хранящая ссылку на список фигур.</para>
         public ReplicationFigure(List<Object> SeleckResult, List<Object> Figures)
         {
             _summFigureSelect = SeleckResult.Count;
@@ -40,6 +75,9 @@ namespace PaintedObjectsMoving.CORE
             _operatorValue = "Копирование выделенных фигур";
         }
 
+        /// <summary>
+        /// Метод, выполняющий действие "Повторить".
+        /// </summary>
         public void Redo()
         {
             _figure.Clear();
@@ -48,6 +86,9 @@ namespace PaintedObjectsMoving.CORE
             _operatorValue = "Копирование выделенных фигур";
         }
 
+        /// <summary>
+        /// Метод, выполняющий действие "Отменить".
+        /// </summary>
         public void Undo()
         {
             foreach (Object SelectObject in _seleckFigure)
@@ -68,6 +109,9 @@ namespace PaintedObjectsMoving.CORE
             _operatorValue = "Удаление скопированных фигур";
         }
 
+        /// <summary>
+        /// Метод, возвращающий строку с текущим действием.
+        /// </summary>
         public string Operation()
         {
             return _operatorValue;

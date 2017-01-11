@@ -1,4 +1,4 @@
-﻿namespace PaintedObjectsMoving
+﻿namespace MyPaint
 {
     partial class ChildForm
     {
@@ -58,6 +58,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "ChildForm";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChildForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.DrawForm)).EndInit();
             this.ResumeLayout(false);
 
