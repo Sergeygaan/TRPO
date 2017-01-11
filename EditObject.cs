@@ -36,8 +36,17 @@ namespace PaintedObjectsMoving
                 {
                     case 0:
 
-                        currObj.PointSelect[0].X += deltaX;
-                        currObj.PointSelect[0].Y += deltaY;
+                        if (currObj.PointSelect[0].X + deltaX < currObj.PointSelect[1].X)
+                        {
+                            currObj.PointSelect[0].X += deltaX;
+
+                        }
+
+                        if (currObj.PointSelect[0].Y + deltaY < currObj.PointSelect[3].Y)
+                        {
+                            currObj.PointSelect[0].Y += deltaY;
+
+                        }
                         currObj.Path.Reset();
                         currObj.Path.AddRectangle(_constructerFigure.ShowRectangle1(currObj.PointSelect[0], currObj.PointSelect[2]));
 
@@ -46,8 +55,19 @@ namespace PaintedObjectsMoving
 
                     case 1:
 
-                        currObj.PointSelect[2].X += deltaX;
-                        currObj.PointSelect[0].Y += deltaY;
+                        if (currObj.PointSelect[2].X + deltaX > currObj.PointSelect[0].X)
+                        {
+                            currObj.PointSelect[2].X += deltaX;
+
+                        }
+
+                        if (currObj.PointSelect[0].Y + deltaY < currObj.PointSelect[2].Y)
+                        {
+                            currObj.PointSelect[0].Y += deltaY;
+
+                        }
+                        
+
                         currObj.Path.Reset();
                         currObj.Path.AddRectangle(_constructerFigure.ShowRectangle1(currObj.PointSelect[0], currObj.PointSelect[2]));
 
@@ -56,8 +76,18 @@ namespace PaintedObjectsMoving
 
                     case 2:
 
-                        currObj.PointSelect[2].X += deltaX;
-                        currObj.PointSelect[2].Y += deltaY;
+                        if (currObj.PointSelect[2].X + deltaX > currObj.PointSelect[3].X)
+                        {
+                            currObj.PointSelect[2].X += deltaX;
+
+                        }
+
+                        if (currObj.PointSelect[2].Y + deltaY > currObj.PointSelect[1].Y)
+                        {
+                            currObj.PointSelect[2].Y += deltaY;
+
+                        }
+
                         currObj.Path.Reset();
                         currObj.Path.AddRectangle(_constructerFigure.ShowRectangle1(currObj.PointSelect[0], currObj.PointSelect[2]));
 
@@ -66,8 +96,19 @@ namespace PaintedObjectsMoving
 
                     case 3:
 
-                        currObj.PointSelect[0].X += deltaX;
-                        currObj.PointSelect[2].Y += deltaY;
+
+                        if (currObj.PointSelect[0].X + deltaX < currObj.PointSelect[2].X)
+                        {
+                            currObj.PointSelect[0].X += deltaX;
+
+                        }
+
+                        if (currObj.PointSelect[2].Y + deltaY > currObj.PointSelect[0].Y)
+                        {
+                            currObj.PointSelect[2].Y += deltaY;
+
+                        }
+
                         currObj.Path.Reset();
                         currObj.Path.AddRectangle(_constructerFigure.ShowRectangle1(currObj.PointSelect[0], currObj.PointSelect[2]));
 
@@ -122,7 +163,12 @@ namespace PaintedObjectsMoving
                 {
                     case 12:
 
-                        currObj.PointSelect[0].X += deltaX;
+                        if (currObj.PointSelect[0].X + deltaX > currObj.PointSelect[6].X)
+                        {
+                            currObj.PointSelect[0].X += deltaX;
+
+                        }
+
                         currObj.PointSelect[0].Y += deltaY;
 
                         _pointStart.X = currObj.PointSelect[6].X;
@@ -140,8 +186,13 @@ namespace PaintedObjectsMoving
 
                     case 3:
 
+                        if (currObj.PointSelect[3].Y + deltaY > currObj.PointSelect[9].Y)
+                        {
+                            currObj.PointSelect[3].Y += deltaY;
+
+                        }
+
                         currObj.PointSelect[3].X += deltaX;
-                        currObj.PointSelect[3].Y += deltaY;
 
                         _pointStart.X = currObj.PointSelect[6].X;
                         _pointStart.Y = currObj.PointSelect[9].Y;
@@ -160,7 +211,12 @@ namespace PaintedObjectsMoving
 
                     case 6:
 
-                        currObj.PointSelect[6].X += deltaX;
+                        if (currObj.PointSelect[6].X + deltaX < currObj.PointSelect[0].X)
+                        {
+                            currObj.PointSelect[6].X += deltaX;
+
+                        }
+
                         currObj.PointSelect[6].Y += deltaY;
 
                         _pointStart.X = currObj.PointSelect[6].X;
@@ -179,9 +235,13 @@ namespace PaintedObjectsMoving
                         break;
 
                     case 9:
+                        if (currObj.PointSelect[9].Y + deltaY < currObj.PointSelect[3].Y)
+                        {
+                            currObj.PointSelect[9].Y += deltaY;
+
+                        }
 
                         currObj.PointSelect[9].X += deltaX;
-                        currObj.PointSelect[9].Y += deltaY;
 
                         _pointStart.X = currObj.PointSelect[6].X;
                         _pointStart.Y = currObj.PointSelect[9].Y;

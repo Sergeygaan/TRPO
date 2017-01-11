@@ -315,12 +315,6 @@ namespace PaintedObjectsMoving
             DrawForm.Invalidate();
         }
 
-        //Квадрат
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            ChangeFigure(FigureType.Rectangle);
-        }
-
         //Режим рисования
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
@@ -338,12 +332,28 @@ namespace PaintedObjectsMoving
         //Эллипс
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            ChangeFigure(FigureType.Ellipse);
+            if (_currentActions == Actions.Draw)
+            {
+                ChangeFigure(FigureType.Ellipse);
+            }
         }
+
+        //Квадрат
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            if (_currentActions == Actions.Draw)
+            {
+                ChangeFigure(FigureType.Rectangle);
+            }
+        }
+
         //Линия
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
-            ChangeFigure(FigureType.Line);
+            if(_currentActions == Actions.Draw)
+            {
+                ChangeFigure(FigureType.Line);
+            }
         }
         //Перемещение
         private void toolStripButton8_Click(object sender, EventArgs e)
