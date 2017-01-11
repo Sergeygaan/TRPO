@@ -234,6 +234,7 @@ namespace PaintedObjectsMoving
                                     break;
 
                                 case MainForm.FigureType.PoliLine:
+                                case MainForm.FigureType.Polygon:
 
                                     if ((SelectObject.PointSelect[0].X - SelectObject.PointSelect[1].X != 0) && (SelectObject.PointSelect[0].Y - SelectObject.PointSelect[1].Y != 0))
                                     {
@@ -242,6 +243,7 @@ namespace PaintedObjectsMoving
                                     _edipParametr.EditObjectPoliLine(SelectObject, _supportObj, deltaX, deltaY);
 
                                     break;
+
                             }
 
                             _oldPoint = e.Location;

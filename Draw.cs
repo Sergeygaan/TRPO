@@ -79,9 +79,17 @@ namespace PaintedObjectsMoving
 
                     case MainForm.FigureType.PoliLine:
 
-                        PointF[] PointF = _points.ToArray();
+                        PointF[] PointPoliLine = _points.ToArray();
 
-                        e.Graphics.DrawLines(_penFigure, PointF);
+                        e.Graphics.DrawLines(_penFigure, PointPoliLine);
+
+                        break;
+
+                    case MainForm.FigureType.Polygon:
+
+                        PointF[] PointPolygon = _points.ToArray();
+
+                        e.Graphics.DrawLines(_penFigure, PointPolygon);
 
                         break;
                 }
@@ -123,9 +131,19 @@ namespace PaintedObjectsMoving
 
                 case MainForm.FigureType.PoliLine:
 
-                    PointF[] PointF = _points.ToArray();
+                    PointF[] PointPoliLine = _points.ToArray();
 
-                    _drawObject.Path.AddLines(PointF);
+                    _drawObject.Path.AddLines(PointPoliLine);
+
+                    break;
+
+                case MainForm.FigureType.Polygon:
+
+                    PointF[] PointPolygon = _points.ToArray();
+
+                    _drawObject.Path.AddLines(PointPolygon);
+
+                    _drawObject.Path.CloseFigure();
 
                     break;
 
@@ -228,6 +246,7 @@ namespace PaintedObjectsMoving
                         break;
 
                     case MainForm.FigureType.PoliLine:
+                    case MainForm.FigureType.Polygon:
 
                         for (int i = 0; i < SelectObject.PointSelect.Length; i += 3)
                         {

@@ -271,9 +271,15 @@ namespace PaintedObjectsMoving
                 PointF[] PointF = currObj.PointSelect.ToArray();
                 currObj.Path.Reset();
                 currObj.Path.AddLines(PointF);
+
+                if (currObj.CurrentFigure == MainForm.FigureType.Polygon)
+                {
+                    currObj.Path.CloseFigure();
+                }
                 
             }
         }
+
 
         public void MoveObjectSupport(PaintedObject currObj, int deltaX, int deltaY)
         {
