@@ -7,7 +7,6 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving
 {
-    [Serializable]
     class DrawPaint
     {
         private List<IFigureCommand> _iFigureCommand = new List<IFigureCommand>();
@@ -21,8 +20,8 @@ namespace PaintedObjectsMoving
         private MainForm.FigureType _currentfigure;
         private bool _saveProjectClear = false;
 
-        private List<Object> _figures;//Список с объектами для прорисовки
-
+        private List<Object> _figures;                          //Список с объектами для прорисовки
+        private List<Object> _figuresLoad = new List<Object>();
         private Bitmap _bmp;
 
         private int _widthDraw;
@@ -38,6 +37,7 @@ namespace PaintedObjectsMoving
         private DeleteFigure _deleteFigure;
         private ReplicationFigure _replicationFigure;
         private СhangeSupportPenColor _supportPenColor;
+        private CleanFigure _cleanFigure;
 
         public DrawPaint(int Width, int Height)
         {
@@ -308,9 +308,18 @@ namespace PaintedObjectsMoving
         // Отчищает список с фигурами
         public void Clear()
         {
-            _figures.Clear();
-            _iFigureCommand.Clear();
-            _indexFigureCommand = -1;
+            if (_figures.Count != 0)
+            {
+                EditFigure();
+
+                _cleanFigure = new CleanFigure(_figures, _figuresLoad);
+
+                _iFigureCommand.Add(_cleanFigure);
+            }
+
+            //_figures.Clear();
+            //_iFigureCommand.Clear();
+            //_indexFigureCommand = -1;
         }
 
         //Возвращение зоны выделения
@@ -325,12 +334,9 @@ namespace PaintedObjectsMoving
         {
             if (_indexFigureCommand >= 0)
             {
-               
                 _iFigureCommand[_indexFigureCommand].Undo();
                 //_iFigureCommand.RemoveAt(_iFigureCommand.Count - 1);
                 _indexFigureCommand -= 1;
-
-
             }
  
             
@@ -393,7 +399,11 @@ namespace PaintedObjectsMoving
         public List<Object> FiguresListObject
         {
             get { return _figures; }
-            set { _figures = value; }
+            set
+            {
+                _figures = value;
+                _figuresLoad = value.GetRange(0, value.Count);
+            }
         }
 
     }

@@ -8,7 +8,6 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving.CORE
 {
-    [Serializable]
     /// <summary>
     /// Класс, содержащий комманды для построения эллипса.
     /// </summary>

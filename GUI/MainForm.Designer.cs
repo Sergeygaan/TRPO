@@ -27,6 +27,7 @@
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.новыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.загрузитьПроектToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.экспортироватьПроектToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,7 +100,6 @@
             this.toolStripButton19 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton18 = new System.Windows.Forms.ToolStripButton();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.загрузитьПроектToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -123,8 +123,8 @@
             // 
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.новыйToolStripMenuItem,
-            this.toolStripMenuItem7,
             this.загрузитьПроектToolStripMenuItem,
+            this.toolStripMenuItem7,
             this.экспортироватьПроектToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
@@ -146,6 +146,14 @@
             this.toolStripMenuItem7.Size = new System.Drawing.Size(225, 22);
             this.toolStripMenuItem7.Text = "Сохранить проект";
             this.toolStripMenuItem7.Click += new System.EventHandler(this.SaveProject);
+            // 
+            // загрузитьПроектToolStripMenuItem
+            // 
+            this.загрузитьПроектToolStripMenuItem.Name = "загрузитьПроектToolStripMenuItem";
+            this.загрузитьПроектToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.загрузитьПроектToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.загрузитьПроектToolStripMenuItem.Text = "Открыть проект";
+            this.загрузитьПроектToolStripMenuItem.Click += new System.EventHandler(this.LoadProject);
             // 
             // экспортироватьПроектToolStripMenuItem
             // 
@@ -808,13 +816,6 @@
             this.toolStripButton18.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton18.Text = "Изменить толщину линии (Ctrl+Alt+T)";
             this.toolStripButton18.Click += new System.EventHandler(this.ChangeFigureStyle);
-            // 
-            // загрузитьПроектToolStripMenuItem
-            // 
-            this.загрузитьПроектToolStripMenuItem.Name = "загрузитьПроектToolStripMenuItem";
-            this.загрузитьПроектToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
-            this.загрузитьПроектToolStripMenuItem.Text = "Загрузить проект";
-            this.загрузитьПроектToolStripMenuItem.Click += new System.EventHandler(this.LoadProject);
             // 
             // MainForm
             // 

@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+
 
 namespace PaintedObjectsMoving.CORE
 {
@@ -34,8 +31,8 @@ namespace PaintedObjectsMoving.CORE
         }
 
         //переменные окна
-        public int _childWidhtSize;
-        public int _childHeightSize;
+        private int _childWidhtSize;
+        private int _childHeightSize;
 
         private PropertiesFigure _figureProperties;
 

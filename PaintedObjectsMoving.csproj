@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CleanFigure.cs" />
     <Compile Include="Commands\ReplicationFigure.cs" />
     <Compile Include="Commands\DeleteFigure.cs" />
     <Compile Include="Commands\DeleteBackgroundFigure.cs" />

@@ -45,8 +45,8 @@ namespace PaintedObjectsMoving
         private static PropertiesSupport _figurePropertiesSupport;          //свойства фигуры
 
         private static int _childCounter = 1;                                            //счетчик дочерних окон для выдачи надписи РИСУНОК1, РИСУНОК2...
-        private static int _childWidhtSize = 800;                                        //переменная, хранящая заданную ширину дочернего окна
-        private static int _childHeightSize = 600;                                       //переменная, хранящая заданную высоту дочернего окна
+        private static int _childWidhtSize;                                        //переменная, хранящая заданную ширину дочернего окна
+        private static int _childHeightSize;                                       //переменная, хранящая заданную высоту дочернего окна
 
         //ФЛАГИ
         private static bool _createNewFile = false;                                      //true - создать файл
@@ -567,16 +567,19 @@ namespace PaintedObjectsMoving
                             {
                                 SaveProect LoadProject = (SaveProect)formatter.Deserialize(fs);
 
+                                ChildWidthSize = LoadProject.ChildWidhtSize();
+                                ChildHeightSize = LoadProject.ChildHeightSize();
+
                                 Form NewForm = new ChildForm();                       //создаем объект - дочернюю форму-рисунок
                                 NewForm.Text = "Рисунок" + ChildCounter.ToString();     //называем ее соответствующе
 
-                                
+                               
                                 ChildCounter++;                                         //увеличиваем счетчик окон на единицу
                                 NewForm.MdiParent = this;                               //указываем родительскую форму
                                 NewForm.BackColor = Color.Gray;                         //цвет фона формы - серый
 
-                                NewForm.Width = LoadProject.ChildWidhtSize();                         //задаем значение ширины окна, хранящееся в переменной
-                                NewForm.Height = LoadProject.ChildHeightSize();                       //задаем значение высоты окна, хранящееся в переменной
+                                NewForm.Width = _childWidhtSize;                         //задаем значение ширины окна, хранящееся в переменной
+                                NewForm.Height = _childHeightSize;                       //задаем значение высоты окна, хранящееся в переменной
 
                                 NewForm.Show();                                         //отображаем созданную форму
 
@@ -594,7 +597,7 @@ namespace PaintedObjectsMoving
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                    MessageBox.Show("Ошибка: " + ex.Message);
                 }
            }
         }

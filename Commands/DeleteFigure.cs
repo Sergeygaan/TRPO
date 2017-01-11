@@ -55,7 +55,6 @@ namespace PaintedObjectsMoving.CORE
 
         public void Undo()
         {
-            //_figure.RemoveRange(0, _saveFigure.Count - 1);
             _figure.Clear();
             _figure.InsertRange(0, _saveFigure);
 
