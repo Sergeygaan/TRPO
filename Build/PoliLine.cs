@@ -13,7 +13,6 @@ namespace MyPaint.CORE
     /// </summary>
     class PoliLine : IFigureBuild
     {
-
         /// <summary>
         /// Переменная, хранящая класс для построения и создания эллипса.
         /// </summary>
