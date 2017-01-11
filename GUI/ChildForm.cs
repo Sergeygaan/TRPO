@@ -457,6 +457,13 @@ namespace PaintedObjectsMoving
             DrawForm.Refresh();
         }
 
+        public void СhangeSupportPenStyleFigure(Color NextColor)
+        {
+            _drawClass.СhangeSupportPenStyleFigure(NextColor, _selectClass.SeleckResult());
+
+            DrawForm.Refresh();
+        }
+
 
         public object HistoryCommand
         {

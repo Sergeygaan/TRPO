@@ -48,6 +48,7 @@
     <Compile Include="Commands\DeleteFigure.cs" />
     <Compile Include="Commands\DeleteBackgroundFigure.cs" />
     <Compile Include="Commands\СhangeBackgroundFigure.cs" />
+    <Compile Include="Commands\СhangeSupportPenColor.cs" />
     <Compile Include="Commands\СhangePenColor.cs" />
     <Compile Include="Commands\СhangePenStyle.cs" />
     <Compile Include="Commands\СhangeMove.cs" />

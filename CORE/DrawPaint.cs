@@ -36,6 +36,7 @@ namespace PaintedObjectsMoving
         private DeleteBackgroundFigure _deleteBrush;
         private DeleteFigure _deleteFigure;
         private ReplicationFigure _replicationFigure;
+        private СhangeSupportPenColor _supportPenColor;
 
         public DrawPaint(int Width, int Height)
         {
@@ -253,6 +254,17 @@ namespace PaintedObjectsMoving
                 _iFigureCommand.Add(_penStyle);
             }
 
+        }
+
+        public void СhangeSupportPenStyleFigure(Color NextColor, List<Object> SeleckResult)
+        {
+
+            EditFigure();
+
+            _supportPenColor = new СhangeSupportPenColor(NextColor, SeleckResult);
+
+            _iFigureCommand.Add(_supportPenColor);
+            
         }
 
         //редактирование стилей для каждой фигуры

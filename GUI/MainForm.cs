@@ -41,8 +41,8 @@ namespace PaintedObjectsMoving
         private List<PointF> _points = new List<PointF>();
 
         private Actions _currentActions = Actions.Draw;
-        private static MainForm.Properties _figureProperties;                        //свойства фигуры
-        private static MainForm.PropertiesSupport _figurePropertiesSupport;          //свойства фигуры
+        private static Properties _figureProperties;                        //свойства фигуры
+        private static PropertiesSupport _figurePropertiesSupport;          //свойства фигуры
 
         private static int childcounter = 1;                                            //счетчик дочерних окон для выдачи надписи РИСУНОК1, РИСУНОК2...
         private static int childwidhtsize = 800;                                        //переменная, хранящая заданную ширину дочернего окна
@@ -243,7 +243,14 @@ namespace PaintedObjectsMoving
             DialogResult D = colorDialog1.ShowDialog();
             if (D == DialogResult.OK)
             {
-                _figurePropertiesSupport.linecolor = colorDialog1.Color; 
+                _figurePropertiesSupport.linecolor = colorDialog1.Color;
+
+                ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+                if (ActiveForm != null)
+                {
+                    ActiveForm.СhangeSupportPenStyleFigure(_figurePropertiesSupport.linecolor);
+                }
+                ActiveForm = null;
             }
         }
 
