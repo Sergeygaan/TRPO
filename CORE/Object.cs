@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace MyPaint {
+namespace PaintedObjectsMoving {
 
     /// <summary>
     /// Класс, являющийся основным объектом построения

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MyPaint.CORE
+namespace PaintedObjectsMoving.CORE
 {
     /// <summary>
     /// Класс, выполнящий различные действия над линией.

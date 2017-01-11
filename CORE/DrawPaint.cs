@@ -1,11 +1,11 @@
-﻿using MyPaint.CORE;
+﻿using PaintedObjectsMoving.CORE;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace MyPaint
+namespace PaintedObjectsMoving
 {
     /// <summary>
     /// Класс, выполняющий отрисовку фигур.
@@ -246,7 +246,7 @@ namespace MyPaint
         /// <para name = "e">Переменная, хранящая  события отрисовки.</para>
         /// <para name = "SeleckResult">Переменная, хранящая  список выделенных фигур.</para>
         /// <para name = "FiguresBuild">Переменная, хранящая класс отрисовки.</para>
-        public void SupportPoint(List<Object> SeleckResult, List<IFigureBuild> FiguresBuild)
+        public void SupportPoint(PaintEventArgs e, List<Object> SeleckResult, List<IFigureBuild> FiguresBuild)
         {
             foreach (Object SelectObject in SeleckResult)
             {

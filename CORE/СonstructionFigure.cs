@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 
-namespace MyPaint
+namespace PaintedObjectsMoving
 {
     /// <summary>
     /// Класс, выполняющий построение основной структуры фигуры.

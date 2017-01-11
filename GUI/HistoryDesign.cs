@@ -1,4 +1,4 @@
-﻿using MyPaint.CORE;
+﻿using PaintedObjectsMoving.CORE;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MyPaint.GUI
+namespace PaintedObjectsMoving.GUI
 {
     /// <summary>
     /// Класс, выполняющий вывод истории проекта.
@@ -31,11 +31,6 @@ namespace MyPaint.GUI
         private int _indexDelete = 0;
 
         /// <summary>
-        /// Переменная, хранащая ссылку на активную форму.
-        /// </summary>
-        private ChildForm _activeForm;
-
-        /// <summary>
         /// Метод, создающий рабочую область, и инициализирующий остальные объекты.
         /// </summary>
         public HistoryDesign()
@@ -47,7 +42,7 @@ namespace MyPaint.GUI
         /// Метод, выполняющий вывод списка комманд на экран
         /// </summary>
         /// <para name = "ObjectCommand">Переменная, хранящая список команд.</para>
-        public void ListBox(object ObjectCommand, int IndexCommand, ChildForm ActiveForm)
+        public void ListBox(object ObjectCommand, int IndexCommand)
         {
             _indexCommand = IndexCommand;
 
@@ -56,8 +51,6 @@ namespace MyPaint.GUI
             _indexDelete = ListCommand.Count() - IndexCommand - 1;
 
             _listCommandHistory = ListCommand;
-
-            _activeForm = ActiveForm;
 
             foreach (IFigureCommand SelectObject in ListCommand)
             {
@@ -98,7 +91,6 @@ namespace MyPaint.GUI
                 listBox1.Items.Add(SelectObject.Operation());
             }
 
-            _activeForm.IndexCommand = IndexCommand();
         }
 
     }

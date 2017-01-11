@@ -1,4 +1,4 @@
-﻿namespace MyPaint
+﻿namespace PaintedObjectsMoving
 {
     partial class LineStyle
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MyPaint
+namespace PaintedObjectsMoving
 {
     /// <summary>
     /// Класс, выполняющий изменения толщины линии.
