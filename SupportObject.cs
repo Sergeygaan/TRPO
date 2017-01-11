@@ -12,7 +12,6 @@ namespace PaintedObjectsMoving
         private GraphicsPath path;
         private Pen pen;
         private int _controlPointF;
-        private PointF _controlPoint;
         private int _idFigure;
 
         public int IdFigure
@@ -25,12 +24,6 @@ namespace PaintedObjectsMoving
         {
             get { return path; }
             set { path = value; }
-        }
-
-        public PointF ControlPoint
-        {
-            get { return _controlPoint; }
-            set { _controlPoint = value; }
         }
 
         public int ControlPointF

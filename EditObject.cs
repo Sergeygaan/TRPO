@@ -14,16 +14,10 @@ namespace PaintedObjectsMoving
         private PointF _pointStart;
         private PointF _pointEnd;
 
-        public void EditRectangle()
-        {
-
-        }
 
         public void MoveObject(PaintedObject currObj, int deltaX, int deltaY)
         {
             currObj.Path.Transform(new Matrix(1, 0, 0, 1, deltaX, deltaY));
-
-            //MoveObjectSupport(currObj, deltaX, deltaY);
         }
 
         public void EditObjectRectangle(PaintedObject currObj, SupportObject _supportObj, int deltaX, int deltaY)
@@ -261,6 +255,24 @@ namespace PaintedObjectsMoving
             }
 
             // MoveObjectSupport(currObj, deltaX, deltaY);
+        }
+
+        public void EditObjectPoliLine(PaintedObject currObj, SupportObject _supportObj, int deltaX, int deltaY)
+        {
+
+            if (currObj.IdFigure == _supportObj.IdFigure)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    currObj.PointSelect[_supportObj.ControlPointF + i].X += deltaX;
+                    currObj.PointSelect[_supportObj.ControlPointF + i].Y += deltaY;
+                }
+                        
+                PointF[] PointF = currObj.PointSelect.ToArray();
+                currObj.Path.Reset();
+                currObj.Path.AddLines(PointF);
+                
+            }
         }
 
         public void MoveObjectSupport(PaintedObject currObj, int deltaX, int deltaY)

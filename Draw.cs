@@ -79,7 +79,9 @@ namespace PaintedObjectsMoving
 
                     case MainForm.FigureType.PoliLine:
 
-                        //e.Graphics.DrawLines(_penFigure, points);
+                        PointF[] PointF = _points.ToArray();
+
+                        e.Graphics.DrawLines(_penFigure, PointF);
 
                         break;
                 }
@@ -121,7 +123,9 @@ namespace PaintedObjectsMoving
 
                 case MainForm.FigureType.PoliLine:
 
-                   // _drawObject.Path.AddLines(points);
+                    PointF[] PointF = _points.ToArray();
+
+                    _drawObject.Path.AddLines(PointF);
 
                     break;
 
@@ -220,6 +224,21 @@ namespace PaintedObjectsMoving
                                 SelectObject.AddListFigure(_drawSupportObject);
                             
                             }
+
+                        break;
+
+                    case MainForm.FigureType.PoliLine:
+
+                        for (int i = 0; i < SelectObject.PointSelect.Length; i += 3)
+                        {
+                            _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
+                            _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
+                            _drawSupportObject.IdFigure = SelectObject.IdFigure;
+                            _drawSupportObject.ControlPointF = i;
+
+                            SelectObject.AddListFigure(_drawSupportObject);
+                        }
+
 
                         break;
 

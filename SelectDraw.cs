@@ -21,6 +21,8 @@ namespace PaintedObjectsMoving
         private СonstructionFigure _ellipse = new СonstructionFigure();
         private EditObject _edipParametr = new EditObject();
 
+
+
         public void MouseUp()
         {
             foreach (PaintedObject SelectObject in _selectedFigures)
@@ -65,6 +67,7 @@ namespace PaintedObjectsMoving
                         if (_rectangleF.Contains(e.Location))
                         {
                             _supportObj = SupportObjecFigure;
+                           // MessageBox.Show(_supportObj.ControlPointF.ToString());
 
                         }
 
@@ -171,8 +174,8 @@ namespace PaintedObjectsMoving
                                 }
 
                             }
-                            break;
 
+                            break;
                     }
 
                 }
@@ -227,6 +230,16 @@ namespace PaintedObjectsMoving
                                     _edipParametr.EditObjectEllepse(SelectObject, _supportObj, deltaX, deltaY);
 
                                     SelectObject.PointSelect = SelectObject.Path.PathPoints;
+
+                                    break;
+
+                                case MainForm.FigureType.PoliLine:
+
+                                    if ((SelectObject.PointSelect[0].X - SelectObject.PointSelect[1].X != 0) && (SelectObject.PointSelect[0].Y - SelectObject.PointSelect[1].Y != 0))
+                                    {
+                                        SelectObject.PointSelect = SelectObject.Path.PathPoints;
+                                    }
+                                    _edipParametr.EditObjectPoliLine(SelectObject, _supportObj, deltaX, deltaY);
 
                                     break;
                             }

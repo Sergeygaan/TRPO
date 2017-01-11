@@ -16,7 +16,7 @@ namespace PaintedObjectsMoving
          */
         public enum FigureType
         {
-            Rectangle, Ellipse, Line, RectangleSelect, PoliLine
+            Rectangle, Ellipse, Line, RectangleSelect, PoliLine, Polygon
         }
 
         public enum Actions
@@ -49,7 +49,7 @@ namespace PaintedObjectsMoving
         private static FigureType _previousfigure = FigureType.Line;                //предыдущая выбранная фигура
         private Actions _currentActions = Actions.Draw;
         private static MainForm.Properties _figureProperties;                        //свойства фигуры
-        private static MainForm.PropertiesSupport _figurePropertiesSupport;                 //свойства фигуры
+        private static MainForm.PropertiesSupport _figurePropertiesSupport;          //свойства фигуры
 
 
         //ФЛАГИ
@@ -104,7 +104,14 @@ namespace PaintedObjectsMoving
 
                     if ((e.Button == MouseButtons.Left) && (mouseclick == true))            //если нажата левая кнопка мыши
                     {
-                        _points[1] = new PointF(e.Location.X, e.Location.Y);
+                        if (_currentfigure != FigureType.PoliLine)
+                        {
+                            _points[1] = new PointF(e.Location.X, e.Location.Y);
+                        }
+                        else
+                        {
+                            //_points[_points.Count - 1] = new PointF(e.Location.X, e.Location.Y);
+                        }
                     }
 
                     break;
@@ -155,10 +162,13 @@ namespace PaintedObjectsMoving
 
                             _points[1] = new PointF(e.Location.X, e.Location.Y);
 
-
                             _drawClass.MouseUp(_currentfigure, _points);
 
                             _points.Clear();
+                        }
+                        else
+                        {
+                            _points.Add(new PointF(e.Location.X, e.Location.Y));
                         }
 
 
@@ -186,7 +196,6 @@ namespace PaintedObjectsMoving
                     {
 
                         mouseclick = false;
-                     
 
                         _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList(), Actions.SelectRegion);
 
@@ -247,13 +256,27 @@ namespace PaintedObjectsMoving
 
                         if (_currentfigure != FigureType.PoliLine)
                         {
-                            _points.Clear();
-
+                            mouseclick = true;
+                            _points.Add(new PointF(e.Location.X, e.Location.Y));
+                            _points.Add(new PointF(e.Location.X, e.Location.Y));
+                        }
+                        else
+                        {
                             mouseclick = true;
                             _points.Add(new PointF(e.Location.X, e.Location.Y));
                             _points.Add(new PointF(e.Location.X, e.Location.Y));
                         }
                         
+                    }
+
+                    if (e.Button == MouseButtons.Right)              //если нажата правая кнопка мыши. Сохраняет полилинию
+                    {
+                        if ((_currentfigure == FigureType.PoliLine) && (_points.Count != 0))
+                        {
+                            _drawClass.MouseUp(_currentfigure, _points);
+
+                            _points.Clear();
+                        }
                     }
 
 
@@ -275,8 +298,6 @@ namespace PaintedObjectsMoving
 
                         if (_currentfigure != FigureType.PoliLine)
                         {
-                            _points.Clear();
-
                             _selectClass.MouseUp();
 
                             mouseclick = true;
@@ -346,6 +367,10 @@ namespace PaintedObjectsMoving
         //Удаление всех нарисованных фигур
         private void отчиститьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (_points.Count != 0)
+            {
+                _points.Clear();
+            }
             _selectClass.MouseUp();
             _drawClass.Clear();
             DrawForm.Invalidate();
