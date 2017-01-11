@@ -19,6 +19,11 @@ namespace PaintedObjectsMoving
             Rectangle, Square, Ellipse, Circle, Curve, Line
         }
 
+        public enum Actions
+        {
+           Draw, Move, Scale
+        }
+
         //КЛАССЫ
         private DrawPaint _drawClass;
         private SelectDraw _selectClass;
@@ -26,9 +31,10 @@ namespace PaintedObjectsMoving
         //ПЕРЕМЕННЫЕ
         private Point figurestart = new Point();                          //стартовая точка фигуры
         private Point figureend = new Point();                            //конечная точка фигуры
-        private static FigureType _currentfigure = FigureType.Line;                 //текущая выбранная фигура
-        private static FigureType _previousfigure = FigureType.Line;                //предыдущая выбранная фигура
-
+        private static FigureType _currentfigure = FigureType.Rectangle;                 //текущая выбранная фигура
+        private static FigureType _previousfigure = FigureType.Rectangle;                //предыдущая выбранная фигура
+        private Actions _currentActions = Actions.Draw;
+        
         //ФЛАГИ
         private bool mouseclick = false;
         
@@ -58,25 +64,43 @@ namespace PaintedObjectsMoving
 
                 _drawClass.SupportPoint(e, _selectClass.SeleckFigure(), _selectClass.SeleckResult());
 
-
             }
-
 
         }
 
         void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+
+            switch (_currentActions)
             {
+                case Actions.Draw:
 
-                _selectClass.MouseMove(e);
+                    if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
+                    {
+                        figureend = e.Location;
 
-            }
+                    }
 
-            if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
-            {
-                figureend = e.Location;
 
+                    break;
+
+                case Actions.Scale:
+
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        _selectClass.MouseMove(e);
+                    }
+
+                    break;
+
+                case Actions.Move:
+
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        _selectClass.MouseMove(e);
+                    }
+
+                    break;
             }
 
             DrawForm.Refresh();
@@ -84,45 +108,88 @@ namespace PaintedObjectsMoving
 
         void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+
+            switch (_currentActions)
             {
-                _selectClass.MouseUp();
+                case Actions.Draw:
+
+                    if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
+                    {
+                        mouseclick = false;
+                        figureend = e.Location;
+
+                        _drawClass.MouseUp(_currentfigure, figurestart, figureend);
+
+                        figurestart.X = 0;
+                        figurestart.Y = 0;
+                        figureend.X = 0;
+                        figureend.Y = 0;
+
+                    }
+
+
+                    break;
+
+                case Actions.Scale:
+
+                    if (e.Button == MouseButtons.Right)
+                    {
+                        _selectClass.MouseUp();
+                    }
+
+                    break;
+
+                case Actions.Move:
+
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        _selectClass.MouseUp();
+                    }
+
+                    break;
             }
 
-            if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
-            {
-                mouseclick = false;
-                figureend = e.Location;
-
-                _drawClass.MouseUp(_currentfigure, figurestart, figureend);
-
-                figurestart.X = 0;
-                figurestart.Y = 0;
-                figureend.X = 0;
-                figureend.Y = 0;
-
-            }
-  
         }
 
         void Form1_MouseDown(object sender, MouseEventArgs e)
         {
 
-            if (e.Button == MouseButtons.Right)
+            switch (_currentActions)
             {
+                case Actions.Draw:
 
-                _selectClass.MouseDown(e, _drawClass.FiguresList());
-                
+                    if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
+                    {
+                        mouseclick = true;
+                        figurestart = e.Location;
+                    }
 
-            }
-            if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
-            {
-                mouseclick = true;
-                figurestart = e.Location;
+
+                    break;
+
+                case Actions.Scale:
+
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        _selectClass.MouseDown(e, _drawClass.FiguresList());
+                    }
+
+                    break;
+
+                case Actions.Move:
+
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        _selectClass.MouseDown(e, _drawClass.FiguresList());
+                    }
+
+                    break;
             }
 
             RefreshBitmap();
         }
+
+
         void RefreshBitmap()
         {
             _drawClass.RefreshBitmap();
@@ -154,6 +221,21 @@ namespace PaintedObjectsMoving
         {
             _drawClass.Clear();
             DrawForm.Invalidate();
+        }
+
+        private void рисоватьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _currentActions = Actions.Draw;
+        }
+
+        private void масштабироватьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _currentActions = Actions.Scale;
+        }
+
+        private void перемещатьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _currentActions = Actions.Move;
         }
     }
 }

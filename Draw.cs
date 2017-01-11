@@ -40,6 +40,7 @@ namespace PaintedObjectsMoving
 
         }
 
+        //Отрисовка фигур
         public void Paint(PaintEventArgs e, MainForm.FigureType _currentfigure, Point figurestart, Point figureend)
         {
             switch (_currentfigure)
@@ -76,6 +77,7 @@ namespace PaintedObjectsMoving
             e.Graphics.DrawImage(bmp, 0, 0);
         }
 
+        //Сохранение фигур
         public void MouseUp(MainForm.FigureType _currentfigure, Point figurestart, Point figureend)
         {
 
@@ -127,6 +129,8 @@ namespace PaintedObjectsMoving
             }
         }
 
+
+        //Отрисовка опорных точек
         public void SupportPoint(PaintEventArgs e, PointF[] SupporFigureStart, PaintedObject currObj)
         {
 

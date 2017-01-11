@@ -13,7 +13,6 @@ namespace PaintedObjectsMoving
 
         private PaintedObject currObj;//Объект, который в данный момент перемещается
         private Point oldPoint;
-        private Size inflateSize = new Size(50, 50);
         private RectangleF _rectangleF;
         private PointF[] PointSelect;
 
@@ -40,7 +39,6 @@ namespace PaintedObjectsMoving
                 figurestartX = DrawObject.FigureStart.X;
                 figurestartY = DrawObject.FigureStart.Y;
 
-
                 figureendX = DrawObject.FigureEnd.X;
                 figureendY = DrawObject.FigureEnd.Y;
 
@@ -61,8 +59,10 @@ namespace PaintedObjectsMoving
                 if (_rectangleF.Contains(e.Location))
                 {
                     currObj = DrawObject;//Запоминаем найденный объект
+                    PointSelect = currObj.Path.PathPoints;
+
                     //currObj.Pen.Width += 1;//Делаем перо жирнее
-   
+
                 }
                 
             }
@@ -71,9 +71,6 @@ namespace PaintedObjectsMoving
 
         public void MouseMove(MouseEventArgs e)
         {
-            switch (e.Button)
-            {
-                case MouseButtons.Right:
                     //Считаем смещение курсора
                     int deltaX, deltaY;
 
@@ -116,11 +113,8 @@ namespace PaintedObjectsMoving
 
                         //Запоминаем новое положение курсора
                         oldPoint = e.Location;
+ 
                     }
-                    break;
-                default:
-                    break;
-            }
         }
 
 
