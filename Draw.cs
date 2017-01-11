@@ -178,11 +178,11 @@ namespace PaintedObjectsMoving
 
                     case MainForm.FigureType.Ellipse:
 
-                        for (int i = 0; i < currObj.PointSelect.Length; i = i + 1)
+                        for (int i = 0; i < currObj.PointSelect.Length; i = i + 3)
                         {
                             _drawSupportObject = new SupportObject(new Pen(Color.FromArgb(0, 123, 240), 1), new GraphicsPath());
                             _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(currObj.PointSelect[i]));
-                            _drawSupportObject.ControlPointF = i;
+                            _drawSupportObject.ControlPointF = i  ;
                            
                             currObj.AddListFigure(_drawSupportObject);
                         }
