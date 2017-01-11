@@ -13,6 +13,15 @@ namespace MyPaint.Actions
         /// </summary>
         private List<PointF> _points = new List<PointF>();
 
+        /// <summary>
+        /// Метод, выполняющий действие при перемещении мыши.
+        /// </summary>
+        /// <para name = "e">Объект хранящий данные о мыши</para>
+        /// <para name = "sender">Объект хранящий данные об объекте</para>
+        /// <para name = "Currentfigure">Объект хранящий данные о выбранной фигуре</para>
+        /// <para name = "SelectClass">Объект хранящий данные о выбранных фигурах</para>
+        /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
+        /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
         public List<PointF> MouseMove(object sender, MouseEventArgs e, MainForm.FigureType Currentfigure, SelectDraw SelectClass, MainForm.Actions CurrentActions, List<IFigureBuild> FiguresBuild)
         {
             if (SelectClass.SeleckResult().Count == 0)
@@ -33,6 +42,15 @@ namespace MyPaint.Actions
             return _points;
         }
 
+        /// <summary>
+        /// Метод, выполняющий действие при отпускании мыши.
+        /// </summary>
+        /// <para name = "e">Объект хранящий данные о мыши</para>
+        /// <para name = "sender">Объект хранящий данные об объекте</para>
+        /// <para name = "Currentfigure">Объект хранящий данные о выбранной фигуре</para>
+        /// <para name = "SelectClass">Объект хранящий данные о выбранных фигурах</para>
+        /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
+        /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
         public void MouseUp(object sender, MouseEventArgs e, MainForm.FigureType Currentfigure, SelectDraw SelectClass, DrawPaint DrawClass, List<IFigureBuild> FiguresBuild)
         {
             if (e.Button == MouseButtons.Left)
@@ -46,7 +64,6 @@ namespace MyPaint.Actions
                 {
                     SelectClass.MouseUpSupport();
                     DrawClass.СhangeMoveFigure(SelectClass.SeleckResult(), "MouseUp");
-
                 }
 
             }
@@ -60,11 +77,19 @@ namespace MyPaint.Actions
                 else
                 {
                     SelectClass.MouseUp();
-                    //ChangeActions(LastActions);
                 }
             }
         }
 
+        /// <summary>
+        /// Метод, выполняющий действие при нажатии мыши.
+        /// </summary>
+        /// <para name = "e">Объект хранящий данные о мыши</para>
+        /// <para name = "sender">Объект хранящий данные об объекте</para>
+        /// <para name = "Currentfigure">Объект хранящий данные о выбранной фигуре</para>
+        /// <para name = "SelectClass">Объект хранящий данные о выбранных фигурах</para>
+        /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
+        /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
         public void MouseDown(object sender, MouseEventArgs e, MainForm.FigureType Currentfigure, SelectDraw SelectClass, DrawPaint DrawClass, List<IFigureBuild> FiguresBuild)
         {
             if (e.Button == MouseButtons.Left)
@@ -75,8 +100,6 @@ namespace MyPaint.Actions
 
                     _points.Add(new PointF(e.Location.X, e.Location.Y));
                     _points.Add(new PointF(e.Location.X, e.Location.Y));
-                    //LastActions = MainForm.Actions.SelectRegion;
-
                 }
                 else
                 {

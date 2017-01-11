@@ -34,6 +34,53 @@ namespace MyPaint.CORE
         private SupportObject _drawSupportObject;
 
         /// <summary>
+        /// Метод, выполняющий действие при перемещении мыши.
+        /// </summary>
+        /// <para name = "e">Объект хранящий данные о мыши</para>
+        /// <para name = "_points">Объект хранящий данные о точках построения фигурые</para>
+        public List<PointF> MouseMove(List<PointF> _points, MouseEventArgs e)
+        {
+            if (_points.Count != 0)
+            {
+                _points[1] = new PointF(e.Location.X, e.Location.Y);
+            }
+
+            return _points;
+        }
+
+        /// <summary>
+        /// Метод, выполняющий действие при нажатии отпукании мыши.
+        /// </summary>
+        /// <para name = "e">Объект хранящий данные о мыши</para>
+        /// <para name = "_points">Объект хранящий данные о точках построения фигурые</para>
+        /// <para name = "Currentfigure">Объект хранящий данные о выбранной фигуре</para>
+        /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
+        /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
+        public void MouseUp(List<PointF> _points, MouseEventArgs e, MainForm.FigureType Currentfigure, DrawPaint DrawClass, List<IFigureBuild> FiguresBuild)
+        {
+            if (_points.Count != 0)
+            {
+                _points[1] = new PointF(e.Location.X, e.Location.Y);
+                DrawClass.MouseUp(Currentfigure, _points, FiguresBuild);
+                _points.Clear();
+            }
+        }
+
+        /// <summary>
+        /// Метод, выполняющий действие при нажатии мыши.
+        /// </summary>
+        /// <para name = "e">Объект хранящий данные о мыши</para>
+        /// <para name = "_points">Объект хранящий данные о точках построения фигурые</para>
+        /// <para name = "Currentfigure">Объект хранящий данные о выбранной фигуре</para>
+        /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
+        /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
+        public void MouseDown(List<PointF> _points, MouseEventArgs e, MainForm.FigureType Currentfigure, DrawPaint DrawClass, List<IFigureBuild> FiguresBuild)
+        {
+            _points.Add(new PointF(e.Location.X, e.Location.Y));
+            _points.Add(new PointF(e.Location.X, e.Location.Y));
+        }
+
+        /// <summary>
         /// Метод, выполняющий отрисовку прямоугольника при построении.
         /// </summary>
         /// <para name = "e">Объект хранящий данные для отображения эллипса</para>

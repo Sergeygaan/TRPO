@@ -28,6 +28,51 @@ namespace MyPaint.CORE
         /// </summary>
         private SupportObject _drawSupportObject;
 
+        /// <summary>
+        /// Метод, выполняющий действие при перемещении мыши.
+        /// </summary>
+        /// <para name = "e">Объект хранящий данные о мыши</para>
+        /// <para name = "_points">Объект хранящий данные о точках построения фигурые</para>
+        public List<PointF> MouseMove(List<PointF> _points, MouseEventArgs e)
+        {
+            return _points;
+        }
+
+        /// <summary>
+        /// Метод, выполняющий действие при нажатии отпукании мыши.
+        /// </summary>
+        /// <para name = "e">Объект хранящий данные о мыши</para>
+        /// <para name = "_points">Объект хранящий данные о точках построения фигурые</para>
+        /// <para name = "Currentfigure">Объект хранящий данные о выбранной фигуре</para>
+        /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
+        /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
+        public void MouseUp(List<PointF> _points, MouseEventArgs e, MainForm.FigureType Currentfigure, DrawPaint DrawClass, List<IFigureBuild> FiguresBuild) { }
+
+        /// <summary>
+        /// Метод, выполняющий действие при нажатии мыши.
+        /// </summary>
+        /// <para name = "e">Объект хранящий данные о мыши</para>
+        /// <para name = "_points">Объект хранящий данные о точках построения фигурые</para>
+        /// <para name = "Currentfigure">Объект хранящий данные о выбранной фигуре</para>
+        /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
+        /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
+        public void MouseDown(List<PointF> _points, MouseEventArgs e, MainForm.FigureType Currentfigure, DrawPaint DrawClass, List<IFigureBuild> FiguresBuild)
+        {
+            if (e.Button == MouseButtons.Left)              //если нажата левая кнопка мыши
+            {
+                _points.Add(new PointF(e.Location.X, e.Location.Y));
+            }
+            else
+            {
+                if (_points.Count != 0)
+                {
+                    DrawClass.MouseUp(Currentfigure, _points, FiguresBuild);
+                    _points.Clear();
+
+                }
+            }
+        }
+
 
         /// <summary>
         /// Метод, выполняющий отрисовку многоугольника при построении.

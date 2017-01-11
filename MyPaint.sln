@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPaint", "MyPaint.csproj", "{952437A9-F7CD-4DD2-A305-8032977B295F}"
-EndProject
-Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "ModelingProject", "..\ModelingProject\ModelingProject.modelproj", "{83E2138B-4814-453E-8984-42F566B9B44F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		{952437A9-F7CD-4DD2-A305-8032977B295F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{952437A9-F7CD-4DD2-A305-8032977B295F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{952437A9-F7CD-4DD2-A305-8032977B295F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83E2138B-4814-453E-8984-42F566B9B44F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83E2138B-4814-453E-8984-42F566B9B44F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83E2138B-4814-453E-8984-42F566B9B44F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83E2138B-4814-453E-8984-42F566B9B44F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
