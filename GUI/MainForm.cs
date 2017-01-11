@@ -4,7 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace PaintedObjectsMoving
 {
@@ -47,6 +50,8 @@ namespace PaintedObjectsMoving
 
         //ФЛАГИ
         private static bool createnewfile = false;                                      //true - создать файл
+
+        private SaveProect _saveProect;
 
         public MainForm()
         {
@@ -436,7 +441,7 @@ namespace PaintedObjectsMoving
             if (ActiveForm != null)
             {
                 HistiryForm.Text = "История построения";         //озаглавливаем форму
-                HistiryForm.ListBox(ActiveForm.HistoryCommand());
+                HistiryForm.ListBox(ActiveForm.HistoryCommand);
 
                 HistiryForm.ShowDialog();                 //отображаем форму
 
@@ -445,5 +450,45 @@ namespace PaintedObjectsMoving
 
             HistiryForm.Dispose();                    //уничтожаем форму
         }
+
+        //Сохранение проекта
+        private void toolStripMenuItem7_Click(object sender, EventArgs e)
+        {
+            ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
+            if (ActiveForm != null)
+            {
+
+
+                Stream myStream;
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+                saveFileDialog1.Filter = "dat files (*.dat)|*.dat";
+                saveFileDialog1.FilterIndex = 2;
+                saveFileDialog1.RestoreDirectory = true;
+
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    if ((myStream = saveFileDialog1.OpenFile()) != null)
+                    {
+                        myStream.Close();
+                        _saveProect = new SaveProect();
+                        _saveProect.Save(ActiveForm.HistoryCommand, ActiveForm.HistoryFigure);
+
+                        BinaryFormatter binFormat = new BinaryFormatter();
+                        // Сохранить объект в локальном файле.
+                        using (FileStream fStream = new FileStream(saveFileDialog1.FileName, FileMode.OpenOrCreate))
+                        {
+                            binFormat.Serialize(fStream, _saveProect);
+                        }
+                    }
+                }
+
+            }
+            ActiveForm = null;
+        }
+
+
+
+
     }
 }

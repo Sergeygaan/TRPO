@@ -65,6 +65,7 @@
     <Compile Include="Build\Polygon.cs" />
     <Compile Include="Build\Rectangles.cs" />
     <Compile Include="Build\RectangleSelect.cs" />
+    <Compile Include="CORE\SaveProect.cs" />
     <Compile Include="GUI\ChildForm.cs">
       <SubType>Form</SubType>
     </Compile>

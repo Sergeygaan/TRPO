@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving.CORE
 {
+    [Serializable]
     class Polygon : IFigureBuild
     {
         private AddPolygon _addFigureAddPolygon;

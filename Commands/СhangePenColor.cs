@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving.CORE
 {
+    [Serializable]
     class СhangePenColor : IFigureCommand
     {
         private List<Object> _seleckResult;

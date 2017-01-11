@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving.CORE
 {
+    [Serializable]
     class DeleteBackgroundFigure : IFigureCommand
     {
         private List<Object> _seleckResult;

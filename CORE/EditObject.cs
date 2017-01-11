@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving
 {
+    [Serializable]
     class EditObject
     {
         private СonstructionFigure _constructerFigure = new СonstructionFigure();

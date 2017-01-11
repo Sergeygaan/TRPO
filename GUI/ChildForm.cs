@@ -185,7 +185,7 @@ namespace PaintedObjectsMoving
 
                         mouseclick = false;
 
-                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList(), MainForm.Actions.SelectRegion, _figuresBuild);
+                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList, MainForm.Actions.SelectRegion, _figuresBuild);
 
                         _points.Clear();
 
@@ -202,7 +202,7 @@ namespace PaintedObjectsMoving
 
                     if (e.Button == MouseButtons.Left)
                     {
-                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList(), MainForm.Actions.SelectPoint, _figuresBuild);
+                        _selectClass.MouseDown(e, _drawClass.SeparationZone(), _drawClass.FiguresList, MainForm.Actions.SelectPoint, _figuresBuild);
 
                     }
 
@@ -458,10 +458,17 @@ namespace PaintedObjectsMoving
         }
 
 
-
-        public object HistoryCommand()
+        public object HistoryCommand
         {
-            return _drawClass.IFigureCommand();
+            get { return _drawClass.IFigureCommand; }
+            set { _drawClass.IFigureCommand = (List<IFigureCommand>)value; }
         }
+
+        public object HistoryFigure
+        {
+            get { return _drawClass.FiguresList; }
+            set { _drawClass.FiguresList = (List<Object>)value; }
+        }
+
     }
 }

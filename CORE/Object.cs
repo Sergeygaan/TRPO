@@ -4,8 +4,11 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace PaintedObjectsMoving {
-	class Object 
+
+
+    class Object 
     {
+
 		private GraphicsPath _path;
         private Pen _pen;
         private PointF[] _pointSelect;
@@ -17,7 +20,7 @@ namespace PaintedObjectsMoving {
 
         private MainForm.FigureType _currentfigure;
 
-        List<SupportObject> _supportFigures = new List<SupportObject>();
+        private List<SupportObject> _supportFigures = new List<SupportObject>();
 
         public int IdFigure
         {

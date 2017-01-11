@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving.CORE
 {
+    [Serializable]
     class СhangeMove : IFigureCommand
     {
         private List<Object> _seleckResult;

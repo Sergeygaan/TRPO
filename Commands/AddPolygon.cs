@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving.CORE
 {
+    [Serializable]
     class AddPolygon : IFigureCommand
     {
         private List<PointF> _points;

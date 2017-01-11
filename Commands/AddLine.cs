@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving.CORE
 {
+    [Serializable]
     class AddLine : IFigureCommand
     {
         private List<PointF> _points;

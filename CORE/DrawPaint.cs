@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving
 {
+    [Serializable]
     class DrawPaint
     {
         private List<IFigureCommand> _iFigureCommand = new List<IFigureCommand>();
@@ -17,6 +18,7 @@ namespace PaintedObjectsMoving
         private Object _drawObject;
         private Rectangle _rect;
         private SolidBrush _brush;
+        private MainForm.FigureType _currentfigure;
 
         private List<Object> _figures;//Список с объектами для прорисовки
 
@@ -48,8 +50,10 @@ namespace PaintedObjectsMoving
         }
 
         //Отрисовка фигур и возвращение области выделения
-        public void Paint(PaintEventArgs e, MainForm.FigureType _currentfigure, List<PointF> _points, List<IFigureBuild> FiguresBuild)
+        public void Paint(PaintEventArgs e, MainForm.FigureType Currentfigure, List<PointF> _points, List<IFigureBuild> FiguresBuild)
         {
+            _currentfigure = Currentfigure;
+
             if (_points.Count != 0)
             {
                 StyleFigure();
@@ -72,6 +76,11 @@ namespace PaintedObjectsMoving
             StyleFigure();
 
             EditFigure();
+
+            if (_currentfigure == MainForm.FigureType.PoliLine)
+            {
+                _brush = null;
+            }
 
             _drawObject = new Object(_penFigure, new GraphicsPath(), _brush, _currentfigure);
 
@@ -252,14 +261,14 @@ namespace PaintedObjectsMoving
             _penFigure = new Pen(MainForm.FigureProperties.linecolor, MainForm.FigureProperties.thickness);
             _penFigure.DashStyle = MainForm.FigureProperties.dashstyle;
 
-            if (MainForm.FigureProperties.fill == false)
-            {
-                _brush = null;
-            }
-            else
-            {
-                _brush = new SolidBrush(MainForm.FigureProperties.brushcolor);
-            }
+                if (MainForm.FigureProperties.fill == false)
+                {
+                    _brush = null;
+                }
+                else
+                {
+                    _brush = new SolidBrush(MainForm.FigureProperties.brushcolor);
+                }
 
         }
 
@@ -269,13 +278,6 @@ namespace PaintedObjectsMoving
             _figures.Clear();
             _iFigureCommand.Clear();
             _indexFigureCommand = -1;
-        }
-
-
-        //Возвращяет список со всеми фигурами
-        public List<Object> FiguresList()
-        {
-            return _figures;
         }
 
         //Возвращение зоны выделения
@@ -340,10 +342,20 @@ namespace PaintedObjectsMoving
         }
 
 
-        //Метод возвращяющий список команд в проекте
-        public List<IFigureCommand> IFigureCommand()
+        //Метод возвращяющий список команд в проекте_iFigureCommand;
+
+        public List<IFigureCommand> IFigureCommand
         {
-            return _iFigureCommand;
+            get { return _iFigureCommand; }
+            set { _iFigureCommand = value; }
         }
+
+        //Возвращяет список со всеми фигурами
+        public List<Object> FiguresList
+        {
+            get { return _figures; }
+            set { _figures = value; }
+        }
+
     }
 }

@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving.CORE
 {
+    [Serializable]
     class Ellipses : IFigureBuild
     {
         private AddEllipse _addFigureEllipse;

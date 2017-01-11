@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving.CORE
 {
+    [Serializable]
     class Rectangles : IFigureBuild
     {
         private AddRectangle _addFigureRectangle;

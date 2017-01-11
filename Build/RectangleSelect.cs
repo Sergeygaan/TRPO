@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving.CORE
 {
+    [Serializable]
     class RectangleSelect : IFigureBuild
     {
         private СonstructionFigure _ellipse = new СonstructionFigure();

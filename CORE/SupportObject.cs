@@ -7,6 +7,7 @@ using System.Text;
 
 namespace PaintedObjectsMoving
 {
+    [Serializable]
     class SupportObject : ICloneable
     {
         private GraphicsPath path;

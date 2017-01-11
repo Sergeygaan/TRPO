@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving.CORE
 {
+    [Serializable]
     class PoliLine : IFigureBuild
     {
         private AddPoliLine _addFigurePoliLine;

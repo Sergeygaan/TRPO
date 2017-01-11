@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving
 {
+    [Serializable]
     class SelectDraw
     {
         List<Object> _selectedFigures = new List<Object>();   //Список выбранных фигур

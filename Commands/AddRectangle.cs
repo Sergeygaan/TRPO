@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving.CORE
 {
+    [Serializable]
     class AddRectangle : IFigureCommand
     {
         private СonstructionFigure _ellipse = new СonstructionFigure();

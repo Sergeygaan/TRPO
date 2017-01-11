@@ -10,12 +10,7 @@ using System.Windows.Forms;
 
 namespace PaintedObjectsMoving
 {
-   
-    /*По идее класс Ellipse идентичен классу Rect,
-     * только флагом в конструкторе будет не "Квадрат",
-     * а "Круг"; и в методе Show появится строка
-     * построения эллипса по заданному прямоугольнику
-     */
+    [Serializable]
     class СonstructionFigure
     {
         //ПЕРЕМЕННЫЕ
