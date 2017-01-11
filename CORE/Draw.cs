@@ -156,8 +156,6 @@ namespace PaintedObjectsMoving
 
             }
 
-            //Начальная и конечная координата
-
             _drawObject.FigureStart = _points[0];
             _drawObject.FigureEnd = _points[1];
             _drawObject.IdFigure = _figures.Count;

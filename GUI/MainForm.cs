@@ -48,15 +48,9 @@ namespace PaintedObjectsMoving
             public Color linecolor;  //цвет линии
         }
 
-        //КЛАССЫ
-        private DrawPaint _drawClass;
-        private SelectDraw _selectClass;
-
         //ПЕРЕМЕННЫЕ
         private List<PointF> _points = new List<PointF>();
 
-        private static FigureType _currentfigure = FigureType.Line;                 //текущая выбранная фигура
-        private static FigureType _previousfigure = FigureType.Line;                //предыдущая выбранная фигура
         private Actions _currentActions = Actions.Draw;
         private static MainForm.Properties _figureProperties;                        //свойства фигуры
         private static MainForm.PropertiesSupport _figurePropertiesSupport;          //свойства фигуры
@@ -66,7 +60,6 @@ namespace PaintedObjectsMoving
         private static int childheightsize = 600;                                       //переменная, хранящая заданную высоту дочернего окна
 
         //ФЛАГИ
-        private bool mouseclick = false;
         private static bool createnewfile = false;                                      //true - создать файл
 
         public MainForm()
@@ -86,8 +79,6 @@ namespace PaintedObjectsMoving
             _figurePropertiesSupport.linecolor = Color.Black;
 
         }
-
-
 
         //Характеристики обычных фигур
         public static Properties FigureProperties
