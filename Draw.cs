@@ -237,6 +237,28 @@ namespace PaintedObjectsMoving
              
         }
 
+        public void DeleteBackgroundFigure(List<PaintedObject> SeleckResult)
+        {
+            foreach (PaintedObject SelectObject in SeleckResult)
+            {
+
+                SelectObject.Brush = null;
+               
+            }
+
+        }
+
+        public void СhangeBackgroundFigure(List<PaintedObject> SeleckResult, Color ColorСhangeBackground)
+        {
+            foreach (PaintedObject SelectObject in SeleckResult)
+            {
+
+                SelectObject.Brush = new SolidBrush(ColorСhangeBackground);
+
+            }
+
+        }
+
         public void StyleFigure()
         {
             _penFigure = new Pen(MainForm.FigureProperties.linecolor, MainForm.FigureProperties.thickness);

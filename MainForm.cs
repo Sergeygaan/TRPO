@@ -430,5 +430,24 @@ namespace PaintedObjectsMoving
                 _figureProperties.brushcolor = colorDialog1.Color;
             }
         }
+
+        private void toolStripButton14_Click(object sender, EventArgs e)
+        {
+            DialogResult D = colorDialog1.ShowDialog();
+            if (D == DialogResult.OK)
+            {
+                _drawClass.СhangeBackgroundFigure(_selectClass.SeleckResult(), colorDialog1.Color);
+            }
+            DrawForm.Refresh();
+        }
+
+        private void toolStripButton17_Click(object sender, EventArgs e)
+        {
+            if (_selectClass.SeleckResult() != null)
+            {
+                _drawClass.DeleteBackgroundFigure(_selectClass.SeleckResult());
+            }
+            DrawForm.Refresh();
+        }
     }
 }
