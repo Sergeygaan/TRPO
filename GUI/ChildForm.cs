@@ -33,11 +33,9 @@ namespace PaintedObjectsMoving
             DrawForm.Width = MainForm.ChildWidthSize;
             DrawForm.Height = MainForm.ChildHeightSize;
 
-            this.AutoScroll = true;                             //разрешаем скроллинг
+            AutoScroll = true;                             //разрешаем скроллинг
 
             DoubleBuffered = true;
-            //DrawForm.BackColor = Color.FromArgb(0, 0, 0, 0);
-
 
             //Инициализация классов
             _drawClass = new DrawPaint(DrawForm.Width, DrawForm.Height);
@@ -366,16 +364,16 @@ namespace PaintedObjectsMoving
         }
 
         //Передача фигуры
-        public void ChangeFigure(MainForm.FigureType next)
+        public void ChangeFigure(MainForm.FigureType NextFigureType)
         {
             _previousfigure = _currentfigure;             //указываем предыдущую выбранную фигуру
-            _currentfigure = next;
+            _currentfigure = NextFigureType;
         }
 
         //Передача действий над фигурами
-        public void ChangeActions(MainForm.Actions next)
+        public void ChangeActions(MainForm.Actions NextActions)
         {
-            _currentActions = next;
+            _currentActions = NextActions;
         }
 
         //Удаление опорных точек

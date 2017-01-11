@@ -14,12 +14,12 @@ namespace PaintedObjectsMoving.CORE
         private Pen _penFigureSelect = new Pen(Color.Black, 1);
 
 
-        public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
+        public void PaintFigure(PaintEventArgs e, List<PointF> Points, Pen PenFigure)
         {
-            e.Graphics.DrawRectangle(_penFigureSelect, _ellipse.ShowRectangle(_points[0], _points[1]));
+            e.Graphics.DrawRectangle(PenFigure, _ellipse.ShowRectangle(Points[0], Points[1]));
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild, List<Object> Figures) { }
+        public void AddFigure(Object DrawObject, List<PointF> Points, List<IFigureCommand> FiguresBuild, List<Object> Figures) { }
 
         public void AddSupportPoint(Object SelectObject) { }
 

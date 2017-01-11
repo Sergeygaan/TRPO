@@ -15,28 +15,28 @@ namespace PaintedObjectsMoving.CORE
         private СonstructionFigure _ellipse = new СonstructionFigure();
         private SupportObject _drawSupportObject;
 
-        public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
+        public void PaintFigure(PaintEventArgs e, List<PointF> Points, Pen PenFigure)
         {
-            if (_points.Count > 1)
+            if (Points.Count > 1)
             {
-                PointF[] PointPoliLine = _points.ToArray();
+                PointF[] PointPoliLine = Points.ToArray();
 
-                e.Graphics.DrawLines(_penFigure, PointPoliLine);
+                e.Graphics.DrawLines(PenFigure, PointPoliLine);
             }
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild, List<Object> Figures)
+        public void AddFigure(Object DrawObject, List<PointF> Points, List<IFigureCommand> FiguresBuild, List<Object> Figures)
         {
 
             _addFigurePoliLine = new AddPoliLine();
-            _addFigurePoliLine.AddFigure(DrawObject, _points, Figures);
+            _addFigurePoliLine.AddFigure(DrawObject, Points, Figures);
             
-            _addFigurePoliLine.Output().FigureStart = _points[0];
-            _addFigurePoliLine.Output().FigureEnd = _points[1];
+            _addFigurePoliLine.Output().FigureStart = Points[0];
+            _addFigurePoliLine.Output().FigureEnd = Points[1];
             _addFigurePoliLine.Output().IdFigure = Figures.Count;
 
             Figures.Add(_addFigurePoliLine.Output());
-            _figuresBuild.Add(_addFigurePoliLine);
+            FiguresBuild.Add(_addFigurePoliLine);
 
         }
 

@@ -33,15 +33,15 @@ namespace PaintedObjectsMoving
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;        //возвращаем значение"ОК"
+            DialogResult = DialogResult.OK;        //возвращаем значение"ОК"
             MainForm.Thickness = ThicknessTrackBar.Value;          //возвращаем значение толщины
-            this.Close();
+            Close();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;        //возвращаем значение"Cancel"
-            this.Close();
+            DialogResult = DialogResult.Cancel;        //возвращаем значение"Cancel"
+            Close();
         }
     }
 

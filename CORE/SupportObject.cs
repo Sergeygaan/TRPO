@@ -10,8 +10,8 @@ namespace PaintedObjectsMoving
     [Serializable]
     class SupportObject : ICloneable
     {
-        private GraphicsPath path;
-        private Pen pen;
+        private GraphicsPath _path;
+        private Pen _pen;
         private int _controlPointF;
         private int _idFigure;
 
@@ -23,8 +23,8 @@ namespace PaintedObjectsMoving
 
         public GraphicsPath Path
         {
-            get { return path; }
-            set { path = value; }
+            get { return _path; }
+            set { _path = value; }
         }
 
         public int ControlPointF
@@ -35,13 +35,13 @@ namespace PaintedObjectsMoving
 
         public Pen @Pen
         {
-            get { return pen; }
-            set { pen = value; }
+            get { return _pen; }
+            set { _pen = value; }
         }
         public SupportObject(Pen pen, GraphicsPath path)
         {
-            this.path = path;
-            this.pen = pen;
+            _path = path;
+            _pen = pen;
         }
 
         #region ICloneable Members

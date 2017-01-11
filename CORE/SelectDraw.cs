@@ -12,18 +12,14 @@ namespace PaintedObjectsMoving
     [Serializable]
     class SelectDraw
     {
-        List<Object> _selectedFigures = new List<Object>();   //Список выбранных фигур
+        private List<Object> _selectedFigures = new List<Object>();   //Список выбранных фигур
 
        // private Object currObj = null;//Объект, который в данный момент перемещается
         private SupportObject _supportObj;
         private Point _oldPoint;
-       
         private RectangleF _rectangleF;
-        
         private СonstructionFigure _ellipse = new СonstructionFigure();
         private EditObject _edipParametr = new EditObject();
-
-
 
         public void MouseUp()
         {
@@ -78,7 +74,7 @@ namespace PaintedObjectsMoving
             }
         }
 
-        public void MouseDown(MouseEventArgs e, Rectangle Rect, List<Object> _figures, MainForm.Actions _currentActions, List<IFigureBuild> FiguresBuild)
+        public void MouseDown(MouseEventArgs e, Rectangle Rect, List<Object> Figures, MainForm.Actions CurrentActions, List<IFigureBuild> FiguresBuild)
         {
             //Запоминаем положение курсора
             _oldPoint = e.Location;
@@ -88,7 +84,7 @@ namespace PaintedObjectsMoving
             if (_selectedFigures.Count == 0)
             {
 
-                foreach (Object DrawObject in _figures)
+                foreach (Object DrawObject in Figures)
                 {
 
                     figurestartX = DrawObject.FigureStart.X;
@@ -110,7 +106,7 @@ namespace PaintedObjectsMoving
                         _rectangleF.Inflate(5, 10);
                     }
 
-                    switch (_currentActions)
+                    switch (CurrentActions)
                     {
 
                         case MainForm.Actions.SelectRegion:
@@ -141,7 +137,7 @@ namespace PaintedObjectsMoving
 
         }
 
-        public void MouseMove(MouseEventArgs e, MainForm.Actions _currentActions, List<IFigureBuild> FiguresBuild)
+        public void MouseMove(MouseEventArgs e, MainForm.Actions CurrentActions, List<IFigureBuild> FiguresBuild)
         {
             //Считаем смещение курсора
             int deltaX, deltaY;
@@ -151,7 +147,7 @@ namespace PaintedObjectsMoving
 
             foreach (Object SelectObject in _selectedFigures)
             {
-                switch (_currentActions)
+                switch (CurrentActions)
                 {
 
                     case MainForm.Actions.Scale:

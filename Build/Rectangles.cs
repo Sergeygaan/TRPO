@@ -15,23 +15,23 @@ namespace PaintedObjectsMoving.CORE
         private СonstructionFigure _ellipse = new СonstructionFigure();
         private SupportObject _drawSupportObject;
 
-        public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
+        public void PaintFigure(PaintEventArgs e, List<PointF> Points, Pen PenFigure)
         {
-            e.Graphics.DrawRectangle(_penFigure, _ellipse.ShowRectangle(_points[0], _points[1]));
+            e.Graphics.DrawRectangle(PenFigure, _ellipse.ShowRectangle(Points[0], Points[1]));
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild, List<Object> Figures)
+        public void AddFigure(Object DrawObject, List<PointF> Points, List<IFigureCommand> FiguresBuild, List<Object> Figures)
         {
             _addFigureRectangle = new AddRectangle();
-            _addFigureRectangle.AddFigure(DrawObject, _points, Figures);
+            _addFigureRectangle.AddFigure(DrawObject, Points, Figures);
           
 
-            _addFigureRectangle.Output().FigureStart = _points[0];
-            _addFigureRectangle.Output().FigureEnd = _points[1];
+            _addFigureRectangle.Output().FigureStart = Points[0];
+            _addFigureRectangle.Output().FigureEnd = Points[1];
             _addFigureRectangle.Output().IdFigure = Figures.Count;
 
             Figures.Add(_addFigureRectangle.Output());
-            _figuresBuild.Add(_addFigureRectangle);
+            FiguresBuild.Add(_addFigureRectangle);
         }
 
         public void AddSupportPoint(Object SelectObject)

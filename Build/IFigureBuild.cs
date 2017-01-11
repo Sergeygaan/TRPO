@@ -9,15 +9,15 @@ namespace PaintedObjectsMoving.CORE
 {
     interface IFigureBuild
     {
-        void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure);
+        void PaintFigure(PaintEventArgs e, List<PointF> Points, Pen PenFigure);
 
-        void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> FiguresBuild, List<Object> Figures);
+        void AddFigure(Object DrawObject, List<PointF> Points, List<IFigureCommand> FiguresBuild, List<Object> Figures);
 
         void AddSupportPoint(Object SelectObject);
 
         void ScaleSelectFigure(Object SelectObject, SupportObject SupportObj, int DeltaX, int DeltaY, EditObject EdipParametr);
 
-        void ScaleFigure(MouseEventArgs e, Object DrawObject, List<Object> _selectedFigures);
+        void ScaleFigure(MouseEventArgs e, Object DrawObject, List<Object> SelectedFigures);
 
     }
 }

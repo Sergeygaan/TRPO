@@ -17,9 +17,9 @@ namespace PaintedObjectsMoving.CORE
         private List<Object> _figures;
         private string _operatorValue;
 
-        public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
+        public void PaintFigure(PaintEventArgs e, List<PointF> Points, Pen PenFigure)
         {
-            e.Graphics.DrawRectangle(_penFigure, _ellipse.ShowRectangle(_points[0], _points[1]));
+            e.Graphics.DrawRectangle(PenFigure, _ellipse.ShowRectangle(Points[0], Points[1]));
         }
 
         public void AddFigure(Object DrawObject, List<PointF> Points, List<Object> Figures)

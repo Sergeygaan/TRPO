@@ -15,23 +15,23 @@ namespace PaintedObjectsMoving.CORE
         private SupportObject _drawSupportObject;
         private AddLine _addFigureLine;
 
-        public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
+        public void PaintFigure(PaintEventArgs e, List<PointF> Points, Pen PenFigure)
         {
-            e.Graphics.DrawLine(_penFigure, _points[0], _points[1]);
+            e.Graphics.DrawLine(PenFigure, Points[0], Points[1]);
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresCommand, List<Object> Figures)
+        public void AddFigure(Object DrawObject, List<PointF> Points, List<IFigureCommand> FiguresCommand, List<Object> Figures)
         {
             _addFigureLine = new AddLine();
-            _addFigureLine.AddFigure(DrawObject, _points, Figures);
+            _addFigureLine.AddFigure(DrawObject, Points, Figures);
           
-            _addFigureLine.Output().FigureStart = _points[0];
-            _addFigureLine.Output().FigureEnd = _points[1];
+            _addFigureLine.Output().FigureStart = Points[0];
+            _addFigureLine.Output().FigureEnd = Points[1];
             _addFigureLine.Output().IdFigure = Figures.Count;
 
             Figures.Add(_addFigureLine.Output());
 
-            _figuresCommand.Add(_addFigureLine);
+            FiguresCommand.Add(_addFigureLine);
         }
 
 

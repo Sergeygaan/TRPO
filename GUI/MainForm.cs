@@ -44,12 +44,12 @@ namespace PaintedObjectsMoving
         private static Properties _figureProperties;                        //свойства фигуры
         private static PropertiesSupport _figurePropertiesSupport;          //свойства фигуры
 
-        private static int childcounter = 1;                                            //счетчик дочерних окон для выдачи надписи РИСУНОК1, РИСУНОК2...
-        private static int childwidhtsize = 800;                                        //переменная, хранящая заданную ширину дочернего окна
-        private static int childheightsize = 600;                                       //переменная, хранящая заданную высоту дочернего окна
+        private static int _childCounter = 1;                                            //счетчик дочерних окон для выдачи надписи РИСУНОК1, РИСУНОК2...
+        private static int _childWidhtSize = 800;                                        //переменная, хранящая заданную ширину дочернего окна
+        private static int _childHeightSize = 600;                                       //переменная, хранящая заданную высоту дочернего окна
 
         //ФЛАГИ
-        private static bool createnewfile = false;                                      //true - создать файл
+        private static bool _createNewFile = false;                                      //true - создать файл
 
         private SaveProect _saveProect;
 
@@ -61,7 +61,7 @@ namespace PaintedObjectsMoving
 
             //Характеристика фигуры
             _figureProperties.brushcolor = Color.White;
-            _figureProperties.dashstyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            _figureProperties.dashstyle = DashStyle.Solid;
             _figureProperties.fill = false;
             _figureProperties.linecolor = Color.Black;
             _figureProperties.thickness = 1;
@@ -80,7 +80,7 @@ namespace PaintedObjectsMoving
         {
             set { _figureProperties.thickness = value; }
         }
-        public static System.Drawing.Drawing2D.DashStyle StyleOfLine
+        public static DashStyle StyleOfLine
         {
             set { _figureProperties.dashstyle = value; }
         }
@@ -116,7 +116,7 @@ namespace PaintedObjectsMoving
         }
 
         //Удаление всех нарисованных фигур
-        private void отчиститьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteProject(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
@@ -127,7 +127,7 @@ namespace PaintedObjectsMoving
         }
 
         //Режим рисования
-        private void toolStripButton5_Click(object sender, EventArgs e)
+        private void Painting(object sender, EventArgs e)
         {
             _currentActions = Actions.Draw;
             ChangeActions(Actions.Draw);
@@ -143,7 +143,7 @@ namespace PaintedObjectsMoving
         }
 
         //Режим выделения
-        private void toolStripButton7_Click(object sender, EventArgs e)
+        private void RegionSelect(object sender, EventArgs e)
         {
             _currentActions = Actions.SelectRegion;
             ChangeActions(Actions.SelectRegion);
@@ -151,7 +151,7 @@ namespace PaintedObjectsMoving
             ChangeFigure(FigureType.RectangleSelect);
         }
         //Эллипс
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        private void ConstructEllipse(object sender, EventArgs e)
         {
             if (_currentActions == Actions.Draw)
             {
@@ -160,7 +160,7 @@ namespace PaintedObjectsMoving
         }
 
         //Квадрат
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void ConstructRectangle(object sender, EventArgs e)
         {
             if (_currentActions == Actions.Draw)
             {
@@ -169,7 +169,7 @@ namespace PaintedObjectsMoving
         }
         
         //Полилиния
-        private void toolStripButton21_Click(object sender, EventArgs e)
+        private void ConstructPoliline(object sender, EventArgs e)
         {
             if (_currentActions == Actions.Draw)
             {
@@ -178,7 +178,7 @@ namespace PaintedObjectsMoving
         }
 
         //Линия
-        private void toolStripButton4_Click(object sender, EventArgs e)
+        private void ConstructLine(object sender, EventArgs e)
         {
             if(_currentActions == Actions.Draw)
             {
@@ -186,7 +186,7 @@ namespace PaintedObjectsMoving
             }
         }
         // Многоугольник
-        private void toolStripButton22_Click(object sender, EventArgs e)
+        private void ConstructRegion(object sender, EventArgs e)
         {
             if (_currentActions == Actions.Draw)
             {
@@ -194,20 +194,21 @@ namespace PaintedObjectsMoving
             }
         }
         //Перемещение
-        private void toolStripButton8_Click(object sender, EventArgs e)
+        private void DisplacementFigure(object sender, EventArgs e)
         {
             _currentActions = Actions.Move;
             ChangeActions(Actions.Move);
         }
+
         //Масштабирование
-        private void toolStripButton9_Click(object sender, EventArgs e)
+        private void ScalingFigure(object sender, EventArgs e)
         {
             _currentActions = Actions.Scale;
             ChangeActions(Actions.Scale);
         }
 
         //Копирование
-        private void toolStripButton10_Click(object sender, EventArgs e)
+        private void СopyingFigure(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
@@ -216,8 +217,9 @@ namespace PaintedObjectsMoving
             }
             ActiveForm = null;
         }
+
         //Удаление
-        private void toolStripButton11_Click(object sender, EventArgs e)
+        private void DeleteFigure(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
@@ -228,7 +230,7 @@ namespace PaintedObjectsMoving
         }
 
         // Цвет отрисовки фигур
-        private void toolStripButton6_Click(object sender, EventArgs e)
+        private void ColorFigure(object sender, EventArgs e)
         {
             DialogResult D = colorDialog1.ShowDialog();
             if (D == DialogResult.OK)
@@ -238,7 +240,7 @@ namespace PaintedObjectsMoving
         }
 
         //Цвет отрисовки опорных точек
-        private void toolStripButton12_Click(object sender, EventArgs e)
+        private void ColorSupportPoint(object sender, EventArgs e)
         {
             DialogResult D = colorDialog1.ShowDialog();
             if (D == DialogResult.OK)
@@ -254,7 +256,7 @@ namespace PaintedObjectsMoving
             }
         }
 
-        private void toolStripButton13_Click(object sender, EventArgs e)
+        private void FigureThickness(object sender, EventArgs e)
         {
             LineThickness linethicknessform = new LineThickness();  //создаем форму "Толщина линии"
             linethicknessform.Text = "Толщина линии фигуры";               //озаглавливаем форму
@@ -262,7 +264,7 @@ namespace PaintedObjectsMoving
             linethicknessform.Dispose();                            //уничтожаем форму
         }
 
-        private void toolStripButton15_Click(object sender, EventArgs e)
+        private void FigureStyle(object sender, EventArgs e)
         {
             LineStyle linestyleform = new LineStyle();  //создаем форму "Стиль линии"
             linestyleform.Text = "Стиль линии";         //озаглавливаем форму
@@ -271,18 +273,18 @@ namespace PaintedObjectsMoving
         }
 
         //Включить заливку
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        private void IncludingFills(object sender, EventArgs e)
         {
             _figureProperties.fill = true; 
         }
 
         //Отключить заливку
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        private void OffFill(object sender, EventArgs e)
         {
             _figureProperties.fill = false;
         }
 
-        private void toolStripButton16_Click(object sender, EventArgs e)
+        private void ColorFill(object sender, EventArgs e)
         {
             DialogResult D = colorDialog1.ShowDialog();
             if (D == DialogResult.OK)
@@ -291,7 +293,8 @@ namespace PaintedObjectsMoving
             }
         }
 
-        private void toolStripButton14_Click(object sender, EventArgs e)
+        //Изменение цвета заливки выбранных фигур
+        private void ChangeFillColor(object sender, EventArgs e)
         {
             DialogResult D = colorDialog1.ShowDialog();
             if (D == DialogResult.OK)
@@ -306,7 +309,8 @@ namespace PaintedObjectsMoving
           
         }
 
-        private void toolStripButton17_Click(object sender, EventArgs e)
+        //Удаление заливки у выбранных фигур
+        private void DeleteFillColor(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
@@ -316,7 +320,9 @@ namespace PaintedObjectsMoving
             ActiveForm = null;
         }
 
-        private void toolStripButton3_Click(object sender, EventArgs e)
+
+        //изменение цвета отрисовки выбранной фигуры
+        private void ChangeColorFigure(object sender, EventArgs e)
         {
             DialogResult D = colorDialog1.ShowDialog();
             if (D == DialogResult.OK)
@@ -330,7 +336,7 @@ namespace PaintedObjectsMoving
             }
         }
 
-        private void toolStripButton18_Click(object sender, EventArgs e)
+        private void ChangeFigureTrisee(object sender, EventArgs e)
         {
 
             int StaticThickness = _figureProperties.thickness;
@@ -351,7 +357,7 @@ namespace PaintedObjectsMoving
             _figureProperties.thickness = StaticThickness;
         }
 
-        private void toolStripButton19_Click(object sender, EventArgs e)
+        private void ChangeFigureStyle(object sender, EventArgs e)
         {
 
             DashStyle StaticThickness = _figureProperties.dashstyle;
@@ -372,7 +378,7 @@ namespace PaintedObjectsMoving
         }
 
 
-        private void toolStripButton20_Click(object sender, EventArgs e)
+        private void PointSelect(object sender, EventArgs e)
         {
             _currentActions = Actions.SelectPoint;
             ChangeActions(Actions.SelectPoint);
@@ -380,26 +386,26 @@ namespace PaintedObjectsMoving
 
         public static bool CreateNewFile
         {
-            get { return createnewfile; }
-            set { createnewfile = value; }
+            get { return _createNewFile; }
+            set { _createNewFile = value; }
         }
         public static int ChildWidthSize
         {
-            get { return childwidhtsize; }
-            set { childwidhtsize = value; }
+            get { return _childWidhtSize; }
+            set { _childWidhtSize = value; }
         }
         public static int ChildHeightSize
         {
-            get { return childheightsize; }
-            set { childheightsize = value; }
+            get { return _childHeightSize; }
+            set { _childHeightSize = value; }
         }
         public static int ChildCounter
         {
-            get { return childcounter; }
-            set { childcounter = value; }
+            get { return _childCounter; }
+            set { _childCounter = value; }
         }
 
-        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        private void Undo(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
@@ -409,7 +415,7 @@ namespace PaintedObjectsMoving
             ActiveForm = null;
         }
 
-        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        private void Redo(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
@@ -419,13 +425,14 @@ namespace PaintedObjectsMoving
             ActiveForm = null;
         }
 
-        private void новыйToolStripMenuItem_Click(object sender, EventArgs e)
+        //Создание нового проекта
+        private void NewProject(object sender, EventArgs e)
         {
             Form FileDialog = new NewFileDialog();                      //создаем форму диалогового окна
             FileDialog.Text = "Новый файл";                             //задаем заголовок окна
             FileDialog.ShowDialog();                                    //отображаем диалог
 
-            if (createnewfile)  //если в диалоговой форме было нажато ОК, то создаем новый файл
+            if (_createNewFile)  //если в диалоговой форме было нажато ОК, то создаем новый файл
             {
                 Form NewForm = new ChildForm();                       //создаем объект - дочернюю форму-рисунок
              
@@ -433,15 +440,15 @@ namespace PaintedObjectsMoving
                 ChildCounter++;                                         //увеличиваем счетчик окон на единицу
                 NewForm.MdiParent = this;                               //указываем родительскую форму
                 NewForm.BackColor = Color.Gray;                         //цвет фона формы - серый
-                NewForm.Width = childwidhtsize;                         //задаем значение ширины окна, хранящееся в переменной
-                NewForm.Height = childheightsize;                       //задаем значение высоты окна, хранящееся в переменной
+                NewForm.Width = _childWidhtSize;                         //задаем значение ширины окна, хранящееся в переменной
+                NewForm.Height = _childHeightSize;                       //задаем значение высоты окна, хранящееся в переменной
                
                 NewForm.Show();                                         //отображаем созданную форму
             }
         }
 
         //Отображение древа проекта
-        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        private void HistoryProject(object sender, EventArgs e)
         {
             HistoryDesign HistiryForm = new HistoryDesign();
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
@@ -459,7 +466,7 @@ namespace PaintedObjectsMoving
         }
 
         //Сохранение проекта
-        private void toolStripMenuItem7_Click(object sender, EventArgs e)
+        private void SaveProject(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
@@ -494,7 +501,7 @@ namespace PaintedObjectsMoving
             ActiveForm = null;
         }
 
-        private void экспортироватьПроектToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExportProject(object sender, EventArgs e)
         {
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
@@ -535,5 +542,6 @@ namespace PaintedObjectsMoving
             }
             ActiveForm = null;
         }
+
     }
 }

@@ -24,14 +24,14 @@ namespace PaintedObjectsMoving
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;        //возвращаем значение"ОК"
-            this.Close();
+            DialogResult = DialogResult.OK;        //возвращаем значение"ОК"
+            Close();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;        //возвращем значение "Canсel"
-            this.Close();
+            DialogResult = DialogResult.Cancel;        //возвращем значение "Canсel"
+            Close();
         }
 
         private void Styles_SelectedIndexChanged(object sender, EventArgs e)

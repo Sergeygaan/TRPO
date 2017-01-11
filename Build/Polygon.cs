@@ -15,27 +15,27 @@ namespace PaintedObjectsMoving.CORE
         private СonstructionFigure _ellipse = new СonstructionFigure();
         private SupportObject _drawSupportObject;
 
-        public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
+        public void PaintFigure(PaintEventArgs e, List<PointF> Points, Pen PenFigure)
         {
-            if (_points.Count > 1)
+            if (Points.Count > 1)
             {
-                PointF[] PointPolygon = _points.ToArray();
+                PointF[] PointPolygon = Points.ToArray();
 
-                e.Graphics.DrawLines(_penFigure, PointPolygon);
+                e.Graphics.DrawLines(PenFigure, PointPolygon);
             }
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild, List<Object> Figures)
+        public void AddFigure(Object DrawObject, List<PointF> Points, List<IFigureCommand> FiguresBuild, List<Object> Figures)
         {
             _addFigureAddPolygon = new AddPolygon();
-            _addFigureAddPolygon.AddFigure(DrawObject, _points, Figures);
+            _addFigureAddPolygon.AddFigure(DrawObject, Points, Figures);
             
-            _addFigureAddPolygon.Output().FigureStart = _points[0];
-            _addFigureAddPolygon.Output().FigureEnd = _points[1];
+            _addFigureAddPolygon.Output().FigureStart = Points[0];
+            _addFigureAddPolygon.Output().FigureEnd = Points[1];
             _addFigureAddPolygon.Output().IdFigure = Figures.Count;
 
             Figures.Add(_addFigureAddPolygon.Output());
-            _figuresBuild.Add(_addFigureAddPolygon);
+            FiguresBuild.Add(_addFigureAddPolygon);
         }
 
         public void AddSupportPoint(Object SelectObject)

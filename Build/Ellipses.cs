@@ -15,22 +15,22 @@ namespace PaintedObjectsMoving.CORE
         private СonstructionFigure _ellipse = new СonstructionFigure();
         private SupportObject _drawSupportObject;
 
-        public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
+        public void PaintFigure(PaintEventArgs e, List<PointF> Points, Pen PenFigure)
         {
-            e.Graphics.DrawEllipse(_penFigure, _ellipse.ShowRectangle(_points[0], _points[1]));
+            e.Graphics.DrawEllipse(PenFigure, _ellipse.ShowRectangle(Points[0], Points[1]));
         }
 
-        public void AddFigure(Object DrawObject, List<PointF> _points, List<IFigureCommand> _figuresBuild, List<Object> Figures)
+        public void AddFigure(Object DrawObject, List<PointF> Points, List<IFigureCommand> FiguresBuild, List<Object> Figures)
         {
             _addFigureEllipse = new AddEllipse();
-            _addFigureEllipse.AddFigure(DrawObject, _points, Figures);
+            _addFigureEllipse.AddFigure(DrawObject, Points, Figures);
           
-            _addFigureEllipse.Output().FigureStart = _points[0];
-            _addFigureEllipse.Output().FigureEnd = _points[1];
+            _addFigureEllipse.Output().FigureStart = Points[0];
+            _addFigureEllipse.Output().FigureEnd = Points[1];
             _addFigureEllipse.Output().IdFigure = Figures.Count;
 
             Figures.Add(_addFigureEllipse.Output());
-            _figuresBuild.Add(_addFigureEllipse);
+            FiguresBuild.Add(_addFigureEllipse);
         }
 
         public void AddSupportPoint(Object SelectObject)

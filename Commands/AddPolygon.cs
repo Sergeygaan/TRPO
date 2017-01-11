@@ -15,13 +15,13 @@ namespace PaintedObjectsMoving.CORE
         private Object _drawObject;
         private List<Object> _figures;
         private string _operatorValue;
-        public void PaintFigure(PaintEventArgs e, List<PointF> _points, Pen _penFigure)
+        public void PaintFigure(PaintEventArgs e, List<PointF> Points, Pen PenFigure)
         {
             if (_points.Count > 1)
             {
-                PointF[] PointPolygon = _points.ToArray();
+                PointF[] PointPolygon = Points.ToArray();
 
-                e.Graphics.DrawLines(_penFigure, PointPolygon);
+                e.Graphics.DrawLines(PenFigure, PointPolygon);
             }
         }
 

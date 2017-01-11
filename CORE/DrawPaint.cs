@@ -23,7 +23,7 @@ namespace PaintedObjectsMoving
 
         private List<Object> _figures;//Список с объектами для прорисовки
 
-        private Bitmap bmp;
+        private Bitmap _bmp;
 
         private int _widthDraw;
         private int _heightDraw;
@@ -45,35 +45,35 @@ namespace PaintedObjectsMoving
             _heightDraw = Height;
 
             _figures = new List<Object>();
-            bmp = new Bitmap(Width, Height);
+            _bmp = new Bitmap(Width, Height);
 
             _ellipse = new СonstructionFigure();
 
         }
 
         //Отрисовка фигур и возвращение области выделения
-        public void Paint(PaintEventArgs e, MainForm.FigureType Currentfigure, List<PointF> _points, List<IFigureBuild> FiguresBuild)
+        public void Paint(PaintEventArgs e, MainForm.FigureType Currentfigure, List<PointF> Points, List<IFigureBuild> FiguresBuild)
         {
             _currentfigure = Currentfigure;
 
-            if (_points.Count != 0)
+            if (Points.Count != 0)
             {
                 StyleFigure();
 
-                FiguresBuild[(int)_currentfigure].PaintFigure(e, _points, _penFigure);     // Отрисовка нужной фигуры
+                FiguresBuild[(int)_currentfigure].PaintFigure(e, Points, _penFigure);     // Отрисовка нужной фигуры
 
-                if (_points.Count > 1)
+                if (Points.Count > 1)
                 {
-                    _rect = _ellipse.ShowRectangle(_points[0], _points[1]);
+                    _rect = _ellipse.ShowRectangle(Points[0], Points[1]);
                 }
             }
 
-            e.Graphics.DrawImage(bmp, 0, 0);
+            e.Graphics.DrawImage(_bmp, 0, 0);
 
         }
 
         //Сохранение фигур
-        public void MouseUp(MainForm.FigureType _currentfigure, List<PointF> _points, List<IFigureBuild> FiguresBuild)
+        public void MouseUp(MainForm.FigureType Currentfigure, List<PointF> Points, List<IFigureBuild> FiguresBuild)
         {
             StyleFigure();
 
@@ -86,19 +86,19 @@ namespace PaintedObjectsMoving
 
             _drawObject = new Object(_penFigure, new GraphicsPath(), _brush, _currentfigure);
 
-            FiguresBuild[(int)_currentfigure].AddFigure(_drawObject, _points, _iFigureCommand, _figures);
+            FiguresBuild[(int)_currentfigure].AddFigure(_drawObject, Points, _iFigureCommand, _figures);
 
         }
 
 
         public void RefreshBitmap()
         {
-            if (bmp != null) bmp.Dispose();
+            if (_bmp != null) _bmp.Dispose();
 
-            bmp = new Bitmap(_widthDraw, _heightDraw);
+            _bmp = new Bitmap(_widthDraw, _heightDraw);
             //Прорисовка всех объектов из списка
 
-            using (Graphics DrawList = Graphics.FromImage(bmp))
+            using (Graphics DrawList = Graphics.FromImage(_bmp))
             {
                 if (_saveProjectClear == true)
                 {
@@ -279,7 +279,7 @@ namespace PaintedObjectsMoving
             _saveProjectClear = true;
             RefreshBitmap();
 
-            DrawForm.Image = bmp;
+            DrawForm.Image = _bmp;
         }
 
         public void ClearProject(PictureBox DrawForm)

@@ -13,7 +13,6 @@ namespace PaintedObjectsMoving.CORE
     {
         private List<Object> _seleckResult;
       
-      
         private GraphicsPath [] _pathUndo;
         private GraphicsPath [] _pathRedo;
 

@@ -44,7 +44,7 @@ namespace PaintedObjectsMoving {
             _supportFigures.Add(AddFigure);
         }
 
-        public void EditListFigure(int index,Rectangle Rectangles)
+        public void EditListFigure(int index, Rectangle Rectangles)
         {
             _supportFigures[index].Path.Reset();
 
@@ -104,6 +104,7 @@ namespace PaintedObjectsMoving {
 			get { return _pen; }
 			set { _pen = value; }
 		}
+
 		public Object(Pen pen, GraphicsPath path, SolidBrush brush, MainForm.FigureType CurrentFigure) {
             _path = path;
             _pen = pen;

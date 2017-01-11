@@ -14,14 +14,9 @@ namespace PaintedObjectsMoving.CORE
        
         private object _figures = new object();
 
-        public SaveProect()
-        {
-  
-        }
 
         public void Save(object FigureCommand, object Figures)
         {
-            //_figureCommand = FigureCommand;
             _figures = Figures;
         }
 
