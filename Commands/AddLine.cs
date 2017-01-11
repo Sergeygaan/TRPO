@@ -34,17 +34,12 @@ namespace PaintedObjectsMoving.CORE
 
         public void Undo()
         {
-            UndoFigure();
+            _figures.RemoveAt(_drawObject.IdFigure);
         }
 
         public Object Output()
         {
             return _drawObject;
-        }
-
-        public void UndoFigure()
-        {
-            _figures.RemoveAt(_drawObject.IdFigure);
         }
     }
 }

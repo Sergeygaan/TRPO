@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\ReplicationFigure.cs" />
+    <Compile Include="Commands\DeleteFigure.cs" />
     <Compile Include="Commands\DeleteBackgroundFigure.cs" />
     <Compile Include="Commands\СhangeBackgroundFigure.cs" />
     <Compile Include="Commands\СhangePenColor.cs" />

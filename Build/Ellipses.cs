@@ -26,7 +26,7 @@ namespace PaintedObjectsMoving.CORE
           
             _addFigureEllipse.Output().FigureStart = _points[0];
             _addFigureEllipse.Output().FigureEnd = _points[1];
-            _addFigureEllipse.Output().IdFigure = _figuresBuild.Count;
+            _addFigureEllipse.Output().IdFigure = Figures.Count;
 
             Figures.Add(_addFigureEllipse.Output());
             _figuresBuild.Add(_addFigureEllipse);

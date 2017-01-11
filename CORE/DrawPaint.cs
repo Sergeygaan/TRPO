@@ -32,6 +32,8 @@ namespace PaintedObjectsMoving
         private СhangeMove _penMove;
         private СhangeBackgroundFigure _brushColor;
         private DeleteBackgroundFigure _deleteBrush;
+        private DeleteFigure _deleteFigure;
+        private ReplicationFigure _replicationFigure;
 
         public DrawPaint(int Width, int Height)
         {
@@ -124,10 +126,13 @@ namespace PaintedObjectsMoving
         //Копирование выбранных фигур
         public void ReplicationFigure(List<Object> SeleckResult)
         {
-            foreach (Object SelectObject in SeleckResult)
+            if (SeleckResult.Count != 0)
             {
-                _figures.Add(SelectObject.CloneObject());
-                _figures[_figures.Count - 1].IdFigure = _figures.Count - 1;
+                EditFigure();
+
+                _replicationFigure = new ReplicationFigure(SeleckResult, _figures);
+
+                _iFigureCommand.Add(_replicationFigure);
             }
 
         }
@@ -135,19 +140,19 @@ namespace PaintedObjectsMoving
         //Удаление выбранных фигуры
         public void DeleteFigure(List<Object> SeleckResult)
         {
-            foreach (Object SelectObject in SeleckResult)
+            if (SeleckResult.Count != 0)
             {
-                _figures.RemoveAt(SelectObject.IdFigure);
+                EditFigure();
 
-                int i = 0;
-                foreach (Object DrawObject in _figures)
-                {
-                    DrawObject.IdFigure = i;
-                    i++;
-                }
+                _deleteFigure = new DeleteFigure(SeleckResult, _figures);
+
+                _iFigureCommand.Add(_deleteFigure);
             }
-             
+            
         }
+
+
+
         //Удаление фона у выбранных фигур
         public void DeleteBackgroundFigure(List<Object> SeleckResult)
         {
@@ -278,6 +283,8 @@ namespace PaintedObjectsMoving
         {
             return _rect;
         }
+
+
         //Дейстие назад
         public void UndoFigure()
         {
@@ -313,6 +320,7 @@ namespace PaintedObjectsMoving
         }
 
 
+        // Проверка списка команд и удаление лишних элементов
         public void EditFigure()
         {
            
@@ -325,7 +333,6 @@ namespace PaintedObjectsMoving
 
                 _indexFigureCommand = _iFigureCommand.Count - 1;
 
-               
             }
 
             _indexFigureCommand += 1;
