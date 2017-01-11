@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 
 
-namespace PaintedObjectsMoving.CORE
+namespace MyPaint.CORE
 {
     [Serializable]
     /// <summary>

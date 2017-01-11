@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving.CORE
+namespace MyPaint.CORE
 {
     /// <summary>
     /// Класс, выполняющий изменение цвета отрисовки линий опорных точек у выбранных фигур
@@ -34,7 +34,7 @@ namespace PaintedObjectsMoving.CORE
         private string _operatorValue;
 
         /// <summary>
-        /// Метод, выполняющий изменения цвета линий у выбранных фигур.
+        /// Метод, выполняющий изменения цвета линий у выбранных опорных точек.
         /// </summary>
         /// <para name = "NextColor">Переменная, хранящая новый цвет линий опорных точек.</para>
         /// <para name = "SeleckResult">Переменная, хранящая список выделенных фигур</para>
@@ -42,8 +42,14 @@ namespace PaintedObjectsMoving.CORE
         {
             _nextColor = NextColor;
 
+            int SummFigure = 0;
 
-            _penColor = new Color[SeleckResult.Count * 4];
+            foreach (Object SelectObject in SeleckResult)
+            {
+                SummFigure += SelectObject.SelectListFigure().Count;
+            }
+
+            _penColor = new Color[SummFigure];
 
             _seleckResult = SeleckResult.GetRange(0, SeleckResult.Count);
 
@@ -56,6 +62,16 @@ namespace PaintedObjectsMoving.CORE
                     i++;
                 }
      
+            }
+
+            foreach (Object SelectObject in _seleckResult)
+            {
+                foreach (SupportObject SuppportObject in SelectObject.SelectListFigure())
+                {
+                    SuppportObject.Pen.Color = _nextColor;
+
+                }
+
             }
 
             _operatorValue = "Изменение цвета линии опорных точек";

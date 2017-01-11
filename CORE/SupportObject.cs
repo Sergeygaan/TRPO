@@ -5,7 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 
-namespace PaintedObjectsMoving
+namespace MyPaint
 {    
     /// <summary>
      /// Класс, являющийся опорными точками

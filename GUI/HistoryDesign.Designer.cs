@@ -1,4 +1,4 @@
-﻿namespace PaintedObjectsMoving.GUI
+﻿namespace MyPaint.GUI
 {
     partial class HistoryDesign
     {

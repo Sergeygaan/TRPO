@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving
+namespace MyPaint
 {
     /// <summary>
     /// Класс, выполняющий создание новой рабочей области.

@@ -1,11 +1,11 @@
-﻿using PaintedObjectsMoving.CORE;
+﻿using MyPaint.CORE;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving
+namespace MyPaint
 {
     /// <summary>
     /// Класс, являющийся дочерний формой для отрисовки фигур
@@ -42,6 +42,11 @@ namespace PaintedObjectsMoving
             /// </summary>
             public bool fill;
         }
+
+        /// <summary>
+        /// Переменная, хранящая класс с действиями над фигурами.
+        /// </summary>
+        private EditObject _edipParametr = new EditObject();
 
         /// <summary>
         /// Структура, хранящая основные характеристики опорных точек.
@@ -172,7 +177,7 @@ namespace PaintedObjectsMoving
 
             if (_selectClass.SeleckResult() != null)
             {
-                _drawClass.SupportPoint(e, _selectClass.SeleckResult(), _figuresBuild);
+                _drawClass.SupportPoint(_selectClass.SeleckResult(), _figuresBuild);
             }
         }
 
@@ -358,7 +363,7 @@ namespace PaintedObjectsMoving
         /// </summary>
         /// <para name = "sender">Переменная, хранящая объект.</para>
         /// <para name = "e">Переменная, хранящая координаты мыщи</para>
-        private void Child1_MouseDown(object sender, MouseEventArgs e)  // Нажата клавиша 
+        private void Child1_MouseDown(object sender, MouseEventArgs e)  // Нажата отпущена 
         {
             switch (_currentActions)
             {
@@ -594,8 +599,17 @@ namespace PaintedObjectsMoving
         {
             _drawClass.СhangePenWidthFigure(_selectClass.SeleckResult());
             ChangeActions(LastActions);
-            DrawForm.Refresh();
             _fileSave = true;
+
+            int deltaX = 0;
+            int deltaY = 0;
+
+            foreach (Object SelectObject in _selectClass.SeleckResult())
+            {
+                _edipParametr.MoveObjectSupport(SelectObject, deltaX, deltaY);
+            }
+
+            DrawForm.Refresh();
         }
 
         /// <summary>
@@ -631,6 +645,7 @@ namespace PaintedObjectsMoving
         public void СhangeSupportPenStyleFigure(Color NextColor)
         {
             _drawClass.СhangeSupportPenStyleFigure(NextColor, _selectClass.SeleckResult());
+            DrawForm.Refresh();
             _fileSave = true;
         }
 
@@ -789,7 +804,6 @@ namespace PaintedObjectsMoving
         }
 
         private object sender = new object();
-        EventArgs e;
         /// <summary>
         /// Метод, выполняющий сохранение при закрытии файла.
         /// </summary>

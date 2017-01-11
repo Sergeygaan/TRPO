@@ -1,5 +1,5 @@
-﻿using PaintedObjectsMoving.CORE;
-using PaintedObjectsMoving.GUI;
+﻿using MyPaint.CORE;
+using MyPaint.GUI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
-namespace PaintedObjectsMoving
+namespace MyPaint
 {
     /// <summary>
     /// Класс, являющийся гланым в программе.
@@ -541,16 +541,15 @@ namespace PaintedObjectsMoving
             if (ActiveForm != null)
             {
                 
-                HistiryForm.Text = "История построения";         //озаглавливаем форму
-                HistiryForm.ListBox(ActiveForm.HistoryCommand, ActiveForm.IndexCommand);
-               
-                HistiryForm.ShowDialog();                 //отображаем форму
+                HistiryForm.Text = "История построения";
+                HistiryForm.ListBox(ActiveForm.HistoryCommand, ActiveForm.IndexCommand, ActiveForm);
 
-                ActiveForm.IndexCommand = HistiryForm.IndexCommand();
+                HistiryForm.ShowDialog();                
+                //ActiveForm.IndexCommand = HistiryForm.IndexCommand();
             }
             ActiveForm = null;
 
-            HistiryForm.Dispose();                    //уничтожаем форму
+            HistiryForm.Dispose();                    
         }
 
         /// <summary>

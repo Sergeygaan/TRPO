@@ -1,4 +1,4 @@
-﻿using PaintedObjectsMoving.CORE;
+﻿using MyPaint.CORE;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving
+namespace MyPaint
 {
     /// <summary>
     /// Класс, выполняющий выделение фигур.

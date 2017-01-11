@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PaintedObjectsMoving
+namespace MyPaint
 {
     /// <summary>
     /// Класс, выполняющий изменение положения выделенных фигур.
@@ -17,16 +17,6 @@ namespace PaintedObjectsMoving
         /// Переменная, хранящая класс для построеня структуры фигур.
         /// </summary>
         private СonstructionFigure _figureBuild = new СonstructionFigure();
-
-        /// <summary>
-        /// Переменная, хранящая координаты начальной точки.
-        /// </summary>
-        private PointF _pointStart;
-
-        /// <summary>
-        /// Переменная, хранящая координаты конечной точки.
-        /// </summary>
-        private PointF _pointEnd;
 
         /// <summary>
         /// Метод, выполняющий перемещение объекта.

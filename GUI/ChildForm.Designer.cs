@@ -1,4 +1,4 @@
-﻿namespace PaintedObjectsMoving
+﻿namespace MyPaint
 {
     partial class ChildForm
     {
