@@ -13,7 +13,7 @@ namespace PaintedObjectsMoving
     {
         //КОНСТАНТЫ
         const string outofrangetitle = "Вне установленного диапазона!";
-        const string outofnumberrange = "Число должно находиться в диапазоне от 10 до 4000.";
+        const string outofnumberrange = "Число должно находиться в диапазоне от 10 до 2000.";
         const string notdigittitle = "Введенный символ не является числом!";
         const string notdigitmessage = "Введенные сиволы должны быть цифрами.";
 
@@ -152,7 +152,7 @@ namespace PaintedObjectsMoving
                 if (!notdigit)
                 {
                     int size = Convert.ToInt32(UserWidth.Text);
-                    if (size < 10 || size > 4000)
+                    if (size < 10 || size > 2000)
                     {
                         inputerror = true;
                         WidthHelp.ToolTipTitle = outofrangetitle;
@@ -184,7 +184,7 @@ namespace PaintedObjectsMoving
                 if (!notdigit)
                 {
                     int size = Convert.ToInt32(UserHeight.Text);
-                    if (size < 10 || size > 4000)
+                    if (size < 10 || size > 2000)
                     {
                         inputerror = true;
                         HeightHelp.ToolTipTitle = outofrangetitle;

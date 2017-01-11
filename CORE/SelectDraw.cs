@@ -176,13 +176,13 @@ namespace PaintedObjectsMoving
 
                                         //MessageBox.Show(DrawObject.Path.PathPoints[0].X.ToString());
 
-                                        for (int i = 3; i < DrawObject.Path.PathPoints.Length; i += 3)
+                                        for (int i = 1; i < DrawObject.Path.PathPoints.Length; i++)
                                         {
                                             float PoliLineX, PoliLineY;
 
-                                            PoliLineY = (-(DrawObject.Path.PathPoints[i - 3].X * DrawObject.Path.PathPoints[i].Y - DrawObject.Path.PathPoints[i].X * DrawObject.Path.PathPoints[i - 3].Y) - ((DrawObject.Path.PathPoints[i - 3].Y - DrawObject.Path.PathPoints[i].Y) * e.Location.X)) / (DrawObject.Path.PathPoints[i].X - DrawObject.Path.PathPoints[i - 3].X);
+                                            PoliLineY = (-(DrawObject.Path.PathPoints[i - 1].X * DrawObject.Path.PathPoints[i].Y - DrawObject.Path.PathPoints[i].X * DrawObject.Path.PathPoints[i - 1].Y) - ((DrawObject.Path.PathPoints[i - 1].Y - DrawObject.Path.PathPoints[i].Y) * e.Location.X)) / (DrawObject.Path.PathPoints[i].X - DrawObject.Path.PathPoints[i - 1].X);
 
-                                            PoliLineX = (-(DrawObject.Path.PathPoints[i - 3].X * DrawObject.Path.PathPoints[i].Y - DrawObject.Path.PathPoints[i].X * DrawObject.Path.PathPoints[i - 3].Y) - ((DrawObject.Path.PathPoints[i].X - DrawObject.Path.PathPoints[i - 3].X) * e.Location.Y)) / (DrawObject.Path.PathPoints[i - 3].Y - DrawObject.Path.PathPoints[i].Y);
+                                            PoliLineX = (-(DrawObject.Path.PathPoints[i - 1].X * DrawObject.Path.PathPoints[i].Y - DrawObject.Path.PathPoints[i].X * DrawObject.Path.PathPoints[i - 1].Y) - ((DrawObject.Path.PathPoints[i].X - DrawObject.Path.PathPoints[i - 1].X) * e.Location.Y)) / (DrawObject.Path.PathPoints[i - 1].Y - DrawObject.Path.PathPoints[i].Y);
 
                                             if ((e.Location.Y >= PoliLineY - DrawObject.Pen.Width - 2) && (e.Location.Y <= PoliLineY + DrawObject.Pen.Width + 2) || (e.Location.X >= PoliLineX - DrawObject.Pen.Width - 2) && (e.Location.X <= PoliLineX + DrawObject.Pen.Width + 2))
                                             {

@@ -79,23 +79,30 @@ namespace PaintedObjectsMoving
 
                     case MainForm.FigureType.PoliLine:
 
-                        PointF[] PointPoliLine = _points.ToArray();
+                        if (_points.Count > 1)
+                        {
+                            PointF[] PointPoliLine = _points.ToArray();
 
-                        e.Graphics.DrawLines(_penFigure, PointPoliLine);
+                            e.Graphics.DrawLines(_penFigure, PointPoliLine);
+                        }
 
                         break;
 
                     case MainForm.FigureType.Polygon:
 
-                        PointF[] PointPolygon = _points.ToArray();
+                        if (_points.Count > 1)
+                        {
+                            PointF[] PointPolygon = _points.ToArray();
 
-                        e.Graphics.DrawLines(_penFigure, PointPolygon);
-
+                            e.Graphics.DrawLines(_penFigure, PointPolygon);
+                        }
                         break;
                 }
 
-
-                _rect = _ellipse.ShowRectangle(_points[0], _points[1]);
+                if (_points.Count > 1)
+                {
+                    _rect = _ellipse.ShowRectangle(_points[0], _points[1]);
+                }
             }
 
             e.Graphics.DrawImage(bmp, 0, 0);
@@ -248,7 +255,7 @@ namespace PaintedObjectsMoving
                     case MainForm.FigureType.PoliLine:
                     case MainForm.FigureType.Polygon:
 
-                        for (int i = 0; i < SelectObject.PointSelect.Length; i += 3)
+                        for (int i = 0; i < SelectObject.PointSelect.Length; i++)
                         {
                             _drawSupportObject = new SupportObject(new Pen(MainForm.FigurePropertiesSupport.linecolor, 1), new GraphicsPath());
                             _drawSupportObject.Path.AddEllipse(_ellipse.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));

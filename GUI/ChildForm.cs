@@ -31,6 +31,9 @@ namespace PaintedObjectsMoving
         {
             InitializeComponent();
 
+            DrawForm.Width = MainForm.ChildWidthSize;
+            DrawForm.Height = MainForm.ChildHeightSize;
+
             this.AutoScroll = true;                             //разрешаем скроллинг
 
             DoubleBuffered = true;
@@ -150,17 +153,17 @@ namespace PaintedObjectsMoving
 
                                 break;
 
-                            case MainForm.FigureType.PoliLine:
+                            //case MainForm.FigureType.PoliLine:
 
-                                _points.Add(new PointF(e.Location.X, e.Location.Y));
+                            //    _points.Add(new PointF(e.Location.X, e.Location.Y));
 
-                                break;
+                            //    break;
 
-                            case MainForm.FigureType.Polygon:
+                            //case MainForm.FigureType.Polygon:
 
-                                _points.Add(new PointF(e.Location.X, e.Location.Y));
+                            //    _points.Add(new PointF(e.Location.X, e.Location.Y));
 
-                                break;
+                            //    break;
                         }
 
                     }
@@ -250,14 +253,21 @@ namespace PaintedObjectsMoving
                             case MainForm.FigureType.Line:
                             case MainForm.FigureType.Ellipse:
                             case MainForm.FigureType.Rectangle:
-                            case MainForm.FigureType.PoliLine:
-                            case MainForm.FigureType.Polygon:
+
 
                                 mouseclick = true;
                                 _points.Add(new PointF(e.Location.X, e.Location.Y));
                                 _points.Add(new PointF(e.Location.X, e.Location.Y));
 
                                 break;
+                            case MainForm.FigureType.PoliLine:
+                            case MainForm.FigureType.Polygon:
+
+                                mouseclick = true;
+                                _points.Add(new PointF(e.Location.X, e.Location.Y));
+
+                                break;
+
                         }
 
                     }

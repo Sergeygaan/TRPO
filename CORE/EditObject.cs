@@ -262,12 +262,10 @@ namespace PaintedObjectsMoving
 
             if (currObj.IdFigure == _supportObj.IdFigure)
             {
-                for (int i = 0; i < 3; i++)
-                {
-                    currObj.PointSelect[_supportObj.ControlPointF + i].X += deltaX;
-                    currObj.PointSelect[_supportObj.ControlPointF + i].Y += deltaY;
-                }
-                        
+               
+                currObj.PointSelect[_supportObj.ControlPointF].X += deltaX;
+                currObj.PointSelect[_supportObj.ControlPointF].Y += deltaY;
+                                       
                 PointF[] PointF = currObj.PointSelect.ToArray();
                 currObj.Path.Reset();
                 currObj.Path.AddLines(PointF);
