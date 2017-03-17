@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using MyPaint.Build;
+using MyPaint.Command;
+using MyPaint.ObjectType;
 
-
-namespace MyPaint.CORE
+namespace MyPaint.Core
 {
     [Serializable]
     /// <summary>
@@ -66,7 +68,7 @@ namespace MyPaint.CORE
             /// <summary>
             /// Переменная, хранящая тип фигуры.
             /// </summary>
-            public MainForm.FigureType _currentFigure;
+            public int _currentFigure;
 
 
         }
@@ -97,11 +99,11 @@ namespace MyPaint.CORE
             _childHeightSize = ChildHeightSize;
 
 
-            List<Object> _figures = new List<Object>();
+            List<ObjectFugure> _figures = new List<ObjectFugure>();
 
-            _figures = (List<Object>)Figures;
+            _figures = (List<ObjectFugure>)Figures;
 
-            foreach (Object SelectObjectResult in _figures)
+            foreach (ObjectFugure SelectObjectResult in _figures)
             {
                 //Характеристики кисти
                 _figureProperties._lineColorPen = SelectObjectResult.Pen.Color;
@@ -133,7 +135,7 @@ namespace MyPaint.CORE
         /// </summary>
         public object LoadProject()
         {
-            List<Object> _figures = new List<Object>();
+            List<ObjectFugure> _figures = new List<ObjectFugure>();
 
             foreach (PropertiesFigure LoadObject in _figurePropertiesList)
             {
@@ -144,7 +146,7 @@ namespace MyPaint.CORE
                 GraphicsPath NewPath = new GraphicsPath(LoadObject._pointFigure, LoadObject._typesFigure);
 
 
-                Object NewObject = new Object(NewPen, NewPath, LoadObject._brushColorPen, LoadObject._currentFigure, LoadObject._fill);
+                ObjectFugure NewObject = new ObjectFugure(NewPen, NewPath, LoadObject._brushColorPen, LoadObject._currentFigure, LoadObject._fill);
 
 
                 NewObject.IdFigure = LoadObject._idFigure;

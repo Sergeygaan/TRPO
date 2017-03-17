@@ -1,28 +1,26 @@
-﻿using MyPaint.CORE;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using MyPaint.Build;
+using MyPaint.Command;
+using MyPaint.ObjectType;
 
-namespace MyPaint
+namespace MyPaint.Core
 {
     /// <summary>
     /// Класс, выполняющий выделение фигур.
     /// </summary>
-    class SelectDraw
+    public class SelectDraw
     {
         /// <summary>
         /// Переменная, хранящая список с выделенными фигурами.
         /// </summary>
-        private List<Object> _selectedFigures = new List<Object>();
+        private List<ObjectFugure> _selectedFigures = new List<ObjectFugure>();
 
         /// <summary>
         /// Переменная, хранящая выделенную фигуру.
         /// </summary>
-        private SupportObject _supportObj;
+        private SupportObjectFugure _supportObj;
 
         /// <summary>
         /// Переменная, хранящая тукущие координаты мыщи.
@@ -44,7 +42,7 @@ namespace MyPaint
         /// </summary>
         public void MouseUp()
         {
-            foreach (Object SelectObject in _selectedFigures)
+            foreach (ObjectFugure SelectObject in _selectedFigures)
             {
                 if (SelectObject != null)
                 {
@@ -76,9 +74,9 @@ namespace MyPaint
 
             if (_selectedFigures.Count != 0)
             {
-                foreach (Object SelectObject in _selectedFigures)
+                foreach (ObjectFugure SelectObject in _selectedFigures)
                 {
-                    foreach (SupportObject SupportObjecFigure in SelectObject.SelectListFigure())
+                    foreach (SupportObjectFugure SupportObjecFigure in SelectObject.SelectListFigure())
                     {
 
                         _rectangleF = SupportObjecFigure.Path.GetBounds();
@@ -103,7 +101,7 @@ namespace MyPaint
         /// <para name = "Figures">Переменная, хранящая список всех фигур.</para>
         /// <para name = "CurrentActions">Переменная, хранящая действие над выбранной фигурой.</para>
         /// <para name = "FiguresBuild">Переменная, хранящая список действий.</para>
-        public void MouseDown(MouseEventArgs e, Rectangle Rect, List<Object> Figures, MainForm.Actions CurrentActions, List<IFigureBuild> FiguresBuild)
+        public void MouseDown(MouseEventArgs e, Rectangle Rect, List<ObjectFugure> Figures, int CurrentActions, List<IFigureBuild> FiguresBuild)
         {
             //Запоминаем положение курсора
             _oldPoint = e.Location;
@@ -113,7 +111,7 @@ namespace MyPaint
             if (_selectedFigures.Count == 0)
             {
 
-                foreach (Object DrawObject in Figures)
+                foreach (ObjectFugure DrawObject in Figures)
                 {
 
                     figurestartX = DrawObject.FigureStart.X;
@@ -138,7 +136,7 @@ namespace MyPaint
                     switch (CurrentActions)
                     {
 
-                        case MainForm.Actions.SelectRegion:
+                        case 2:
 
                             if (_rectangleF.IntersectsWith(Rect))
                             {
@@ -151,11 +149,11 @@ namespace MyPaint
 
                             break;
 
-                        case MainForm.Actions.SelectPoint:
+                        case 1:
 
                             if (_rectangleF.Contains(e.Location))
                             {
-                                FiguresBuild[(int)DrawObject.CurrentFigure].ScaleFigure(e, DrawObject, _selectedFigures);
+                                FiguresBuild[DrawObject.CurrentFigure].ScaleFigure(e, DrawObject, _selectedFigures);
                             }
 
                             break;
@@ -172,7 +170,7 @@ namespace MyPaint
         /// <para name = "e">Переменная, хранящая координаты мыши.</para>
         /// <para name = "CurrentActions">Переменная, хранящая действие над выбранной фигурой.</para>
         /// <para name = "FiguresBuild">Переменная, хранящая список действий.</para>
-        public void MouseMove(MouseEventArgs e, MainForm.Actions CurrentActions, List<IFigureBuild> FiguresBuild)
+        public void MouseMove(MouseEventArgs e, int CurrentActions, List<IFigureBuild> FiguresBuild)
         {
             //Считаем смещение курсора
             int deltaX, deltaY;
@@ -180,13 +178,12 @@ namespace MyPaint
             deltaX = e.Location.X - _oldPoint.X;
             deltaY = e.Location.Y - _oldPoint.Y;
 
-            foreach (Object SelectObject in _selectedFigures)
+            foreach (ObjectFugure SelectObject in _selectedFigures)
             {
-              
                 //Масштабирование опорных точек
                 if ((SelectObject != null) && (_supportObj != null))
                 {
-                    FiguresBuild[(int)SelectObject.CurrentFigure].ScaleSelectFigure(SelectObject, _supportObj, deltaX, deltaY, _edipParametr);
+                    FiguresBuild[SelectObject.CurrentFigure].ScaleSelectFigure(SelectObject, _supportObj, deltaX, deltaY);
  
                 }
                 else
@@ -207,7 +204,7 @@ namespace MyPaint
         /// <summary>
         /// Метод, возвращающий список выделенных фигур.
         /// </summary>
-        public List<Object> SeleckResult()
+        public List<ObjectFugure> SeleckResult()
         {
             return _selectedFigures;
         }
