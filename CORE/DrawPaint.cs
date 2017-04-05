@@ -6,6 +6,8 @@ using MyPaint.Build;
 using MyPaint.Command;
 using MyPaint.ObjectType;
 using Core;
+using Unity;
+using Microsoft.Practices.Unity;
 
 namespace MyPaint.Core
 {
@@ -35,7 +37,10 @@ namespace MyPaint.Core
         /// <para name = "Height">Переменная, хранящая  высоту рабочей области</para>
         public DrawPaint(int Width, int Height, UndoRedo CommandClass)
         {
-            _drawingClass = new Drawing(Width, Height);
+            var UnityContainerInit = new UnityContainer();
+            //this._drawingClass = _drawingClass;
+            _drawingClass = UnityContainerInit.Resolve<Drawing>(new OrderedParametersOverride(new object[] { Width, Height }));
+            //_drawingClass = new Drawing(Width, Height);
             _iFigureCommandBuild.Add(_cleanFigure);
             _commandClass = CommandClass;
 
@@ -199,6 +204,8 @@ namespace MyPaint.Core
             get { return _commandClass.IndexCommand; }
             set { _commandClass.IndexCommand = value; }
         }
+
+
 
     }
 }

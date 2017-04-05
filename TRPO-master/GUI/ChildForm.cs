@@ -1,14 +1,13 @@
-﻿using MyPaint.Actions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using MyPaint.Core;
-using MyPaint.Build;
-using MyPaint.Command;
-using MyPaint.ObjectType;
-using Core;
+using ActivForm;
+
+
+using Microsoft.Practices.Unity;
+using Unity;
 
 namespace MyPaint
 {
@@ -49,11 +48,6 @@ namespace MyPaint
         }
 
         /// <summary>
-        /// Переменная, хранящая класс с действиями над фигурами.
-        /// </summary>
-        private EditObject _edipParametr = new EditObject();
-
-        /// <summary>
         /// Структура, хранящая основные характеристики опорных точек.
         /// </summary>
         public struct PropertiesSupport
@@ -69,25 +63,7 @@ namespace MyPaint
         /// </summary>
         private MainForm _mainForm;
 
-        /// <summary>
-        /// Переменная, хранящая класс для отрисовки и сохранения фигур.
-        /// </summary>
-        private DrawPaint _drawClass;
-
-        /// <summary>
-        /// Переменная, хранящая класс для выделения.
-        /// </summary>
-        private SelectDraw _selectClass;
-
-        /// <summary>
-        /// Переменная, хранящая список точек для построения фигур.
-        /// </summary>
-        private List<PointF> _points = new List<PointF>();
-
-        /// <summary>
-        /// Переменная, хранящая список классов для построения различных фигур.
-        /// </summary>
-        private List<IFigureBuild> _figuresBuild = new List<IFigureBuild>();
+    
 
         /// <summary>
         /// Переменная, хранящая текущую выбранную фигуру.
@@ -119,22 +95,17 @@ namespace MyPaint
         /// </summary>
         private static PropertiesSupport _figurePropertiesSupport;
 
+        private Activ _activFormMain;
 
-        /// <summary>
-        /// Переменная, хранящая список действий для построения различных фигур.
-        /// </summary>
-        private List<IActoins> _actionsBuild = new List<IActoins>();
-
-        private UndoRedo _commandClass = new UndoRedo();
-
-        private ParameterChanges _parameterChangesClass;
 
         /// <summary>
         /// Метод, создающий рабочую область, и инициализирующий остальные объекты.
         /// </summary>
-        public ChildForm(MainForm MainForm)
+        public ChildForm(MainForm MainForm, Activ ActivFormMain)
         {
             InitializeComponent();
+
+            var UnityContainerInit = new UnityContainer();
 
             _mainForm = MainForm;
             
@@ -142,38 +113,21 @@ namespace MyPaint
             DrawForm.Width = MainForm.ChildWidthSize;
             DrawForm.Height = MainForm.ChildHeightSize;
 
-            AutoScroll = true;                             //разрешаем скроллинг
+            _activFormMain = ActivFormMain;
+
+            AutoScroll = true;                             
 
             DoubleBuffered = true;
 
-            //Инициализация классов
-            _drawClass = new DrawPaint(DrawForm.Width, DrawForm.Height, _commandClass);
-
-            _selectClass = new SelectDraw();
-
-            _parameterChangesClass = new ParameterChanges(_drawClass, _commandClass);
-
             //Характеристика фигуры
             _figureProperties.brushcolor = Color.White;
-            _figureProperties.dashstyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            _figureProperties.dashstyle = DashStyle.Solid;
             _figureProperties.fill = false;
             _figureProperties.linecolor = Color.Black;
             //_figureProperties.thickness = 1;
 
             //Характеристика опорных точек
             _figurePropertiesSupport.linecolor = Color.Black;
-            
-            _figuresBuild.Add(new Rectangles(_edipParametr));
-            _figuresBuild.Add(new Ellipses(_edipParametr));
-            _figuresBuild.Add(new Line(_edipParametr));
-            _figuresBuild.Add(new PoliLine(_edipParametr));
-            _figuresBuild.Add(new Polygon(_edipParametr));
-            _figuresBuild.Add(new RectangleSelect());
-
-
-            _actionsBuild.Add(new DrawActoins(_figuresBuild, _selectClass, _drawClass));
-            _actionsBuild.Add(new SelectRegionActions(_figuresBuild, _selectClass, _drawClass, _parameterChangesClass));
-            _actionsBuild.Add(new SelectPointActions(_figuresBuild, _selectClass, _drawClass, _parameterChangesClass));
 
         }
 
@@ -186,12 +140,9 @@ namespace MyPaint
         {
             RefreshBitmap();
 
-            _drawClass.Paint(e, _currentfigure, _points, _figuresBuild, _figureProperties.linecolor, _figureProperties.thickness, _figureProperties.dashstyle);
+            _activFormMain.Child_Paint(e, _currentfigure, _figureProperties.linecolor, _figureProperties.thickness, _figureProperties.dashstyle, _figurePropertiesSupport.linecolor);
 
-            if (_selectClass.SeleckResult() != null)
-            {
-                _drawClass.SupportPoint(_selectClass.SeleckResult(), _figuresBuild, _figurePropertiesSupport.linecolor);
-            }
+         
         }
 
         /// <summary>
@@ -202,7 +153,7 @@ namespace MyPaint
         private void Child_MouseMove(object sender, MouseEventArgs e)
         {
             //_drawClass.MouseMoveActions();
-            _points = _actionsBuild[_currentActions].MouseMove(sender, e, _currentfigure, _currentActions);
+            _activFormMain.Child_MouseMove(e, _currentfigure, _currentActions);
 
             DrawForm.Refresh();
         }
@@ -214,7 +165,7 @@ namespace MyPaint
         /// <para name = "e">Переменная, хранящая координаты мыщи</para>
         private void Child__MouseUp(object sender, MouseEventArgs e)    // Нажата клавиша 
         {
-            _actionsBuild[_currentActions].MouseUp(sender, e, _currentfigure, _figureProperties.linecolor, _figureProperties.thickness, _figureProperties.dashstyle, _figureProperties.brushcolor, _figureProperties.fill);
+            _activFormMain.Child_MouseUp(e, _currentfigure, _currentActions, _figureProperties.linecolor, _figureProperties.thickness, _figureProperties.dashstyle, _figureProperties.brushcolor, _figureProperties.fill);
             _fileSave = true;
             DrawForm.Refresh();
         }
@@ -226,16 +177,17 @@ namespace MyPaint
         /// <para name = "e">Переменная, хранящая координаты мыщи</para>
         private void Child1_MouseDown(object sender, MouseEventArgs e)  // Нажата отпущена 
         {
-            _actionsBuild[_currentActions].MouseDown(sender, e, _currentfigure);
+            _activFormMain.Child1_MouseDown(e, _currentfigure, _currentActions);
             DrawForm.Refresh();
         }
 
         /// <summary>
         /// Метод, выполняющий обновление рабочей области.
         /// </summary>
-        void RefreshBitmap()
+        public  void RefreshBitmap()
         {
-            _drawClass.RefreshBitmap();
+            _activFormMain.RefreshBitmap();
+           
         }
 
         /// <summary>
@@ -243,12 +195,7 @@ namespace MyPaint
         /// </summary>
         public void DeleteFigure()
         {
-            if (_points.Count != 0)
-            {
-                _points.Clear();
-            }
-            _selectClass.MouseUp();
-            _parameterChangesClass.Clear();
+            _activFormMain.DeleteFigure();
             DrawForm.Invalidate();
             _fileSave = true;
         }
@@ -279,7 +226,7 @@ namespace MyPaint
         /// </summary>
         public void DeleteSupportFigure()
         {
-            _selectClass.MouseUp();
+            _activFormMain.DeleteSupportFigure();
             DrawForm.Refresh();
         }
 
@@ -288,11 +235,8 @@ namespace MyPaint
         /// </summary>
         public void СopyFigure()
         {
-            if (_selectClass.SeleckResult() != null)
-            {
-                _parameterChangesClass.ReplicationFigure(_selectClass.SeleckResult());
-            }
-            _fileSave = true;
+            _activFormMain.СopyFigure();
+             _fileSave = true;
             DrawForm.Refresh();
         }
 
@@ -301,13 +245,8 @@ namespace MyPaint
         /// </summary>
         public void DeleteSelectFigure()
         {
-            if (_selectClass.SeleckResult() != null)
-            {
-                _parameterChangesClass.DeleteFigure(_selectClass.SeleckResult());
-            }
-            //ChangeActions(LastActions);
-            _selectClass.MouseUp();
-            DrawForm.Refresh();
+            _activFormMain.DeleteSelectFigure();
+              DrawForm.Refresh();
             _fileSave = true;
         }
 
@@ -316,7 +255,7 @@ namespace MyPaint
         /// </summary>
         public void СhangeBackgroundFigure(Color ColorBlakgroung)
         {
-            _parameterChangesClass.СhangeBackgroundFigure(_selectClass.SeleckResult(), ColorBlakgroung);
+            _activFormMain.СhangeBackgroundFigure(ColorBlakgroung);
             //ChangeActions(LastActions);
             DrawForm.Refresh();
             _fileSave = true;
@@ -327,12 +266,9 @@ namespace MyPaint
         /// </summary>
         public void DeleteBackgroundFigure()
         {
-            if (_selectClass.SeleckResult() != null)
-            {
-                _parameterChangesClass.DeleteBackgroundFigure(_selectClass.SeleckResult());
-            }
+            _activFormMain.DeleteBackgroundFigure();
 
-            DrawForm.Refresh();
+             DrawForm.Refresh();
             _fileSave = true;
         }
 
@@ -342,7 +278,7 @@ namespace MyPaint
         /// <para name = "ColorPen">Переменная, хранящая новый цвет кисти.</para>
         public void ColorSelectPen(Color ColorPen)
         {
-            _parameterChangesClass.СhangePenColorFigure(_selectClass.SeleckResult(), ColorPen);
+            _activFormMain.ColorSelectPen(ColorPen);
             //ChangeActions(LastActions);
             DrawForm.Refresh();
             _fileSave = true;
@@ -353,7 +289,7 @@ namespace MyPaint
         /// </summary>
         public void СhangePenStyleFigure()
         {
-            _parameterChangesClass.СhangePenStyleFigure(_selectClass.SeleckResult(), _figureProperties.dashstyle);
+            _activFormMain.СhangePenStyleFigure(_figureProperties.dashstyle);
             //ChangeActions(LastActions);
             DrawForm.Refresh();
             _fileSave = true;
@@ -364,17 +300,10 @@ namespace MyPaint
         /// </summary>
         public void СhangePenWidthFigure()
         {
-            _parameterChangesClass.СhangePenWidthFigure(_selectClass.SeleckResult(), _figureProperties.thickness);
+            _activFormMain.СhangePenWidthFigure(_figureProperties.thickness);
+          
             //ChangeActions(LastActions);
             _fileSave = true;
-
-            int deltaX = 0;
-            int deltaY = 0;
-
-            foreach (ObjectFugure SelectObject in _selectClass.SeleckResult())
-            {
-                _edipParametr.MoveObjectSupport(SelectObject, deltaX, deltaY);
-            }
 
             DrawForm.Refresh();
         }
@@ -384,13 +313,7 @@ namespace MyPaint
         /// </summary>
         public void UndoFigure()
         {
-            if ((_points != null) && (_points.Count != 0))
-            {
-                _points.Clear();
-            }
-
-            _selectClass.MouseUp();
-            _drawClass.UndoFigure();
+            _activFormMain.UndoFigure();
             DrawForm.Refresh();
             _fileSave = true;
         }
@@ -400,7 +323,7 @@ namespace MyPaint
         /// </summary>
         public void RedoFigure()
         {
-            _drawClass.RedoFigure();
+            _activFormMain.RedoFigure();
             DrawForm.Refresh();
             _fileSave = true;
         }
@@ -411,7 +334,7 @@ namespace MyPaint
         /// <para name = "NextColor">Переменная, хранящая новый цвет опорных точек.</para>
         public void СhangeSupportPenStyleFigure(Color NextColor)
         {
-            _parameterChangesClass.СhangeSupportPenStyleFigure(NextColor, _selectClass.SeleckResult());
+            _activFormMain.СhangeSupportPenStyleFigure(NextColor);
             DrawForm.Refresh();
             _fileSave = true;
         }
@@ -421,7 +344,7 @@ namespace MyPaint
         /// </summary>
         public PictureBox SaveProject()
         {
-            _drawClass.SaveProject(DrawForm);
+            //_activFormMain.SaveProject();
             return DrawForm;
         
         }
@@ -431,7 +354,7 @@ namespace MyPaint
         /// </summary>
         public void ClearProject()
         {
-            _drawClass.ClearProject(DrawForm);
+            //_activFormMain.ClearProject(DrawForm);
             _fileSave = true;
         }
 
@@ -439,28 +362,28 @@ namespace MyPaint
         /// <summary>
         /// Метод, выполняющий действия над списком комманд.
         /// </summary>
-        public object HistoryCommand
-        {
-            get { return _drawClass.IFigureCommand; }
-            set { _drawClass.IFigureCommand = (List<IFigureCommand>)value; }
-        }
+        //public object HistoryCommand
+        //{
+        //    get { return _drawClass.IFigureCommand; }
+        //    set { _drawClass.IFigureCommand = (List<IFigureCommand>)value; }
+        //}
 
         /// <summary>
         /// Метод, выполняющий действия над списком фигур.
         /// </summary>
-        public object HistoryFigure
-        {
-            get
-            {
-                _fileSave = false;
-                return _drawClass.FiguresList;
-            }
-            set
-            {
-                _fileSave = true;
-                _drawClass.FiguresList = (List<ObjectFugure>)value;
-            }
-        }
+        //public object HistoryFigure
+        //{
+        //    get
+        //    {
+        //        _fileSave = false;
+        //        return _drawClass.FiguresList;
+        //    }
+        //    set
+        //    {
+        //        _fileSave = true;
+        //        _drawClass.FiguresList = (List<ObjectFugure>)value;
+        //    }
+        //}
 
         /// <summary>
         /// Метод, выполняющий возвращающий индекс комманды.
@@ -469,18 +392,11 @@ namespace MyPaint
         {
             get
             {
-                if ((_points != null) && (_points.Count != 0))
-                {
-                    _points.Clear();
-                }
-                _selectClass.MouseUp();
-                DrawForm.Refresh();
-                return _drawClass.IndexCommand;
+                return _activFormMain.IndexCommand;
             }
             set
             {
-                DrawForm.Refresh();
-                _drawClass.IndexCommand = value;
+                _activFormMain.IndexCommand = value;
             }
         }
 
@@ -561,13 +477,8 @@ namespace MyPaint
         /// </summary>
         public bool SelectFigure()
         {
-            bool ListFigure = false;
-            if (_selectClass.SeleckResult().Count != 0)
-            {
-                ListFigure = true;
-            }
-
-            return ListFigure;
+            return _activFormMain.SelectFigure();
+         
         }
 
        
@@ -595,6 +506,7 @@ namespace MyPaint
                         break;
                 }
             }
+
 
         }
 

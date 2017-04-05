@@ -1,11 +1,13 @@
-﻿using MyPaint.GUI;
+﻿using ActivForm;
+using Microsoft.Practices.Unity;
+using MyPaint.GUI;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
-using MyPaint.Core;
+using Unity;
 
 namespace MyPaint
 {
@@ -59,7 +61,7 @@ namespace MyPaint
         /// <summary>
         /// Структура, хранящая класс для соранения проекта.
         /// </summary>
-        private SaveProect _saveProect;
+        //private SaveProect _saveProect;
 
         /// <summary>
         /// Метод, инициализирующий остальные объекты.
@@ -81,6 +83,8 @@ namespace MyPaint
         /// /// <para name = "Next">Переменная, хранящая выбранную фигуру.</para>
         private void ChangeFigure( int Next)
         {
+            
+
             ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
             if (ActiveForm != null)
             {
@@ -517,7 +521,11 @@ namespace MyPaint
 
             if (_createNewFile)                                         //если в диалоговой форме было нажато ОК, то создаем новый файл
             {
-                Form NewForm = new ChildForm(this);                         //создаем объект - дочернюю форму-рисунок
+                var UnityContainerInit = new UnityContainer();
+
+                Activ _activFormMain = UnityContainerInit.Resolve<Activ>(new OrderedParametersOverride(new object[] { Width, Height }));
+
+                Form NewForm = new ChildForm(this, _activFormMain);                         //создаем объект - дочернюю форму-рисунок
              
                 NewForm.Text = "Рисунок" + ChildCounter.ToString();     //называем ее соответствующе
                 ChildCounter++;                                         //увеличиваем счетчик окон на единицу
@@ -543,7 +551,7 @@ namespace MyPaint
             {
                 
                 HistiryForm.Text = "История построения";
-                HistiryForm.ListBox(ActiveForm.HistoryCommand, ActiveForm.IndexCommand, ActiveForm);
+                //HistiryForm.ListBox(ActiveForm.HistoryCommand, ActiveForm.IndexCommand, ActiveForm);
 
                 HistiryForm.ShowDialog();                
                 
@@ -575,13 +583,13 @@ namespace MyPaint
                     if ((myStream = saveFileDialog1.OpenFile()) != null)
                     {
                         myStream.Close();
-                        _saveProect = new SaveProect(ActiveForm.HistoryFigure, _childWidhtSize, _childHeightSize);
+                        //_saveProect = new SaveProect(ActiveForm.HistoryFigure, _childWidhtSize, _childHeightSize);
 
                         BinaryFormatter binFormat = new BinaryFormatter();
                         // Сохранить объект в локальном файле.
                         using (FileStream fStream = new FileStream(saveFileDialog1.FileName, FileMode.OpenOrCreate))
                         {
-                            binFormat.Serialize(fStream, _saveProect);
+                            //binFormat.Serialize(fStream, _saveProect);
                         }
                         
                     }
@@ -666,12 +674,16 @@ namespace MyPaint
                             BinaryFormatter formatter = new BinaryFormatter();
                             using (FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.OpenOrCreate))
                             {
-                                SaveProect LoadProject = (SaveProect)formatter.Deserialize(fs);
+                                //SaveProect LoadProject = (SaveProect)formatter.Deserialize(fs);
 
-                                ChildWidthSize = LoadProject.ChildWidhtSize();
-                                ChildHeightSize = LoadProject.ChildHeightSize();
+                                //ChildWidthSize = LoadProject.ChildWidhtSize();
+                                //ChildHeightSize = LoadProject.ChildHeightSize();
 
-                                Form NewForm = new ChildForm(this);                       //создаем объект - дочернюю форму-рисунок
+                                var UnityContainerInit = new UnityContainer();
+
+                                Activ _activFormMain = UnityContainerInit.Resolve<Activ>(new OrderedParametersOverride(new object[] { Width, Height }));
+
+                                Form NewForm = new ChildForm(this, _activFormMain);                       //создаем объект - дочернюю форму-рисунок
                                 NewForm.Text = "Рисунок" + ChildCounter.ToString();     //называем ее соответствующе
 
                                
@@ -686,7 +698,7 @@ namespace MyPaint
                                 ChildForm ActiveForm = (ChildForm)this.ActiveMdiChild;
                                 if (ActiveForm != null)
                                 {
-                                    ActiveForm.HistoryFigure = LoadProject.LoadProject();                            
+                                    //ActiveForm.HistoryFigure = LoadProject.LoadProject();                            
                                 }
                                 ActiveForm = null;
 

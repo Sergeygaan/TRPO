@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using MyPaint.Build;
 using MyPaint.Command;
 using MyPaint.ObjectType;
+using Microsoft.Practices.Unity;
 
 namespace Core
 {
@@ -113,7 +114,11 @@ namespace Core
 
             _drawObject = new ObjectFugure(_penFigure, new GraphicsPath(), brushcolor, _currentfigure, _brushFill);
 
-            AddBuildFigure NewFigure = new AddBuildFigure();
+            var UnityContainerInit = new UnityContainer();
+
+            var NewFigure = UnityContainerInit.Resolve<AddBuildFigure>();
+
+            //AddBuildFigure NewFigure = new AddBuildFigure();
             NewFigure.AddFigure(_drawObject, Points, _figures);
 
 

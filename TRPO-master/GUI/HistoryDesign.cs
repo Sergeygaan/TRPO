@@ -6,8 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MyPaint.Build;
-using MyPaint.Command;
 
 namespace MyPaint.GUI
 {
@@ -19,7 +17,7 @@ namespace MyPaint.GUI
         /// <summary>
         /// Переменная, хранащая список комманд
         /// </summary>
-        private List<IFigureCommand> _listCommandHistory;
+        //private List<IFigureCommand> _listCommandHistory;
 
         /// <summary>
         /// Переменная, хранащая колличество комманд в списке.
@@ -50,20 +48,20 @@ namespace MyPaint.GUI
         /// <para name = "ObjectCommand">Переменная, хранящая список команд.</para>
         public void ListBox(object ObjectCommand, int IndexCommand, ChildForm ActiveForm)
         {
-            _indexCommand = IndexCommand;
+            //_indexCommand = IndexCommand;
 
-            List<IFigureCommand> ListCommand = (List<IFigureCommand>)ObjectCommand;
+            //List<IFigureCommand> ListCommand = (List<IFigureCommand>)ObjectCommand;
 
-            _indexDelete = ListCommand.Count() - IndexCommand - 1;
+            //_indexDelete = ListCommand.Count() - IndexCommand - 1;
 
-            _listCommandHistory = ListCommand;
+            //_listCommandHistory = ListCommand;
 
-            _activeForm = ActiveForm;
+            //_activeForm = ActiveForm;
 
-            foreach (IFigureCommand SelectObject in ListCommand)
-            {
-                listBox1.Items.Add(SelectObject.Operation());
-            }
+            //foreach (IFigureCommand SelectObject in ListCommand)
+            //{
+            //    listBox1.Items.Add(SelectObject.Operation());
+            //}
 
         }
 
@@ -75,31 +73,31 @@ namespace MyPaint.GUI
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
-            int SummCommand = 0;
+            //int SummCommand = 0;
 
-            if ((listBox1.SelectedIndex != -1) && (_indexCommand >= listBox1.SelectedIndex))
-            {
-                SummCommand = _listCommandHistory.Count - listBox1.SelectedIndex - _indexDelete;
+            //if ((listBox1.SelectedIndex != -1) && (_indexCommand >= listBox1.SelectedIndex))
+            //{
+            //    SummCommand = _listCommandHistory.Count - listBox1.SelectedIndex - _indexDelete;
 
-                for (int i = 0; i < SummCommand; i++)
-                {
-                    if (_indexCommand >= 0)
-                    {
-                        _listCommandHistory[_indexCommand].Undo();
-                        _indexDelete += 1;
-                        _indexCommand -= 1;
-                    }
-                }
-            }
+            //    for (int i = 0; i < SummCommand; i++)
+            //    {
+            //        if (_indexCommand >= 0)
+            //        {
+            //            _listCommandHistory[_indexCommand].Undo();
+            //            _indexDelete += 1;
+            //            _indexCommand -= 1;
+            //        }
+            //    }
+            //}
 
-            listBox1.Items.Clear();
+            //listBox1.Items.Clear();
 
-            foreach (IFigureCommand SelectObject in _listCommandHistory)
-            {
-                listBox1.Items.Add(SelectObject.Operation());
-            }
+            //foreach (IFigureCommand SelectObject in _listCommandHistory)
+            //{
+            //    listBox1.Items.Add(SelectObject.Operation());
+            //}
 
-            _activeForm.IndexCommand = IndexCommand();
+            //_activeForm.IndexCommand = IndexCommand();
         }
 
     }

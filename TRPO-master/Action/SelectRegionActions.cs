@@ -52,7 +52,7 @@ namespace MyPaint.Actions
         /// <para name = "SelectClass">Объект хранящий данные о выбранных фигурах</para>
         /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
         /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
-        public List<PointF> MouseMove(object sender, MouseEventArgs e, int Currentfigure, int CurrentActions)
+        public List<PointF> MouseMove(MouseEventArgs e, int Currentfigure, int CurrentActions)
         {
             if (_selectClass.SeleckResult().Count == 0)
             {
@@ -81,7 +81,7 @@ namespace MyPaint.Actions
         /// <para name = "SelectClass">Объект хранящий данные о выбранных фигурах</para>
         /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
         /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
-        public void MouseUp(object sender, MouseEventArgs e, int Currentfigure, Color linecolor, int thickness, DashStyle dashstyle, Color brushcolor, bool fill)
+        public void MouseUp(MouseEventArgs e, int Currentfigure, Color linecolor, int thickness, DashStyle dashstyle, Color brushcolor, bool fill)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -120,7 +120,7 @@ namespace MyPaint.Actions
         /// <para name = "SelectClass">Объект хранящий данные о выбранных фигурах</para>
         /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
         /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
-        public void MouseDown(object sender, MouseEventArgs e, int Currentfigure)
+        public void MouseDown(MouseEventArgs e, int Currentfigure)
         {
             if (e.Button == MouseButtons.Left)
             {

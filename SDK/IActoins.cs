@@ -19,7 +19,8 @@ namespace MyPaint.Actions
         /// <para name = "SelectClass">Объект хранящий данные о выбранных фигурах</para>
         /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
         /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
-        List<PointF> MouseMove(object sender, MouseEventArgs e, int Currentfigure,  int CurrentActions);
+        
+        List<PointF> MouseMove(MouseEventArgs e, int Currentfigure,  int CurrentActions);
 
         /// <summary>
         /// Метод, выполняющий действие при отпускании мыши.
@@ -30,7 +31,7 @@ namespace MyPaint.Actions
         /// <para name = "SelectClass">Объект хранящий данные о выбранных фигурах</para>
         /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
         /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
-        void MouseUp(object sender, MouseEventArgs e, int Currentfigure, Color linecolor, int thickness, DashStyle dashstyle, Color brushcolor, bool fill);
+        void MouseUp(MouseEventArgs e, int Currentfigure, Color linecolor, int thickness, DashStyle dashstyle, Color brushcolor, bool fill);
 
         /// <summary>
         /// Метод, выполняющий действие при нажатии мыши.
@@ -41,6 +42,6 @@ namespace MyPaint.Actions
         /// <para name = "SelectClass">Объект хранящий данные о выбранных фигурах</para>
         /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
         /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
-        void MouseDown(object sender, MouseEventArgs e, int Currentfigure);
+        void MouseDown(MouseEventArgs e, int Currentfigure);
     }
 }

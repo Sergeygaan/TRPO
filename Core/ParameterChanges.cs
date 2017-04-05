@@ -1,4 +1,5 @@
-﻿using MyPaint.Command;
+﻿using Microsoft.Practices.Unity;
+using MyPaint.Command;
 using MyPaint.Core;
 using MyPaint.ObjectType;
 using System;
@@ -7,6 +8,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
+using Unity;
 
 namespace Core
 {
@@ -75,6 +77,7 @@ namespace Core
 
         private UndoRedo _commandClass;
 
+
         /// <summary>
         /// Переменная, хранящая список команд.
         /// </summary>
@@ -82,9 +85,10 @@ namespace Core
 
         public ParameterChanges(DrawPaint DrawClass, UndoRedo CommandClass)
         {
-            _drawClass = DrawClass;
-            _commandClass = CommandClass;
+            this._drawClass = DrawClass;
+            this._commandClass = CommandClass;
             _iFigureCommandBuild.Add(_cleanFigure);
+            
         }
 
         /// <summary>
@@ -97,7 +101,11 @@ namespace Core
             {
                 _drawClass.EditFigure();
 
-                _replicationFigure = new ReplicationFigure(SeleckResult, _drawClass.FiguresList);
+
+                var UnityContainerInit = new UnityContainer();
+
+                _replicationFigure = UnityContainerInit.Resolve<ReplicationFigure>(new OrderedParametersOverride(new object[] { SeleckResult, _drawClass.FiguresList }));
+                    
 
                 _iFigureCommandBuild[0] = _replicationFigure;
                 _commandClass.AddCommand(_iFigureCommandBuild);
@@ -116,7 +124,9 @@ namespace Core
             {
                 _drawClass.EditFigure();
 
-                _deleteFigure = new DeleteFigure(SeleckResult, _drawClass.FiguresList);
+                var UnityContainerInit = new UnityContainer();
+
+                _deleteFigure = UnityContainerInit.Resolve<DeleteFigure>(new OrderedParametersOverride(new object[] { SeleckResult, _drawClass.FiguresList }));
 
                 _iFigureCommandBuild[0] = _deleteFigure;
                 _commandClass.AddCommand(_iFigureCommandBuild);
@@ -136,7 +146,9 @@ namespace Core
             {
                 _drawClass.EditFigure();
 
-                _deleteBrush = new DeleteBackgroundFigure(SeleckResult);
+                var UnityContainerInit = new UnityContainer();
+
+                _deleteBrush = UnityContainerInit.Resolve<DeleteBackgroundFigure>(new OrderedParametersOverride(new object[] { SeleckResult }));
 
                 _iFigureCommandBuild[0] = _deleteBrush;
                 _commandClass.AddCommand(_iFigureCommandBuild);
@@ -155,7 +167,9 @@ namespace Core
             {
                 _drawClass.EditFigure();
 
-                _brushColor = new СhangeBackgroundFigure(SeleckResult, ColorСhangeBackground);
+                var UnityContainerInit = new UnityContainer();
+
+                _brushColor = UnityContainerInit.Resolve<СhangeBackgroundFigure>(new OrderedParametersOverride(new object[] { SeleckResult, ColorСhangeBackground }));
 
                 _iFigureCommandBuild[0] = _brushColor;
                 _commandClass.AddCommand(_iFigureCommandBuild);
@@ -175,7 +189,10 @@ namespace Core
             {
                 _drawClass.EditFigure();
 
-                _penColor = new СhangePenColor(SeleckResult, PenColor);
+                var UnityContainerInit = new UnityContainer();
+
+                _penColor = UnityContainerInit.Resolve<СhangePenColor>(new OrderedParametersOverride(new object[] { SeleckResult, PenColor }));
+
                 _iFigureCommandBuild[0] = _penColor;
                 _commandClass.AddCommand(_iFigureCommandBuild);
             }
@@ -192,7 +209,9 @@ namespace Core
             {
                 _drawClass.EditFigure();
 
-                _penWidth = new СhangePenWidth(SeleckResult, thickness);
+                var UnityContainerInit = new UnityContainer();
+
+                _penWidth = UnityContainerInit.Resolve<СhangePenWidth>(new OrderedParametersOverride(new object[] { SeleckResult, thickness }));
 
                 _iFigureCommandBuild[0] = _penWidth;
                 _commandClass.AddCommand(_iFigureCommandBuild);
@@ -214,7 +233,10 @@ namespace Core
                 {
                     _drawClass.EditFigure();
 
-                    _penMove = new СhangeMove(SeleckResult);
+                    var UnityContainerInit = new UnityContainer();
+
+                    _penMove = UnityContainerInit.Resolve<СhangeMove>(new OrderedParametersOverride(new object[] { SeleckResult }));
+
                 }
                 else
                 {
@@ -239,7 +261,10 @@ namespace Core
             {
                 _drawClass.EditFigure();
 
-                _penStyle = new СhangePenStyle(SeleckResult, dashstyle);
+                var UnityContainerInit = new UnityContainer();
+
+                _penStyle = UnityContainerInit.Resolve<СhangePenStyle>(new OrderedParametersOverride(new object[] { SeleckResult, dashstyle }));
+
                 _iFigureCommandBuild[0] = _penStyle;
                 _commandClass.AddCommand(_iFigureCommandBuild);
 
@@ -256,7 +281,9 @@ namespace Core
         {
             _drawClass.EditFigure();
 
-            _supportPenColor = new СhangeSupportPenColor(NextColor, SeleckResult);
+            var UnityContainerInit = new UnityContainer();
+
+            _supportPenColor = UnityContainerInit.Resolve<СhangeSupportPenColor>(new OrderedParametersOverride(new object[] { NextColor, SeleckResult }));
 
             _iFigureCommandBuild[0] = _supportPenColor;
             _commandClass.AddCommand(_iFigureCommandBuild);
@@ -272,7 +299,10 @@ namespace Core
             {
                 _drawClass.EditFigure();
 
-                _cleanFigure = new CleanFigure(_drawClass.FiguresList, _figuresLoad);
+                var UnityContainerInit = new UnityContainer();
+
+                _cleanFigure = UnityContainerInit.Resolve<CleanFigure>(new OrderedParametersOverride(new object[] { _drawClass.FiguresList, _figuresLoad }));
+
 
                 _iFigureCommandBuild[0] = _cleanFigure;
                 _commandClass.AddCommand(_iFigureCommandBuild);

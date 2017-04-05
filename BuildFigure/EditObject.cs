@@ -45,9 +45,6 @@ namespace MyPaint.Build
         public void MoveObjectSupport(ObjectFugure CurrObj, int DeltaX, int DeltaY)
         {
 
-            foreach (SupportObjectFugure SelectObject in CurrObj.SelectListFigure())
-            {
-
                 if (CurrObj.CurrentFigure != 1)
                 {
                     for (int i = 0; i < CurrObj.PointSelect.Length; i++)
@@ -64,8 +61,6 @@ namespace MyPaint.Build
                         k++;
                     }
                 }
-            }
-
         }
 
 

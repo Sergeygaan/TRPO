@@ -1,11 +1,6 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using MyPaint.Build;
-using MyPaint.Command;
 using MyPaint.ObjectType;
 
 namespace MyPaint.Command
@@ -15,11 +10,6 @@ namespace MyPaint.Command
     /// </summary>
     public class AddBuildFigure : IFigureCommand
     {
-
-        /// <summary>
-        /// Переменная, хранящая класс для построения структуры прямоугольника.
-        /// </summary>
-        private СonstructionFigure _сonstructionFigure = new СonstructionFigure();
 
         /// <summary>
         /// Переменная, хранящая опорные точки для построения прямоугольника.
@@ -44,6 +34,26 @@ namespace MyPaint.Command
         private string _TypeFigure;
 
         /// <summary>
+        /// Переменная, хранящая верхнуую координату фигуры.
+        /// </summary>
+        private int _top;
+
+        /// <summary>
+        /// Переменная, хранящая левую координату фигуры.
+        /// </summary>       
+        private int _left;
+
+        /// <summary>
+        /// Переменная, хранящая нижнюю координату фигуры.
+        /// </summary>           
+        private int _down;
+
+        /// <summary>
+        /// Переменная, хранящая правую координату фигуры.
+        /// </summary>        
+        private int _right;
+
+        /// <summary>
         /// Метод, выполняющий построение прямоугольника.
         /// </summary>
         /// <para name = "DrawObject">Переменная для сохранения созданного объекта</para>
@@ -60,13 +70,13 @@ namespace MyPaint.Command
 
             if (DrawObject.CurrentFigure == 0)
             {
-                _drawObject.Path.AddRectangle(_сonstructionFigure.ShowRectangle(_points[0], _points[1]));
+                _drawObject.Path.AddRectangle(ShowRectangle(_points[0], _points[1]));
 
                 _TypeFigure = "прямоугольник";
             }
             if (DrawObject.CurrentFigure == 1)
             {
-                _drawObject.Path.AddEllipse(_сonstructionFigure.ShowRectangle(_points[0], _points[1]));
+                _drawObject.Path.AddEllipse(ShowRectangle(_points[0], _points[1]));
 
                 _operatorValue = "эллипс";
             }
@@ -94,7 +104,24 @@ namespace MyPaint.Command
                 _TypeFigure = "многоугольник";
             }
         }
-                
+
+        /// <summary>
+        /// Метод, выполняющий пострение структуры фигуры.
+        /// </summary>
+        /// <para name = "Start">Переменная, хранящая начальную координату фигуры.</para>
+        /// <para name = "End">Переменная, хранящая конечную координату фигуры.</para>
+        public Rectangle ShowRectangle(PointF Start, PointF End)
+        {
+
+            _left = (int)((Start.X - End.X > 0) ? End.X : Start.X);
+            _down = (int)((Start.Y - End.Y > 0) ? Start.Y : End.Y);
+            _top = (int)((Start.Y - End.Y > 0) ? End.Y : Start.Y);
+            _right = (int)((Start.X - End.X > 0) ? Start.X : End.X);
+
+            Rectangle rect = Rectangle.FromLTRB(_left, _top, _right, _down);
+
+            return rect;
+        }
 
         /// <summary>
         /// Метод, выполняющий действие "Повторить".

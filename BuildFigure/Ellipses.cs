@@ -45,10 +45,10 @@ namespace MyPaint.Build
         /// </summary>
         private SupportObjectFugure _drawSupportObject;
 
-        public Ellipses(EditObject _edipParametr)
-        {
-            this._edipParametr = _edipParametr;
-        }
+        //public Ellipses(EditObject _edipParametr)
+        //{
+        //    this._edipParametr = _edipParametr;
+        //}
 
         /// <summary>
         /// Метод, выполняющий действие при перемещении мыши.

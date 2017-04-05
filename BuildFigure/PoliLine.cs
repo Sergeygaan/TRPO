@@ -36,10 +36,10 @@ namespace MyPaint.Build
         /// </summary>
         private EditObject _edipParametr = new EditObject();
 
-        public PoliLine(EditObject _edipParametr)
-        {
-            this._edipParametr = _edipParametr;
-        }
+        //public PoliLine(EditObject _edipParametr)
+        //{
+        //    this._edipParametr = _edipParametr;
+        //}
 
         /// <summary>
         /// Метод, выполняющий действие при перемещении мыши.
