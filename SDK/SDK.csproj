@@ -61,8 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IActoins.cs" />
+    <Compile Include="IMouseEvent .cs" />
     <Compile Include="IFigureBuild.cs" />
     <Compile Include="IFigureCommand.cs" />
+    <Compile Include="ISaveLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

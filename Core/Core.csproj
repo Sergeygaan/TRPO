@@ -62,12 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drawing.cs" />
-    <Compile Include="DrawPaint.cs" />
+    <Compile Include="RenderingFigure.cs" />
     <Compile Include="ParameterChanges.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveProect.cs" />
     <Compile Include="SelectDraw.cs" />
-    <Compile Include="UndoRedo.cs" />
+    <Compile Include="Сommands.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BuildFigure\BuildFigure.csproj">

@@ -59,34 +59,34 @@ namespace MyPaint.Command
         /// <para name = "DrawObject">Переменная для сохранения созданного объекта</para>
         /// <para name = "Points">Точки для построения прямоугольника</para>
         /// <para name = "Figures">Переменная хранащая список всех фигур</para>
-        public void AddFigure(ObjectFugure DrawObject, List<PointF> Points, List<ObjectFugure> Figures)
+        public void AddFigure(ObjectFugure drawObject, List<PointF> points, List<ObjectFugure> figures)
         {
-            _drawObject = DrawObject;
-            _points = Points;
-            _figures = Figures;
-            _drawObject.FigureStart = Points[0];
-            _drawObject.FigureEnd = Points[1];
-            _drawObject.IdFigure = Figures.Count;
+            _drawObject = drawObject;
+            _points = points;
+            _figures = figures;
+            _drawObject.FigureStart = points[0];
+            _drawObject.FigureEnd = points[1];
+            _drawObject.IdFigure = figures.Count;
 
-            if (DrawObject.CurrentFigure == 0)
+            if (drawObject.CurrentFigure == 0)
             {
                 _drawObject.Path.AddRectangle(ShowRectangle(_points[0], _points[1]));
 
                 _TypeFigure = "прямоугольник";
             }
-            if (DrawObject.CurrentFigure == 1)
+            if (drawObject.CurrentFigure == 1)
             {
                 _drawObject.Path.AddEllipse(ShowRectangle(_points[0], _points[1]));
 
                 _operatorValue = "эллипс";
             }
-            if (DrawObject.CurrentFigure == 2)
+            if (drawObject.CurrentFigure == 2)
             {
                 _drawObject.Path.AddLine(_points[0], _points[1]);
 
                 _TypeFigure = "линия";
             }
-            if (DrawObject.CurrentFigure == 3)
+            if (drawObject.CurrentFigure == 3)
             {
                 PointF[] PointPoliLine = _points.ToArray();
 
@@ -94,7 +94,7 @@ namespace MyPaint.Command
                 _TypeFigure = "полилиния";
 
             }
-            if (DrawObject.CurrentFigure == 4)
+            if (drawObject.CurrentFigure == 4)
             {
 
                 PointF[] PointPolygon = _points.ToArray();
@@ -147,6 +147,14 @@ namespace MyPaint.Command
         public string Operation()
         {
             return _operatorValue;
+        }
+
+        /// <summary>
+        /// Метод, возвращающий строку с текущим действием.
+        /// </summary>
+        public string TypeFigure()
+        {
+            return _TypeFigure;
         }
 
         /// <summary>

@@ -14,7 +14,7 @@ using Unity;
 
 namespace ActivForm
 {
-    public class Activ
+    public class ActivChildForm
     {
         /// <summary>
         /// Переменная, хранящая класс с действиями над фигурами.
@@ -41,47 +41,92 @@ namespace ActivForm
         /// </summary>
         private List<IFigureBuild> _figuresBuild = new List<IFigureBuild>();
 
+        /// <summary>
+        /// Переменная, хранящая список с фигурами при загрузке старого проекта.
+        /// </summary>
+        private List<ObjectFugure> _figuresLoad = new List<ObjectFugure>();
+
 
         /// <summary>
         /// Переменная, хранящая список действий для построения различных фигур.
         /// </summary>
         private List<IActoins> _actionsBuild = new List<IActoins>();
 
-        private UndoRedo _commandClass;
-
+        /// <summary>
+        /// Переменная, хранящая класс с параметрами.
+        /// </summary>
         private ParameterChanges _parameterChangesClass;
 
-        public Activ(int Width, int Height)
+        /// <summary>
+        /// Переменная, хранящая класс unity.
+        /// </summary>
+        UnityContainer UnityContainerInit = new UnityContainer();
+
+        //Классы комманд
+        /// <summary>
+        /// Переменная, хранящая класс с командой для изменения размера кисти.
+        /// </summary>
+        private СhangePenWidth _penWidth;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для изменения цвета кисти.
+        /// </summary>
+        private СhangePenColor _penColor;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для изменения стиля кисти.
+        /// </summary>
+        private СhangePenStyle _penStyle;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для изменения цвета заливки.
+        /// </summary>
+        private СhangeBackgroundFigure _brushColor;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для удаления заливки.
+        /// </summary>
+        private DeleteBackgroundFigure _deleteBrush;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для удаления фигур.
+        /// </summary>
+        private DeleteFigure _deleteFigure;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для копирования фигур.
+        /// </summary>
+        private ReplicationFigure _replicationFigure;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для изменения цвета опорных точек.
+        /// </summary>
+        private СhangeSupportPenColor _supportPenColor;
+
+        /// <summary>
+        /// Переменная, хранящая класс с командой для отчистки рабочей области.
+        /// </summary>
+        private CleanFigure _cleanFigure;
+
+        public ActivChildForm(SelectDraw selectClass, DrawPaint drawClass, ParameterChanges parameterChangesClass, List<IFigureBuild> figuresBuild, List<IActoins> actionsBuild)
         {
-            var UnityContainerInit = new UnityContainer();
+           
+            _selectClass = selectClass;
 
-            _commandClass = UnityContainerInit.Resolve<UndoRedo>();
+            _drawClass = drawClass;
 
-            _selectClass = UnityContainerInit.Resolve<SelectDraw>();
+            _parameterChangesClass = parameterChangesClass;
 
-            _drawClass = UnityContainerInit.Resolve<DrawPaint>(new OrderedParametersOverride(new object[] { Width, Height, _commandClass }));
+            _figuresBuild = figuresBuild.GetRange(0, figuresBuild.Count);
 
-            _parameterChangesClass = UnityContainerInit.Resolve<ParameterChanges>(new OrderedParametersOverride(new object[] { _drawClass, _commandClass }));
+            _actionsBuild = actionsBuild.GetRange(0, actionsBuild.Count);
 
-            //UnityContainerInit.RegisterType<IFigureBuild, Rectangles>();
-
-            UnityContainerInit.RegisterType<IFigureBuild, Rectangles>();
-
-            _figuresBuild.Add(UnityContainerInit.Resolve<Rectangles>());
-            _figuresBuild.Add(UnityContainerInit.Resolve<Ellipses>());
-            _figuresBuild.Add(UnityContainerInit.Resolve<Line>());
-            _figuresBuild.Add(UnityContainerInit.Resolve<PoliLine>());
-            _figuresBuild.Add(UnityContainerInit.Resolve<Polygon>());
-            _figuresBuild.Add(UnityContainerInit.Resolve<RectangleSelect>());
-
-            _actionsBuild.Add(UnityContainerInit.Resolve<DrawActoins>(new OrderedParametersOverride(new object[] { _figuresBuild, _selectClass, _drawClass })));
-            _actionsBuild.Add(UnityContainerInit.Resolve<SelectRegionActions>(new OrderedParametersOverride(new object[] { _figuresBuild, _selectClass, _drawClass, _parameterChangesClass })));
-            _actionsBuild.Add(UnityContainerInit.Resolve<SelectPointActions>(new OrderedParametersOverride(new object[] { _figuresBuild, _selectClass, _drawClass, _parameterChangesClass })));
         }
 
-        public void Child_Paint(PaintEventArgs e, int _currentfigure, Color linecolor, int thickness, DashStyle dashstyle, Color linecolorSupport)
+        public void Child_Paint(PaintEventArgs e, int currentfigure, Color linecolor, int thickness, DashStyle dashstyle, Color linecolorSupport)
         {
-            _drawClass.Paint(e, _currentfigure, _points, _figuresBuild, linecolor, thickness, dashstyle);
+            _drawClass.Paint(e, currentfigure, _points, _figuresBuild, linecolor, thickness, dashstyle);
+            _drawClass.Paint(e, currentfigure, _points, _figuresBuild, linecolor, thickness, dashstyle);
 
             if (_selectClass.SeleckResult() != null)
             {
@@ -89,9 +134,9 @@ namespace ActivForm
             }
         }
 
-        public void Child_MouseMove( MouseEventArgs e, int _currentfigure, int _currentActions)
+        public void Child_MouseMove( MouseEventArgs e, int currentfigure, int currentActions)
         {
-            _points = _actionsBuild[_currentActions].MouseMove(e, _currentfigure, _currentActions);
+            _points = _actionsBuild[currentActions].MouseMove(e, currentfigure, currentActions);
         }
 
 
@@ -111,9 +156,9 @@ namespace ActivForm
         /// </summary>
         /// <para name = "sender">Переменная, хранящая объект.</para>
         /// <para name = "e">Переменная, хранящая координаты мыщи</para>
-        public void Child1_MouseDown(MouseEventArgs e, int _currentfigure, int _currentActions)  // Нажата отпущена 
+        public void Child1_MouseDown(MouseEventArgs e, int currentfigure, int currentActions)  // Нажата отпущена 
         {
-            _actionsBuild[_currentActions].MouseDown(e, _currentfigure);
+            _actionsBuild[currentActions].MouseDown(e, currentfigure);
         }
         /// <summary>
         /// Метод, выполняющий обновление рабочей области.
@@ -133,7 +178,8 @@ namespace ActivForm
                 _points.Clear();
             }
             _selectClass.MouseUp();
-            _parameterChangesClass.Clear();
+            _cleanFigure = UnityContainerInit.Resolve<CleanFigure>(new OrderedParametersOverride(new object[] { _drawClass.FiguresList, _figuresLoad }));
+            _parameterChangesClass.Clear(_cleanFigure);
         }
 
         /// <summary>
@@ -150,9 +196,10 @@ namespace ActivForm
         /// </summary>
         public void СopyFigure()
         {
-            if (_selectClass.SeleckResult() != null)
+            if ((_selectClass.SeleckResult() != null) && (_selectClass.SeleckResult().Count != 0))
             {
-                _parameterChangesClass.ReplicationFigure(_selectClass.SeleckResult());
+                _replicationFigure = UnityContainerInit.Resolve<ReplicationFigure>(new OrderedParametersOverride(new object[] { _selectClass.SeleckResult(), _drawClass.FiguresList }));
+                _parameterChangesClass.ReplicationFigure(_selectClass.SeleckResult(), _replicationFigure);
             }
         }
 
@@ -161,9 +208,10 @@ namespace ActivForm
         /// </summary>
         public void DeleteSelectFigure()
         {
-            if (_selectClass.SeleckResult() != null)
+            if ((_selectClass.SeleckResult() != null) && (_selectClass.SeleckResult().Count != 0))
             {
-                _parameterChangesClass.DeleteFigure(_selectClass.SeleckResult());
+                _deleteFigure = UnityContainerInit.Resolve<DeleteFigure>(new OrderedParametersOverride(new object[] { _selectClass.SeleckResult(), _drawClass.FiguresList }));
+                _parameterChangesClass.DeleteFigure(_selectClass.SeleckResult(), _deleteFigure);
             }
             //ChangeActions(LastActions);
             _selectClass.MouseUp();
@@ -174,8 +222,12 @@ namespace ActivForm
         /// </summary>
         public void СhangeBackgroundFigure(Color ColorBlakgroung)
         {
-            _parameterChangesClass.СhangeBackgroundFigure(_selectClass.SeleckResult(), ColorBlakgroung);
-            //ChangeActions(LastActions);
+            if (_selectClass.SeleckResult().Count != 0)
+            {
+                _brushColor = UnityContainerInit.Resolve<СhangeBackgroundFigure>(new OrderedParametersOverride(new object[] { _selectClass.SeleckResult(), ColorBlakgroung }));
+                _parameterChangesClass.СhangeBackgroundFigure(_selectClass.SeleckResult(), _brushColor);
+                //ChangeActions(LastActions);
+            }
         }
 
         /// <summary>
@@ -183,9 +235,10 @@ namespace ActivForm
         /// </summary>
         public void DeleteBackgroundFigure()
         {
-            if (_selectClass.SeleckResult() != null)
+            if ((_selectClass.SeleckResult() != null) && (_selectClass.SeleckResult().Count != 0))
             {
-                _parameterChangesClass.DeleteBackgroundFigure(_selectClass.SeleckResult());
+                _deleteBrush = UnityContainerInit.Resolve<DeleteBackgroundFigure>(new OrderedParametersOverride(new object[] { _selectClass.SeleckResult() }));
+                _parameterChangesClass.DeleteBackgroundFigure(_selectClass.SeleckResult(), _deleteBrush);
             }
         }
 
@@ -195,8 +248,12 @@ namespace ActivForm
         /// <para name = "ColorPen">Переменная, хранящая новый цвет кисти.</para>
         public void ColorSelectPen(Color ColorPen)
         {
-            _parameterChangesClass.СhangePenColorFigure(_selectClass.SeleckResult(), ColorPen);
-            //ChangeActions(LastActions);
+            if (_selectClass.SeleckResult().Count != 0)
+            {
+                _penColor = UnityContainerInit.Resolve<СhangePenColor>(new OrderedParametersOverride(new object[] { _selectClass.SeleckResult(), ColorPen }));
+                _parameterChangesClass.СhangePenColorFigure(_selectClass.SeleckResult(), _penColor);
+                //ChangeActions(LastActions);
+            }
         }
 
         /// <summary>
@@ -204,8 +261,12 @@ namespace ActivForm
         /// </summary>
         public void СhangePenStyleFigure(DashStyle dashstyle)
         {
-            _parameterChangesClass.СhangePenStyleFigure(_selectClass.SeleckResult(), dashstyle);
-            //ChangeActions(LastActions);
+            if (_selectClass.SeleckResult().Count != 0)
+            {
+                _penStyle = UnityContainerInit.Resolve<СhangePenStyle>(new OrderedParametersOverride(new object[] { _selectClass.SeleckResult(), dashstyle }));
+                _parameterChangesClass.СhangePenStyleFigure(_selectClass.SeleckResult(), _penStyle);
+                //ChangeActions(LastActions);
+            }
         }
 
         /// <summary>
@@ -213,15 +274,19 @@ namespace ActivForm
         /// </summary>
         public void СhangePenWidthFigure(int thickness)
         {
-            _parameterChangesClass.СhangePenWidthFigure(_selectClass.SeleckResult(), thickness);
-            //ChangeActions(LastActions);
-
-            int deltaX = 0;
-            int deltaY = 0;
-
-            foreach (ObjectFugure SelectObject in _selectClass.SeleckResult())
+            if (_selectClass.SeleckResult().Count != 0)
             {
-                _edipParametr.MoveObjectSupport(SelectObject, deltaX, deltaY);
+                _penWidth = UnityContainerInit.Resolve<СhangePenWidth>(new OrderedParametersOverride(new object[] { _selectClass.SeleckResult(), thickness }));
+                _parameterChangesClass.СhangePenWidthFigure(_selectClass.SeleckResult(), _penWidth);
+                //ChangeActions(LastActions);
+
+                int deltaX = 0;
+                int deltaY = 0;
+
+                foreach (ObjectFugure SelectObject in _selectClass.SeleckResult())
+                {
+                    _edipParametr.MoveObjectSupport(SelectObject, deltaX, deltaY);
+                }
             }
         }
 
@@ -252,7 +317,11 @@ namespace ActivForm
         /// <para name = "NextColor">Переменная, хранящая новый цвет опорных точек.</para>
         public void СhangeSupportPenStyleFigure(Color NextColor)
         {
-            _parameterChangesClass.СhangeSupportPenStyleFigure(NextColor, _selectClass.SeleckResult());
+            if (_selectClass.SeleckResult().Count != 0)
+            {
+                _supportPenColor = UnityContainerInit.Resolve<СhangeSupportPenColor>(new OrderedParametersOverride(new object[] { NextColor, _selectClass.SeleckResult() }));
+                _parameterChangesClass.СhangeSupportPenStyleFigure( _supportPenColor);
+            }
         }
 
         /// <summary>

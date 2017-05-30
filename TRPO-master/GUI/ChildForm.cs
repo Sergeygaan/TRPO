@@ -95,13 +95,15 @@ namespace MyPaint
         /// </summary>
         private static PropertiesSupport _figurePropertiesSupport;
 
-        private Activ _activFormMain;
+        private ActivChildForm _activFormMain;
+
+        private InitializationData _initializatioFormMain;
 
 
         /// <summary>
         /// Метод, создающий рабочую область, и инициализирующий остальные объекты.
         /// </summary>
-        public ChildForm(MainForm MainForm, Activ ActivFormMain)
+        public ChildForm(MainForm MainForm, InitializationData InitializatioFormMain)
         {
             InitializeComponent();
 
@@ -113,7 +115,8 @@ namespace MyPaint
             DrawForm.Width = MainForm.ChildWidthSize;
             DrawForm.Height = MainForm.ChildHeightSize;
 
-            _activFormMain = ActivFormMain;
+            _initializatioFormMain = InitializatioFormMain;
+            _activFormMain = _initializatioFormMain.ReturnActivClass();
 
             AutoScroll = true;                             
 
@@ -175,7 +178,7 @@ namespace MyPaint
         /// </summary>
         /// <para name = "sender">Переменная, хранящая объект.</para>
         /// <para name = "e">Переменная, хранящая координаты мыщи</para>
-        private void Child1_MouseDown(object sender, MouseEventArgs e)  // Нажата отпущена 
+        private void Child1_MouseDown(object sender, MouseEventArgs e)  
         {
             _activFormMain.Child1_MouseDown(e, _currentfigure, _currentActions);
             DrawForm.Refresh();

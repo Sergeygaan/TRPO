@@ -60,13 +60,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activ.cs" />
+    <Compile Include="ActivChildForm.cs" />
+    <Compile Include="InitializationData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BuildFigure\BuildFigure.csproj">
       <Project>{3b9cfc57-57b3-4a45-9932-cbfe1c8c7a72}</Project>
       <Name>BuildFigure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Command\Command.csproj">
+      <Project>{b3bd6b80-a4ff-4365-a2d1-cd5313f3f1a1}</Project>
+      <Name>Command</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{9e2ba3fa-c2d5-470d-91a1-dc4b030ebeac}</Project>

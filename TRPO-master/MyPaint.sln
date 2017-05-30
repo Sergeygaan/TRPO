@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity", "..\Unity\Unity.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivForm", "..\ActivForm\ActivForm.csproj", "{12FBBD8E-CC29-406F-A295-FFD0E77DD9B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "..\McoKTest\Test.csproj", "{B58024BF-124C-4FDA-AFB5-F5E36BD9DBDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{12FBBD8E-CC29-406F-A295-FFD0E77DD9B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12FBBD8E-CC29-406F-A295-FFD0E77DD9B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12FBBD8E-CC29-406F-A295-FFD0E77DD9B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B58024BF-124C-4FDA-AFB5-F5E36BD9DBDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B58024BF-124C-4FDA-AFB5-F5E36BD9DBDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B58024BF-124C-4FDA-AFB5-F5E36BD9DBDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B58024BF-124C-4FDA-AFB5-F5E36BD9DBDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

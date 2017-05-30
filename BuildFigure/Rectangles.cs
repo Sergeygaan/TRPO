@@ -13,7 +13,7 @@ namespace MyPaint.Build
     /// <summary>
     /// Класс, выполнящий различные действия над прямоугольником.
     /// </summary>
-    public class Rectangles : IFigureBuild
+    public class Rectangles : IFigureBuild , IMouseEvent
     {
         /// <summary>
         /// Переменная, хранящая класс для построения и создания эллипса.

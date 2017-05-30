@@ -74,16 +74,16 @@ namespace MyPaint.Core
 
             if (_selectedFigures.Count != 0)
             {
-                foreach (ObjectFugure SelectObject in _selectedFigures)
+                foreach (ObjectFugure selectObject in _selectedFigures)
                 {
-                    foreach (SupportObjectFugure SupportObjecFigure in SelectObject.SelectListFigure())
+                    foreach (SupportObjectFugure supportObjecFigure in selectObject.SelectListFigure())
                     {
 
-                        _rectangleF = SupportObjecFigure.Path.GetBounds();
+                        _rectangleF = supportObjecFigure.Path.GetBounds();
 
                         if (_rectangleF.Contains(e.Location))
                         {
-                            _supportObj = SupportObjecFigure;
+                            _supportObj = supportObjecFigure;
                            // MessageBox.Show(_supportObj.ControlPointF.ToString());
 
                         }

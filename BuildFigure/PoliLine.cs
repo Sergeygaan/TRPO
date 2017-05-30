@@ -13,8 +13,8 @@ namespace MyPaint.Build
     /// <summary>
     /// Класс, выполнящий различные действия над полилинией.
     /// </summary>
-    public class PoliLine : IFigureBuild
-    {
+    public class PoliLine : IFigureBuild , IMouseEvent
+    { 
 
         /// <summary>
         /// Переменная, хранящая класс для построения и создания эллипса.

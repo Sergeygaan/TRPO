@@ -66,6 +66,10 @@
     <Compile Include="SelectRegionActions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Command\Command.csproj">
+      <Project>{b3bd6b80-a4ff-4365-a2d1-cd5313f3f1a1}</Project>
+      <Name>Command</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Core.csproj">
       <Project>{9e2ba3fa-c2d5-470d-91a1-dc4b030ebeac}</Project>
       <Name>Core</Name>
@@ -73,6 +77,10 @@
     <ProjectReference Include="..\..\SDK\SDK.csproj">
       <Project>{c8c16e55-0dff-41c9-8eb4-746689d58792}</Project>
       <Name>SDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Unity\Unity.csproj">
+      <Project>{7d3f2a9e-2194-4d7a-873a-ecb4c90a5094}</Project>
+      <Name>Unity</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\СonstructioObject\СonstructioObject.csproj">
       <Project>{03be34d6-c032-45d7-878f-231edff69456}</Project>

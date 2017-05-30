@@ -12,7 +12,7 @@ namespace MyPaint.Build
     /// <summary>
     /// Класс, выполнящий различные действия над линией.
     /// </summary>
-    public class Line : IFigureBuild
+    public class Line : IFigureBuild , IMouseEvent
     {
         /// <summary>
         /// Переменная, хранящая класс для построения структуры эллипса.
@@ -35,11 +35,6 @@ namespace MyPaint.Build
         /// </summary>
         private EditObject _edipParametr = new EditObject();
 
-
-        //public Line (EditObject _edipParametr)
-        //{
-        //    this._edipParametr = _edipParametr;
-        //}
 
         /// <summary>
         /// Метод, выполняющий действие при перемещении мыши.
@@ -69,8 +64,7 @@ namespace MyPaint.Build
             if ((_points != null) && (_points.Count != 0))
             {
                 _points[1] = new PointF(e.Location.X, e.Location.Y);
-              
-               
+
             }
             return _points;
         }

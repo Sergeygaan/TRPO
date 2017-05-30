@@ -42,7 +42,7 @@ namespace MyPaint.Command
         /// </summary>
         /// <para name = "Figure">Переменная, список с фигурами для отображения.</para>
         /// <para name = "FigureLoad">Переменная, список фигур при загрузке</para>
-        public CleanFigure(List<ObjectFugure> Figure, List<ObjectFugure> FigureLoad)
+        public  CleanFigure(List<ObjectFugure> Figure, List<ObjectFugure> FigureLoad)
         {
             _figureLoad = FigureLoad.GetRange(0, FigureLoad.Count);
 

@@ -13,7 +13,7 @@ namespace MyPaint.Build
     /// <summary>
     /// Класс, выполнящий различные действия над эллипсом.
     /// </summary>
-    public class Ellipses : IFigureBuild
+    public class Ellipses : IFigureBuild , IMouseEvent
     {
         /// <summary>
         /// Переменная, хранящая класс для построения и создания эллипса.

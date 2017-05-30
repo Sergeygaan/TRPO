@@ -52,7 +52,10 @@ namespace MyPaint.Actions
         /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
         public List<PointF> MouseMove(MouseEventArgs e, int Currentfigure, int CurrentActions)
         {
-            _points = _figuresBuild[(int)Currentfigure].MouseMove(_points, e);
+            //_points = (IMouseEvent)_figuresBuild[Currentfigure].MouseMove(_points, e);
+            IMouseEvent MouseEvent = (IMouseEvent)_figuresBuild[Currentfigure];
+           
+            _points = MouseEvent.MouseMove(_points, e);
 
             return _points;
         }
@@ -80,9 +83,10 @@ namespace MyPaint.Actions
         /// <para name = "SelectClass">Объект хранящий данные о выбранных фигурах</para>
         /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
         /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
-        public void MouseDown(MouseEventArgs e, int Currentfigure)
+        public void MouseDown(MouseEventArgs e, int currentfigure)
         {
-            _figuresBuild[Currentfigure].MouseDown(_points, e, Currentfigure, _figuresBuild);
+            IMouseEvent mouseEvent = (IMouseEvent)_figuresBuild[currentfigure];
+            mouseEvent.MouseDown(_points, e, currentfigure, _figuresBuild);
         }
 
     }

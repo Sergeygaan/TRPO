@@ -5,24 +5,27 @@ using System.Drawing.Drawing2D;
 using MyPaint.Build;
 using MyPaint.Command;
 using MyPaint.ObjectType;
+using SDK;
 
 namespace MyPaint.Core
 {
-    [Serializable]
+    
     /// <summary>
     /// Класс, выполняющий сохранение списка фигур.
     /// </summary>
-    public class SaveProect
+    [Serializable]
+    public class SaveProect : ISaveLoader
     {
         /// <summary>
         /// Переменная, хранящая список с сохранеными объектами.
         /// </summary>
         private List<PropertiesFigure> _figurePropertiesList = new List<PropertiesFigure>();
 
-        [Serializable]
         /// <summary>
         /// Структура, хранящая основные характеристики фигуры.
         /// </summary>
+        /// 
+        [Serializable]
         public struct PropertiesFigure
         {
             /// <summary>
@@ -93,37 +96,37 @@ namespace MyPaint.Core
         /// <para name = "Figures">Переменная, хранящая список фигур.</para>
         /// <para name = "ChildWidhtSize">Переменная, хранящая ширину окна.</para>
         /// <para name = "ChildHeightSize">Переменная, хранящая высоту окна.</para>
-        public SaveProect(object Figures,int ChildWidhtSize,int ChildHeightSize)
+        public void Save(object figures,int childWidhtSize,int childHeightSize)
         {
-            _childWidhtSize = ChildWidhtSize;
-            _childHeightSize = ChildHeightSize;
+            _childWidhtSize = childWidhtSize;
+            _childHeightSize = childHeightSize;
 
 
             List<ObjectFugure> _figures = new List<ObjectFugure>();
 
-            _figures = (List<ObjectFugure>)Figures;
+            _figures = (List<ObjectFugure>)figures;
 
-            foreach (ObjectFugure SelectObjectResult in _figures)
+            foreach (ObjectFugure selectObjectResult in _figures)
             {
                 //Характеристики кисти
-                _figureProperties._lineColorPen = SelectObjectResult.Pen.Color;
-                _figureProperties._thicknessPen = SelectObjectResult.Pen.Width;
-                _figureProperties._dashStylePen = SelectObjectResult.Pen.DashStyle;
-                _figureProperties._fill = SelectObjectResult.Fill;
+                _figureProperties._lineColorPen = selectObjectResult.Pen.Color;
+                _figureProperties._thicknessPen = selectObjectResult.Pen.Width;
+                _figureProperties._dashStylePen = selectObjectResult.Pen.DashStyle;
+                _figureProperties._fill = selectObjectResult.Fill;
 
                 if (_figureProperties._fill == true)
                 {
-                    _figureProperties._brushColorPen = SelectObjectResult.BrushColor;
+                    _figureProperties._brushColorPen = selectObjectResult.BrushColor;
 
                 }
 
                 //Характеристики точек
-                _figureProperties._pointFigure = SelectObjectResult.Path.PathPoints;
-                _figureProperties._typesFigure = SelectObjectResult.Path.PathTypes;
+                _figureProperties._pointFigure = selectObjectResult.Path.PathPoints;
+                _figureProperties._typesFigure = selectObjectResult.Path.PathTypes;
 
                 //Другие характеристики
-                _figureProperties._idFigure = SelectObjectResult.IdFigure;
-                _figureProperties._currentFigure = SelectObjectResult.CurrentFigure;
+                _figureProperties._idFigure = selectObjectResult.IdFigure;
+                _figureProperties._currentFigure = selectObjectResult.CurrentFigure;
 
                 _figurePropertiesList.Add(_figureProperties);
             }
@@ -133,28 +136,28 @@ namespace MyPaint.Core
         /// <summary>
         /// Метод, выполняющий десериализацию списка фигур.
         /// </summary>
-        public object LoadProject()
+        public virtual object Load()
         {
-            List<ObjectFugure> _figures = new List<ObjectFugure>();
+            List<ObjectFugure> figures = new List<ObjectFugure>();
 
-            foreach (PropertiesFigure LoadObject in _figurePropertiesList)
+            foreach (PropertiesFigure loadObject in _figurePropertiesList)
             {
 
-                Pen NewPen = new Pen(LoadObject._lineColorPen, LoadObject._thicknessPen);
-                NewPen.DashStyle = LoadObject._dashStylePen;
+                Pen newPen = new Pen(loadObject._lineColorPen, loadObject._thicknessPen);
+                newPen.DashStyle = loadObject._dashStylePen;
 
-                GraphicsPath NewPath = new GraphicsPath(LoadObject._pointFigure, LoadObject._typesFigure);
-
-
-                ObjectFugure NewObject = new ObjectFugure(NewPen, NewPath, LoadObject._brushColorPen, LoadObject._currentFigure, LoadObject._fill);
+                GraphicsPath newPath = new GraphicsPath(loadObject._pointFigure, loadObject._typesFigure);
 
 
-                NewObject.IdFigure = LoadObject._idFigure;
+                ObjectFugure newObject = new ObjectFugure(newPen, newPath, loadObject._brushColorPen, loadObject._currentFigure, loadObject._fill);
 
-                _figures.Add(NewObject);
+
+                newObject.IdFigure = loadObject._idFigure;
+
+                figures.Add(newObject);
             }
 
-            return _figures;
+            return figures;
 
         }
 

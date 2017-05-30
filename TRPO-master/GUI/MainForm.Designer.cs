@@ -642,6 +642,7 @@
             this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton11.Name = "toolStripButton11";
             this.toolStripButton11.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton11.Text = "Удаление выделенных фигур";
             this.toolStripButton11.Click += new System.EventHandler(this.DeleteProject);
             // 
             // toolStripButton17

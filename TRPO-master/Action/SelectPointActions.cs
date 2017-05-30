@@ -5,6 +5,9 @@ using MyPaint.Core;
 using System.Drawing.Drawing2D;
 using MyPaint.Build;
 using Core;
+using Unity;
+using MyPaint.Command;
+using Microsoft.Practices.Unity;
 
 namespace MyPaint.Actions
 {
@@ -33,7 +36,17 @@ namespace MyPaint.Actions
         /// </summary>
         private List<IFigureBuild> _figuresBuild = new List<IFigureBuild>();
 
+        /// <summary>
+        /// Переменная, хранящая класс для выполнения различных действий
+        /// </summary>
         private ParameterChanges _parameterChangesClass;
+
+        private СhangeMove _penMove;
+
+        /// <summary>
+        /// Переменная, хранящая класс unity.
+        /// </summary>
+        UnityContainer UnityContainerInit = new UnityContainer();
 
         public SelectPointActions(List<IFigureBuild> FiguresBuild, SelectDraw SelectClass, DrawPaint DrawClass, ParameterChanges ParameterChangesClass)
         {
@@ -86,7 +99,8 @@ namespace MyPaint.Actions
                 else
                 {
                     _selectClass.MouseUpSupport();
-                    _parameterChangesClass.СhangeMoveFigure(_selectClass.SeleckResult(), "MouseUp");
+                    _penMove = UnityContainerInit.Resolve<СhangeMove>(new OrderedParametersOverride(new object[] { _selectClass.SeleckResult() }));
+                    _parameterChangesClass.СhangeMoveFigure(_selectClass.SeleckResult(), "MouseUp", _penMove);
                 }
             }
 
@@ -122,7 +136,8 @@ namespace MyPaint.Actions
                 }
                 else
                 {
-                    _parameterChangesClass.СhangeMoveFigure(_selectClass.SeleckResult(), "Down");
+                    _penMove = UnityContainerInit.Resolve<СhangeMove>(new OrderedParametersOverride(new object[] { _selectClass.SeleckResult() }));
+                    _parameterChangesClass.СhangeMoveFigure(_selectClass.SeleckResult(), "Down", _penMove);
                     _selectClass.SavePoint(e);
                 }
             }

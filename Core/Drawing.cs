@@ -9,7 +9,7 @@ using Microsoft.Practices.Unity;
 
 namespace Core
 {
-    class Drawing
+    public class Drawing
     {
         /// <summary>
         /// Переменная, хранящая хранящая список со всеми фигурами.
@@ -99,7 +99,7 @@ namespace Core
         /// <para name = "Currentfigure">Переменная, хранящая  текущую выбранную фигуру</para>
         /// <para name = "Points">Переменная, хранящая  координаты отрисовки фигуры</para>
         /// <para name = "FiguresBuild">Переменная, хранящая класс отрисовки</para>
-        public AddBuildFigure MouseUp(int Currentfigure, List<PointF> Points, MouseEventArgs e, Color linecolor, int thickness, DashStyle dashstyle, Color brushcolor, bool fill)
+        public AddBuildFigure MouseUp(int currentfigure, List<PointF> points, MouseEventArgs e, Color linecolor, int thickness, DashStyle dashstyle, Color brushcolor, bool fill)
         {
             StyleFigure(linecolor, thickness, dashstyle);
 
@@ -114,19 +114,19 @@ namespace Core
 
             _drawObject = new ObjectFugure(_penFigure, new GraphicsPath(), brushcolor, _currentfigure, _brushFill);
 
-            var UnityContainerInit = new UnityContainer();
+            var unityContainerInit = new UnityContainer();
 
-            var NewFigure = UnityContainerInit.Resolve<AddBuildFigure>();
+            var newFigure = unityContainerInit.Resolve<AddBuildFigure>();
 
             //AddBuildFigure NewFigure = new AddBuildFigure();
-            NewFigure.AddFigure(_drawObject, Points, _figures);
+            newFigure.AddFigure(_drawObject, points, _figures);
 
 
-            _figures.Add(NewFigure.Output());
+            _figures.Add(newFigure.Output());
 
-            Points.Clear();
+            points.Clear();
 
-            return NewFigure;
+            return newFigure;
 
         }
 

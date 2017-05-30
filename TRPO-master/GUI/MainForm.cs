@@ -56,12 +56,15 @@ namespace MyPaint
         /// <summary>
         /// Структура, хранящая хранящая свойства нового файла.
         /// </summary>
-        private static bool _createNewFile = false;                                    
+        private static bool _createNewFile = false;
 
         /// <summary>
         /// Структура, хранящая класс для соранения проекта.
         /// </summary>
         //private SaveProect _saveProect;
+
+
+        InitializationData _initializatioForm;
 
         /// <summary>
         /// Метод, инициализирующий остальные объекты.
@@ -92,6 +95,15 @@ namespace MyPaint
             }
             ActiveForm = null;
 
+        }
+
+        /// <summary>
+        /// Метод, принимающий или возвращаюий активную форму
+        /// </summary>
+        public InitializationData InitializatioForm
+        {
+            get { return _initializatioForm; }
+            set { _initializatioForm = value; }
         }
 
         /// <summary>
@@ -523,9 +535,11 @@ namespace MyPaint
             {
                 var UnityContainerInit = new UnityContainer();
 
-                Activ _activFormMain = UnityContainerInit.Resolve<Activ>(new OrderedParametersOverride(new object[] { Width, Height }));
+                //Activ _activFormMain = UnityContainerInit.Resolve<Activ>(new OrderedParametersOverride(new object[] { Width, Height }));
 
-                Form NewForm = new ChildForm(this, _activFormMain);                         //создаем объект - дочернюю форму-рисунок
+                //InitializationData InitializatioFormMain = UnityContainerInit.Resolve<InitializationData>(new OrderedParametersOverride(new object[] { Width, Height }));
+
+                Form NewForm = new ChildForm(this, _initializatioForm);                         //создаем объект - дочернюю форму-рисунок
              
                 NewForm.Text = "Рисунок" + ChildCounter.ToString();     //называем ее соответствующе
                 ChildCounter++;                                         //увеличиваем счетчик окон на единицу
@@ -674,16 +688,8 @@ namespace MyPaint
                             BinaryFormatter formatter = new BinaryFormatter();
                             using (FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.OpenOrCreate))
                             {
-                                //SaveProect LoadProject = (SaveProect)formatter.Deserialize(fs);
 
-                                //ChildWidthSize = LoadProject.ChildWidhtSize();
-                                //ChildHeightSize = LoadProject.ChildHeightSize();
-
-                                var UnityContainerInit = new UnityContainer();
-
-                                Activ _activFormMain = UnityContainerInit.Resolve<Activ>(new OrderedParametersOverride(new object[] { Width, Height }));
-
-                                Form NewForm = new ChildForm(this, _activFormMain);                       //создаем объект - дочернюю форму-рисунок
+                                Form NewForm = new ChildForm(this, _initializatioForm);                       //создаем объект - дочернюю форму-рисунок
                                 NewForm.Text = "Рисунок" + ChildCounter.ToString();     //называем ее соответствующе
 
                                

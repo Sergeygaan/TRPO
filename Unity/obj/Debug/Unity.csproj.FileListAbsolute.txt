@@ -11,3 +11,44 @@ C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Ла�
 C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба2\Лаба 1 - 26\Unity\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
 C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба2\Лаба 1 - 26\Unity\obj\Debug\Unity.dll
 C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба2\Лаба 1 - 26\Unity\obj\Debug\Unity.pdb
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 2\Unity\bin\Debug\Unity.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 2\Unity\bin\Debug\Unity.pdb
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 2\Unity\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 2\Unity\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 2\Unity\bin\Debug\Microsoft.Practices.Unity.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 2\Unity\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 2\Unity\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 2\Unity\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 2\Unity\bin\Debug\Microsoft.Practices.Unity.xml
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 2\Unity\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 2\Unity\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 2\Unity\obj\Debug\Unity.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 2\Unity\obj\Debug\Unity.pdb
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 3\Unity\bin\Debug\Unity.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 3\Unity\bin\Debug\Unity.pdb
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 3\Unity\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 3\Unity\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 3\Unity\bin\Debug\Microsoft.Practices.Unity.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 3\Unity\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 3\Unity\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 3\Unity\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 3\Unity\bin\Debug\Microsoft.Practices.Unity.xml
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 3\Unity\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 3\Unity\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 3\Unity\obj\Debug\Unity.csprojResolveAssemblyReference.cache
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 3\Unity\obj\Debug\Unity.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 3\Unity\obj\Debug\Unity.pdb
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 10\Unity\bin\Debug\Unity.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 10\Unity\bin\Debug\Unity.pdb
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 10\Unity\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 10\Unity\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 10\Unity\bin\Debug\Microsoft.Practices.Unity.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 10\Unity\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 10\Unity\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 10\Unity\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 10\Unity\bin\Debug\Microsoft.Practices.Unity.xml
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 10\Unity\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 10\Unity\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 10\Unity\obj\Debug\Unity.csprojResolveAssemblyReference.cache
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 10\Unity\obj\Debug\Unity.dll
+C:\Users\Sergey\Desktop\магистратура\Семестр 2\ТРПО\Лаба 3\Paint 10\Unity\obj\Debug\Unity.pdb

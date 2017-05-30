@@ -67,39 +67,5 @@ namespace MyPaint.Build
         /// <para name = "DrawObject">Переменная хранащая объект выделения</para>
         /// <para name = "SelectedFigures">Список выделенных объектов</para>
         public void ScaleFigure(MouseEventArgs e, ObjectFugure DrawObject, List<ObjectFugure> SelectedFigures) { }
-
-        /// <summary>
-        /// Метод, выполняющий действие при перемещении мыши.
-        /// </summary>
-        /// <para name = "e">Объект хранящий данные о мыши</para>
-        /// <para name = "_points">Объект хранящий данные о точках построения фигурые</para>
-        public List<PointF> MouseMove(List<PointF> _points, MouseEventArgs e)
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// Метод, выполняющий действие при нажатии отпукании мыши.
-        /// </summary>
-        /// <para name = "e">Объект хранящий данные о мыши</para>
-        /// <para name = "_points">Объект хранящий данные о точках построения фигурые</para>
-        /// <para name = "Currentfigure">Объект хранящий данные о выбранной фигуре</para>
-        /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
-        /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
-        public List<PointF> MouseUp(List<PointF> _points, MouseEventArgs e, int Currentfigure, List<IFigureBuild> FiguresBuild)
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// Метод, выполняющий действие при нажатии мыши.
-        /// </summary>
-        /// <para name = "e">Объект хранящий данные о мыши</para>
-        /// <para name = "_points">Объект хранящий данные о точках построения фигурые</para>
-        /// <para name = "Currentfigure">Объект хранящий данные о выбранной фигуре</para>
-        /// <para name = "DrawClass">Объект хранящий данные о классе используемом для отрисовки фигур</para>
-        /// <para name = "FiguresBuild">Объект хранящий о классах построения</para>
-        public void MouseDown(List<PointF> _points, MouseEventArgs e, int Currentfigure, List<IFigureBuild> FiguresBuild) { }
-
     }
 }

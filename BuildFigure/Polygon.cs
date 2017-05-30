@@ -13,7 +13,7 @@ namespace MyPaint.Build
     /// <summary>
     /// Класс, выполнящий различные действия над многоугольником.
     /// </summary>
-    public class Polygon : IFigureBuild
+    public class Polygon : IFigureBuild , IMouseEvent
     {
         /// <summary>
         /// Переменная, хранящая класс для построения и создания эллипса.
@@ -122,16 +122,16 @@ namespace MyPaint.Build
         /// Метод, выполняющий отрисовку опорных точек.
         /// </summary>
         /// <para name = "SelectObject">Переменная хранащая объект для которого нужно построить опорные точки</para>
-        public void AddSupportPoint(ObjectFugure SelectObject, Color ColorLine)
+        public void AddSupportPoint(ObjectFugure selectObject, Color colorLine)
         {
-            for (int i = 0; i < SelectObject.PointSelect.Length; i++)
+            for (int i = 0; i < selectObject.PointSelect.Length; i++)
             {
-                _drawSupportObject = new SupportObjectFugure(new Pen(ColorLine, 1), new GraphicsPath());
-                _drawSupportObject.Path.AddEllipse(_сonstructionFigure.SelectFigure(SelectObject.PointSelect[i], SelectObject.Pen.Width));
-                _drawSupportObject.IdFigure = SelectObject.IdFigure;
+                _drawSupportObject = new SupportObjectFugure(new Pen(colorLine, 1), new GraphicsPath());
+                _drawSupportObject.Path.AddEllipse(_сonstructionFigure.SelectFigure(selectObject.PointSelect[i], selectObject.Pen.Width));
+                _drawSupportObject.IdFigure = selectObject.IdFigure;
                 _drawSupportObject.ControlPointF = i;
 
-                SelectObject.AddListFigure(_drawSupportObject);
+                selectObject.AddListFigure(_drawSupportObject);
             }
         }
 
@@ -143,31 +143,31 @@ namespace MyPaint.Build
         /// <para name = "DeltaX">Переменная хранащая разницу по координате X</para>
         /// <para name = "DeltaY">Переменная хранащая разницу по координате Y</para>
         /// /// <para name = "EdipParametr">Объекта класса необходимый для выполнения масштабирования</para>
-        public void ScaleSelectFigure(ObjectFugure SelectObject, SupportObjectFugure SupportObj, int DeltaX, int DeltaY)
+        public void ScaleSelectFigure(ObjectFugure selectObject, SupportObjectFugure supportObj, int deltaX, int deltaY)
         {
-            if ((SelectObject.PointSelect[0].X - SelectObject.PointSelect[1].X != 0) && (SelectObject.PointSelect[0].Y - SelectObject.PointSelect[1].Y != 0))
+            if ((selectObject.PointSelect[0].X - selectObject.PointSelect[1].X != 0) && (selectObject.PointSelect[0].Y - selectObject.PointSelect[1].Y != 0))
             {
-                SelectObject.PointSelect = SelectObject.Path.PathPoints;
+                selectObject.PointSelect = selectObject.Path.PathPoints;
             }
 
-            if (SelectObject.IdFigure == SupportObj.IdFigure)
+            if (selectObject.IdFigure == supportObj.IdFigure)
             {
 
-                SelectObject.PointSelect[SupportObj.ControlPointF].X += DeltaX;
-                SelectObject.PointSelect[SupportObj.ControlPointF].Y += DeltaY;
+                selectObject.PointSelect[supportObj.ControlPointF].X += deltaX;
+                selectObject.PointSelect[supportObj.ControlPointF].Y += deltaY;
 
-                PointF[] PointF = SelectObject.PointSelect.ToArray();
-                SelectObject.Path.Reset();
-                SelectObject.Path.AddLines(PointF);
+                PointF[] pointF = selectObject.PointSelect.ToArray();
+                selectObject.Path.Reset();
+                selectObject.Path.AddLines(pointF);
 
-                if (SelectObject.CurrentFigure == 4)
+                if (selectObject.CurrentFigure == 4)
                 {
-                    SelectObject.Path.CloseFigure();
+                    selectObject.Path.CloseFigure();
                 }
 
             }
 
-            _edipParametr.MoveObjectSupport(SelectObject, DeltaX, DeltaY);
+            _edipParametr.MoveObjectSupport(selectObject, deltaX, deltaY);
 
         }
 
@@ -177,12 +177,12 @@ namespace MyPaint.Build
         /// <para name = "e">Переменная хранащая значение координат курсора мыши</para>
         /// <para name = "DrawObject">Переменная хранащая объект выделения</para>
         /// <para name = "SelectedFigures">Список выделенных объектов</para>
-        public void ScaleFigure(MouseEventArgs e, ObjectFugure DrawObject, List<ObjectFugure> SelectedFigures)
+        public void ScaleFigure(MouseEventArgs e, ObjectFugure drawObject, List<ObjectFugure> selectedFigures)
         {
-            DrawObject.PointSelect = DrawObject.Path.PathPoints;
-            DrawObject.SelectFigure = true;
+            drawObject.PointSelect = drawObject.Path.PathPoints;
+            drawObject.SelectFigure = true;
             //DrawObject.Pen.Width += 1;
-            SelectedFigures.Add(DrawObject);
+            selectedFigures.Add(drawObject);
         }
 
     }

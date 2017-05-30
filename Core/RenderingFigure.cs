@@ -26,8 +26,14 @@ namespace MyPaint.Core
         /// </summary>
         private CleanFigure _cleanFigure;
 
-        private UndoRedo _commandClass;
+        /// <summary>
+        /// Переменная, хранящая класс с командой с коммандами.
+        /// </summary>
+        private Сommands _commandClass;
 
+        /// <summary>
+        /// Переменная, хранящая класс для отрисовки фигур.
+        /// </summary>
         private Drawing _drawingClass;
 
         /// <summary>
@@ -35,14 +41,14 @@ namespace MyPaint.Core
         /// </summary>
         /// <para name = "Width">Переменная, хранящая  ширину рабочей области.</para>
         /// <para name = "Height">Переменная, хранящая  высоту рабочей области</para>
-        public DrawPaint(int Width, int Height, UndoRedo CommandClass)
+        public DrawPaint(int width, int height, Сommands commandClass)
         {
-            var UnityContainerInit = new UnityContainer();
+            var unityContainerInit = new UnityContainer();
             //this._drawingClass = _drawingClass;
-            _drawingClass = UnityContainerInit.Resolve<Drawing>(new OrderedParametersOverride(new object[] { Width, Height }));
+            _drawingClass = unityContainerInit.Resolve<Drawing>(new OrderedParametersOverride(new object[] { width, height }));
             //_drawingClass = new Drawing(Width, Height);
             _iFigureCommandBuild.Add(_cleanFigure);
-            _commandClass = CommandClass;
+            _commandClass = commandClass;
 
         }
 
@@ -204,8 +210,5 @@ namespace MyPaint.Core
             get { return _commandClass.IndexCommand; }
             set { _commandClass.IndexCommand = value; }
         }
-
-
-
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Core
 {
-    public class UndoRedo
+    public class Сommands
     {
 
         /// <summary>
@@ -92,9 +92,9 @@ namespace Core
             set { _indexFigureCommand = value; }
         }
 
-        public void AddCommand(List<IFigureCommand> Command)
+        public void AddCommand(List<IFigureCommand> command)
         {
-            _iFigureCommand.Add(Command[0]);
+            _iFigureCommand.Add(command[0]);
         }
 
 
